@@ -24,11 +24,11 @@ export default function GetGpsData() {
       alert("GPS를 지원하지 않습니다");
     }
 
-    const trans_dms = (ori: number) => {
-        let d: number = Math.floor(ori);
-        let m: number = Math.floor((ori - d) * 60)
-        let s: number = Math.floor(((ori - d) * 60 - m) * 60)
-        return `${d}/${m}/${s}`
+    const gpsTransKey = (ori: number) => {
+        let d: number = Math.floor(ori);  // 도 변환
+        let m: number = Math.floor((ori - d) * 60)  // 분 변환
+        let s10: number = Math.floor(((ori - d) * 60 - m) * 60 * 10)  // 초 변환 * 10, 0.1도마다 약 3m이기 때문
+        return `${d}/${m}/${s10}`
     }
 
   return (
@@ -37,9 +37,11 @@ export default function GetGpsData() {
         <br />
         longitude: { longitude }
         <br />
-        lat_dms: {trans_dms(latitude)}
+        lat_key: { gpsTransKey(latitude) }
         <br />
-        lon_dms: {trans_dms(longitude)}
+        lon_key: { gpsTransKey(longitude) }
+        <br />
+
     </div>
   )
 }
