@@ -31,6 +31,10 @@ dependencies {
 //	======= DB Connection =========
 	runtimeOnly 'mysql:mysql-connector-java'
 //	======= DB Connection END =========
+
+	//	======= SWAGGER =========
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+	//	======= SWAGGER END =========
 }
 
 tasks.named('test') {
