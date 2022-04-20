@@ -4,7 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
-@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
+// http://localhost:8888/swagger-ui/index.html
+@SpringBootApplication
 public class JoalarmApplication {
 
 	public static void main(String[] args) {
