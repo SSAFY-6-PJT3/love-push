@@ -8,6 +8,7 @@ public class ChatMessage {
     private String roomId;
     private String sender;
     private String message;
+    // sendtime 추가하기
 
     public MessageType getType() {
         return type;
