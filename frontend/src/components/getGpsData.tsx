@@ -1,16 +1,27 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
 
 export default function GetGpsData() {
-  const [latitude, setLatitude] = useState(0); // 위도
-  const [longitude, setLongitude] = useState(0); // 경도
+  const [gpsKey, setGpsKey] = useState('');
+  const [beforeGpsKey, setBeforeGpsKey] = useState('');
+  const [flag, setFlag] = useState(true);
+
+  function gpsTransKey(ori: number) {
+    let d: number = Math.floor(ori); // 도 변환
+    let m: number = Math.floor((ori - d) * 60); // 분 변환
+    let s10: number = Math.floor(((ori - d) * 60 - m) * 60 * 10); // 초 변환 * 10, 0.1도마다 약 3m이기 때문
+    return `${d}/${m}/${s10}`;
+  }
 
   const geoPosition = () => {
     navigator.geolocation.getCurrentPosition(
       function (position) {
-        setLatitude(position.coords.latitude);
-        setLongitude(position.coords.longitude);
+        setGpsKey(
+          gpsTransKey(position.coords.latitude) +
+            '/' +
+            gpsTransKey(position.coords.longitude),
+        );
       },
       function (error) {
         console.error(error);
@@ -23,26 +34,28 @@ export default function GetGpsData() {
     );
   };
 
-  const client = new Client({
-    webSocketFactory: function () {
-      return new SockJS('http://localhost:8080/ws-stomp');
-    },
-    connectHeaders: {
-      login: 'userID',
-      passcode: 'userPassword',
-    },
-    debug: function (str) {
-      console.log(str);
-    },
-    reconnectDelay: 5000,
-    heartbeatIncoming: 4000,
-    heartbeatOutgoing: 4000,
-  });
+  const client = useMemo(
+    () =>
+      new Client({
+        webSocketFactory: function () {
+          return new SockJS('http://localhost:8888/ws-stomp');
+        },
+        connectHeaders: {
+          login: 'userID',
+          passcode: 'userPassword',
+        },
+        debug: function (str) {
+          console.log(str);
+        },
+        reconnectDelay: 5000,
+        heartbeatIncoming: 4000,
+        heartbeatOutgoing: 4000,
+      }),
+    [],
+  );
 
   client.onConnect = function (frame) {
-    // console.log('Connect!');
-    // console.log(frame);
-    client.subscribe('/sub/chat/room/1', (message) => {
+    client.subscribe('/sub/basic', (message) => {
       console.log(message.body);
     });
   };
@@ -53,19 +66,36 @@ export default function GetGpsData() {
   };
 
   useEffect(() => {
+    if (gpsKey !== '') {
+      if (flag) {
+        client.publish({
+          destination: '/pub/joalarm',
+          body: JSON.stringify({
+            gpsKey: `${gpsKey}`,
+            pk: '1',
+            emojiURL: 'emoji',
+          }),
+        });
+        setFlag(false);
+      } else if (beforeGpsKey !== gpsKey) {
+        client.publish({
+          destination: '/pub/sector',
+          body: JSON.stringify({
+            beforeGpsKey: `${beforeGpsKey}`,
+            nowGpsKey: `${gpsKey}`,
+            pk: '1',
+          }),
+        });
+      }
+      setBeforeGpsKey(gpsKey);
+    }
+  }, [client, gpsKey]);
+
+  useEffect(() => {
     if (navigator.geolocation) {
       // GPS를 지원하면
       setInterval(function () {
         geoPosition();
-        client.publish({
-          destination: '/pub/chat/message',
-          body: JSON.stringify({
-            type: 'TALK',
-            roomId: '1',
-            sender: 'user',
-            message: 'TEST',
-          }),
-        });
       }, 5000);
     } else {
       alert('GPS를 지원하지 않습니다');
@@ -73,23 +103,25 @@ export default function GetGpsData() {
     client.activate();
   }, []);
 
-  const gpsTransKey = (ori: number) => {
-    let d: number = Math.floor(ori); // 도 변환
-    let m: number = Math.floor((ori - d) * 60); // 분 변환
-    let s10: number = Math.floor(((ori - d) * 60 - m) * 60 * 10); // 초 변환 * 10, 0.1도마다 약 3m이기 때문
-    return `${d}/${m}/${s10}`;
-  };
+  // const testButtonEvent = useCallback(() => {
+  //   client.publish({
+  //     destination: '/pub/joalarm',
+  //     body: JSON.stringify({
+  //       gpsKey: `${gpsTransKey(latitude)}/${gpsTransKey(longitude)}`,
+  //       pk: '1',
+  //       emojiURL: 'emoji',
+  //     }),
+  //   });
+  // }, [client]);
 
   return (
     <div>
-      latitude: {latitude}
+      gpsKey: {gpsKey}
       <br />
-      longitude: {longitude}
+      beforeGpsKey: {beforeGpsKey}
       <br />
-      lat_key: {gpsTransKey(latitude)}
-      <br />
-      lon_key: {gpsTransKey(longitude)}
-      <br />
+      flag: {flag.toString()}
+      {/* <button onClick={testButtonEvent}>TEST</button> */}
     </div>
   );
 }
