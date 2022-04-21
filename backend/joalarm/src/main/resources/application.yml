@@ -29,3 +29,7 @@ spring:
     url: jdbc:mysql://218.158.49.199:3306/joalarm?serverTimezone=Asia/Seoul
     username: cupid
     password: 1005
+
+  data:
+    mongodb:
+      uri: mongodb://218.158.49.199:27017/joalarm
