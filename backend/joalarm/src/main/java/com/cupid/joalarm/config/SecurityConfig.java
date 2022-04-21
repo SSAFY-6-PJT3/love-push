@@ -36,7 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/h2-console/**", "/favicon.ico","/swagger-ui/**");
+                .antMatchers("/h2-console/**", "/favicon.ico")
+                .antMatchers( "/swagger-ui/**","/v2/api-docs");;
     }
 
     @Override
@@ -62,6 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/hello").permitAll()
                 .antMatchers("/accounts/signup").permitAll() // singup
                 .antMatchers("/login").permitAll() // login 토큰이 없는 상태에서 요청
+                .antMatchers("/swagger-resources/**").permitAll() // swagger
                 .anyRequest().authenticated()
 
                 .and()
