@@ -60,9 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/hello").permitAll()
-                .antMatchers("/accounts/signup").permitAll() // singup
-                .antMatchers("/login").permitAll() // login 토큰이 없는 상태에서 요청
+                .antMatchers("/accounts").permitAll() // singup
+                .antMatchers("/accounts/login").permitAll() // login 토큰이 없는 상태에서 요청
                 .antMatchers("/swagger-resources/**").permitAll() // swagger
                 .anyRequest().authenticated()
 
