@@ -1,3 +1,4 @@
+
 ### Server Configuration
 server:
   port: 8888
@@ -12,20 +13,30 @@ server:
 spring:
   # ========== JPA ===========
   jpa:
-    show-sql: false
-
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-
     properties:
       hibernate:
         format_sql: true
+        shoe_sql: true
+
 
   # ========== DB ===========
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://218.158.49.199:3306/joalarm?serverTimezone=Asia/Seoul
-    username: cupid
-    password: 1005
+    driver-class-name: org.h2.Driver
+    url : jdbc:h2:mem:test
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+
+# ========== JWT ===========
+jwt:
+  header: Authorization
+  secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
+  token-validity-in-seconds: 86400
