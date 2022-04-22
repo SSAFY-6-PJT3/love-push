@@ -67,9 +67,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
 
                 .and()
-                .apply(new JwtSecurityConfig(tokenProvider)) // addFilterBefore로 등록했던 JwtSecurityConfig 적용
-
-                .and()
-                .cors();
+                .apply(new JwtSecurityConfig(tokenProvider)); // addFilterBefore로 등록했던 JwtSecurityConfig 적용
     }
 }
