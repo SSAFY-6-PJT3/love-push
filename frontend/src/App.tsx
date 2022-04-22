@@ -18,17 +18,15 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<KeyFrame />} />
+          {/* <Route path="/" element={<KeyFrame />} /> */}
+          <Route path="/" element={<ChatLobby />} />
+          <Route path="/emoji" element={<Emoji />} />
         </Routes>
         <div>
-          <Link to="chatlobby"><button>채팅</button></Link>
+          {/* <Link to="chatlobby">
+            <button>채팅</button>
+          </Link> */}
         </div>
-        <Routes>
-          <Route path="/chatlobby" element={<ChatLobby />} />
-        </Routes>
-        <Routes>
-        <Route path="/emoji" element={<Emoji />} />
-        </Routes>
         
       </BrowserRouter>
     </div>
