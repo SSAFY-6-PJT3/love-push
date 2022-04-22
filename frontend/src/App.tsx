@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import KeyFrame from './pages/KeyFrame';
 import ChatLobby from './components/Templetes/chatLobby';
+import Emoji from './pages/Emoji';
 
 function App() {
   const appHeight = () => {
@@ -19,12 +20,14 @@ function App() {
         <Routes>
           {/* <Route path="/" element={<KeyFrame />} /> */}
           <Route path="/" element={<ChatLobby />} />
+          <Route path="/emoji" element={<Emoji />} />
         </Routes>
         <div>
           {/* <Link to="chatlobby">
             <button>채팅</button>
           </Link> */}
         </div>
+        
       </BrowserRouter>
     </div>
   );
