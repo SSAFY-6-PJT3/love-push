@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import KeyFrame from './pages/KeyFrame';
-import ChatLobby from './components/Templetes/chatLobby'
+import ChatLobby from './components/Templetes/chatLobby';
+import Emoji from './pages/Emoji';
 
 function App() {
   const appHeight = () => {
@@ -25,6 +26,10 @@ function App() {
         <Routes>
           <Route path="/chatlobby" element={<ChatLobby />} />
         </Routes>
+        <Routes>
+        <Route path="/emoji" element={<Emoji />} />
+        </Routes>
+        
       </BrowserRouter>
     </div>
   );
