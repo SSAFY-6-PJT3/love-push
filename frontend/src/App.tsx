@@ -1,7 +1,8 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import KeyFrame from './pages/KeyFrame';
+import ChatLobby from './components/Templetes/chatLobby'
 
 function App() {
   const appHeight = () => {
@@ -17,6 +18,12 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<KeyFrame />} />
+        </Routes>
+        <div>
+          <Link to="chatlobby"><button>채팅</button></Link>
+        </div>
+        <Routes>
+          <Route path="/chatlobby" element={<ChatLobby />} />
         </Routes>
       </BrowserRouter>
     </div>
