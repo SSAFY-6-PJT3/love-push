@@ -71,6 +71,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .cors();
-
     }
 }
