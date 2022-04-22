@@ -63,9 +63,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/accounts").permitAll() // singup
                 .antMatchers("/accounts/login").permitAll() // login 토큰이 없는 상태에서 요청
                 .antMatchers("/swagger-resources/**").permitAll() // swagger
+                .antMatchers("/ws-stomp/**").permitAll()  // Stomp 진입점
                 .anyRequest().authenticated()
 
                 .and()
                 .apply(new JwtSecurityConfig(tokenProvider)); // addFilterBefore로 등록했던 JwtSecurityConfig 적용
+
     }
 }
