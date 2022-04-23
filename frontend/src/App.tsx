@@ -4,6 +4,7 @@ import './App.css';
 import KeyFrame from './pages/KeyFrame';
 import ChatLobby from './components/Templetes/chatLobby';
 import { ChatTest } from './components/ChatTest';
+import Emoji from './pages/Emoji';
 
 function App() {
   const appHeight = () => {
@@ -21,6 +22,8 @@ function App() {
           {/* <Route path="/" element={<KeyFrame />} /> */}
           {/* <Route path="/" element={<ChatLobby />} /> */}
           <Route path="/" element={<ChatTest />} />
+          <Route path="/lobby" element={<ChatLobby />} />
+          <Route path="/emoji" element={<Emoji />} />
         </Routes>
         <div>
           {/* <Link to="chatlobby">

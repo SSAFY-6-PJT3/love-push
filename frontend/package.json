@@ -13,12 +13,16 @@
     "@types/react-dom": "^18.0.1",
     "@types/sockjs-client": "^1.5.1",
     "@types/stompjs": "^2.3.5",
+    "git-cz": "^4.8.0",
     "http-proxy-middleware": "^2.0.4",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1",
     "sockjs-client": "^1.6.0",
+    "styled-components": "^5.3.5",
     "typescript": "^4.6.3",
     "web-vitals": "^2.1.4"
   },
@@ -45,5 +49,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react-slick": "^0.23.8",
+    "@types/styled-components": "^5.1.25"
   }
 }
