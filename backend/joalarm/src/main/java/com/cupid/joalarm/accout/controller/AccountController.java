@@ -17,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Api("account 관련 기능")
@@ -29,24 +30,36 @@ public class AccountController {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
     @PostMapping
-    public ResponseEntity<AccountDto> signup(@Valid @RequestBody AccountDto accountDto){
+    public ResponseEntity<AccountDto> signup(@Valid @RequestBody AccountDto accountDto) {
         return ResponseEntity.ok(accountService.signup(accountDto));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> authorize(@Valid @RequestBody LoginDto loginDto){
+    public ResponseEntity<TokenDto> authorize(@Valid @RequestBody LoginDto loginDto) {
 
-        UsernamePasswordAuthenticationToken authenticationToken=
-                new UsernamePasswordAuthenticationToken(loginDto.getId(),loginDto.getPassword());
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(loginDto.getId(), loginDto.getPassword());
 
-        Authentication authentication =authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = tokenProvider.createToken(authentication);
 
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER,"Bearer "+jwt);
+        httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
 
-        return new ResponseEntity<>(new TokenDto(jwt),httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(new TokenDto(jwt), httpHeaders, HttpStatus.OK);
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<AccountDto> getUserFromToken(HttpServletRequest request) {
+        String id = (String) request.getAttribute("id");
+        System.out.println("id  "+id);
+//        String id = tokenProvider.getAuthentication(request.getAttribute("token").toString()).getName();
+//        String token = (String) request.getAttribute("Authorization");
+
+        AccountDto accountDto = accountService.findById(id);
+        System.out.println(accountDto);
+        return ResponseEntity.ok(accountDto);
     }
 }

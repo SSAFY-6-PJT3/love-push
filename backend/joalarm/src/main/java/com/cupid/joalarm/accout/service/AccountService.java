@@ -9,6 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class AccountService {
@@ -30,5 +32,11 @@ public class AccountService {
         return AccountDto.from(accountRepository.save(account));
     }
 
+    @Transactional
+    public AccountDto findById(String id){
+        Optional<Account> account = accountRepository.findOneById(id);
+        if(!account.isPresent()) return null;
+        else return AccountDto.from(account.get());
+    }
 
 }
