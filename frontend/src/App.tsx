@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import KeyFrame from './pages/KeyFrame';
 import ChatLobby from './components/Templetes/chatLobby';
+import { ChatTest } from './components/ChatTest';
 
 function App() {
   const appHeight = () => {
@@ -18,7 +19,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           {/* <Route path="/" element={<KeyFrame />} /> */}
-          <Route path="/" element={<ChatLobby />} />
+          {/* <Route path="/" element={<ChatLobby />} /> */}
+          <Route path="/" element={<ChatTest />} />
         </Routes>
         <div>
           {/* <Link to="chatlobby">
