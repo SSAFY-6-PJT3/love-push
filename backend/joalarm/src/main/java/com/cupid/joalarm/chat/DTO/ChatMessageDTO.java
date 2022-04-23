@@ -1,14 +1,17 @@
 package com.cupid.joalarm.chat.DTO;
 
-public class ChatMessage {
+import java.sql.Timestamp;
+
+public class ChatMessageDTO {
     public enum MessageType {
         JOIN, TALK
     }
+
     private MessageType type;
     private String roomId;
     private String sender;
     private String message;
-    // sendtime 추가하기
+    private Timestamp sendTime;
 
     public MessageType getType() {
         return type;
@@ -40,5 +43,13 @@ public class ChatMessage {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Timestamp getSendTime() {
+        return sendTime;
+    }
+
+    public void setSendTime(Timestamp sendTime) {
+        this.sendTime = sendTime;
     }
 }

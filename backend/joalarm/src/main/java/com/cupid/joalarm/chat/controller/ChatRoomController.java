@@ -1,6 +1,6 @@
 package com.cupid.joalarm.chat.controller;
 
-import com.cupid.joalarm.chat.DTO.ChatRoom;
+import com.cupid.joalarm.chat.DTO.ChatRoomDTO;
 import com.cupid.joalarm.chat.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,7 @@ public class ChatRoomController {
     private final ChatRoomRepository chatRoomRepository;
 
     @PostMapping("/room")
-    public ChatRoom createRoom(@RequestBody Map<String, String> map) {
+    public ChatRoomDTO createRoom(@RequestBody Map<String, String> map) {
         return ChatRoomRepository.createChatRoom(map.get("name"));
     }
 }

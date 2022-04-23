@@ -2,7 +2,7 @@ package com.cupid.joalarm.chat.DTO;
 
 import java.util.UUID;
 
-public class ChatRoom {
+public class ChatRoomDTO {
     private String roomId;
     private String name;
 
@@ -22,11 +22,11 @@ public class ChatRoom {
         this.name = name;
     }
 
-    public static ChatRoom create(String name) {
-        ChatRoom chatRoom = new ChatRoom();
-        chatRoom.setRoomId(UUID.randomUUID().toString());
-        chatRoom.setName(name);
-        return chatRoom;
+    public static ChatRoomDTO create(String name) {
+        ChatRoomDTO chatRoomDTO = new ChatRoomDTO();
+        chatRoomDTO.setRoomId(UUID.randomUUID().toString());
+        chatRoomDTO.setName(name);
+        return chatRoomDTO;
     }
 
 }

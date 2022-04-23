@@ -1,6 +1,7 @@
-package com.cupid.joalarm.chat.controller;
+package com.cupid.joalarm.heart.controller;
 
 import com.cupid.joalarm.chat.DTO.ChatMessageDTO;
+import com.cupid.joalarm.heart.DTO.HeartDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -8,14 +9,14 @@ import org.springframework.stereotype.Controller;
 
 @RequiredArgsConstructor
 @Controller
-public class ChatController {
+public class HeartController {
     private final SimpMessageSendingOperations messageTemplate;
 
-    @MessageMapping("/chat/message")
-    public void message(ChatMessageDTO message) {
-        if (ChatMessageDTO.MessageType.JOIN.equals(message.getType())) {
-            message.setMessage((message.getSender() + "님 입장"));
+    @MessageMapping("/heart")
+    public void sendHeart(HeartDTO DTO) {
+        for (int user: DTO.getUsers()){
+            messageTemplate.convertAndSend("/sub/heart/" + user, "Heart");
         }
-        messageTemplate.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
     }
+
 }
