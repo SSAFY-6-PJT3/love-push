@@ -28,11 +28,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
         System.out.println("loadUserByUsername");
         Optional<Account> a =accountRepository.findOneById(id);
-        System.out.println("account"+ a.get());
-        UserDetails u =accountRepository.findOneById(id)
-                .map(account -> createUser(account))
-                .orElseThrow(() -> new UsernameNotFoundException(id + " -> 데이터베이스에서 찾을 수 없습니다."));
-        System.out.println("userdetails "+u);
+//        System.out.println("account"+ a.get());
+//        UserDetails u =accountRepository.findOneById(id)
+//                .map(account -> createUser(account))
+//                .orElseThrow(() -> new UsernameNotFoundException(id + " -> 데이터베이스에서 찾을 수 없습니다."));
+//        System.out.println("userdetails "+u);
         return accountRepository.findOneById(id)
                 .map(account -> createUser(account))
                 .orElseThrow(() -> new UsernameNotFoundException(id + " -> 데이터베이스에서 찾을 수 없습니다."));

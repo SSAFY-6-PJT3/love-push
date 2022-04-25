@@ -3,14 +3,11 @@ package com.cupid.joalarm.accout.controller;
 import com.cupid.joalarm.accout.dto.AccountDto;
 import com.cupid.joalarm.accout.dto.LoginDto;
 import com.cupid.joalarm.accout.dto.TokenDto;
-import com.cupid.joalarm.accout.jwt.JwtFilter;
 import com.cupid.joalarm.accout.jwt.TokenProvider;
 import com.cupid.joalarm.accout.service.AccountService;
-import com.cupid.joalarm.accout.service.CustomUserDetailsService;
 import com.cupid.joalarm.util.SecurityUtil;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,7 +27,6 @@ public class AccountController {
     private final AccountService accountService;
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
-    private final CustomUserDetailsService customUserDetailsService;
     private final SecurityUtil securityUtil;
 
     @PostMapping
@@ -48,11 +44,9 @@ public class AccountController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = tokenProvider.createToken(authentication);
+        String emojiUrl =accountService.findById(loginDto.getId()).getEmoji();
 
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
-
-        return new ResponseEntity<>(new TokenDto(jwt), httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(new TokenDto(jwt,emojiUrl), HttpStatus.OK);
     }
 
     @GetMapping("/info")

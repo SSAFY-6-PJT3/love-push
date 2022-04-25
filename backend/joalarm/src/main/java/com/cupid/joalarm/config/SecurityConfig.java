@@ -3,7 +3,6 @@ package com.cupid.joalarm.config;
 import com.cupid.joalarm.accout.jwt.JwtAccessDeniedHandler;
 import com.cupid.joalarm.accout.jwt.JwtAuthenticationEntryPoint;
 import com.cupid.joalarm.accout.jwt.TokenProvider;
-import com.cupid.joalarm.accout.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -22,13 +21,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final TokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
-    private final AccountRepository accountRepository;
-
-//    public SecurityConfig(TokenProvider tokenProvider, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, JwtAccessDeniedHandler jwtAccessDeniedHandler) {
-//        this.tokenProvider = tokenProvider;
-//        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
-//        this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -73,8 +65,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
                 .and()
-//                .addFilter(new JwtAuthorizationFilter(authenticationManager())
-
                 .apply(new JwtFilterSecurityConfig(tokenProvider)); // addFilterBefore로 등록했던 JwtSecurityConfig 적용
     }
 }

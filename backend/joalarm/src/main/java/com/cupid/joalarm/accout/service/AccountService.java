@@ -29,14 +29,14 @@ public class AccountService {
                 .password(passwordEncoder.encode(accountDto.getPassword()))
                 .emoji(accountDto.getEmoji())
                 .build();
-        return AccountDto.from(accountRepository.save(account));
+        return AccountDto.fromEntity(accountRepository.save(account));
     }
 
     @Transactional
     public AccountDto findById(String id){
         Optional<Account> account = accountRepository.findOneById(id);
         if(!account.isPresent()) return null;
-        else return AccountDto.from(account.get());
+        else return AccountDto.fromEntity(account.get());
     }
 
 }
