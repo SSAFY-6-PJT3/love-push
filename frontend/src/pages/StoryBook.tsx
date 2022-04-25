@@ -3,6 +3,7 @@
  */
 
 import Button from '../components/Atoms/Button';
+import { SignupInput, LoginInput, ChatInput } from '../components/Atoms/Inputs';
 import { IoLocationSharp } from 'react-icons/io5';
 import styled from 'styled-components';
 
@@ -24,6 +25,12 @@ const StoryBook = () => {
       <Button width="200px" margin="1rem 0">
         로그인
       </Button>
+      <Title>Inputs</Title>
+      <Wrapper>
+        <SignupInput type="text" />
+        <LoginInput type="text" placeholder="아이디" margin="1rem 0" />
+        <ChatInput type="text" />
+      </Wrapper>
     </Container>
   );
 };
@@ -34,7 +41,13 @@ const Container = styled.div`
 
 const Title = styled.h1`
   font-size: 2rem;
-  margin-bottom: 2rem;
+  margin: 2rem 0;
+`;
+
+const Wrapper = styled.div`
+  width: 100%;
+  height: 180px;
+  background-color: royalblue;
 `;
 
 export default StoryBook;

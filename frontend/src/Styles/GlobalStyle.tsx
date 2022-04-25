@@ -10,10 +10,7 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     color: inherit;
   }
-  body {
-    font-family: 'Noto Sans KR', sans-serif;
-  }
-  button {
+  body, button, input {
     font-family: 'Noto Sans KR', sans-serif;
     line-height: 1;
   }
