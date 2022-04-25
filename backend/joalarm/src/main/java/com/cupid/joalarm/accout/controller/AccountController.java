@@ -19,7 +19,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -57,20 +56,14 @@ public class AccountController {
     }
 
     @GetMapping("/info")
-    public ResponseEntity<AccountDto> getUserFromToken(HttpServletRequest request) {
+    public ResponseEntity<AccountDto> getUserFromToken(@RequestHeader String token) {
         Optional<String> currentUsername = securityUtil.getCurrentUsername();
         if(currentUsername== null) return null;
         System.out.println("currentUsername "+currentUsername);
-        System.out.println("info");
-        System.out.println(request.toString());
-        System.out.println("Principal "+request.getUserPrincipal());
-        System.out.println();
-        String token = (String) request.getAttribute("Authorization");
-        System.out.println("token  "+token);
-//        String id = tokenProvider.getAuthentication(request.getAttribute("token").toString()).getName();
+//        System.out.println("token  "+token);
 
         AccountDto accountDto = accountService.findById(currentUsername.get());
-        System.out.println(accountDto);
+//        System.out.println(accountDto);
         return ResponseEntity.ok(accountDto);
     }
 }
