@@ -5,7 +5,7 @@ import Background from './Styles/Background';
 import GlobalStyle from './Styles/GlobalStyle';
 
 import KeyFrame from './pages/KeyFrame';
-import Emoji from './pages/Emoji';
+import Emoji from './pages/SelectEmoji';
 import StoryBook from './pages/StoryBook';
 import Signup from './pages/Signup';
 

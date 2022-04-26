@@ -1,9 +1,9 @@
 import { randomFillSync } from "crypto";
 import { useState, useCallback } from "react";
 import styled from "styled-components";
-import Modal from "./Modal";
+import Modal from "../Atoms/Modal";
 import { FcAssistant } from "react-icons/fc";
-import Button from './Button';
+import Button from '../Atoms/Button';
 
 
 const ChatReport = () => {
@@ -54,16 +54,19 @@ const ChatReport = () => {
   );
 }
 
-const TitleTag = styled.p`
-  font-size: 20px;
-  font-weight: 700;
-`
+
 
 const TextTag = styled.p`
   font-size: 20px;
   white-space: pre-line;
   font-weight: 300;
-
+  line-height: 1.5;
+  text-align: center;
+  margin-bottom: 24px
+`
+const TitleTag = styled(TextTag)`
+  font-weight: 700;
+  margin-top: 32px;
 `
 
 export default ChatReport;
