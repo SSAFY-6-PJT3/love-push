@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import GlobalStyle from './Styles/GlobalStyle';
 import KeyFrame from './pages/KeyFrame';
 import ChatLobby from './components/Templetes/chatLobby';
-import Emoji from './pages/Emoji';
+import Emoji from './pages/SelectEmoji';
 import StoryBook from './pages/StoryBook';
 import LocationPage from './components/Templetes/LocationPage';
 import MainPage from './components/Templetes/MainPage';
