@@ -1,7 +1,7 @@
 package com.cupid.joalarm.heart.controller;
 
-import com.cupid.joalarm.chat.DTO.ChatMessageDTO;
-import com.cupid.joalarm.heart.DTO.HeartDTO;
+import com.cupid.joalarm.heart.dto.HeartDTO;
+import com.cupid.joalarm.heart.dto.HeartTypeDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -14,8 +14,8 @@ public class HeartController {
 
     @MessageMapping("/heart")
     public void sendHeart(HeartDTO DTO) {
-        for (int user: DTO.getUsers()){
-            messageTemplate.convertAndSend("/sub/heart/" + user, "Heart");
+        for (int user: DTO.getReceiveUsers()){
+            messageTemplate.convertAndSend("/sub/user/" + user, new HeartTypeDTO("HEART", DTO.getSendUser()));
         }
     }
 
