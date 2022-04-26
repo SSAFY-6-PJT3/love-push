@@ -32,6 +32,9 @@ const ModalContainer = styled.div`
   align-items: center;
   justify-content: center;
   position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const DialogBox = styled.dialog`
@@ -46,6 +49,7 @@ const DialogBox = styled.dialog`
   box-sizing: border-box;
   background-color: white;
   z-index: 10000;
+  border-radius:10px
 `;
 
 const Backdrop = styled.div`
