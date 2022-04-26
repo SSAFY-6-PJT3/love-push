@@ -1,32 +1,30 @@
-package com.cupid.joalarm.chat.DTO;
+package com.cupid.joalarm.chat.dto;
 
-import java.util.UUID;
+import java.awt.*;
 
 public class ChatRoomDTO {
-    private String roomId;
-    private String name;
+    private Long pk;
+    private Point users;
 
-    public String getRoomId() {
-        return roomId;
+    public ChatRoomDTO(Long pk, Point users) {
+        this.pk = pk;
+        this.users = users;
     }
 
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
+    public Long getPk() {
+        return pk;
     }
 
-    public String getName() {
-        return name;
+    public void setPk(Long pk) {
+        this.pk = pk;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Point getUsers() {
+        return users;
     }
 
-    public static ChatRoomDTO create(String name) {
-        ChatRoomDTO chatRoomDTO = new ChatRoomDTO();
-        chatRoomDTO.setRoomId(UUID.randomUUID().toString());
-        chatRoomDTO.setName(name);
-        return chatRoomDTO;
+    public void setUsers(Point users) {
+        this.users = users;
     }
 
 }

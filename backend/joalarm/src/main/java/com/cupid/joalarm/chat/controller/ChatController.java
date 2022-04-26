@@ -1,6 +1,6 @@
 package com.cupid.joalarm.chat.controller;
 
-import com.cupid.joalarm.chat.DTO.ChatMessageDTO;
+import com.cupid.joalarm.chat.dto.ChatMessageDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;

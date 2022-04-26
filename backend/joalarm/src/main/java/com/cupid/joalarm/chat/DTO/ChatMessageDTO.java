@@ -1,4 +1,4 @@
-package com.cupid.joalarm.chat.DTO;
+package com.cupid.joalarm.chat.dto;
 
 import java.sql.Timestamp;
 
