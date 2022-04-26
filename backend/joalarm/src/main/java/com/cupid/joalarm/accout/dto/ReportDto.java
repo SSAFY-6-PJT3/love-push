@@ -7,6 +7,6 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmojiDto {
-    private String emojiUrl;
+public class ReportDto {
+    private Long reported;
 }

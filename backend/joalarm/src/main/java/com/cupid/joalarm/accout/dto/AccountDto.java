@@ -13,6 +13,10 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccountDto {
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Long seq;
+
     @NotNull
     @Size(min = 3,max = 50)
     private String id;
@@ -30,6 +34,7 @@ public class AccountDto {
         if(account==null) return null;
 
         return AccountDto.builder()
+                .seq(account.getAccountSeq())
                 .id(account.getId())
                 .emoji(account.getEmoji())
                 .build();

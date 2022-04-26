@@ -40,8 +40,8 @@ public class AccountService {
     }
 
     @Transactional
-    public String updateEmojiById(String id, String emoji){
-        Optional<Account> account = accountRepository.findOneById(id);
+    public String updateEmojiById(Long seq, String emoji){
+        Optional<Account> account = accountRepository.findAccountByAccountSeq(seq);
         if(account.isEmpty()) return null;
         account.get().setEmoji(emoji);
         return account.get().getEmoji();
@@ -51,5 +51,12 @@ public class AccountService {
         Optional<Account> account = accountRepository.findAccountByAccountSeq(seq);
         if(account.isEmpty()) return null;
         else return AccountDto.fromEntity(account.get());
+    }
+    @Transactional
+    public boolean reportBYSeq(Long seq){
+        Optional<Account> account = accountRepository.findAccountByAccountSeq(seq);
+        if(account.isEmpty()) return false;
+        account.get().setReportedCnt(account.get().getReportedCnt()+1);
+        return true;
     }
 }
