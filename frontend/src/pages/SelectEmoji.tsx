@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import Button from '../components/Atoms/Button';
 import styled from "styled-components";
 import Modal from "../components/Atoms/Modal";
 import Slider from "react-slick";
@@ -32,6 +33,9 @@ import unicorn from "../images/emoji/Unicorn.svg";
 import weather from "../images/emoji/Weather.svg";
 import xmas from "../images/emoji/Xmas tree.svg";
 import zany from "../images/emoji/Zany face.svg";
+
+
+
 
 
 const Emoji = () => {
@@ -101,8 +105,9 @@ const Emoji = () => {
     className: "center",
     centerMode: true,
     infinite: true,
-    centerPadding: "60px",
-    slidesToShow: 3,
+    centerPadding: "5px",
+    slidesToShow: 5,
+    arrows: false,
     speed: 500,
     focusOnSelect: true,
     beforeChange: (current:any, next:any) =>
@@ -123,8 +128,17 @@ const Emoji = () => {
             ))}
             </Carousel>
           </CarouselDiv>
-          <button onClick={postEmoji}>이모지 선택하기</button>
-          <p>나를 표현할 이모지를 골라보세요</p>
+          <Button
+            width='160px'
+            height='40px'
+            fontSize='12px'
+            Radius='20px'
+            margin='20px 0px 32px 0px'
+            onClick={postEmoji}>선택 완료</Button>
+          <TextTag>
+            나를 표현할 이모지를{"\n"}
+            골라보세요
+          </TextTag>
         </Modal>
       )}
       
@@ -142,25 +156,40 @@ const DialogButton = styled.button`
   border-radius: 4px;
   border: none;
   cursor: pointer;
-
-  &:hover {
-    transform: translateY(-1px);
-  }
 `;
 const CarouselDiv = styled.div`
-  width:400px;
-  height: 100%;
+  width:300px;
+  height:100px;
 `
 const Carousel = styled(Slider)`
+  .slick-list {
+    height: 100px;
+    display: flex;
+    align-items: center;
+  }
+  .slick-track {
+    display: flex;
+    align-items: center
+    height: 100px;
+  }
   .slick-current {
     opacity: 1;
-    transform: scale(1.3)
+    transform: scale(1.6)
   }
 `;
+
+const TextTag = styled.p`
+  white-space: pre-line;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.5;
+  text-align: center;
+  margin-bottom: 20px
+`
 
 
 const Img = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
 `
 export default Emoji;

@@ -2,7 +2,7 @@ import ChatProfileEmoji from "../Atoms/chatProfileEmoji"
 import ChatButton from "../Atoms/chatButton"
 import ChatRecentMessage from "../Atoms/chatRecentMessage"
 import ChatLeftMessege from "../Atoms/chatLeftMessage"
-import ChatReport from "../Atoms/ChatReport"
+import ChatReport from "./ChatReport"
 import ChatSenderName from "../Atoms/chatSenderName"
 import ChatTime from "../Atoms/chatTime"
 
