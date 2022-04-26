@@ -5,26 +5,34 @@ import { SignupInput } from '../Atoms/Inputs';
 
 interface IProps_SignupForm {
   label: string;
+  value: string;
+  type: string;
+  onInputChange: (val: string) => void;
   onFormSubmit: (val: string) => void;
 }
 
-const SignupForm = ({ label, onFormSubmit }: IProps_SignupForm) => {
-  let inputVal = '';
-
+const SignupForm = ({
+  label,
+  value,
+  type,
+  onInputChange,
+  onFormSubmit,
+}: IProps_SignupForm) => {
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    inputVal = e.target.value;
+    onInputChange(e.target.value);
   };
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onFormSubmit(inputVal);
+    onFormSubmit(value);
   };
 
   return (
     <StyledForm onSubmit={submitHandler}>
       <StyledLabel>{label}</StyledLabel>
       <SignupInput
-        type="text"
+        type={type}
+        value={value}
         fontSize="20px"
         fontWeight="700"
         onChange={inputChangeHandler}
@@ -38,7 +46,7 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 2rem 5rem;
+  margin: 0 2rem 2rem;
 `;
 
 const StyledLabel = styled.label`
