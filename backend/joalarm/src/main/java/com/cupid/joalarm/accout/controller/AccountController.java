@@ -1,12 +1,14 @@
 package com.cupid.joalarm.accout.controller;
 
 import com.cupid.joalarm.accout.dto.AccountDto;
+import com.cupid.joalarm.accout.dto.EmojiDto;
 import com.cupid.joalarm.accout.dto.LoginDto;
 import com.cupid.joalarm.accout.dto.TokenDto;
 import com.cupid.joalarm.accout.jwt.TokenProvider;
 import com.cupid.joalarm.accout.service.AccountService;
 import com.cupid.joalarm.util.SecurityUtil;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,20 +46,40 @@ public class AccountController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = tokenProvider.createToken(authentication);
-        String emojiUrl =accountService.findById(loginDto.getId()).getEmoji();
+        String emojiUrl = accountService.findById(loginDto.getId()).getEmoji();
 
-        return new ResponseEntity<>(new TokenDto(jwt,emojiUrl), HttpStatus.OK);
+        return new ResponseEntity<>(new TokenDto(jwt, emojiUrl), HttpStatus.OK);
     }
 
     @GetMapping("/info")
+    @ApiOperation(value = "토큰으로 유저 조회 test", notes = "토큰 정보로 유저 정보를 조회합니다.")
     public ResponseEntity<AccountDto> getUserFromToken(@RequestHeader String token) {
         Optional<String> currentUsername = securityUtil.getCurrentUsername();
-        if(currentUsername== null) return null;
-        System.out.println("currentUsername "+currentUsername);
+        if (currentUsername == null) return null;
+        System.out.println("currentUsername " + currentUsername);
 //        System.out.println("token  "+token);
 
         AccountDto accountDto = accountService.findById(currentUsername.get());
 //        System.out.println(accountDto);
         return ResponseEntity.ok(accountDto);
+    }
+
+    @PostMapping("/emoji")
+    @ApiOperation(value = "해당 유저 emoji 변경", notes = "토큰과 변경할 emoji url을 받아 변경합니다.")
+    public ResponseEntity<String> updateEmoji(@RequestHeader String token, @RequestBody EmojiDto emojiDto) {
+        Optional<String> id = securityUtil.getCurrentUsername();
+        if (id.isEmpty() || emojiDto.getEmojiUrl().isEmpty()) return ResponseEntity.noContent().build();
+        String emojiUrl = accountService.updateEmojiById(id.get(), emojiDto.getEmojiUrl());
+        return ResponseEntity.ok(emojiUrl);
+    }
+    @GetMapping("{user}/emoji")
+    @ApiOperation(value = "대상 유저(user)의 이모지 조회", notes = "대상 유저(userSeq)의 이모지 조회")
+    public ResponseEntity<String> readEmoji(@PathVariable String user) {
+        Optional<String> id = securityUtil.getCurrentUsername();
+        Long userSeq = Long.parseLong(user);
+        AccountDto accountDto = accountService.findBySeq(userSeq);
+        if (id.isEmpty() || accountDto==null) return ResponseEntity.noContent().build();
+
+        return ResponseEntity.ok(accountDto.getEmoji());
     }
 }
