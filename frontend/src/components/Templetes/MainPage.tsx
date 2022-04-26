@@ -1,0 +1,191 @@
+import Beforeheart from '../../images/icon/heart2.svg'
+import Afterheart from '../../images/icon/heart1.svg'
+import styled from "styled-components";
+import { useEffect, useState } from 'react';
+import chebrasika from "../../images/emoji/chebrasika100.svg";
+import genshinimpact from "../../images/emoji/genshinimpact48.svg";
+import itachiuchiha from "../../images/emoji/itachiuchiha48.svg";
+import tanjirokamado from "../../images/emoji/tanjirokamado48.svg";
+import tom from "../../images/emoji/tom48.svg";
+import uzumaki from "../../images/emoji/uzumaki48.svg";
+import astonished from "../../images/emoji/Astonished face.svg";
+import cat from "../../images/emoji/Cat.svg";
+import clown from "../../images/emoji/Clown face.svg";
+import dog from "../../images/emoji/Dog.svg";
+import blowkiss from "../../images/emoji/Face blowing a kiss.svg";
+import savoring from "../../images/emoji/Face savoring food.svg";
+import mask from "../../images/emoji/Face with medical mask.svg";
+import fire from "../../images/emoji/Fire.svg";
+import gemstone from "../../images/emoji/Gemstone.svg";
+import greenapple from "../../images/emoji/Green apple.svg";
+import hamburger from "../../images/emoji/Hamburger.svg";
+import joker from "../../images/emoji/Joker.svg";
+import lion from "../../images/emoji/Lion.svg";
+import panda from "../../images/emoji/Panda.svg";
+import peach from "../../images/emoji/Peach.svg";
+import robot from "../../images/emoji/Robot.svg";
+import rocket from "../../images/emoji/Rocket.svg";
+import santa from "../../images/emoji/Santa Claus.svg";
+import unicorn from "../../images/emoji/Unicorn.svg";
+import weather from "../../images/emoji/Weather.svg";
+import xmas from "../../images/emoji/Xmas tree.svg";
+import zany from "../../images/emoji/Zany face.svg";
+
+
+const MainPage = () => {
+  // useEffect((인원값) => {
+  //   setCount(인원값)
+  // })
+  const [count, setCount] = useState<number>(10);
+  const [signal, setSignal] = useState<boolean>(false);
+  const isLogin: boolean = false;
+  // 로그인 모달 함수
+  // 성공시 isLogin True변환
+  // 초기 로그인 유저인지 아닌지 확인 필요 useEffect사용
+  const changeSignal = () => {
+    setSignal(true)
+    setTimeout(() => {
+      setSignal(false)
+    }, 10000);
+  }
+  const slides1 = [chebrasika, genshinimpact, itachiuchiha, tanjirokamado, tom, uzumaki, astonished, greenapple, unicorn]
+  const slides2 = [cat, clown, dog, blowkiss, savoring, mask, fire, gemstone, xmas, zany]
+  const slides3 = [hamburger, joker, lion, panda, peach, robot, rocket, santa, weather]
+  if (!isLogin) {
+    return (
+      <BeforeBackGround>
+        <TitleTag>
+          10m 이내에{"\n"}
+          좋아하는 사람이 있다면{"\n"}
+          하트를 눌러보세요
+        </TitleTag>
+        <Div>
+          {/* 클릭시 로그인화면으로 이동 */}
+          <img src={Beforeheart} alt="" onClick={changeSignal}/>
+        </Div>
+        <EmojiDiv>
+          {slides1.map((slide) => (
+            <div key={slide} className="emoji">
+              <EmojiImg src={slide} alt="" />
+            </div>
+          ))}
+        </EmojiDiv>
+        <ReverseEmojiDiv>
+          {slides2.map((slide) => (
+            <div key={slide} className="emoji">
+              <EmojiImg src={slide} alt="" />
+            </div>
+          ))}
+        </ReverseEmojiDiv>
+        <EmojiDiv>
+          {slides3.map((slide) => (
+            <div key={slide} className="emoji">
+              <EmojiImg src={slide} alt="" />
+            </div>
+          ))}
+        </EmojiDiv>
+      </BeforeBackGround>
+    )
+  } else if (isLogin && !signal) {
+    return (
+      <BeforeBackGround>
+          <TitleTag>
+          10m 이내에{"\n"}
+          ‘좋아하면 누르는’ 사용자가{"\n"}
+          { count }명 있어요
+          </TitleTag> 
+        <Div>
+          {/* 클릭이벤트 삭제하고 시그널이 요청이 오면 바뀌게끔 하기 */}
+          <img src={Beforeheart} alt="" onClick={changeSignal}/>
+          </Div>
+      </BeforeBackGround>
+    )
+  } else {
+    return (
+      <AfterBackGround>
+          <TitleTag>
+          10m 이내의 누군가가{"\n"}
+          하트를 눌렀어요!{"\n"}
+          당신을 좋아하는건 아닐까요..?
+          </TitleTag> 
+        <Div>
+          {/* 10초정도 보여주고 넘기기 */}
+          <img src={Afterheart} alt=""/>
+          </Div>
+      </AfterBackGround>
+    )
+  }
+}
+const Div = styled.div`
+  animation: heart-pulse 0.9s infinite ease-out;
+  @keyframes heart-pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1);
+    }
+    70% {
+      
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+`
+const EmojiDiv = styled.div`
+  display: flex;
+  .emoji {
+    margin: 0px 10px 5px 10px;
+  }
+  animation-name: move;
+  animation-duration: 10s;
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  @keyframes move{
+    from{ transform: translateX(-250px)}
+    to{ transform: translateX(250px)}
+  }
+`
+const ReverseEmojiDiv = styled(EmojiDiv)`
+  animation-direction: alternate-reverse;
+  @keyframes move{
+    from{ transform: translateX(250px)}
+    to{ transform: translateX(-250px)}
+  }
+`
+const EmojiImg = styled.img`
+  width: 80px;
+  height: 80px;
+`
+
+
+const TitleTag = styled.p`
+  white-space: pre-line;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  line-height: 1.5;
+  text-align: center;
+  margin-bottom: 20px
+`
+
+const BeforeBackGround = styled.div`
+  background: linear-gradient(197.56deg, #63DAE2 0%, #7FADE8 100%);
+  overflow-y: hidden;
+  overflow-x: hidden;
+  width:100vw;
+  height:100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
+
+const AfterBackGround = styled(BeforeBackGround)`
+  background: linear-gradient(32.33deg, #FF9A9E 0%, #FAD0C4 68.68%, #FAD0C4 69.38%);
+`
+export default MainPage;

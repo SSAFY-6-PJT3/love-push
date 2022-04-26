@@ -1,10 +1,13 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import GlobalStyle from './Styles/GlobalStyle';
 import KeyFrame from './pages/KeyFrame';
 import ChatLobby from './components/Templetes/chatLobby';
 import { ChatTest } from './components/ChatTest';
-import Emoji from './pages/Emoji';
+import Emoji from './pages/SelectEmoji';
+import StoryBook from './pages/StoryBook';
+import LocationPage from './components/Templetes/LocationPage';
+import MainPage from './components/Templetes/MainPage';
 
 function App() {
   const appHeight = () => {
@@ -16,14 +19,16 @@ function App() {
   appHeight();
 
   return (
-    <div className="App">
+    <>
+      <GlobalStyle />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<KeyFrame />} />
-          {/* <Route path="/" element={<ChatLobby />} /> */}
-          <Route path="/test" element={<ChatTest />} />
-          <Route path="/lobby" element={<ChatLobby />} />
+          <Route path="/test" element={<KeyFrame />} />
+          <Route path="/" element={<ChatLobby />} />
+          <Route path="/storybook" element={<StoryBook />} />
           <Route path="/emoji" element={<Emoji />} />
+          <Route path="/location" element={<LocationPage />} />
+          <Route path="/mainpage" element={<MainPage />} />
         </Routes>
         <div>
           {/* <Link to="chatlobby">
@@ -31,7 +36,7 @@ function App() {
           </Link> */}
         </div>
       </BrowserRouter>
-    </div>
+    </>
   );
 }
 
