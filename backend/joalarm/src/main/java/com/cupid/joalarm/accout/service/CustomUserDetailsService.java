@@ -13,14 +13,26 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component("userDetailsService")
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
+    // UserDetailsService 는 loginProcessingUrl(”/login”) 요청이 오면 자동으로 UserDetailsService 타입으로 되어 있는 loadUserByUsername 함수가 실행
+    // SecurityConfig 에서 formLogin().disable() 설정
+    // 로그인 url("/login") 에서 동작 안함.
+    // 직접 filter 구현
     private final AccountRepository accountRepository;
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+        System.out.println("loadUserByUsername");
+        Optional<Account> a =accountRepository.findOneById(id);
+//        System.out.println("account"+ a.get());
+//        UserDetails u =accountRepository.findOneById(id)
+//                .map(account -> createUser(account))
+//                .orElseThrow(() -> new UsernameNotFoundException(id + " -> 데이터베이스에서 찾을 수 없습니다."));
+//        System.out.println("userdetails "+u);
         return accountRepository.findOneById(id)
                 .map(account -> createUser(account))
                 .orElseThrow(() -> new UsernameNotFoundException(id + " -> 데이터베이스에서 찾을 수 없습니다."));

@@ -26,7 +26,7 @@ public class AccountDto {
     @Size(min = 3, max = 50)
     private String emoji;
 
-    public static AccountDto from(Account account){
+    public static AccountDto fromEntity(Account account){
         if(account==null) return null;
 
         return AccountDto.builder()
