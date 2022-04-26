@@ -40,8 +40,13 @@ const ChatReport = () => {
             정말 신고하시겠습니까?</TextTag>
           </div>
           <Button
-            
-            onClick={postReport}>신고하기</Button>
+            width="296px"
+            height="32px"
+            bgColor="#4095FF"
+            fontSize="1.2rem"
+            fontWeight="400"
+            textColor="white"
+            onClick={() => postReport}>신고하기</Button>
         </Modal>
       )}
       <FcAssistant size="32px" onClick={onClickToggleModal}/>
@@ -59,8 +64,6 @@ const TextTag = styled.p`
   white-space: pre-line;
   font-weight: 300;
 
-`
-const ReportButton = styled(Button)`
 `
 
 export default ChatReport;
