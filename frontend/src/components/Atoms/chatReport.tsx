@@ -8,7 +8,6 @@ import Button from './Button';
 
 const ChatReport = () => {
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
-
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
@@ -31,6 +30,7 @@ const ChatReport = () => {
     <div>
       {isOpenModal && (
         <Modal onClickToggleModal={onClickToggleModal}>
+          
           <TitleTag>
             신고하기
           </TitleTag>
@@ -46,7 +46,7 @@ const ChatReport = () => {
             fontSize="1.2rem"
             fontWeight="400"
             textColor="white"
-            onClick={() => postReport}>신고하기</Button>
+            onClick={postReport}>신고하기</Button>
         </Modal>
       )}
       <FcAssistant size="32px" onClick={onClickToggleModal}/>
