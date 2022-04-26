@@ -15,6 +15,7 @@ interface ButtonStyleProps {
   margin: string;
   fontSize: string;
   fontWeight: string;
+  Radius: string;
 }
 
 interface ButtonProps extends ButtonStyleProps {
@@ -36,6 +37,7 @@ const Button = ({
   children,
   fontWeight,
   onClick,
+  Radius,
 }: ButtonProps) => {
   return (
     <StyledButton
@@ -49,6 +51,7 @@ const Button = ({
       fontSize={fontSize}
       fontWeight={fontWeight}
       onClick={onClick}
+      Radius={Radius}
     >
       <Container>
         {icon}
@@ -68,6 +71,7 @@ Button.defaultProps = {
   margin: '0',
   fontSize: '14px',
   fontWeight: '300',
+  Radius: '16px'
 };
 
 const Container = styled.div`
@@ -83,7 +87,6 @@ const StyledButton = styled.button<ButtonStyleProps>`
   background-color: ${(props) => props.bgColor};
   width: ${(props) => props.width};
   height: ${(props) => props.height};
-  border-radius: 16px;
   border: none;
   padding: 6px;
   font-size: ${(props) => props.fontSize};
@@ -92,6 +95,7 @@ const StyledButton = styled.button<ButtonStyleProps>`
     props.shadow ? 'drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.2))' : ''};
   margin: ${(props) => props.margin};
   font-weight: ${(props) => props.fontWeight};
+  border-radius: ${(props) => props.Radius};
 `;
 
 export default Button;
