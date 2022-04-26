@@ -14,6 +14,7 @@ interface ButtonStyleProps {
   shadow: boolean;
   margin: string;
   fontSize: string;
+  fontWeight: string;
 }
 
 interface ButtonProps extends ButtonStyleProps {
@@ -33,6 +34,7 @@ const Button = ({
   fontSize,
   icon,
   children,
+  fontWeight,
   onClick,
 }: ButtonProps) => {
   return (
@@ -45,6 +47,7 @@ const Button = ({
       shadow={shadow}
       margin={margin}
       fontSize={fontSize}
+      fontWeight={fontWeight}
       onClick={onClick}
     >
       <Container>
@@ -64,6 +67,7 @@ Button.defaultProps = {
   shadow: false,
   margin: '0',
   fontSize: '14px',
+  fontWeight: '300',
 };
 
 const Container = styled.div`
@@ -87,6 +91,7 @@ const StyledButton = styled.button<ButtonStyleProps>`
   filter: ${(props) =>
     props.shadow ? 'drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.2))' : ''};
   margin: ${(props) => props.margin};
+  font-weight: ${(props) => props.fontWeight};
 `;
 
 export default Button;

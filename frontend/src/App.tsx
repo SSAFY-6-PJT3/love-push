@@ -5,6 +5,8 @@ import KeyFrame from './pages/KeyFrame';
 import ChatLobby from './components/Templetes/chatLobby';
 import Emoji from './pages/Emoji';
 import StoryBook from './pages/StoryBook';
+import LocationPage from './components/Templetes/LocationPage';
+import MainPage from './components/Templetes/MainPage';
 
 function App() {
   const appHeight = () => {
@@ -24,6 +26,8 @@ function App() {
           <Route path="/storybook" element={<StoryBook />} />
           <Route path="/" element={<ChatLobby />} />
           <Route path="/emoji" element={<Emoji />} />
+          <Route path="/location" element={<LocationPage />} />
+          <Route path="/mainpage" element={<MainPage />} />
         </Routes>
         <div>
           {/* <Link to="chatlobby">
