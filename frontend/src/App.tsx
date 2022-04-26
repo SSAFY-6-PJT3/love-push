@@ -19,9 +19,9 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          {/* <Route path="/" element={<KeyFrame />} /> */}
+          <Route path="/" element={<KeyFrame />} />
           {/* <Route path="/" element={<ChatLobby />} /> */}
-          <Route path="/" element={<ChatTest />} />
+          <Route path="/test" element={<ChatTest />} />
           <Route path="/lobby" element={<ChatLobby />} />
           <Route path="/emoji" element={<Emoji />} />
         </Routes>

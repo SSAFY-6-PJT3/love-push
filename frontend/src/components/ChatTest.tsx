@@ -2,21 +2,21 @@ import { useState } from 'react';
 
 export const ChatTest = () => {
   const [id, setId] = useState('');
-  const [setObj, _] = useState(new Set<number>());
+  const [setObj, updateSet] = useState(new Set<number>());
   const [num, setNum] = useState(0);
   const onChangeId = (e: any) => {
     setId(e.target.value);
   };
   const addSetFunc = () => {
+    updateSet((pre) => pre.add(num));
     console.log(setObj);
     console.log(setObj.has(5));
 
-    setObj.add(num);
-    setNum((n) => n + 1);
+    // setNum((n) => n + 1);
   };
   return (
     <div>
-      id:{' '}
+      id:
       <input
         type="text"
         placeholder="default"
