@@ -20,6 +20,7 @@ interface ButtonStyleProps {
 interface ButtonProps extends ButtonStyleProps {
   icon?: ReactNode;
   children: ReactNode;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const Button = ({
@@ -34,6 +35,7 @@ const Button = ({
   icon,
   children,
   fontWeight,
+  onClick,
 }: ButtonProps) => {
   return (
     <StyledButton
@@ -46,6 +48,7 @@ const Button = ({
       margin={margin}
       fontSize={fontSize}
       fontWeight={fontWeight}
+      onClick={onClick}
     >
       <Container>
         {icon}
