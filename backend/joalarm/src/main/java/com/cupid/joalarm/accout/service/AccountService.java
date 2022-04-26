@@ -35,8 +35,15 @@ public class AccountService {
     @Transactional
     public AccountDto findById(String id){
         Optional<Account> account = accountRepository.findOneById(id);
-        if(!account.isPresent()) return null;
+        if(account.isEmpty()) return null;
         else return AccountDto.fromEntity(account.get());
     }
 
+    @Transactional
+    public String updateEmojiById(String id, String emoji){
+        Optional<Account> account = accountRepository.findOneById(id);
+        if(account.isEmpty()) return null;
+        account.get().setEmoji(emoji);
+        return account.get().getEmoji();
+    }
 }
