@@ -1,6 +1,12 @@
+/**
+ * @author Hyeonsooryu
+ */
+
 import styled from 'styled-components';
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+
+import UserService from '../api/UserService';
 
 import SignupForm from '../components/Templetes/SignupForm';
 
@@ -13,11 +19,18 @@ const Signup = () => {
 
   if (pageId === '4') {
     const signupInfo = {
-      userId: userId,
+      emoji: '1',
+      id: userId,
       password: password,
-      passwordConfirm: passwordConfirm,
     };
     console.log(signupInfo);
+    UserService.Signup(signupInfo)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   const formSubmitHandler = (v: string) => {
