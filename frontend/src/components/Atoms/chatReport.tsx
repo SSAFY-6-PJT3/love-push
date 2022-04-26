@@ -8,7 +8,6 @@ import Button from './Button';
 
 const ChatReport = () => {
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
-
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
@@ -31,6 +30,7 @@ const ChatReport = () => {
     <div>
       {isOpenModal && (
         <Modal onClickToggleModal={onClickToggleModal}>
+          
           <TitleTag>
             신고하기
           </TitleTag>
@@ -40,7 +40,12 @@ const ChatReport = () => {
             정말 신고하시겠습니까?</TextTag>
           </div>
           <Button
-            
+            width="296px"
+            height="32px"
+            bgColor="#4095FF"
+            fontSize="1.2rem"
+            fontWeight="400"
+            textColor="white"
             onClick={postReport}>신고하기</Button>
         </Modal>
       )}
@@ -59,8 +64,6 @@ const TextTag = styled.p`
   white-space: pre-line;
   font-weight: 300;
 
-`
-const ReportButton = styled(Button)`
 `
 
 export default ChatReport;
