@@ -46,4 +46,10 @@ public class AccountService {
         account.get().setEmoji(emoji);
         return account.get().getEmoji();
     }
+    @Transactional
+    public AccountDto findBySeq(Long seq){
+        Optional<Account> account = accountRepository.findAccountByAccountSeq(seq);
+        if(account.isEmpty()) return null;
+        else return AccountDto.fromEntity(account.get());
+    }
 }

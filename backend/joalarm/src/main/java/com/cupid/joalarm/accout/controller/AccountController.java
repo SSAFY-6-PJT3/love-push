@@ -72,4 +72,14 @@ public class AccountController {
         String emojiUrl = accountService.updateEmojiById(id.get(), emojiDto.getEmojiUrl());
         return ResponseEntity.ok(emojiUrl);
     }
+    @GetMapping("{user}/emoji")
+    @ApiOperation(value = "대상 유저(user)의 이모지 조회", notes = "대상 유저(userSeq)의 이모지 조회")
+    public ResponseEntity<String> readEmoji(@PathVariable String user) {
+        Optional<String> id = securityUtil.getCurrentUsername();
+        Long userSeq = Long.parseLong(user);
+        AccountDto accountDto = accountService.findBySeq(userSeq);
+        if (id.isEmpty() || accountDto==null) return ResponseEntity.noContent().build();
+
+        return ResponseEntity.ok(accountDto.getEmoji());
+    }
 }

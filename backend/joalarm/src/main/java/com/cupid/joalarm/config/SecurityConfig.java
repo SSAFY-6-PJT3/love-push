@@ -61,6 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/accounts/login").permitAll() // login 토큰이 없는 상태에서 요청
                 .antMatchers("/swagger-resources/**").permitAll() // swagger
                 .antMatchers("/ws-stomp/**").permitAll()  // Stomp 진입점
+                .antMatchers("/accounts/{user}/emoji").permitAll()
                 .anyRequest().authenticated()
 
 
