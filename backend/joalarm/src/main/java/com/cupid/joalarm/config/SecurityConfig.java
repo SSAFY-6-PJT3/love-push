@@ -5,6 +5,7 @@ import com.cupid.joalarm.accout.jwt.JwtAuthenticationEntryPoint;
 import com.cupid.joalarm.accout.jwt.JwtSecurityConfig;
 import com.cupid.joalarm.accout.jwt.TokenProvider;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -64,6 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/accounts/login").permitAll() // login 토큰이 없는 상태에서 요청
                 .antMatchers("/swagger-resources/**").permitAll() // swagger
                 .antMatchers("/ws-stomp/**").permitAll()  // Stomp 진입점
+                .antMatchers("/chat/**").permitAll()  // 사용자에게 랜덤 ID 발급
                 .anyRequest().authenticated()
 
                 .and()
