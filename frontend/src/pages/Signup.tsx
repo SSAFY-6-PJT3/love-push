@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import UserService from '../api/UserService';
+import signUpAPI from '../api/userAPI';
 
 import SignupForm from '../components/Templetes/SignupForm';
 
@@ -17,21 +17,21 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
 
-  if (pageId === '4') {
+  const callSignUpAPI = () => {
     const signupInfo = {
-      emoji: '1',
+      emoji: 'string',
       id: userId,
       password: password,
     };
-    console.log(signupInfo);
-    UserService.Signup(signupInfo)
+    signUpAPI(signupInfo)
       .then((res) => {
-        console.log(res);
+        navigate('/signup/4');
       })
       .catch((err) => {
         console.log(err);
+        navigate('/signup/9');
       });
-  }
+  };
 
   const formSubmitHandler = (v: string) => {
     switch (pageId) {
@@ -45,7 +45,7 @@ const Signup = () => {
         break;
       case '3':
         setPasswordConfirm(v);
-        navigate('/signup/4');
+        callSignUpAPI();
         break;
     }
   };
@@ -70,7 +70,10 @@ const Signup = () => {
           onFormSubmit={formSubmitHandler}
         />
       )}
-      {pageId === '4' && <SignupDone>회원가입이 완료되었습니다.</SignupDone>}
+      {pageId === '4' && (
+        <SignupResult>회원가입이 완료되었습니다.</SignupResult>
+      )}
+      {pageId === '9' && <SignupResult>회원가입에 실패했습니다.</SignupResult>}
     </Wrapper>
   );
 };
@@ -82,7 +85,7 @@ const Wrapper = styled.div`
   height: 100vh;
 `;
 
-const SignupDone = styled.h1`
+const SignupResult = styled.h1`
   font-size: 20px;
   text-align: center;
   color: white;
