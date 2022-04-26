@@ -25,22 +25,22 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final AccountRepository accountRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String seq) throws UsernameNotFoundException {
         System.out.println("loadUserByUsername");
-        Optional<Account> a =accountRepository.findOneById(id);
+        Optional<Account> a =accountRepository.findAccountByAccountSeq(Long.parseLong(seq));
 //        System.out.println("account"+ a.get());
 //        UserDetails u =accountRepository.findOneById(id)
 //                .map(account -> createUser(account))
 //                .orElseThrow(() -> new UsernameNotFoundException(id + " -> 데이터베이스에서 찾을 수 없습니다."));
 //        System.out.println("userdetails "+u);
-        return accountRepository.findOneById(id)
+        return accountRepository.findAccountByAccountSeq(Long.parseLong(seq))
                 .map(account -> createUser(account))
-                .orElseThrow(() -> new UsernameNotFoundException(id + " -> 데이터베이스에서 찾을 수 없습니다."));
+                .orElseThrow(() -> new UsernameNotFoundException(seq + " -> 데이터베이스에서 찾을 수 없습니다."));
     }
 
     private User createUser(Account account) {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        return new User(account.getId(), account.getPassword(),grantedAuthorities);
+        return new User(account.getAccountSeq().toString(), account.getPassword(),grantedAuthorities);
     }
 }
