@@ -3,6 +3,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import GlobalStyle from './Styles/GlobalStyle';
 import KeyFrame from './pages/KeyFrame';
 import ChatLobby from './components/Templetes/chatLobby';
+<<<<<<< HEAD
+import { ChatTest } from './components/ChatTest';
+=======
+>>>>>>> upstream/develop
 import Emoji from './pages/SelectEmoji';
 import StoryBook from './pages/StoryBook';
 import LocationPage from './components/Templetes/LocationPage';
@@ -22,9 +26,10 @@ function App() {
       <GlobalStyle />
       <BrowserRouter>
         <Routes>
-          {/* <Route path="/" element={<KeyFrame />} /> */}
+          <Route path="/test" element={<KeyFrame />} />
           <Route path="/storybook" element={<StoryBook />} />
           <Route path="/" element={<ChatLobby />} />
+          <Route path="/storybook" element={<StoryBook />} />
           <Route path="/emoji" element={<Emoji />} />
           <Route path="/location" element={<LocationPage />} />
           <Route path="/mainpage" element={<MainPage />} />
