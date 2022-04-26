@@ -2,6 +2,9 @@ import { randomFillSync } from "crypto";
 import { useState, useCallback } from "react";
 import styled from "styled-components";
 import Modal from "./Modal";
+import { FcAssistant } from "react-icons/fc";
+import Button from './Button';
+
 
 const ChatReport = () => {
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
@@ -11,9 +14,12 @@ const ChatReport = () => {
   }, [isOpenModal]);
   // 함수 => 사용
   function postReport() {
-    fetch(`http://localhost:8080`,
+    fetch(`http://localhost:8080/accounts/report`,
       {
         method: "POST",
+        headers: {
+          Authorization : `Bearer `,
+        },
       })
       .then(() => {
         console.log('성공')
@@ -25,40 +31,36 @@ const ChatReport = () => {
     <div>
       {isOpenModal && (
         <Modal onClickToggleModal={onClickToggleModal}>
-          <div>
+          <TitleTag>
             신고하기
-          </div>
+          </TitleTag>
           <div>
             <TextTag>신고가 누적된 유저는 {"\n"}
             채팅 이용이 정지됩니다. {"\n"}
             정말 신고하시겠습니까?</TextTag>
           </div>
-          <button onClick={postReport}>신고하기</button>
+          <Button
+            
+            onClick={postReport}>신고하기</Button>
         </Modal>
       )}
-      <DialogButton onClick={onClickToggleModal}>Open Modal</DialogButton>
+      <FcAssistant size="32px" onClick={onClickToggleModal}/>
     </div>
   );
 }
 
-const TextTag = styled.p`
-  white-space: pre-line;
+const TitleTag = styled.p`
+  font-size: 20px;
+  font-weight: 700;
 `
 
-const DialogButton = styled.button`
-  width: 160px;
-  height: 48px;
-  background-color: blueviolet;
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 400;
-  border-radius: 4px;
-  border: none;
-  cursor: pointer;
+const TextTag = styled.p`
+  font-size: 20px;
+  white-space: pre-line;
+  font-weight: 300;
 
-  &:hover {
-    transform: translateY(-1px);
-  }
-`;
+`
+const ReportButton = styled(Button)`
+`
 
 export default ChatReport;
