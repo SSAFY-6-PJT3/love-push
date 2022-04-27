@@ -1,20 +1,20 @@
 import ChatProfileEmoji from "../Atoms/chatProfileEmoji"
-import ChatButton from "../Atoms/chatButton"
-import ChatRecentMessage from "../Atoms/chatRecentMessage"
-import ChatLeftMessege from "../Atoms/chatLeftMessage"
+// import ChatButton from "../Atoms/chatButton"
+// import ChatRecentMessage from "../Atoms/chatRecentMessage"
+// import ChatLeftMessege from "../Atoms/chatLeftMessage"
 import ChatReport from "./ChatReport"
-import ChatSenderName from "../Atoms/chatSenderName"
-import ChatTime from "../Atoms/chatTime"
+// import ChatSenderName from "../Atoms/chatSenderName"
+// import ChatTime from "../Atoms/chatTime"
 
 const ChatBox = () => {
   return (
     <div>
       <ChatProfileEmoji />
-      <ChatSenderName />
+      {/* <ChatSenderName />
       <ChatTime />
       <ChatRecentMessage />
       <ChatLeftMessege />
-      <ChatButton />
+      <ChatButton /> */}
       <ChatReport />
     </div>
   )
