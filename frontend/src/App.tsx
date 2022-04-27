@@ -1,10 +1,16 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import Background from './Styles/Background';
 import GlobalStyle from './Styles/GlobalStyle';
+
 import KeyFrame from './pages/KeyFrame';
-import ChatLobby from './components/Templetes/chatLobby';
 import Emoji from './pages/SelectEmoji';
 import StoryBook from './pages/StoryBook';
+import Signup from './pages/Signup';
+
+import { ChatTest } from './components/ChatTest';
+import ChatLobby from './components/Templetes/chatLobby';
 import LocationPage from './components/Templetes/LocationPage';
 import MainPage from './components/Templetes/MainPage';
 
@@ -20,21 +26,25 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <BrowserRouter>
-        <Routes>
-          {/* <Route path="/" element={<KeyFrame />} /> */}
-          <Route path="/storybook" element={<StoryBook />} />
-          <Route path="/" element={<ChatLobby />} />
-          <Route path="/emoji" element={<Emoji />} />
-          <Route path="/location" element={<LocationPage />} />
-          <Route path="/mainpage" element={<MainPage />} />
-        </Routes>
-        <div>
-          {/* <Link to="chatlobby">
-            <button>채팅</button>
-          </Link> */}
-        </div>
-      </BrowserRouter>
+      <Background>
+        <BrowserRouter>
+          <Routes>
+            {/* <Route path="/" element={<KeyFrame />} /> */}
+            <Route path="/mainpage" element={<MainPage />} />
+            <Route path="/signup/:pageId" element={<Signup />} />
+            <Route path="/emoji" element={<Emoji />} />
+            <Route path="/" element={<ChatLobby />} />
+            <Route path="/location" element={<LocationPage />} />
+            <Route path="/test" element={<KeyFrame />} />
+            <Route path="/storybook" element={<StoryBook />} />
+          </Routes>
+          <div>
+            {/* <Link to="chatlobby">
+              <button>채팅</button>
+            </Link> */}
+          </div>
+        </BrowserRouter>
+      </Background>
     </>
   );
 }
