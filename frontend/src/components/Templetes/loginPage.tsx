@@ -1,4 +1,4 @@
-import LoginBox from "../Organisms/loginBox";
+import LoginBox from "../Organisms/LoginBox";
 
 const LoginPage = () => {
   return (

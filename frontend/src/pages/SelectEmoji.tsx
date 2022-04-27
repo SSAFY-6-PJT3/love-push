@@ -116,7 +116,8 @@ const Emoji = () => {
 
   return (
     <div>
-      <DialogButton onClick={onClickToggleModal}>Open Modal</DialogButton>
+      {/* 헤더컴포넌트 이모지 버튼 */}
+      <DialogButton onClick={onClickToggleModal}>Open Modal</DialogButton> 
       {isOpenModal && (
         <Modal onClickToggleModal={onClickToggleModal}>
           <CarouselDiv>
