@@ -1,7 +1,19 @@
+// import ChatBox from "../Molecules/ChatBox"
+import ChatBox2 from "../Molecules/ChatBox2"
 const ChatBoxList = () => {
   return (
     <div>
-      <h1>채팅박스 목록</h1>
+      {/* <ChatBox /> */}
+      <ChatBox2 />
+      <ChatBox2 />
+      <ChatBox2 />
+      <ChatBox2 />
+      {/* <ChatBox /> */}
+      {/* <ChatBox /> */}
+      {/* <ChatBox2 /> */}
+      {/* <ChatBox /> */}
+      {/* <ChatBox2 /> */}
+
     </div>
   )
 }
