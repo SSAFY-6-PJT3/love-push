@@ -7,6 +7,8 @@ import styled from 'styled-components';
 interface InputStyleProps {
   margin?: string;
   width?: string;
+  fontSize?: string;
+  fontWeight?: string;
 }
 
 const SignupInput = styled.input<InputStyleProps>`
@@ -15,7 +17,8 @@ const SignupInput = styled.input<InputStyleProps>`
   padding: 8px 16px;
   background-color: transparent;
   color: white;
-  font-weight: 300;
+  font-weight: ${(props) => props.fontWeight || '300'};
+  font-size: ${(props) => props.fontSize || '14px'};
   text-align: center;
   border-top: none;
   border-left: none;
@@ -35,7 +38,8 @@ const LoginInput = styled.input<InputStyleProps>`
   padding: 8px 16px;
   border-radius: 10px;
   border: none;
-  font-weight: 300;
+  font-weight: ${(props) => props.fontWeight || '300'};
+  font-size: ${(props) => props.fontSize || '14px'};
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 
   &:focus {
@@ -49,7 +53,8 @@ const ChatInput = styled.input<InputStyleProps>`
   padding: 8px 16px;
   border-radius: 10px;
   border: none;
-  font-weight: 300;
+  font-weight: ${(props) => props.fontWeight || '300'};
+  font-size: ${(props) => props.fontSize || '14px'};
   background-color: #ededed;
   box-shadow: inset 4px 4px 4px rgba(0, 0, 0, 0.1);
 
