@@ -8,6 +8,6 @@ public class DepController {
 
     @GetMapping("/test")
     public String test() {
-        return "TEST SUCCESS";
+        return "TEST SUCCESS-K8S";
     }
 }
