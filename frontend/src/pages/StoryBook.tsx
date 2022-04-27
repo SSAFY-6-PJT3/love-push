@@ -3,11 +3,13 @@
  */
 
 import { useState } from 'react';
+import styled from 'styled-components';
+
+import { IoLocationSharp } from 'react-icons/io5';
 
 import Button from '../components/Atoms/Button';
+import IconButton from '../components/Atoms/IconButton';
 import { SignupInput, LoginInput, ChatInput } from '../components/Atoms/Inputs';
-import { IoLocationSharp } from 'react-icons/io5';
-import styled from 'styled-components';
 
 const StoryBook = () => {
   const [test, setTest] = useState('default');
@@ -30,6 +32,13 @@ const StoryBook = () => {
       >
         위치 정보 켜기
       </Button>
+      <IconButton imgURL="https://img.icons8.com/emoji/48/000000/robot-emoji.png" />
+      <IconButton
+        shadow
+        margin="1rem"
+        bgColor="white"
+        imgURL="https://img.icons8.com/emoji/48/000000/robot-emoji.png"
+      />
       <p>{test}</p>
       <Button width="200px" margin="1rem 0" onClick={myHandler}>
         로그인
