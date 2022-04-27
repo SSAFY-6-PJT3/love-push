@@ -64,10 +64,10 @@ const MainPage = () => {
             좋아하는 사람이 있다면{"\n"}
             하트를 눌러보세요
           </TitleTag>
-          <Div>
+          <Heart>
             {/* 클릭시 로그인화면으로 이동 */}
             <img src={Beforeheart} alt="" onClick={changeSignal}/>
-          </Div>
+          </Heart>
           <EmojiDiv>
             {slides1.map((slide) => (
               <div key={slide} className="emoji">
@@ -100,10 +100,10 @@ const MainPage = () => {
           ‘좋아하면 누르는’ 사용자가{"\n"}
           { count }명 있어요
           </TitleTag> 
-        <Div>
+        <Heart>
           {/* 클릭이벤트 삭제하고 시그널이 요청이 오면 바뀌게끔 하기 */}
           <img src={Beforeheart} alt="" onClick={changeSignal}/>
-        </Div>
+        </Heart>
         <ImgContainer>
           {slides1.map((slide) => (
             <div key={slide}>
@@ -121,10 +121,10 @@ const MainPage = () => {
           하트를 눌렀어요!{"\n"}
           당신을 좋아하는건 아닐까요..?
           </TitleTag> 
-        <Div>
+        <Heart>
           {/* 10초정도 보여주고 넘기기 */}
           <img src={Afterheart} alt=""/>
-        </Div>
+        </Heart>
         <ImgContainer>
           {slides1.map((slide) => (
             <div key={slide}>
@@ -138,7 +138,7 @@ const MainPage = () => {
 }
 
 
-const Div = styled.div`
+const Heart = styled.div`
   animation: heart-pulse 0.9s infinite ease-out;
   @keyframes heart-pulse {
     0% {
