@@ -3,14 +3,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import GlobalStyle from './Styles/GlobalStyle';
 import KeyFrame from './pages/KeyFrame';
 import ChatLobby from './components/Templetes/chatLobby';
-<<<<<<< HEAD
-import { ChatTest } from './components/ChatTest';
-=======
->>>>>>> upstream/develop
+// import { ChatTest } from './components/ChatTest';
 import Emoji from './pages/SelectEmoji';
 import StoryBook from './pages/StoryBook';
 import LocationPage from './components/Templetes/LocationPage';
 import MainPage from './components/Templetes/MainPage';
+import { MakeChatRoomList } from './components/MakeChatRoomList';
 
 function App() {
   const appHeight = () => {
@@ -33,6 +31,8 @@ function App() {
           <Route path="/emoji" element={<Emoji />} />
           <Route path="/location" element={<LocationPage />} />
           <Route path="/mainpage" element={<MainPage />} />
+          <Route path="/chatroom/:pk" element={<MakeChatRoomList />} />{' '}
+          {/* 유저들이 로그인한 상태를 테스트하기 위해, 실제 로그인 연결된 후에는 props로 줄 것 */}
         </Routes>
         <div>
           {/* <Link to="chatlobby">
