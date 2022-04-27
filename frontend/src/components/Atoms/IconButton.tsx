@@ -52,6 +52,7 @@ const StyledButton = styled.button<IPropsStyledButton>`
   padding: 0;
   border: none;
   border-radius: 10px;
+  cursor: pointer;
   box-shadow: ${(props) =>
     props.shadow ? '0px 2px 4px rgba(0, 0, 0, 0.1)' : ''};
 `;
