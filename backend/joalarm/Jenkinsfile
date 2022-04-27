@@ -11,7 +11,7 @@ pipeline{
 		stage('Build') {
 
 			steps {
-				sh 'docker build -t gkuer/joalarm-springboot ./backend/joalarm'
+				sh 'docker build --build-arg ENVIRONMENT=dev -t gkuer/joalarm-springboot ./backend/joalarm'
 			}
 		}
 
