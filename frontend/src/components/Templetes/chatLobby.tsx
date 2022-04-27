@@ -1,14 +1,19 @@
-// import { useState } from 'react'
-// import { BrowserRouter, Routes, Route, Link  } from 'react-router-dom';
-import ChatBox from "../Molecules/chatBox"
-import EmptyChatBox from "../Molecules/emptyChatBox";
-import { Link  } from 'react-router-dom';
-// const ChatLobby1: React.FC = () => {
-//   const token = useToken();
-//   const userId = useUserId();
-// }
+import { useState, useCallback } from 'react'
+import ChatBoxList from "../Organisms/ChatBoxList"
+import EmptyChatBox from "../Molecules/EmptyChatBox";
+// import { Link  } from 'react-router-dom';
+// import Modal from '../Atoms/Modal';
+import Modal from '../Molecules/LoginModal';
+import LoginPage from './LoginPage';
+import styled from "styled-components";
+import { ChatTitle } from '../Atoms/Text';
+import { IoMdArrowBack } from 'react-icons/io';
+import Button from '../Atoms/Button';
 
- 
+const isLogin: boolean = true;
+
+
+
 
 // 채팅 목록 나열
 // 안 읽은 메세지 수 출력 
@@ -43,14 +48,50 @@ import { Link  } from 'react-router-dom';
 // 채팅은 최근 채팅 20~30개 제한. -> 너무 많으면 DB에서 가져오는게 힘들수도
 // 리미트 걺고 완성하고, 로컬에 채팅 기록하는 식으로...
 
-function ChatLobby () {
-    return (
-      <div> 
-        <ChatBox />
-        <EmptyChatBox />
-        <Link to="/"><button>뒤로 가기</button></Link>
+function ChatLobbyPage () {
+    const [isOpenModal, setOpenModal] = useState<boolean>(false);
+    const onClickToggleModal = useCallback(() => {
+      setOpenModal(!isOpenModal);
+    }, [isOpenModal]);
+
+    const onClickMoveBack = (() => {
+      window.location.href = '/';
+    }); 
+
+    if (!isLogin) {
+      return (
+        <ChatLobby>
+          <EmptyChatBox />
+        </ChatLobby>
+      );
+    }
+    else {
+      return (
+        <ChatLobby>
+        <ChatNavbar>
+          <Button
+            bgColor='#EEF8FF'
+            textColor='black'
+            icon={<IoMdArrowBack />}
+            fontSize='50px'
+            onClick={onClickMoveBack}
+            height='auto'
+          >
+          </Button>
+          <ChatTitle>채팅</ChatTitle>
+        </ChatNavbar> 
+      <div>
+      <ChatBoxList />
+        {isOpenModal && (
+          <Modal onClickToggleModal={onClickToggleModal}>
+            <LoginPage />
+          </Modal>
+        )}
+          <DialogButton onClick={onClickToggleModal}>이모지 버튼</DialogButton>
       </div>
-  )
+      </ChatLobby>
+    )
+  }
 }
 
 
@@ -102,6 +143,38 @@ function ChatLobby () {
 //   );
 // };
 
+const DialogButton = styled.button`
+  width: 160px;
+  height: 48px;
+  background-color: blueviolet;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 400;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
 
-export default ChatLobby;
+  &:hover {
+    transform: translateY(-1px);
+  }
+`;
+
+const ChatNavbar = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: #EEF8FF;
+`; 
+
+const ChatLobby = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: normal;
+  background-color: #EEF8FF;
+`;
+
+export default ChatLobbyPage;
 
