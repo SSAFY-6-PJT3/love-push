@@ -57,6 +57,9 @@ const ChatInput = styled.input<InputStyleProps>`
   font-size: ${(props) => props.fontSize || '14px'};
   background-color: #ededed;
   box-shadow: inset 4px 4px 4px rgba(0, 0, 0, 0.1);
+  display: block;
+  height: 50px;
+  border-top: 2px solid #f0f0f0;
 
   &:focus {
     outline: none;
