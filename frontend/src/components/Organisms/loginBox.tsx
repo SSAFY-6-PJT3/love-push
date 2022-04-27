@@ -1,11 +1,12 @@
-import LoginTitle from '../Atoms/loginTitle';
-import LoginButtonGrid from "./loginButtonGrid"
-import LoginInputGrid from "./loginInptGrid"
+import LoginButtonGrid from "./LoginButtonGrid"
+import LoginInputGrid from "./LoginInputGrid"
+import { LoginTitle } from "../Atoms/Text";
+
 
 const LoginBox = () => {
   return (
     <div>
-      <LoginTitle />
+      <LoginTitle>로그인</LoginTitle>
       <LoginInputGrid />
       <LoginButtonGrid />
     </div>
