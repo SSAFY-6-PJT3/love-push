@@ -45,6 +45,7 @@ const ModalContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 100;
 `;
 
 const DialogBox = styled.dialog<IPropsDialogBox>`

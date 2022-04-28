@@ -13,6 +13,9 @@ const Header = ({ children }: IPropsHeader) => {
 };
 
 const StyledHeader = styled.header<IPropsStyledHeader>`
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;

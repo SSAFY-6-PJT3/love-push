@@ -6,15 +6,15 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { loginAPI } from '../api/userAPI';
+import { loginAPI } from '../../api/userAPI';
 
-import Header from '../components/Organisms/Header';
-import Modal from '../components/Atoms/Modal';
-import Button from '../components/Atoms/Button';
-import IconButton from '../components/Atoms/IconButton';
-import { LoginInput } from '../components/Atoms/Inputs';
+import Header from '../Organisms/Header';
+import Modal from '../Atoms/Modal';
+import Button from '../Atoms/Button';
+import IconButton from '../Atoms/IconButton';
+import { LoginInput } from '../Atoms/Inputs';
 
-const LoginTest = () => {
+const MainNav = () => {
   const navigate = useNavigate();
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
@@ -46,6 +46,12 @@ const LoginTest = () => {
         console.log(err);
         setLoginResult(true);
       });
+  };
+
+  const keyUpHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      loginHandler();
+    }
   };
 
   const signupClickHandler = () => {
@@ -87,6 +93,7 @@ const LoginTest = () => {
             placeholder="비밀번호"
             value={password}
             onChange={passwordChangeHandler}
+            onKeyUp={keyUpHandler}
           />
           <Button
             fontWeight="500"
@@ -122,4 +129,4 @@ const ErrMsg = styled.p`
   text-align: center;
 `;
 
-export default LoginTest;
+export default MainNav;
