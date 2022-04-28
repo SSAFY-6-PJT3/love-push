@@ -27,7 +27,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
           type: 'TALK',
           roomId: `${roomSeq}`,
           sender: `${user}`,
-          message: `${message}`, // 왜 안도는지 확인할것
+          message: `${message}`,
         }),
       });
       setMessage('');
