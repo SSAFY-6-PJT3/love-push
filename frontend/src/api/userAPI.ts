@@ -2,7 +2,7 @@
  * @author Hyeonsooryu
  */
 
-import axiosInstance from './axiosInstance';
+import createAxiosInstance from './axiosInstance';
 
 interface ISignupReqData {
   emoji: string;
@@ -17,7 +17,8 @@ interface ISignupResponse {
 }
 
 const signUpAPI = async (data: ISignupReqData): Promise<ISignupResponse> => {
-  const response = await axiosInstance(null).post('/accounts', JSON.stringify(data));
+  const axiosInstance = createAxiosInstance()
+  const response = await axiosInstance.post('/accounts', JSON.stringify(data));
 
   return response.data;
 };
