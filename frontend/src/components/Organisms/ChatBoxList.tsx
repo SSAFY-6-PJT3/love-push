@@ -15,7 +15,7 @@ const ChatBoxList = () => {
       {/* <ChatBox2 /> */}
 
     </div>
-  )
-}
+  );
+};
 
-export default ChatBoxList
+export default ChatBoxList;
