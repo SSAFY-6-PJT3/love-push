@@ -11,7 +11,11 @@ pipeline{
 		stage('Build') {
 
 			steps {
-				sh 'docker build -t gkuer/joalarm-springboot ./backend/joalarm'
+			    dir("./backend/joalarm") {
+			        sh 'chmod +x ./gradlew'
+                    sh './gradlew clean build'
+                    sh 'docker build --build-arg ENVIRONMENT=dev -t gkuer/joalarm-springboot .'
+			    }
 			}
 		}
 
@@ -28,6 +32,13 @@ pipeline{
 				sh 'docker push gkuer/joalarm-springboot'
 			}
 		}
+
+		stage('Roll out') {
+
+        			steps {
+        				sh 'docker ps -q --filter "name=gkuer/joalarm-springboot" | grep -q . && docker stop gkuer/joalarm-springboot && docker rm gkuer/joalarm-springboot | true'
+        			}
+        		}
 	}
 
 	post {
