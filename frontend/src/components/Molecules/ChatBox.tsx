@@ -1,8 +1,8 @@
-import ChatProfileEmoji from "../Atoms/chatProfileEmoji"
+import ChatProfileEmoji from '../Atoms/ChatProfileEmoji';
 // import ChatButton from "../Atoms/chatButton"
 // import ChatRecentMessage from "../Atoms/chatRecentMessage"
 // import ChatLeftMessege from "../Atoms/chatLeftMessage"
-import ChatReport from "./ChatReport"
+import ChatReport from './ChatReport';
 // import ChatSenderName from "../Atoms/chatSenderName"
 // import ChatTime from "../Atoms/chatTime"
 
@@ -17,7 +17,7 @@ const ChatBox = () => {
       <ChatButton /> */}
       <ChatReport />
     </div>
-  )
-}
+  );
+};
 
-export default ChatBox
+export default ChatBox;
