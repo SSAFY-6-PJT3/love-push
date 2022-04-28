@@ -16,10 +16,29 @@ interface ISignupResponse {
   seq: number;
 }
 
+interface ILoginReqData {
+  id: string;
+  password: string;
+}
+
+interface ILoginResponse {
+  emojiUrl: string;
+  token: string;
+}
+
 const signUpAPI = async (data: ISignupReqData): Promise<ISignupResponse> => {
   const response = await axiosInstance.post('/accounts', JSON.stringify(data));
 
   return response.data;
 };
 
-export default signUpAPI;
+const loginAPI = async (data: ILoginReqData): Promise<ILoginResponse> => {
+  const response = await axiosInstance.post(
+    '/accounts/login',
+    JSON.stringify(data),
+  );
+
+  return response.data;
+};
+
+export { signUpAPI, loginAPI };

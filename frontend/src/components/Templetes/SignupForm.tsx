@@ -37,7 +37,6 @@ const SignupForm = ({
         fontWeight="700"
         onChange={inputChangeHandler}
       />
-      <ErrorMsg />
     </StyledForm>
   );
 };
@@ -47,6 +46,17 @@ const StyledForm = styled.form`
   flex-direction: column;
   justify-content: center;
   margin: 0 2rem 2rem;
+  animation: 0.6s ease-in-out 0s 1 normal forwards running fadeinBottom;
+  @keyframes fadeinBottom {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 50px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
 `;
 
 const StyledLabel = styled.label`
@@ -56,7 +66,5 @@ const StyledLabel = styled.label`
   font-weight: 700;
   margin-bottom: 3rem;
 `;
-
-const ErrorMsg = styled.p``;
 
 export default SignupForm;
