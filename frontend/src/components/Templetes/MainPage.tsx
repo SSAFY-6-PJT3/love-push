@@ -235,7 +235,7 @@ const ImgContainer = styled.div`
   div:nth-child(3){
     position: absolute;
     top: 150px;
-    left: -150px;
+    left: -140px;
   }
   div:nth-child(4){
     position: absolute;

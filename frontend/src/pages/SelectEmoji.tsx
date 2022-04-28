@@ -46,7 +46,6 @@ const Emoji = () => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
 
-
   useEffect(() => {
     getImg()
   }, [img]);
