@@ -1,4 +1,4 @@
-import axiosInstance from './axiosInstance';
+import createAxiosInstance from './axiosInstance';
 
 interface IReportReqData {
   id: string;
@@ -8,7 +8,8 @@ interface IReportResponse {
 }
 
 const reportAPI = async (data: IReportReqData): Promise<IReportResponse> => {
-  const response = await axiosInstance(null).post('/accounts/report', JSON.stringify(data));
+  const axiosInstance = createAxiosInstance()
+  const response = await axiosInstance.post('/accounts/report', JSON.stringify(data));
   return response.data;
 };
 

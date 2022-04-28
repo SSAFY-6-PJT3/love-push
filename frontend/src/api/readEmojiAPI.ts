@@ -1,4 +1,4 @@
-import axiosInstance from './axiosInstance';
+import createAxiosInstance from './axiosInstance';
 
 interface IReadEmojiResponse {
   id: string;
@@ -6,7 +6,8 @@ interface IReadEmojiResponse {
 }
 
 const readEmojiUser = async (): Promise<IReadEmojiResponse> => {
-  const response = await axiosInstance(null).get('/accounts/emoji');
+  const axiosInstance = createAxiosInstance()
+  const response = await axiosInstance.get('/accounts/emoji');
   return response.data;
 };
 

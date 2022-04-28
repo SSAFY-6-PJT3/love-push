@@ -34,6 +34,7 @@ const signUpAPI = async (data: ISignupReqData): Promise<ISignupResponse> => {
 };
 
 const loginAPI = async (data: ILoginReqData): Promise<ILoginResponse> => {
+  const axiosInstance = createAxiosInstance()
   const response = await axiosInstance.post(
     '/accounts/login',
     JSON.stringify(data),

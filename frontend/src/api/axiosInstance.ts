@@ -4,15 +4,21 @@
 
 import axios from 'axios';
 
-const createAxiosInstance = (token:string | null) => {
+const createAxiosInstance = (token?: string) => {
+  const defaultHeader = {
+    'Content-type': 'application/json',
+  }
+
+  const JWTHeader = {
+    'Content-type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  }
+
   const axiosInstance = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
-    headers: {
-      'Content-type': 'application/json',
-      'Authorization': 'Bearer ' + {token}
-    },
+    headers: token ? JWTHeader : defaultHeader
   });
-
+  
   return axiosInstance;
 };
 
