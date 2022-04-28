@@ -11,7 +11,7 @@ import Signup from './pages/Signup';
 import LoginTest from './pages/LoginTest';
 
 import { ChatTest } from './components/ChatTest';
-import ChatLobby from './components/Templetes/chatLobby';
+import ChatLobby from './components/Templetes/ChatLobby';
 import LocationPage from './components/Templetes/LocationPage';
 import MainPage from './components/Templetes/MainPage';
 import { MakeChatRoomList } from './components/MakeChatRoomList';
