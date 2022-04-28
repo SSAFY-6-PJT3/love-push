@@ -1,4 +1,9 @@
+/**
+ * @author Hyeonsooryu
+ */
+
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { loginAPI } from '../api/userAPI';
@@ -10,9 +15,11 @@ import IconButton from '../components/Atoms/IconButton';
 import { LoginInput } from '../components/Atoms/Inputs';
 
 const LoginTest = () => {
+  const navigate = useNavigate();
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loginResult, setLoginResult] = useState(false);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -37,7 +44,12 @@ const LoginTest = () => {
       })
       .catch((err) => {
         console.log(err);
+        setLoginResult(true);
       });
+  };
+
+  const signupClickHandler = () => {
+    navigate('/signup/1');
   };
 
   return (
@@ -57,12 +69,12 @@ const LoginTest = () => {
       </Header>
       {isModalOpen && (
         <Modal
-          height="300px"
+          padding="1.5rem 1rem"
           bgColor="#EEF8FF"
-          padding=""
           onClickToggleModal={toggleModal}
         >
           <ModalHeader>로그인</ModalHeader>
+          {loginResult && <ErrMsg>아이디, 비밀번호를 확인해주세요.</ErrMsg>}
           <LoginInput
             type="text"
             placeholder="아이디"
@@ -83,7 +95,11 @@ const LoginTest = () => {
           >
             로그인
           </Button>
-          <Button fontWeight="500" bgColor="#2B65BC">
+          <Button
+            fontWeight="500"
+            bgColor="#2B65BC"
+            onClick={signupClickHandler}
+          >
             회원가입
           </Button>
         </Modal>
@@ -96,6 +112,14 @@ const ModalHeader = styled.h1`
   padding-top: 0.5rem;
   font-weight: 700;
   font-size: 1.3rem;
+`;
+
+const ErrMsg = styled.p`
+  padding: 1rem 0 0;
+  color: red;
+  font-size: 14px;
+  font-weight: 300;
+  text-align: center;
 `;
 
 export default LoginTest;

@@ -49,7 +49,7 @@ const ModalContainer = styled.div`
 
 const DialogBox = styled.dialog<IPropsDialogBox>`
   width: 328px;
-  height: ${(props) => props.height || '300px'};
+  height: ${(props) => props.height};
   display: flex;
   flex-direction: column;
   justify-content: center;
