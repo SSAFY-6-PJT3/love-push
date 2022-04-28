@@ -1,7 +1,7 @@
 import createAxiosInstance from './axiosInstance';
 
 interface IReportReqData {
-  id: string;
+  id?: string;
 }
 interface IReportResponse {
   postReport: () => void;

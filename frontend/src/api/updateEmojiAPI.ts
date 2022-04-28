@@ -3,14 +3,12 @@ import createAxiosInstance from './axiosInstance';
 interface IUpdateEmojiReqData {
   emoji: string;
 }
-interface IUpdateEmojiResponse {
-  postReport: () => void;
-}
 
-const updateEmojiAPI = async (data: IUpdateEmojiReqData): Promise<IUpdateEmojiResponse> => {
+
+const updateEmojiAPI = async (data: IUpdateEmojiReqData) => {
   const axiosInstance = createAxiosInstance()
   const response = await axiosInstance.post('/accounts/emoji', JSON.stringify(data));
-  return response.data;
+  return response;
 };
 
 export default updateEmojiAPI;

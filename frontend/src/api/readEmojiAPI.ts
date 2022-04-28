@@ -1,14 +1,18 @@
 import createAxiosInstance from './axiosInstance';
 
-interface IReadEmojiResponse {
+export type SlidesProps = {
   id: string;
   emoji: string;
+};
+
+export interface IReadEmojiResponse {
+  data: Array<SlidesProps>
 }
 
-const readEmojiUser = async (): Promise<IReadEmojiResponse> => {
+const readEmojiAPI = async (): Promise<IReadEmojiResponse> => {
   const axiosInstance = createAxiosInstance()
   const response = await axiosInstance.get('/accounts/emoji');
   return response.data;
 };
 
-export default readEmojiUser;
+export default readEmojiAPI;

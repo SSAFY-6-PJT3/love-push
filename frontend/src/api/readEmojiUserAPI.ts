@@ -8,10 +8,10 @@ interface IReadEmojiUserResponse {
   emoji: string;
 }
 
-const readEmojiAPI = async (data: IReadEmojiUserReqData): Promise<IReadEmojiUserResponse> => {
+const readEmojiUserAPI = async (data: IReadEmojiUserReqData): Promise<IReadEmojiUserResponse> => {
   const axiosInstance = createAxiosInstance()
   const response = await axiosInstance.get(`/accounts/${data.userId}/emoji`);
   return response.data;
 };
 
-export default readEmojiAPI;
+export default readEmojiUserAPI;
