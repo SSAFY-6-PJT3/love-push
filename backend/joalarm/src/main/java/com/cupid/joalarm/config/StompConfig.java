@@ -1,24 +1,23 @@
 package com.cupid.joalarm.config;
 
+import com.cupid.joalarm.gpsSector.controller.GpsSectorController;
 import com.cupid.joalarm.gpsSector.repository.GpsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpAttributesContextHolder;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.messaging.*;
 
-import java.util.HashMap;
-
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSocketMessageBroker
 public class StompConfig implements WebSocketMessageBrokerConfigurer {
-//    private final GpsRepository gpsRepository;
-    private HashMap<String, String> hashMap = new HashMap<>();
+    private final GpsRepository gpsRepository;
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
@@ -34,15 +33,17 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
     @EventListener
     public void handleSessionConnect(SessionConnectEvent event) {
         System.out.println("CONNECT / " + SimpAttributesContextHolder.currentAttributes().getSessionId());
-//        SimpAttributesContextHolder.currentAttributes().setAttribute("TEST", "TEST");
+        SimpAttributesContextHolder.currentAttributes().setAttribute("GPS", "");
 //        System.out.println(SimpAttributesContextHolder.currentAttributes().getAttribute("TEST"));
 //        System.out.println(event);
     }
 
     @EventListener
     public void handleSessionDisconnect(SessionDisconnectEvent event) {
-//        System.out.println(SimpAttributesContextHolder.currentAttributes().getAttribute("TEST"));
-        System.out.println("DISCONNECT / " + event.getSessionId());
+        String gpsKey = (String) SimpAttributesContextHolder.currentAttributes().getAttribute("GPS");
+        String sessionId = event.getSessionId();
+        System.out.println("DISCONNECT / " + sessionId + " / " + gpsKey);
+        gpsRepository.dropUser(gpsKey, sessionId);
     }
 
 //    @EventListener
