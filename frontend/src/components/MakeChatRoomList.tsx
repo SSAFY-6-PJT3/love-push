@@ -35,6 +35,7 @@ const getHeartList = async (user: string) => {
 export const MakeChatRoomList = () => {
   const [chatRoomList, updateChatRoomList] = useState(new Array<number>());
   const [sendHeartList, updateSendHeartList] = useState(new Set<number>());
+  const [isConnected, updateIsConnected] = useState(false);
   const { pk } = useParams();
 
   useEffect(() => {
@@ -61,6 +62,7 @@ export const MakeChatRoomList = () => {
           console.log(str);
         },
         onConnect: () => {
+          updateIsConnected(true);
           client.subscribe('/sub/basic', (message) => {
             console.log(message.body);
           });
@@ -68,9 +70,6 @@ export const MakeChatRoomList = () => {
         onStompError: (frame) => {
           console.log('Broker reported error: ' + frame.headers['message']);
           console.log('Additional details: ' + frame.body);
-          client.publish({
-            destination: '/pub/disconnect',
-          });
         },
         reconnectDelay: 5000,
         heartbeatIncoming: 4000,
@@ -81,20 +80,17 @@ export const MakeChatRoomList = () => {
 
   return (
     <div>
-      TEST
-      {client.connected}
       <br />
-      {chatRoomList.map(
-        (roomSeq) =>
-          client.connected !== false && (
-            <ChatRoom
-              key={roomSeq.toString()}
-              user={pk}
-              roomSeq={roomSeq}
-              client={client}
-            />
-          ),
-      )}
+      <p>{client.state}</p>
+      {isConnected &&
+        chatRoomList.map((roomSeq) => (
+          <ChatRoom
+            key={roomSeq.toString()}
+            user={pk}
+            roomSeq={roomSeq}
+            client={client}
+          />
+        ))}
     </div>
   );
 };
