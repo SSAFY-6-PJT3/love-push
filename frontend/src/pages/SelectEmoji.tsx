@@ -5,6 +5,7 @@ import Modal from "../components/Atoms/Modal";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useNavigate } from 'react-router-dom';
 import chebrasika from "../images/emoji/chebrasika100.svg";
 import genshinimpact from "../images/emoji/genshinimpact48.svg";
 import itachiuchiha from "../images/emoji/itachiuchiha48.svg";
@@ -34,41 +35,47 @@ import weather from "../images/emoji/Weather.svg";
 import xmas from "../images/emoji/Xmas tree.svg";
 import zany from "../images/emoji/Zany face.svg";
 
+import readEmoji from '../api/readEmojiAPI';
+import updateEmoji from '../api/updateEmojiAPI';
 
-
+import { SlidesProps } from '../api/readEmojiAPI';
 
 
 const Emoji = () => {
+  const navigate = useNavigate();
   const [img, setImg] = useState<string>();
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const [state, setState] = useState<number>(0);
+  const [slides1, setSlides] = useState<SlidesProps[]>([]);
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
 
   useEffect(() => {
-    getImg()
-  }, [img]);
-
-  const getImg = () => {
-    fetch(`http://localhost:8080`,
-      {
-        method: "GET",
-      })
+    callReadEmojiAPI()
+  }, []);
+  const callReadEmojiAPI = () => {
+    readEmoji()
       .then((res) => {
-        console.log('기존 이모지', res)
+        console.log(res)
+        // setSlides(res)
       })
-  }
-  const postEmoji = () => {
-    fetch(`http://localhost:8080`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json", },
-        body: JSON.stringify({ img: slides[state] }),
-      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const callUpdateEmojiAPI = () => {
+    const UpdateEmojiInfo = {
+      id: slides1[state].id,
+      emoji: slides1[state].emoji,
+    }
+    updateEmoji(UpdateEmojiInfo)
       .then(() => {
-        console.log('이모지 변경 성공')
+        console.log('교체 성공')
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }
   const slides = [
     chebrasika,
@@ -134,7 +141,7 @@ const Emoji = () => {
             fontSize='12px'
             Radius='20px'
             margin='20px 0px 32px 0px'
-            onClick={postEmoji}>선택 완료</Button>
+            onClick={callUpdateEmojiAPI}>선택 완료</Button>
           <TextTag>
             나를 표현할 이모지를{"\n"}
             골라보세요
