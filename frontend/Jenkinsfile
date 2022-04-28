@@ -12,10 +12,9 @@ pipeline{
 
 			steps {
 			    dir("./frontend") {
-                    sh 'echo "REACT_APP_API_URL=http://3.35.170.113:31738" > .env'
 			        sh 'npm i'
                     sh 'npm run build'
-                    sh 'docker build -t gkuer/joalarm-react .'
+                    sh 'docker build -t gkuer/joalarm-react:latest .'
 			    }
 			}
 		}
