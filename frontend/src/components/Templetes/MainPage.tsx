@@ -35,6 +35,9 @@ import zany from "../../images/emoji/Zany face.svg";
 
 
 const MainPage = () => {
+  // 위치정보가 불러와진다면 유지
+  // 안된다면 다시 locationpage로
+
   // useEffect((인원값) => {
   //   setCount(인원값)
   // })
