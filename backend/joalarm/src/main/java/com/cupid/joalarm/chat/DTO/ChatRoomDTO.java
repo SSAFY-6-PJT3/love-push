@@ -4,9 +4,9 @@ import java.awt.*;
 
 public class ChatRoomDTO {
     private Long pk;
-    private Point users;
+    private Long[] users;
 
-    public ChatRoomDTO(Long pk, Point users) {
+    public ChatRoomDTO(Long pk, Long[] users) {
         this.pk = pk;
         this.users = users;
     }
@@ -19,11 +19,11 @@ public class ChatRoomDTO {
         this.pk = pk;
     }
 
-    public Point getUsers() {
+    public Long[] getUsers() {
         return users;
     }
 
-    public void setUsers(Point users) {
+    public void setUsers(Long[] users) {
         this.users = users;
     }
 

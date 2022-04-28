@@ -64,6 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/ws-stomp/**").permitAll()  // Stomp 진입점
                 .antMatchers("/chat/**").permitAll()  // 채팅, 채팅방 진입점
                 .antMatchers("/accounts/{user}/emoji").permitAll()
+                .antMatchers("/heart/**").permitAll()  // 하트 진입점
                 .anyRequest().authenticated()
 
 

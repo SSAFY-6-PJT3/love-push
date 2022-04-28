@@ -138,18 +138,19 @@ export default function GetGpsData() {
   type Whisper = { type: string; person: number; chatRoom: number };
 
   const subscribeHeart = () => {
-    // DB 연결되면 pk에 따라 connect 시 구독하게끔 변경할 것
+    // 로그인 완성되면 pk에 따라 connect 시 구독하게끔 변경할 것
     client.subscribe(`/sub/user/${id}`, (message) => {
       const whisper: Whisper = JSON.parse(message.body);
       switch (whisper.type) {
         case 'HEART':
           console.log('U RECEIVE HEART');
-          receiveHeartEvent(whisper.person);
+          if (whisper.person !== 0) {
+            receiveHeartEvent(whisper.person);
+          }
           break;
         case 'CHATROOM':
           updateChatUserSet((pre) => pre.add(whisper.person));
-          console.log(`${whisper.chatRoom}번 채팅방이 신설되었습니다.`);
-          console.log(chatUserSet);
+          console.log(`${whisper.chatRoom} 채팅방이 신설되었습니다.`);
           client.subscribe(`/sub/room/${whisper.chatRoom}`, (message) => {
             console.log(message);
           });
@@ -172,17 +173,20 @@ export default function GetGpsData() {
   };
 
   const addSendUsers = (users: number[]) => {
-    users.forEach((user) => updateSendHeartSet((pre) => pre.add(user)));
+    users.forEach((user) => {
+      updateSendHeartSet((pre) => pre.add(user));
+    });
   };
 
-  const receiveHeartEvent = (user: number) => {
+  const receiveHeartEvent = async (user: number) => {
     if (sendHeartSet.has(user) && !chatUserSet.has(user)) {
       console.log('CREATE CHAT ROOM');
       // 채팅방 생성 api 호출
-      axios.post('http://localhost:8888/chat/room', {
+      const res = await axios.post('http://localhost:8888/chat/room', {
         sendUser: `${id}`,
         receiveUser: `${user}`,
       });
+      console.log(res);
     }
   };
 

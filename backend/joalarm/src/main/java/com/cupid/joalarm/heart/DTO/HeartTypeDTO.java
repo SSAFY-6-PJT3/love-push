@@ -2,9 +2,9 @@ package com.cupid.joalarm.heart.dto;
 
 public class HeartTypeDTO {
     private String type;
-    private int person;
+    private long person;
 
-    public HeartTypeDTO(String type, int person) {
+    public HeartTypeDTO(String type, long person) {
         this.type = type;
         this.person = person;
     }
@@ -17,11 +17,11 @@ public class HeartTypeDTO {
         this.type = type;
     }
 
-    public int getPerson() {
+    public long getPerson() {
         return person;
     }
 
-    public void setPerson(int person) {
+    public void setPerson(long person) {
         this.person = person;
     }
 }
