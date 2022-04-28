@@ -13,7 +13,7 @@ pipeline{
 			steps {
 			    dir("./frontend") {
 			        sh 'npm i'
-                    sh 'npm run build'
+                    sh 'CI=false npm run build'
                     sh 'docker build -t gkuer/joalarm-react:latest .'
 			    }
 			}
