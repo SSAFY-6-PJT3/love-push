@@ -13,7 +13,7 @@ const ChatReport = () => {
   const [token, setToken] = useState('')
   const callReportAPI = () => {
     const ReportInfo = {
-      id: userId || '',
+      id: userId,
     };
     reportAPI(ReportInfo)
       .then(() => {
