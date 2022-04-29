@@ -36,7 +36,7 @@ import xmas from "../images/emoji/Xmas tree.svg";
 import zany from "../images/emoji/Zany face.svg";
 
 import { updateEmojiAPI, readEmojiAPI, SlidesProps } from '../api/emojiAPI';
-import { AuthContext } from '../../store/authContext';
+import { AuthContext } from '../store/authContext';
 
 
 const Emoji = () => {
