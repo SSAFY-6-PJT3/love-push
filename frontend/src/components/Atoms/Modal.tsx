@@ -45,11 +45,12 @@ const ModalContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 100;
 `;
 
 const DialogBox = styled.dialog<IPropsDialogBox>`
   width: 328px;
-  height: ${(props) => props.height || '300px'};
+  height: ${(props) => props.height};
   display: flex;
   flex-direction: column;
   justify-content: center;

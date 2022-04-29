@@ -3,7 +3,7 @@
  */
 
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import { signUpAPI } from '../api/userAPI';
@@ -12,11 +12,19 @@ import SignupForm from '../components/Templetes/SignupForm';
 
 const Signup = () => {
   const navigate = useNavigate();
-  let { pageId } = useParams<{ pageId: string }>();
+  const { pageId } = useParams<{ pageId: string }>();
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [errMsg, setErrMsg] = useState('');
+
+  useEffect(() => {
+    if (pageId === ('4' || '9')) {
+      setTimeout(() => {
+        navigate('/mainpage');
+      }, 1200);
+    }
+  }, [pageId]);
 
   // 아이디, 비밀번호 정규식
   const userIdRegExp = /^[a-z0-9]{6,16}$/;
