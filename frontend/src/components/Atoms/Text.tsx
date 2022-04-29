@@ -5,7 +5,29 @@ interface TextStyleProps {
   width?: string;
 }
 
-const ChatTitle = styled.text<TextStyleProps>`
+const ChatLobbyTitle = styled.text<TextStyleProps>`
+margin: ${(props) => props.margin};
+width: ${(props) => props.width || '100%'};
+font-size: 2rem;
+font-weight: bold;
+display: flex;
+margin: 1rem 0;
+justify-content: flex-start;
+background-color: #EEF8FF;
+`;
+
+const ChatLobbyDescription = styled.text<TextStyleProps>`
+margin: ${(props) => props.margin};
+width: ${(props) => props.width || '100vh'};
+font-size: 1.5rem;
+font-weight: bold;
+display: flex;
+margin: 1rem 0;
+justify-content: center;
+background-color: #EEF8FF;
+`;
+
+const ChatRoomTitle = styled.text<TextStyleProps>`
 margin: ${(props) => props.margin};
 width: ${(props) => props.width || '100%'};
 font-size: 2rem;
@@ -64,11 +86,11 @@ const RandomNickname = styled.text<TextStyleProps>`
 const Timeline = styled.text<TextStyleProps>`
 margin: ${(props) => props.margin};
 width: ${(props) => props.width };
-font-size: 0.5rem;
+font-size: 0.8rem;
 display: flex;
-margin: 1rem 0;
 color: #8E8E8E;
 justify-content: center;
+margin: 1rem 1rem;
 `;
 
 const OtherUserChatText = styled.text<TextStyleProps>`
@@ -95,4 +117,4 @@ margin-right : 1rem;
 `;
 
 
-export { ChatTitle, LeftMessageCount, RecentMessage, RandomNickname, Timeline, LoginTitle, OtherUserChatText, MyChatText };
+export { ChatLobbyTitle, ChatLobbyDescription, ChatRoomTitle, LeftMessageCount, RecentMessage, RandomNickname, Timeline, LoginTitle, OtherUserChatText, MyChatText };

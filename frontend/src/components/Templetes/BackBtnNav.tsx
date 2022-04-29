@@ -51,6 +51,7 @@ BackBtnNav.defaultProps = {
 const IconWrapper = styled.div`
   padding: 0.5rem;
   margin-left: 0.5rem;
+  cursor: pointer;
 `;
 
 const PageTitle = styled.h1<IPropsPageTitle>`
