@@ -8,6 +8,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import { signUpAPI } from '../api/userAPI';
 
+import BackBtnNav from '../components/Templetes/BackBtnNav';
 import SignupForm from '../components/Templetes/SignupForm';
 
 const Signup = () => {
@@ -100,40 +101,45 @@ const Signup = () => {
   // };
 
   return (
-    <Wrapper>
-      {pageId === '1' && (
-        <SignupForm
-          label="아이디를 입력해주세요."
-          type="text"
-          value={userId}
-          onInputChange={inputChangeHandler}
-          onFormSubmit={formSubmitHandler}
-        />
-      )}
-      {pageId === '2' && (
-        <SignupForm
-          label="비밀번호를 입력해주세요."
-          type="password"
-          value={password}
-          onInputChange={inputChangeHandler}
-          onFormSubmit={formSubmitHandler}
-        />
-      )}
-      {pageId === '3' && (
-        <SignupForm
-          label="비밀번호를 한 번 더 입력해주세요."
-          type="password"
-          value={passwordConfirm}
-          onInputChange={inputChangeHandler}
-          onFormSubmit={formSubmitHandler}
-        />
-      )}
-      {pageId === '4' && (
-        <SignupResult>회원가입이 완료되었습니다.</SignupResult>
-      )}
-      {pageId === '9' && <SignupResult>회원가입에 실패했습니다.</SignupResult>}
-      {errMsg && <ErrMsg>{errMsg}</ErrMsg>}
-    </Wrapper>
+    <>
+      <BackBtnNav pageTitle="회원가입" />
+      <Wrapper>
+        {pageId === '1' && (
+          <SignupForm
+            label="아이디를 입력해주세요."
+            type="text"
+            value={userId}
+            onInputChange={inputChangeHandler}
+            onFormSubmit={formSubmitHandler}
+          />
+        )}
+        {pageId === '2' && (
+          <SignupForm
+            label="비밀번호를 입력해주세요."
+            type="password"
+            value={password}
+            onInputChange={inputChangeHandler}
+            onFormSubmit={formSubmitHandler}
+          />
+        )}
+        {pageId === '3' && (
+          <SignupForm
+            label="비밀번호를 한 번 더 입력해주세요."
+            type="password"
+            value={passwordConfirm}
+            onInputChange={inputChangeHandler}
+            onFormSubmit={formSubmitHandler}
+          />
+        )}
+        {pageId === '4' && (
+          <SignupResult>회원가입이 완료되었습니다.</SignupResult>
+        )}
+        {pageId === '9' && (
+          <SignupResult>회원가입에 실패했습니다.</SignupResult>
+        )}
+        {errMsg && <ErrMsg>{errMsg}</ErrMsg>}
+      </Wrapper>
+    </>
   );
 };
 
