@@ -35,10 +35,8 @@ import weather from "../images/emoji/Weather.svg";
 import xmas from "../images/emoji/Xmas tree.svg";
 import zany from "../images/emoji/Zany face.svg";
 
-import readEmoji from '../api/readEmojiAPI';
-import updateEmoji from '../api/updateEmojiAPI';
+import { updateEmojiAPI, readEmojiAPI, SlidesProps } from '../api/emojiAPI';
 
-import { SlidesProps } from '../api/readEmojiAPI';
 
 
 const Emoji = () => {
@@ -47,20 +45,22 @@ const Emoji = () => {
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const [state, setState] = useState<number>(0);
   const [slides1, setSlides] = useState<SlidesProps[]>([]);
+  const [token, setToken] = useState<string>('');
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
 
   useEffect(() => {
     callReadEmojiAPI()
+    setToken(localStorage.getItem('token') || '')
   }, []);
   const callReadEmojiAPI = () => {
-    readEmoji()
-      .then((res) => {
+    readEmojiAPI()
+      .then((res:any) => {
         console.log(res)
         // setSlides(res)
       })
-      .catch((err) => {
+      .catch((err:any) => {
         console.log(err);
       });
   };
@@ -69,11 +69,11 @@ const Emoji = () => {
       id: slides1[state].id,
       emoji: slides1[state].emoji,
     }
-    updateEmoji(UpdateEmojiInfo)
+    updateEmojiAPI(UpdateEmojiInfo, token)
       .then(() => {
         console.log('교체 성공')
       })
-      .catch((err) => {
+      .catch((err:any) => {
         console.log(err);
       });
   }

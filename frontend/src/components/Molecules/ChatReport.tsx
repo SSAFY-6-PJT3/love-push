@@ -1,25 +1,26 @@
 import { randomFillSync } from "crypto";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import Modal from "../Atoms/Modal";
 import { FcAssistant } from "react-icons/fc";
 import Button from '../Atoms/Button';
 import { useParams, useNavigate } from 'react-router-dom';
-import reportAPI from '../../api/reportAPI';
+import { reportAPI } from '../../api/accountAPI';
+import { AuthContext } from '../../store/authContext';
 
 const ChatReport = () => {
+  const [token, setToken] = useState<string>('');
   const navigate = useNavigate();
   let { userId } = useParams<{ userId: string }>();
-  const [token, setToken] = useState('')
   const callReportAPI = () => {
     const ReportInfo = {
       id: userId,
     };
-    reportAPI(ReportInfo)
+    reportAPI(ReportInfo, token)
       .then(() => {
         navigate('/mainpage');
       })
-      .catch((err) => {
+      .catch((err:any) => {
         console.log(err);
       });
   };
@@ -27,7 +28,9 @@ const ChatReport = () => {
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
-  // 함수 => 사용
+  useEffect(() => {
+    setToken(localStorage.getItem('token') || '')
+  },[])
 
 
   return (
