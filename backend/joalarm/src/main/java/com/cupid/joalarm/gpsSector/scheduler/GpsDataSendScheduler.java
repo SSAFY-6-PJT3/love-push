@@ -12,20 +12,12 @@ import org.springframework.stereotype.Component;
 public class GpsDataSendScheduler {
     private final SimpMessageSendingOperations messageTemplate;
     private final GpsRepository gpsRepository;
-    private boolean isOperationCommand = false;
-
-    public void setOperationCommand() {
-        isOperationCommand = true;
-    }
 
     @Scheduled(fixedRate = 5000)
-    public void sendBasicChat() {
-        // basic으로 전체 채팅 보내기
-//        System.out.println("isOperationCommand: " + isOperationCommand);
-        if (isOperationCommand) {
+    public void sendBasicChat() {  // basic으로 전체 채팅 보내기
+        if (gpsRepository.getOperationCommand()) {
             messageTemplate.convertAndSend("/sub/basic", gpsRepository.getAllGpsSectorData());
-//            System.out.println("sendBasicMessage");
+            gpsRepository.setOffOperationCommand();
         }
-        isOperationCommand = false;
     }
 }
