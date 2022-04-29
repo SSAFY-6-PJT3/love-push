@@ -8,10 +8,10 @@ import KeyFrame from './pages/KeyFrame';
 import Emoji from './pages/SelectEmoji';
 import StoryBook from './pages/StoryBook';
 import Signup from './pages/Signup';
-import LoginTest from './pages/LoginTest';
 
+import CustomAlert from './components/Atoms/CustomAlert';
 import { ChatTest } from './components/ChatTest';
-import ChatLobby from './components/Templetes/chatLobby';
+import ChatLobby from './components/Templetes/ChatLobby';
 import LocationPage from './components/Templetes/LocationPage';
 import MainPage from './components/Templetes/MainPage';
 import { MakeChatRoomList } from './components/MakeChatRoomList';
@@ -29,12 +29,12 @@ function App() {
     <>
       <GlobalStyle />
       <Background>
+        <CustomAlert />
         <BrowserRouter>
           <Routes>
             {/* <Route path="/" element={<KeyFrame />} /> */}
             <Route path="/mainpage" element={<MainPage />} />
             <Route path="/signup/:pageId" element={<Signup />} />
-            <Route path="/logintest" element={<LoginTest />} />
             <Route path="/emoji" element={<Emoji />} />
             <Route path="/" element={<ChatLobby />} />
             <Route path="/location" element={<LocationPage />} />

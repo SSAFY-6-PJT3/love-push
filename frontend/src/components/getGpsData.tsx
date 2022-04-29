@@ -2,8 +2,10 @@ import { useEffect, useState, useMemo, useCallback } from 'react';
 import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function GetGpsData() {
+  const navigate = useNavigate();
   const [gpsKey, setGpsKey] = useState('');
   const [beforeGpsKey, setBeforeGpsKey] = useState('');
   const [flag, setFlag] = useState(true);
@@ -40,6 +42,7 @@ export default function GetGpsData() {
         );
       },
       function (error) {
+        navigate('/mainpage');
         console.error(error);
       },
       {

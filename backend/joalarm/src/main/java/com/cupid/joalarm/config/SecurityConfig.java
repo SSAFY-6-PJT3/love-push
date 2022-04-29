@@ -5,7 +5,6 @@ import com.cupid.joalarm.accout.jwt.JwtAuthenticationEntryPoint;
 import com.cupid.joalarm.accout.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -64,6 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/ws-stomp/**").permitAll()  // Stomp 진입점
                 .antMatchers("/chat/**").permitAll()  // 채팅, 채팅방 진입점
                 .antMatchers("/accounts/{user}/emoji").permitAll()
+                .antMatchers("/emojis").permitAll() // 이모지 전체 조회
                 .antMatchers("/heart/**").permitAll()  // 하트 진입점
                 .anyRequest().authenticated()
 

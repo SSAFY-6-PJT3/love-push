@@ -1,29 +1,36 @@
 import { randomFillSync } from "crypto";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import Modal from "../Atoms/Modal";
 import { FcAssistant } from "react-icons/fc";
 import Button from '../Atoms/Button';
-
+import { useParams, useNavigate } from 'react-router-dom';
+import { reportAPI } from '../../api/accountAPI';
+import { AuthContext } from '../../store/authContext';
 
 const ChatReport = () => {
+  const [token, setToken] = useState<string>('');
+  const navigate = useNavigate();
+  let { userId } = useParams<{ userId: string }>();
+  const callReportAPI = () => {
+    const ReportInfo = {
+      id: userId,
+    };
+    reportAPI(ReportInfo, token)
+      .then(() => {
+        navigate('/mainpage');
+      })
+      .catch((err:any) => {
+        console.log(err);
+      });
+  };
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
-  // 함수 => 사용
-  function postReport() {
-    fetch(`http://localhost:8080/accounts/report`,
-      {
-        method: "POST",
-        headers: {
-          Authorization : `Bearer `,
-        },
-      })
-      .then(() => {
-        console.log('성공')
-      })
-  }
+  useEffect(() => {
+    setToken(localStorage.getItem('token') || '')
+  },[])
 
 
   return (
@@ -46,7 +53,7 @@ const ChatReport = () => {
             fontSize="1.2rem"
             fontWeight="400"
             textColor="white"
-            onClick={postReport}>신고하기</Button>
+            onClick={callReportAPI}>신고하기</Button>
         </Modal>
       )}
       <FcAssistant size="32px" onClick={onClickToggleModal}/>

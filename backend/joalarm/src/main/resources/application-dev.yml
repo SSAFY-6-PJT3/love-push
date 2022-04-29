@@ -36,3 +36,20 @@ spring:
   data:
     mongodb:
       uri: mongodb://${MONGO_CLUSTER_IP}:27017/joalarm
+# ========== JWT ===========
+jwt:
+  secret: ${JWT_SECRET_KEY}
+  token-validity-in-seconds: 86400
+
+
+# ========== AWS S3 ===========
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
+      auto: false
+    s3:
+      bucket: ${S3_BUCKET_NAME}
+    credentials:
+      access-key: ${AWS_ACCESS_KEY}
+      secret-key: ${AWS_SECRET_KEY}

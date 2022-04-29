@@ -1,9 +1,29 @@
-const ChatBoxList = () => {
-  return (
-    <div>
-      <h1>채팅박스 목록</h1>
-    </div>
-  );
-};
+import ChatBox from "../Molecules/ChatBox"
+import styled from "styled-components"
 
-export default ChatBoxList;
+const ChatBoxListPage = () => {
+  return (
+    <ChatBoxList>
+      <ChatBox />
+      <ChatBox />
+      <ChatBox />
+      <ChatBox />
+      <ChatBox />
+      <ChatBox />
+      <ChatBox />
+      <ChatBox />
+      <ChatBox />
+      <ChatBox />
+      <ChatBox />
+      <ChatBox />
+      <ChatBox />
+      <ChatBox />
+      <ChatBox />
+    </ChatBoxList>
+  )
+}
+
+const ChatBoxList = styled.div`
+  padding: 3rem 0 0 0;
+`
+export default ChatBoxListPage
