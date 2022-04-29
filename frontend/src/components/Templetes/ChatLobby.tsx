@@ -1,19 +1,23 @@
-import { useState, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useParams, useNavigate } from 'react-router-dom';
 import ChatBoxList from "../Organisms/ChatBoxList"
 import EmptyChatBox from "../Molecules/EmptyChatBox";
-// import { Link  } from 'react-router-dom';
 // import Modal from '../Atoms/Modal';
-import Modal from '../Molecules/LoginModal';
+import { Client } from '@stomp/stompjs';
+import SockJS from 'sockjs-client';
+
 import LoginPage from './LoginPage';
 import styled from "styled-components";
-import { ChatTitle } from '../Atoms/Text';
+import { ChatLobbyTitle } from '../Atoms/Text';
 import { IoMdArrowBack } from 'react-icons/io';
 import Button from '../Atoms/Button';
+import BackBtnNav from './BackBtnNav';
+import IconButton from '../Atoms/IconButton';
+import axios from 'axios';
 
-const isLogin: boolean = true;
-
-
-
+import { loginAPI } from '../../api/accountAPI';
+import { LoginInput } from '../Atoms/Inputs';
+import Modal from '../Atoms/Modal';
 
 // 채팅 목록 나열
 // 안 읽은 메세지 수 출력 
@@ -48,133 +52,169 @@ const isLogin: boolean = true;
 // 채팅은 최근 채팅 20~30개 제한. -> 너무 많으면 DB에서 가져오는게 힘들수도
 // 리미트 걺고 완성하고, 로컬에 채팅 기록하는 식으로...
 
+const isChatLoomExist: boolean = true;
+
 function ChatLobbyPage () {
-    const [isOpenModal, setOpenModal] = useState<boolean>(false);
-    const onClickToggleModal = useCallback(() => {
-      setOpenModal(!isOpenModal);
-    }, [isOpenModal]);
+    const [userId, setUserId] = useState('');
+    const [password, setPassword] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const onClickMoveBack = (() => {
-      window.location.href = '/';
-    }); 
+    const navigate = useNavigate();
+  
+    const toggleModal = () => {
+      setIsModalOpen(!isModalOpen);
+    };
 
-    if (!isLogin) {
+
+    const userIdChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setUserId(e.target.value);
+    };
+  
+    const passwordChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setPassword(e.target.value);
+    };
+  
+    const loginHandler = () => {
+      const loginData = {
+        id: userId,
+        password: password,
+      };
+      loginAPI(loginData)
+        .then((res) => {
+          console.log(res);
+          navigate('/mainpage');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    
+    const goSignUp = () => {
+      navigate('/signup/1');
+    }
+
+    if (!isChatLoomExist) {
       return (
-        <ChatLobby>
+        <EmptyChatLobby>
+          <BackBtnNav
+            pageTitle=''
+            textColor="black"
+            rightSideBtn={<IconButton imgURL="https://img.icons8.com/emoji/48/000000/robot-emoji.png" />}
+            onRightBtnClick={toggleModal}
+          />
+          {isModalOpen && (
+        <Modal
+          height="300px"
+          bgColor="#EEF8FF"
+          padding=""
+          onClickToggleModal={toggleModal}
+        >
+          <ModalHeader>로그인</ModalHeader>
+          <LoginInput
+            type="text"
+            placeholder="아이디"
+            value={userId}
+            margin="1.5rem 0 .5rem"
+            onChange={userIdChangeHandler}
+          />
+          <LoginInput
+            type="password"
+            placeholder="비밀번호"
+            value={password}
+            onChange={passwordChangeHandler}
+          />
+          <Button
+            fontWeight="500"
+            margin="1.5rem 0 .5rem"
+            onClick={loginHandler}
+          >
+            로그인
+          </Button>
+          <Button fontWeight="500" bgColor="#2B65BC">
+            회원가입
+          </Button>
+        </Modal>
+      )}           
           <EmptyChatBox />
-        </ChatLobby>
+        </EmptyChatLobby>
       );
     }
     else {
       return (
         <ChatLobby>
-        <ChatNavbar>
+          <BackBtnNav 
+            pageTitle=""
+            textColor="black"
+            rightSideBtn={<IconButton imgURL="https://img.icons8.com/emoji/48/000000/robot-emoji.png" />}
+            onRightBtnClick={toggleModal}
+          />          
+        {isModalOpen && (
+        <Modal
+          height="300px"
+          bgColor="#EEF8FF"
+          padding=""
+          onClickToggleModal={toggleModal}
+        >
+          <ModalHeader>로그인</ModalHeader>
+          <LoginInput
+            type="text"
+            placeholder="아이디"
+            value={userId}
+            margin="1.5rem 0 .5rem"
+            onChange={userIdChangeHandler}
+          />
+          <LoginInput
+            type="password"
+            placeholder="비밀번호"
+            value={password}
+            onChange={passwordChangeHandler}
+          />
           <Button
-            bgColor='#EEF8FF'
-            textColor='black'
-            icon={<IoMdArrowBack />}
-            fontSize='50px'
-            onClick={onClickMoveBack}
-            height='auto'
+            fontWeight="500"
+            margin="1.5rem 0 .5rem"
+            onClick={loginHandler}
           >
+            로그인
           </Button>
-          <ChatTitle>채팅</ChatTitle>
-        </ChatNavbar> 
+          <Button fontWeight="500" bgColor="#2B65BC" onClick={goSignUp}>
+            회원가입
+          </Button>
+        </Modal>
+      )} 
       <div>
       <ChatBoxList />
-        {isOpenModal && (
-          <Modal onClickToggleModal={onClickToggleModal}>
-            <LoginPage />
-          </Modal>
-        )}
-          <DialogButton onClick={onClickToggleModal}>이모지 버튼</DialogButton>
       </div>
       </ChatLobby>
     )
   }
 }
 
-
-// const Todos: React.FC<{ items: Todo[]; onRemoveTodo: (id:string) => void }> = (props) => {
-//   // React.FC라고 정의 함으로서 이 함수가 함수형 컴포넌트로 동작한다는걸
-//   // 명확히 함 FC = Functional Component
-//   const todosCtx = useContext(TodosContext);
-  
-//   return (
-//     <ul className={classes.todos}>
-//       {props.items.map((item) => (
-//         <TodoItem key={ item.id } text={ item.text } onRemoveTodo={props.onRemoveTodo.bind(null, item.id)} /> // bind() 실행할 함수를 미리 설정
-//         // <li key={item.id}>{item.text}</li>
-//       ))}
-//     </ul>
-//   );
-// }
-
-// import React, { VFC, useCallback, useRef } from 'react';
-// // import { ChatZone } from './styles';
-// import { QDM } from '../models/ChatInterface';
-// // import Chat from '@components/Chat';
-
-// export interface QDM {
-//   id: number;
-//   SenderId: number;
-//   // Sender: IUser;
-//   ReceiverId: number;
-//   // Receiver: IUser;
-//   content: string;
-//   createdAt: Date;
-// }
-
-// interface Props {
-//   chatData?: IDM[];
-//   // chatData는 없을 수도 있는데, 있으면 IDM[]임
-// }
-
-// const ChatList: VFC<Props> = ({ chatData }) => {
-//   const scrollbarRef = useRef(null);
-//   const onScroll = useCallback(() => {}, []);
-//   return (
-//       <div>
-//         <h1>HI</h1>
-//         {/* {chatData?.map((chat) => (
-//           <Chat key={chat.id} data={chat} />
-//         ))} */}
-//       </div>
-//   );
-// };
-
-const DialogButton = styled.button`
-  width: 160px;
-  height: 48px;
-  background-color: blueviolet;
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 400;
-  border-radius: 4px;
-  border: none;
-  cursor: pointer;
-
-  &:hover {
-    transform: translateY(-1px);
-  }
-`;
-
-const ChatNavbar = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  background-color: #EEF8FF;
-`; 
+const Img = styled.img`
+  width: 50px;
+  height: 50px;
+`
 
 const ChatLobby = styled.div`
   width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+  height: 100%;
+  align-items: normal;
+  background-color: #EEF8FF;
+  overflow-y: auto;
+`;
+
+const EmptyChatLobby = styled.div`
+  width: 100%;
+  height: 100%;
   align-items: normal;
   background-color: #EEF8FF;
 `;
+
+const ModalHeader = styled.h1`
+  padding-top: 0.5rem;
+  font-weight: 700;
+  font-size: 1.3rem;
+`;
+
 
 export default ChatLobbyPage;
 
