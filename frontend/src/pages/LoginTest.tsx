@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-import { loginAPI } from '../api/userAPI';
+import { loginAPI } from '../api/accountAPI';
 
 import Header from '../components/Organisms/Header';
 import Modal from '../components/Atoms/Modal';

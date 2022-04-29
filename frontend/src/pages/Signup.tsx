@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import { signUpAPI } from '../api/userAPI';
+import { signUpAPI } from '../api/accountAPI';
 
 import SignupForm from '../components/Templetes/SignupForm';
 
