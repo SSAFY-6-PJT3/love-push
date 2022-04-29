@@ -8,6 +8,7 @@ import styled from 'styled-components';
 
 import { loginAPI } from '../../api/accountAPI';
 import { AuthContext } from '../../store/authContext';
+import { AlertContext } from '../../store/alertContext';
 
 import Modal from '../Atoms/Modal';
 import Button from '../Atoms/Button';
@@ -21,6 +22,8 @@ interface IPropsModal {
 const LoginModal = ({ isModalOpen, closeModal }: IPropsModal) => {
   const navigate = useNavigate();
   const { onLogin } = useContext(AuthContext);
+  const { openAlert, setAlertText, setAlertSeverity } =
+    useContext(AlertContext);
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [loginResult, setLoginResult] = useState(false);
@@ -39,13 +42,15 @@ const LoginModal = ({ isModalOpen, closeModal }: IPropsModal) => {
       password: password,
     };
     loginAPI(loginData)
-      .then((res:any) => {
+      .then((res: any) => {
         onLogin(res.token, res.emojiUrl);
         closeModal();
         setUserId('');
         setPassword('');
+        setAlertText('로그인 되었습니다.');
+        openAlert();
       })
-      .catch((err:any) => {
+      .catch((err: any) => {
         console.log(err);
         setLoginResult(true);
       });
