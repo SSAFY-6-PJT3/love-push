@@ -10,9 +10,6 @@ server:
 
 # ========== Spring Configuration ===========
 spring:
-  profiles:
-    active:
-      on-profile: dev
   # ========== JPA ===========
   jpa:
     show-sql: false
@@ -29,13 +26,14 @@ spring:
   # ========== DB ===========
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_CLUSTER_IP}:3306/joalarm?serverTimezone=Asia/Seoul
-    username: ${USERNAME}
-    password: ${PASSWORD}
+    url: jdbc:mysql://218.158.49.199:3306/joalarm?serverTimezone=Asia/Seoul
+    username: cupid
+    password: 1005
 
   data:
     mongodb:
-      uri: mongodb://${MONGO_CLUSTER_IP}:27017/joalarm
+      uri: mongodb://218.158.49.199:27017/joalarm
+
 # ========== JWT ===========
 jwt:
   secret: ${JWT_SECRET_KEY}
