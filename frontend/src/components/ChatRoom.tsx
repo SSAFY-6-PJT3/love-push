@@ -14,10 +14,10 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
 }) => {
   const [message, setMessage] = useState('');
 
-  const onChangeMessage = (e: any) => {
+  const onChangeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
   };
-  const onKeyPress = (e: any) => {
+  const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       console.log(message);
 
