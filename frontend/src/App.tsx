@@ -9,6 +9,7 @@ import Emoji from './pages/SelectEmoji';
 import StoryBook from './pages/StoryBook';
 import Signup from './pages/Signup';
 
+import CustomAlert from './components/Atoms/CustomAlert';
 import { ChatTest } from './components/ChatTest';
 import ChatLobby from './components/Templetes/ChatLobby';
 import LocationPage from './components/Templetes/LocationPage';
@@ -28,6 +29,7 @@ function App() {
     <>
       <GlobalStyle />
       <Background>
+        <CustomAlert />
         <BrowserRouter>
           <Routes>
             {/* <Route path="/" element={<KeyFrame />} /> */}
