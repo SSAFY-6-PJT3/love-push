@@ -1,7 +1,12 @@
-import { TiLocation } from "react-icons/ti";
+import Button from '../Atoms/Button';
 import styled from "styled-components";
+import { IoLocationSharp } from 'react-icons/io5';
+import { useCallback } from 'react';
 
 const LocationPage = () => {
+  // 버튼을 클릭하면 위치정보 동의 요청
+  // 동의가 수락되면 메인페이지로 이동
+  // 거절한다면 페이지 유지
   return (
     <BackGround>
       <TitleTag>
@@ -9,28 +14,30 @@ const LocationPage = () => {
         다른 사람들의 하트를{"\n"}
         받아볼 수 있어요!
       </TitleTag> 
-
-      <Button><TiLocation size="12px"/>위치 정보 켜기</Button>
+      <Button
+        width="160px"
+        height="40px"
+        bgColor="white"
+        textColor="black"
+        fontSize="12px"
+        icon={<IoLocationSharp />}
+        shadow
+        
+      >
+        위치 정보 켜기
+      </Button>
     </BackGround>
   )
 }
 
-const Button = styled.button`
-  width: 160px;
-  height: 40px;
-  border-radius: 20px;
-  border: none;
-  font-size: 12px;
-  font-weight: 700;
-  background-color: white;
-  color: black;
-  box-shadow:
-`
 const TitleTag = styled.p`
   white-space: pre-line;
   font-size: 20px;
   font-weight: 700;
   color: white;
+  line-height: 1.5;
+  text-align: center;
+  margin-bottom: 40px;
 `
 const BackGround = styled.div`
   background: linear-gradient(197.56deg, #63DAE2 0%, #7FADE8 100%);

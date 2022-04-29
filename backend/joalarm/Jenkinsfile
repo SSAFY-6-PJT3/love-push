@@ -1,0 +1,43 @@
+pipeline{
+
+	agent any
+
+	environment {
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
+	}
+
+	stages {
+
+		stage('Build') {
+
+			steps {
+			    dir("./backend/joalarm") {
+			        sh 'chmod +x ./gradlew'
+                    sh './gradlew clean build'
+                    sh 'docker build --build-arg ENVIRONMENT=dev -t gkuer/joalarm-springboot .'
+			    }
+			}
+		}
+
+		stage('Login') {
+
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
+		}
+
+		stage('Push') {
+
+			steps {
+				sh 'docker push gkuer/joalarm-springboot'
+			}
+		}
+	}
+
+	post {
+		always {
+			sh 'docker logout'
+		}
+	}
+
+}

@@ -61,8 +61,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/accounts/login").permitAll() // login 토큰이 없는 상태에서 요청
                 .antMatchers("/swagger-resources/**").permitAll() // swagger
                 .antMatchers("/ws-stomp/**").permitAll()  // Stomp 진입점
+                .antMatchers("/chat/**").permitAll()  // 채팅, 채팅방 진입점
                 .antMatchers("/accounts/{user}/emoji").permitAll()
-                .antMatchers("/emojis").permitAll()
+                .antMatchers("/emojis").permitAll() // 이모지 전체 조회
+                .antMatchers("/heart/**").permitAll()  // 하트 진입점
                 .anyRequest().authenticated()
 
 

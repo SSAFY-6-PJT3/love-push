@@ -1,9 +1,8 @@
-package com.cupid.joalarm.gpsSector.DTO;
+package com.cupid.joalarm.gpsSector.dto;
 
 public class SectorDTO {
     private String beforeGpsKey;
     private String nowGpsKey;
-    private int pk;
 
     public String getBeforeGpsKey() {
         return beforeGpsKey;
@@ -19,13 +18,5 @@ public class SectorDTO {
 
     public void setNowGpsKey(String nowGpsKey) {
         this.nowGpsKey = nowGpsKey;
-    }
-
-    public int getPk() {
-        return pk;
-    }
-
-    public void setPk(int pk) {
-        this.pk = pk;
     }
 }

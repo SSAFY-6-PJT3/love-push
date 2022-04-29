@@ -1,23 +1,37 @@
 package com.cupid.joalarm.chat.controller;
 
-import com.cupid.joalarm.chat.DTO.ChatRoom;
-import com.cupid.joalarm.chat.repository.ChatRoomRepository;
+import com.cupid.joalarm.chat.dto.CreateChatRoomDTO;
+import com.cupid.joalarm.chat.dto.SubscribeChatRoomDTO;
+import com.cupid.joalarm.chat.entity.ChatRoomEntity;
+import com.cupid.joalarm.chat.service.ChatRoomService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.awt.*;
+import java.util.List;
 
 @RequiredArgsConstructor  // final, NotNull 필드 자동 생성
 @Controller
 @RequestMapping("/chat")
 public class ChatRoomController {
-    private final ChatRoomRepository chatRoomRepository;
+    private final ChatRoomService chatRoomService;
+
 
     @PostMapping("/room")
-    public ChatRoom createRoom(@RequestBody Map<String, String> map) {
-        return ChatRoomRepository.createChatRoom(map.get("name"));
+    public ResponseEntity<?> createRoom(@RequestBody CreateChatRoomDTO DTO) {
+        return chatRoomService.CreateChatRoom(DTO);
+    }
+
+    @GetMapping("/findroom")
+    public ResponseEntity<List<ChatRoomEntity>> findRoom() {
+        return new ResponseEntity<>(chatRoomService.FindRoom(), HttpStatus.OK);
+    }
+
+    @GetMapping("/findmyroom")
+    public ResponseEntity<List<ChatRoomEntity>> findMyRoom(@RequestParam long user) {
+        return new ResponseEntity<>(chatRoomService.FindMyChatRooms(user), HttpStatus.OK);
     }
 }

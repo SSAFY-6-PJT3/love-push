@@ -1,0 +1,38 @@
+### Server Configuration
+server:
+  port: 8888
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+# ========== Spring Configuration ===========
+spring:
+  profiles:
+    active:
+      on-profile: dev
+  # ========== JPA ===========
+  jpa:
+    show-sql: false
+
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+    properties:
+      hibernate:
+        format_sql: true
+
+  # ========== DB ===========
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_CLUSTER_IP}:3306/joalarm?serverTimezone=Asia/Seoul
+    username: ${USERNAME}
+    password: ${PASSWORD}
+
+  data:
+    mongodb:
+      uri: mongodb://${MONGO_CLUSTER_IP}:27017/joalarm
