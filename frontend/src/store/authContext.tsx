@@ -1,3 +1,7 @@
+/**
+ * @author Hyeonsooryu
+ */
+
 import { createContext, useState, useEffect, ReactNode } from 'react';
 
 const AuthContext = createContext({
