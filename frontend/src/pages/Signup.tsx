@@ -7,12 +7,13 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import { signUpAPI } from '../api/accountAPI';
+import useDocumentTitle from '../hooks/useDocumetnTitle';
 
-import IconButton from '../components/Atoms/IconButton';
 import BackBtnNav from '../components/Templetes/BackBtnNav';
 import SignupForm from '../components/Templetes/SignupForm';
 
 const Signup = () => {
+  useDocumentTitle('회원가입 | 좋아하면 누르는');
   const navigate = useNavigate();
   const { pageId } = useParams<{ pageId: string }>();
   const [userId, setUserId] = useState('');
@@ -96,10 +97,6 @@ const Signup = () => {
         break;
     }
   };
-
-  // const goBack = () => {
-  //   navigate(-1);
-  // };
 
   return (
     <>
