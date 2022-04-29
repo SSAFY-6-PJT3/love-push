@@ -5,6 +5,7 @@ import Button from "../Atoms/Button";
 import { IoArrowUpSharp } from "react-icons/io5";
 import IconButton from "../Atoms/IconButton";
 import BackBtnNav from "./BackBtnNav";
+import ChatReport from "../Molecules/ChatReport";
 
 const ChatRoom = () => {
     return (
@@ -12,11 +13,22 @@ const ChatRoom = () => {
         <BackBtnNav
           pageTitle="익명의 시라소니"
           textColor="black"
-          rightSideBtn={<IconButton imgURL="https://img.icons8.com/emoji/48/000000/robot-emoji.png" />}
-          onRightBtnClick={() => {}}
-          // 리포트 하고 연결
+          rightSideBtn={<IconButton imgURL="https://img.icons8.com/fluency/192/siren.png" />}
+          onRightBtnClick={ChatReport}
+          // 신고
+          // 들어오면 가장 밑으로 내려가야겠넴
         />
           <ChatBody>
+            <OtherUserChatDiv>
+              <Img src="https://i.imgur.com/zOaV3fA.png" alt='프로필 이모지'/>
+              <OtherUserChatText> 드디어 찾았다 </OtherUserChatText>
+              <Timeline>오후 4:33</Timeline>
+            </OtherUserChatDiv>
+            <OtherUserChatDiv>
+              <Img src="https://i.imgur.com/zOaV3fA.png" alt='프로필 이모지'/>
+              <OtherUserChatText> 백 회장님 밑에서 일하고 있찌 </OtherUserChatText>
+              <Timeline>오후 4:34</Timeline>
+            </OtherUserChatDiv>
             <OtherUserChatDiv>
               <Img src="https://i.imgur.com/zOaV3fA.png" alt='프로필 이모지'/>
               <OtherUserChatText> 넌 자유의 모미 아냐 </OtherUserChatText>
@@ -35,6 +47,14 @@ const ChatRoom = () => {
             <MyChatDiv>
               <Timeline>오후 4:36</Timeline>
               <MyChatText> 누구세요 ; </MyChatText>
+            </MyChatDiv>
+            <MyChatDiv>
+              <Timeline>오후 4:38</Timeline>
+              <MyChatText>누구냐 넌</MyChatText>
+            </MyChatDiv>
+            <MyChatDiv>
+              <Timeline>오후 4:39</Timeline>
+              <MyChatText> 오늘 저녁 뭐먹지 </MyChatText>
             </MyChatDiv>
           </ChatBody>
           <ChatFooter>
@@ -61,11 +81,13 @@ const ChatRoom = () => {
 
 const ChatRoomPage = styled.div`
   width: 100%;
-  height: 100%;
+  height: 92vh;
+  // 이거 수정좀 해야겠는데
   display: flex;
   flex-direction: column;
   align-items: normal;
   background-color: #EEF8FF;
+  overflow-y: scroll;
 `
 const ChatBody = styled.div`
   width: 100%;
@@ -84,7 +106,7 @@ const OtherUserChatDiv = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 10px;
+  padding-bottom: 2rem;
 `
 
 const MyChatDiv = styled.div`
@@ -92,7 +114,7 @@ const MyChatDiv = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  margin-bottom: 10px;
+  padding-bottom: 2rem;
 `
 
 const Img = styled.img`
@@ -101,7 +123,10 @@ const Img = styled.img`
 `
 
 const ChatFooter = styled.div`
-  display: flex;
+  bottom: 0;
+  width: 100%;
+  position:absolute;
+  display: inline-flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
