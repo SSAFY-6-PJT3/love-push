@@ -1,8 +1,9 @@
 /**
  * @author Hyeonsooryu
+ * @modified Hanseunghun
  */
 
-import createAxiosInstance from './axiosInstance';
+import { axiosInstance } from './axiosInstance';
 
 interface ISignupReqData {
   emoji: string;
@@ -26,15 +27,18 @@ interface ILoginResponse {
   token: string;
 }
 
+interface IReportReqData {
+  id?: string;
+}
+
+
 const signUpAPI = async (data: ISignupReqData): Promise<ISignupResponse> => {
-  const axiosInstance = createAxiosInstance()
   const response = await axiosInstance.post('/accounts', JSON.stringify(data));
 
   return response.data;
 };
 
 const loginAPI = async (data: ILoginReqData): Promise<ILoginResponse> => {
-  const axiosInstance = createAxiosInstance()
   const response = await axiosInstance.post(
     '/accounts/login',
     JSON.stringify(data),
@@ -43,4 +47,9 @@ const loginAPI = async (data: ILoginReqData): Promise<ILoginResponse> => {
   return response.data;
 };
 
-export { signUpAPI, loginAPI };
+const reportAPI = async (data: IReportReqData, token: string) => {
+  const response = await axiosInstance.post('/accounts/report', JSON.stringify(data), {headers: {Authentication: `Bearer ${token}`}});
+  return response.data;
+};
+
+export { signUpAPI, loginAPI, reportAPI };

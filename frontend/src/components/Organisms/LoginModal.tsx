@@ -6,8 +6,8 @@ import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { loginAPI } from '../../api/accountAPI';
 import { AuthContext } from '../../store/authContext';
-import { loginAPI } from '../../api/userAPI';
 
 import Modal from '../Atoms/Modal';
 import Button from '../Atoms/Button';
@@ -39,13 +39,13 @@ const LoginModal = ({ isModalOpen, closeModal }: IPropsModal) => {
       password: password,
     };
     loginAPI(loginData)
-      .then((res) => {
+      .then((res:any) => {
         onLogin(res.token, res.emojiUrl);
         closeModal();
         setUserId('');
         setPassword('');
       })
-      .catch((err) => {
+      .catch((err:any) => {
         console.log(err);
         setLoginResult(true);
       });

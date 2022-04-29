@@ -1,12 +1,14 @@
 /**
  * @author Hyeonsooryu
+ * @modified Hanseunghun
  */
 
 import { createContext, useState, useEffect, ReactNode } from 'react';
 
 const AuthContext = createContext({
   isLoggedIn: false,
-  onLogin: (token: string, emojiUrl: string) => {},
+  onLogin: (token: string, emojiUrl: string) => { },
+  onChangeEmoji: (emojiUrl: string) => { },
 });
 
 interface IPropsAuthContextProvider {
@@ -29,12 +31,16 @@ const AuthContextProvider = ({ children }: IPropsAuthContextProvider) => {
     localStorage.setItem('emojiUrl', emojiUrl);
     setToken(token);
   };
+  const onChangeEmojiHandler = (emojiUrl: string) => {
+    localStorage.setItem('emojiUrl', emojiUrl);
+  };
 
   return (
     <AuthContext.Provider
       value={{
         isLoggedIn: isLoggedIn,
         onLogin: loginHandler,
+        onChangeEmoji: onChangeEmojiHandler,
       }}
     >
       {children}
