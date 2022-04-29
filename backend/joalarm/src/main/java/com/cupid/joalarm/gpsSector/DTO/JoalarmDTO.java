@@ -1,8 +1,10 @@
 package com.cupid.joalarm.gpsSector.dto;
 
+import com.cupid.joalarm.gpsSector.dto.PkEmojiPairDTO;
+
 public class JoalarmDTO {
     private String gpsKey;
-    private PkEmojiPairDTO pkEmojiPairDTO;
+    private PkEmojiPairDTO pair;
 
     public String getGpsKey() {
         return gpsKey;
@@ -13,10 +15,10 @@ public class JoalarmDTO {
     }
 
     public PkEmojiPairDTO getPair() {
-        return pkEmojiPairDTO;
+        return pair;
     }
 
     public void setPair(PkEmojiPairDTO pkEmojiPairDTO) {
-        this.pkEmojiPairDTO = pkEmojiPairDTO;
+        this.pair = pkEmojiPairDTO;
     }
 }
