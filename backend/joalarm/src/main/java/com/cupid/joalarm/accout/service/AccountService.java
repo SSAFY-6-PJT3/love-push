@@ -33,10 +33,15 @@ public class AccountService {
     }
 
     @Transactional
-    public AccountDto findById(String id){
+    public AccountDto findAccountById(String id){
         Optional<Account> account = accountRepository.findOneById(id);
         if(account.isEmpty()) return null;
         else return AccountDto.fromEntity(account.get());
+    }
+    @Transactional
+    public boolean existAccountById(String id){
+        Optional<Account> account = accountRepository.findOneById(id);
+        return account.isPresent();
     }
     @Transactional
     public Long findSeqById(String id){

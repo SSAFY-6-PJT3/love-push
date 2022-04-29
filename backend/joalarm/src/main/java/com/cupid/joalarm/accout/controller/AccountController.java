@@ -3,11 +3,13 @@ package com.cupid.joalarm.accout.controller;
 import com.cupid.joalarm.accout.dto.*;
 import com.cupid.joalarm.accout.jwt.TokenProvider;
 import com.cupid.joalarm.accout.service.AccountService;
+import com.cupid.joalarm.util.MessageResponse;
 import com.cupid.joalarm.util.SecurityUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -95,4 +97,15 @@ public class AccountController {
         if (success) return ResponseEntity.ok("Success report");
         else return ResponseEntity.noContent().build();
     }
+
+    @GetMapping
+    @ApiOperation(value = "아이디 중복 검사", notes = "아이디 중복 검사, 아이디 사용가능하다면 200, 중복된 아이디가 잇을경우 409 상태코드를 보낸다.")
+    public ResponseEntity<MessageResponse> isValidate(@RequestParam String id){
+        HttpHeaders resHeaders = new HttpHeaders();
+        resHeaders.add("Content-Type", "application/json;charset=UTF-8");
+        if(accountService.existAccountById(id)) return new ResponseEntity<>(new MessageResponse("중복된 아이디 입니다"),resHeaders,HttpStatus.CONFLICT);
+        else return new ResponseEntity<>(new MessageResponse("사용 가능한 아이디입니다."),resHeaders,HttpStatus.OK);
+
+    }
+
 }
