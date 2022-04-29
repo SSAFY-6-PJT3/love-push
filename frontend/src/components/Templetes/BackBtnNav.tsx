@@ -15,6 +15,7 @@ interface IPropsPageTitle {
 interface IPropsBackBtnNav extends IPropsPageTitle {
   pageTitle: string;
   rightSideBtn?: React.ReactNode;
+  bgColor?: string;
   onRightBtnClick?: () => void;
 }
 
@@ -22,6 +23,7 @@ const BackBtnNav = ({
   pageTitle,
   textColor,
   rightSideBtn,
+  bgColor,
   onRightBtnClick,
 }: IPropsBackBtnNav) => {
   const navigate = useNavigate();
@@ -30,7 +32,7 @@ const BackBtnNav = ({
   };
 
   return (
-    <Header bgColor="#EEF8FF">
+    <Header bgColor={bgColor}>
       <IconWrapper onClick={backBtnClickHandler}>
         <IoArrowBack size="24" color={textColor} />
       </IconWrapper>
