@@ -11,10 +11,10 @@ pipeline{
 		stage('Build') {
 
 			steps {
-			    dir("./backend/joalarm") {
-			        sh 'chmod +x ./gradlew'
-                    sh './gradlew clean build'
-                    sh 'docker build --build-arg ENVIRONMENT=dev -t gkuer/joalarm-springboot .'
+			    dir("./frontend") {
+			        sh 'npm i'
+                    sh 'CI=false npm run build'
+                    sh 'docker build -t gkuer/joalarm-react:latest .'
 			    }
 			}
 		}
@@ -29,7 +29,7 @@ pipeline{
 		stage('Push') {
 
 			steps {
-				sh 'docker push gkuer/joalarm-springboot'
+				sh 'docker push gkuer/joalarm-react'
 			}
 		}
 	}
