@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import Button from '../components/Atoms/Button';
 import styled from "styled-components";
 import Modal from "../components/Atoms/Modal";
@@ -36,7 +36,7 @@ import xmas from "../images/emoji/Xmas tree.svg";
 import zany from "../images/emoji/Zany face.svg";
 
 import { updateEmojiAPI, readEmojiAPI, SlidesProps } from '../api/emojiAPI';
-
+import { AuthContext } from '../../store/authContext';
 
 
 const Emoji = () => {
@@ -46,6 +46,7 @@ const Emoji = () => {
   const [state, setState] = useState<number>(0);
   const [slides1, setSlides] = useState<SlidesProps[]>([]);
   const [token, setToken] = useState<string>('');
+  const { onChangeEmoji } = useContext(AuthContext);
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
@@ -71,6 +72,7 @@ const Emoji = () => {
     }
     updateEmojiAPI(UpdateEmojiInfo, token)
       .then(() => {
+        onChangeEmoji(UpdateEmojiInfo.emoji)
         console.log('교체 성공')
       })
       .catch((err:any) => {
