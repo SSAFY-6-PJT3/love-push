@@ -16,7 +16,7 @@ const ChatRoom = () => {
           rightSideBtn={<IconButton imgURL="https://img.icons8.com/fluency/192/siren.png" />}
           onRightBtnClick={ChatReport}
           // 신고
-          // 들어오면 가장 밑으로 내려가야겠넴
+          // 들어오면 가장 밑으로 내려가야겠넴 붙이는데도 시간이 좀 필요 할 것 같다.
         />
           <ChatBody>
             <OtherUserChatDiv>
@@ -31,7 +31,7 @@ const ChatRoom = () => {
             </OtherUserChatDiv>
             <OtherUserChatDiv>
               <Img src="https://i.imgur.com/zOaV3fA.png" alt='프로필 이모지'/>
-              <OtherUserChatText> 넌 자유의 모미 아냐 </OtherUserChatText>
+              <OtherUserChatText> 넌 자유의 모미 아냐 넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐넌 자유의 모미 아냐</OtherUserChatText>
               <Timeline>오후 4:35</Timeline>
             </OtherUserChatDiv>
             <OtherUserChatDiv>
@@ -81,7 +81,7 @@ const ChatRoom = () => {
 
 const ChatRoomPage = styled.div`
   width: 100%;
-  height: 92vh;
+  height: 93vh;
   // 이거 수정좀 해야겠는데
   display: flex;
   flex-direction: column;
@@ -106,20 +106,21 @@ const OtherUserChatDiv = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding-bottom: 2rem;
+  padding-bottom: 0.5rem;
 `
-
+// 인풋에서 맥스 입력값을 제한 뭐 한 150자 
+// 둘다 maxwidth 값을 뷰포트사이즈로 줘야할듯.
 const MyChatDiv = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  padding-bottom: 2rem;
+  padding-bottom: 0.5rem;
 `
 
 const Img = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 4rem;
+  height: 4rem;
 `
 
 const ChatFooter = styled.div`
@@ -131,6 +132,7 @@ const ChatFooter = styled.div`
   align-items: center;
   justify-content: center;
   background-color: #FFFFFF;
+  height: 8vh;
 `
 
 export default ChatRoom;
