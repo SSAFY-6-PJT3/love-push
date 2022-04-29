@@ -1,31 +1,33 @@
 package com.cupid.joalarm.gpsSector.repository;
 
-import com.cupid.joalarm.gpsSector.dto.PkEmojiPairDTO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import com.cupid.joalarm.gpsSector.dto.PkEmojiPairDTO;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
 
 @Repository
+@RequiredArgsConstructor
 public class GpsRepository {
     private HashMap<String, HashMap<String, PkEmojiPairDTO>> GpsSectorHashMap;
+    private boolean isOperationCommand = false;
 
     @PostConstruct
     private void init() {GpsSectorHashMap = new HashMap<>();}
 
-    public HashMap<String, HashMap<String, PkEmojiPairDTO>> getAllGpsSectorData() {
-        return GpsSectorHashMap;
-    }
-
     public void changeUserSector(String beforeGpsKey, String nowGpsKey, String sessionId) {
-        GpsSectorHashMap.get(nowGpsKey).put(sessionId, GpsSectorHashMap.get(beforeGpsKey).get(sessionId));
+        PkEmojiPairDTO beforePair = GpsSectorHashMap.get(beforeGpsKey).get(sessionId);
         GpsSectorHashMap.get(beforeGpsKey).remove(sessionId);
+        putUserSector(nowGpsKey, sessionId, beforePair);
+        setOnOperationCommand();
     }
 
     public void changeUserEmoji(String gpsKey, String sessionId, String emojiUrl) {
-        PkEmojiPairDTO pkEmojiPairDTO = GpsSectorHashMap.get(gpsKey).get(sessionId);
+        com.cupid.joalarm.gpsSector.dto.PkEmojiPairDTO pkEmojiPairDTO = GpsSectorHashMap.get(gpsKey).get(sessionId);
         pkEmojiPairDTO.setEmojiURL(emojiUrl);
         GpsSectorHashMap.get(gpsKey).put(sessionId, pkEmojiPairDTO);
+        setOnOperationCommand();
     }
 
     public void putUserSector(String gpsKey, String sessionId, PkEmojiPairDTO pkEmojiPairDTO) {
@@ -34,13 +36,33 @@ public class GpsRepository {
             GpsSectorHashMap.get(gpsKey).put(sessionId, pkEmojiPairDTO);
         } else {
             GpsSectorHashMap
-                    .put(gpsKey, new HashMap<>(){
-                        {put(sessionId, pkEmojiPairDTO);}
+                    .put(gpsKey, new HashMap<>() {
+                        {
+                            put(sessionId, pkEmojiPairDTO);
+                        }
                     });
         }
+        setOnOperationCommand();
     }
 
     public void dropUser(String gpsKey, String sessionId) {
         GpsSectorHashMap.get(gpsKey).remove(sessionId);
+        setOnOperationCommand();
+    }
+
+    public HashMap<String, HashMap<String, PkEmojiPairDTO>> getAllGpsSectorData() {
+        return GpsSectorHashMap;
+    }
+
+    private void setOnOperationCommand() {
+        isOperationCommand = true;
+    }
+
+    public void setOffOperationCommand() {
+        isOperationCommand = false;
+    }
+
+    public boolean getOperationCommand() {
+        return isOperationCommand;
     }
 }
