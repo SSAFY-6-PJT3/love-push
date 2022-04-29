@@ -30,7 +30,7 @@ const BackBtnNav = ({
   };
 
   return (
-    <Header>
+    <Header bgColor="#EEF8FF">
       <IconWrapper onClick={backBtnClickHandler}>
         <IoArrowBack size="24" color={textColor} />
       </IconWrapper>

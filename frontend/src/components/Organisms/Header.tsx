@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 interface IPropsStyledHeader {
+  bgColor?: string;
   height?: string;
 }
 
@@ -8,8 +9,8 @@ interface IPropsHeader extends IPropsStyledHeader {
   children: React.ReactNode;
 }
 
-const Header = ({ children }: IPropsHeader) => {
-  return <StyledHeader>{children}</StyledHeader>;
+const Header = ({ bgColor, children }: IPropsHeader) => {
+  return <StyledHeader bgColor={bgColor}>{children}</StyledHeader>;
 };
 
 const StyledHeader = styled.header<IPropsStyledHeader>`
@@ -20,6 +21,7 @@ const StyledHeader = styled.header<IPropsStyledHeader>`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  background-color: ${(props) => props.bgColor || 'transparent'}
   height: ${(props) => props.height || '56px'};
 `;
 
