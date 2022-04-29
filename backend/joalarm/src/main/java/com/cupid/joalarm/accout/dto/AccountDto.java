@@ -14,8 +14,8 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class AccountDto {
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Long seq;
+//    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+//    private Long seq;
 
     @NotNull
     @Size(min = 3,max = 50)
@@ -30,11 +30,12 @@ public class AccountDto {
     @Size(min = 3, max = 50)
     private String emoji;
 
+
     public static AccountDto fromEntity(Account account){
         if(account==null) return null;
 
         return AccountDto.builder()
-                .seq(account.getAccountSeq())
+//                .seq(account.getAccountSeq())
                 .id(account.getId())
                 .emoji(account.getEmoji())
                 .build();

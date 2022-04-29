@@ -38,7 +38,12 @@ public class AccountService {
         if(account.isEmpty()) return null;
         else return AccountDto.fromEntity(account.get());
     }
-
+    @Transactional
+    public Long findSeqById(String id){
+        Optional<Account> account = accountRepository.findOneById(id);
+        if(account.isEmpty()) return null;
+        else return account.get().getAccountSeq();
+    }
     @Transactional
     public String updateEmojiById(Long seq, String emoji){
         Optional<Account> account = accountRepository.findAccountByAccountSeq(seq);

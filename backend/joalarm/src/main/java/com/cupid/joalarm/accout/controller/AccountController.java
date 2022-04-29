@@ -36,7 +36,7 @@ public class AccountController {
 
     @PostMapping("/login")
     public ResponseEntity<TokenDto> authorize(@Valid @RequestBody LoginDto loginDto) {
-        Long accountSeq = accountService.findById(loginDto.getId()).getSeq();
+        Long accountSeq = accountService.findSeqById(loginDto.getId());
         System.out.println(accountSeq + "accountseq");
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(accountSeq, loginDto.getPassword());
