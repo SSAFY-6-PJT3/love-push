@@ -103,19 +103,7 @@ const Signup = () => {
 
   return (
     <>
-      <BackBtnNav
-        pageTitle="회원가입"
-        rightSideBtn={
-          <IconButton
-            margin="4px 8px"
-            bgColor="white"
-            imgURL="https://img.icons8.com/emoji/48/000000/robot-emoji.png"
-          />
-        }
-        onRightBtnClick={() => {
-          console.log('click!');
-        }}
-      />
+      <BackBtnNav pageTitle="회원가입" />
       <Wrapper>
         {pageId === '1' && (
           <SignupForm
