@@ -38,3 +38,16 @@ spring:
 jwt:
   secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
   token-validity-in-seconds: 86400
+
+
+# ========== AWS S3 ===========
+cloud:
+ aws:
+   region:
+        static: ap-northeast-2
+        auto: false
+   s3:
+         bucket: cupid-joalarm
+   credentials:
+     access-key: KEY
+     secret-key: KEY
