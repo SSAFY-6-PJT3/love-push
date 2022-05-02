@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/h2-console/**", "/favicon.ico")
+                .antMatchers("h2-console/**", "/favicon.ico")
                 .antMatchers( "/swagger-ui/**","/v2/api-docs");
     }
 
@@ -65,6 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/accounts/{user}/emoji").permitAll()
                 .antMatchers("/emojis").permitAll() // 이모지 전체 조회
                 .antMatchers("/heart/**").permitAll()  // 하트 진입점
+                .antMatchers("/accounts/id").permitAll()
                 .anyRequest().authenticated()
 
 

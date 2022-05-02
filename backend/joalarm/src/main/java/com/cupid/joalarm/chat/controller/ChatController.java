@@ -18,7 +18,7 @@ import java.util.List;
 public class ChatController {
     private final ChatService chatService;
 
-    @MessageMapping("/chat/message")
+    @MessageMapping("chat/message")
     public void message(ChatMessageDTO message) {
         chatService.CreateChat(message);
     }

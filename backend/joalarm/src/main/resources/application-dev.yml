@@ -2,7 +2,7 @@
 server:
   port: 8888
   servlet:
-    context-path: /
+    context-path: /api/
     encoding:
       charset: UTF-8
       enabled: true
