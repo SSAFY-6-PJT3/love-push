@@ -15,7 +15,7 @@ import java.util.List;
 
 @Api("emoji s3 기능")
 @RestController
-@RequestMapping("api/emojis")
+@RequestMapping("emojis")
 @RequiredArgsConstructor
 public class EmojiController {
     private final EmojiS3Service emojiS3Service;

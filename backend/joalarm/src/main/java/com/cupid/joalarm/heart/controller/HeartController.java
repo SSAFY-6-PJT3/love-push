@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RequestMapping("api/accounts")
+@RequestMapping("accounts")
 @Controller
 public class HeartController {
     private final HeartService heartService;

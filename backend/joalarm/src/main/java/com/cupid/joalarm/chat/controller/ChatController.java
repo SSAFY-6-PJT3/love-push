@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 public class ChatController {
     private final SimpMessageSendingOperations messageTemplate;
 
-    @MessageMapping("api/chat/message")
+    @MessageMapping("chat/message")
     public void message(ChatMessageDTO message) {
         if (ChatMessageDTO.MessageType.JOIN.equals(message.getType())) {
             message.setMessage((message.getSender() + "님 입장"));
