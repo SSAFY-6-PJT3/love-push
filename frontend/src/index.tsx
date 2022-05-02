@@ -1,14 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthContextProvider } from './store/authContext';
 import { AlertContextProvider } from './store/alertContext';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
-);
-root.render(
+ReactDOM.render(
   <React.StrictMode>
     <AlertContextProvider>
       <AuthContextProvider>
@@ -16,6 +13,7 @@ root.render(
       </AuthContextProvider>
     </AlertContextProvider>
   </React.StrictMode>,
+  document.getElementById('root') as HTMLElement,
 );
 
 reportWebVitals();

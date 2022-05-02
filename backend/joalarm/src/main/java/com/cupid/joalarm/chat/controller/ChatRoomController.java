@@ -15,22 +15,22 @@ import java.util.List;
 
 @RequiredArgsConstructor  // final, NotNull 필드 자동 생성
 @Controller
-@RequestMapping("/chat")
+@RequestMapping("chat")
 public class ChatRoomController {
     private final ChatRoomService chatRoomService;
 
 
-    @PostMapping("/room")
+    @PostMapping("room")
     public ResponseEntity<?> createRoom(@RequestBody CreateChatRoomDTO DTO) {
         return chatRoomService.CreateChatRoom(DTO);
     }
 
-    @GetMapping("/findroom")
+    @GetMapping("findroom")
     public ResponseEntity<List<ChatRoomEntity>> findRoom() {
         return new ResponseEntity<>(chatRoomService.FindRoom(), HttpStatus.OK);
     }
 
-    @GetMapping("/findmyroom")
+    @GetMapping("findmyroom")
     public ResponseEntity<List<ChatRoomEntity>> findMyRoom(@RequestParam long user) {
         return new ResponseEntity<>(chatRoomService.FindMyChatRooms(user), HttpStatus.OK);
     }

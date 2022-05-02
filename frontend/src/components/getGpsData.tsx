@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
 import axios from 'axios';
@@ -47,6 +47,44 @@ export default function GetGpsData() {
   };
 
   // 소켓 클라이언트 생성
+  const caculateGpsKey = (gps: String, yx: Array<number>) => {
+    const gpsSector = gps.split('/').map((item) => parseInt(item));
+    const gpsSector_yx = [gpsSector.slice(0, 3), gpsSector.slice(3)];
+    let ans: String[] = [];
+
+    for (let i = 0; i < 2; i++) {
+      gpsSector_yx[i][2] += yx[i];
+
+      for (let j = 2; j < 1; j--) {
+        if (gpsSector_yx[i][j] < 0) {
+          gpsSector_yx[i][j] += 60;
+          gpsSector_yx[i][j - 1] -= 1;
+        } else if (gpsSector_yx[i][j] >= 60) {
+          gpsSector_yx[i][j] -= 60;
+          gpsSector_yx[i][j - 1] += 1;
+        }
+      }
+
+      ans.push(gpsSector_yx[i].join('/'));
+    }
+    return ans.join('/');
+  };
+
+  const getGpsKeyNearby10m = useCallback(() => {
+    const gpsKeyArray: String[] = [];
+    for (let i = -2; i < 3; i++) {
+      for (let j = -2; j < 3; j++) {
+        gpsKeyArray.push(caculateGpsKey(gpsKey, [-i, -j]));
+      }
+    }
+    gpsKeyArray.push(caculateGpsKey(gpsKey, [-3, 0]));
+    gpsKeyArray.push(caculateGpsKey(gpsKey, [3, 0]));
+    gpsKeyArray.push(caculateGpsKey(gpsKey, [0, -3]));
+    gpsKeyArray.push(caculateGpsKey(gpsKey, [0, 3]));
+
+    return gpsKeyArray;
+  }, [gpsKey]);
+
   const client = useMemo(
     () =>
       new Client({
@@ -63,11 +101,7 @@ export default function GetGpsData() {
         debug: function (str) {
           console.log(str);
         },
-        onConnect: () => {
-          client.subscribe('/sub/basic', (message) => {
-            console.log(message.body);
-          });
-        },
+        onConnect: () => {},
         onStompError: (frame) => {
           console.log('Broker reported error: ' + frame.headers['message']);
           console.log('Additional details: ' + frame.body);
@@ -91,6 +125,32 @@ export default function GetGpsData() {
   );
 
   // gps키가 존재 + 지역 들어가기 || 지역 이동
+  type userType = { pk: number; emojiURL: string };
+  type sectorType = { [sector: string]: userType };
+  type gpsType = { [gps: string]: sectorType };
+
+  useEffect(() => {
+    if (client.connected) {
+      client.subscribe('/sub/basic', (message) => {
+        console.log(message.body);
+
+        const sector: gpsType = JSON.parse(message.body);
+        const gpsKeyNearby10m = getGpsKeyNearby10m();
+
+        const sectorData = gpsKeyNearby10m
+          .map((key) => sector[`${key}`])
+          .filter((v) => v !== undefined);
+
+        const Values = sectorData
+          .map((v) => Object.keys(v).map((k) => v[k]))
+          .flat();
+
+        const users = new Set(Values.map((v) => v.pk));
+        console.log(users);
+      });
+    }
+  }, [client, getGpsKeyNearby10m]);
+
   useEffect(() => {
     console.log(chatUserSet);
     if (gpsKey !== '') {
@@ -129,6 +189,16 @@ export default function GetGpsData() {
     client.activate();
   }, []);
 
+  const testButtonEvent = useCallback(() => {
+    // client.publish({
+    //   destination: '/pub/sector',
+    //   body: JSON.stringify({
+    //     beforeGpsKey: `${beforeGpsKey}`,
+    //     nowGpsKey: '111/222/333/444/555/666',
+    //   }),
+    // });
+    setGpsKey('111/222/333/444/555/666');
+  }, []);
 
   type Whisper = { type: string; person: number; chatRoom: number };
   
@@ -194,7 +264,7 @@ export default function GetGpsData() {
       beforeGpsKey: {beforeGpsKey}
       <br />
       flag: {flag.toString()}
-      {/* <button onClick={testButtonEvent}>TEST</button> */}
+      <button onClick={testButtonEvent}>TEST</button>
       <br />
       id:{' '}
       <input
@@ -216,6 +286,15 @@ export default function GetGpsData() {
       <br />
       <button onClick={sendHeart}>Send Heart</button>
       <br />
+      <div>
+        {Array.from(chatUserSet).map((v) => (
+          <div key={v.toString()}>{v}</div>
+        ))}
+      </div>
+      <br />
+      <button onClick={testButtonEvent}>GpsSectorChange</button>
+      <br />
+      <button onClick={getGpsKeyNearby10m}>GpsSectorCaculate</button>
     </div>
   );
 }
