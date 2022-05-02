@@ -23,7 +23,7 @@ import java.util.Optional;
 
 @Api("account 관련 기능")
 @RestController
-@RequestMapping("accounts")
+@RequestMapping("api/accounts")
 @RequiredArgsConstructor
 public class AccountController {
     private final AccountService accountService;
