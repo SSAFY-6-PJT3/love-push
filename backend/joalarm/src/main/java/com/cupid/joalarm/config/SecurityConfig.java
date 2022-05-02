@@ -57,15 +57,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/accounts").permitAll() // singup
-                .antMatchers("/accounts/login").permitAll() // login 토큰이 없는 상태에서 요청
-                .antMatchers("/swagger-resources/**").permitAll() // swagger
-                .antMatchers("/ws-stomp/**").permitAll()  // Stomp 진입점
-                .antMatchers("/chat/**").permitAll()  // 채팅, 채팅방 진입점
-                .antMatchers("/accounts/{user}/emoji").permitAll()
-                .antMatchers("/emojis").permitAll() // 이모지 전체 조회
-                .antMatchers("/heart/**").permitAll()  // 하트 진입점
-                .antMatchers("/accounts/id").permitAll()
+                .antMatchers("/api/accounts").permitAll() // singup
+                .antMatchers("/api/accounts/login").permitAll() // login 토큰이 없는 상태에서 요청
+                .antMatchers("/api/swagger-resources/**").permitAll() // swagger
+                .antMatchers("/api/ws-stomp/**").permitAll()  // Stomp 진입점
+                .antMatchers("/api/chat/**").permitAll()  // 채팅, 채팅방 진입점
+                .antMatchers("/api/accounts/{user}/emoji").permitAll()
+                .antMatchers("/api/emojis").permitAll() // 이모지 전체 조회
+                .antMatchers("/api/heart/**").permitAll()  // 하트 진입점
+                .antMatchers("/api/accounts/id").permitAll()
                 .anyRequest().authenticated()
 
 
