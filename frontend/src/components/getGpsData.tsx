@@ -11,7 +11,7 @@ export default function GetGpsData() {
   const [flag, setFlag] = useState(true);
   const [id, setId] = useState('');
   const [to, setTo] = useState('');
-  const [sendHeartSet, updateSendHeartSet] = useState(new Set<number>());
+  const [sendHeartSet, updateSendHeartSet] = useState(new Array<number>());
   const [chatUserSet, updateChatUserSet] = useState(new Set<number>());
   const onChangeId = (e: any) => {
     setId(e.target.value);
@@ -95,7 +95,9 @@ export default function GetGpsData() {
     () =>
       new Client({
         webSocketFactory: function () {
-          return new SockJS('http://localhost:8888/ws-stomp');
+          return new SockJS(
+            'https://www.someone-might-like-you.com/api/ws-stomp',
+          );
         },
         connectHeaders: {
           login: 'userID',
@@ -111,9 +113,6 @@ export default function GetGpsData() {
         onStompError: (frame) => {
           console.log('Broker reported error: ' + frame.headers['message']);
           console.log('Additional details: ' + frame.body);
-          client.publish({
-            destination: '/pub/disconnect',
-          });
         },
         // onWebSocketClose: () => {
         //   client.publish({
@@ -158,7 +157,7 @@ export default function GetGpsData() {
 
   useEffect(() => {
     console.log(chatUserSet);
-    if (gpsKey !== '') {
+    if (client.connected && gpsKey !== '') {
       if (flag) {
         client.publish({
           destination: '/pub/joalarm',
@@ -242,19 +241,20 @@ export default function GetGpsData() {
   };
 
   const addSendUsers = (users: number[]) => {
-    users.forEach((user) => {
-      updateSendHeartSet((pre) => pre.add(user));
-    });
+    updateSendHeartSet((pre) => [...pre, ...users]);
   };
 
   const receiveHeartEvent = async (user: number) => {
-    if (sendHeartSet.has(user) && !chatUserSet.has(user)) {
+    if (new Set(sendHeartSet).has(user) && !chatUserSet.has(user)) {
       console.log('CREATE CHAT ROOM');
       // 채팅방 생성 api 호출
-      const res = await axios.post('http://localhost:8888/chat/room', {
-        sendUser: `${id}`,
-        receiveUser: `${user}`,
-      });
+      const res = await axios.post(
+        'https://www.someone-might-like-you.com/api/chat/room',
+        {
+          sendUser: `${id}`,
+          receiveUser: `${user}`,
+        },
+      );
       console.log(res);
     }
   };
