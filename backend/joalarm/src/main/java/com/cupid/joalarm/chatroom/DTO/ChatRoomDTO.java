@@ -1,6 +1,4 @@
-package com.cupid.joalarm.chat.dto;
-
-import java.awt.*;
+package com.cupid.joalarm.chatroom.dto;
 
 public class ChatRoomDTO {
     private Long pk;

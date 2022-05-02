@@ -1,4 +1,4 @@
-package com.cupid.joalarm.chat.entity;
+package com.cupid.joalarm.chatroom.entity;
 
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,5 +20,7 @@ public class ChatRoomEntity {
     @Id
     private long chatroomSeq;
     private long[] userList;
+    @Builder.Default
+    private boolean isActivate = true;
 
 }

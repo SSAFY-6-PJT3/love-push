@@ -1,4 +1,4 @@
-package com.cupid.joalarm.chat.sequence;
+package com.cupid.joalarm.chatroom.sequence;
 
 import lombok.Getter;
 import lombok.Setter;
