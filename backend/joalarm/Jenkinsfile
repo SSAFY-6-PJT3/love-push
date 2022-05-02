@@ -4,10 +4,6 @@ pipeline{
 
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
-		S3_BUCKET_NAME= 'cupid-joalarm'
-        AWS_ACCESS_KEY= 'AKIAXB5B4COUX3HH6UEL'
-        AWS_SECRET_KEY= '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'
-        JWT_SCRET_KEY= 'c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK'
 	}
 
 	stages {
