@@ -1,5 +1,6 @@
 package com.cupid.joalarm.accout.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 /**
@@ -11,6 +12,11 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TokenDto {
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Long seq;
+
     private String token;
+
     private String emojiUrl;
 }
