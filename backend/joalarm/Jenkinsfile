@@ -36,8 +36,10 @@ pipeline{
         stage('List pods') {
 
             steps {
-                script {
-                    kubernetesDeploy(configs: "./backend/joalarm/test.yaml", kubeconfigId: 'Kubeconfig')
+                dir("./backend/joalarm") {
+                    script {
+                        kubernetesDeploy(configs: "test.yaml", kubeconfigId: 'Kubeconfig')
+                    }
                 }
             }
         }
