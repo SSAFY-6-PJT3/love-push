@@ -15,7 +15,6 @@ spec:
       containers:
         - name: react
           image: gkuer/joalarm-react:latest
-          imagePullPolicy: Always
           ports:
             - containerPort: 80
           imagePullPolicy: Always
