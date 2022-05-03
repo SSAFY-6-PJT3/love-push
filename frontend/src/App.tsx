@@ -38,7 +38,7 @@ function App() {
             <Route path="/mainpage" element={<MainPage />} />
             <Route path="/signup/:pageId" element={<Signup />} />
             <Route path="/emoji" element={<Emoji />} />
-            <Route path="/" element={<ChatLobby />} />
+            <Route path="/chatlobby/*" element={<ChatLobby />} />
             <Route path="/location" element={<LocationPage />} />
             <Route path="/test" element={<KeyFrame />} />
             <Route path="/storybook" element={<StoryBook />} />

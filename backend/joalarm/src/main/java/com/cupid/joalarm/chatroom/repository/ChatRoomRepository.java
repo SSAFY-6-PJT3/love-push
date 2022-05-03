@@ -1,11 +1,8 @@
-package com.cupid.joalarm.chat.repository;
+package com.cupid.joalarm.chatroom.repository;
 
-import com.cupid.joalarm.chat.dto.ChatRoomDTO;
-import com.cupid.joalarm.chat.entity.ChatRoomEntity;
+import com.cupid.joalarm.chatroom.entity.ChatRoomEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import javax.annotation.PostConstruct;
-import java.util.*;
 import java.util.List;
 
 public interface ChatRoomRepository extends MongoRepository<ChatRoomEntity, String> {

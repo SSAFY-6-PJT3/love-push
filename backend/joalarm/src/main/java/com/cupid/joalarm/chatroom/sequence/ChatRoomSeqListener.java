@@ -1,6 +1,6 @@
-package com.cupid.joalarm.chat.sequence;
+package com.cupid.joalarm.chatroom.sequence;
 
-import com.cupid.joalarm.chat.entity.ChatRoomEntity;
+import com.cupid.joalarm.chatroom.entity.ChatRoomEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 import org.springframework.data.mongodb.core.mapping.event.BeforeConvertEvent;
