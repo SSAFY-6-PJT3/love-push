@@ -39,6 +39,7 @@ pipeline{
                 dir("./frontend") {
                     script {
                         kubernetesDeploy(configs: "joalarm-auto-deploy-react.yaml", kubeconfigId: 'Kubeconfig')
+						sh './kubectl --kubeconfig=./kube-config.yaml rollout restart deployment react'
                     }
                 }
             }
