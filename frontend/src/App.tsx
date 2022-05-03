@@ -21,7 +21,7 @@ import { MakeChatRoomList } from './components/MakeChatRoomList';
 
 function App() {
   useEffect(() => {
-    ReactGA.initialize(`${process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID}`);
+    ReactGA.initialize(`${process.env.REACT_APP_GA_TRACKING_ID}`);
     history.listen((location: any) => {
       ReactGA.set({ page: location.pathname });
       ReactGA.pageview(location.pathname);
