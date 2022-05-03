@@ -14,12 +14,12 @@ spec:
       labels:
         app: springboot
     spec:
-      imagePullPolicy: Always
       containers:
         - name: springboot
           image: gkuer/joalarm-springboot:latest
           ports:
             - containerPort: 8888
+          imagePullPolicy: Always
           env:
             - name: MYSQL_CLUSTER_IP
               valueFrom:
