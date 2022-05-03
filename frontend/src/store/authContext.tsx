@@ -4,6 +4,7 @@
  */
 
 import { createContext, useState, useEffect, ReactNode } from 'react';
+import { SlidesProps } from '../api/emojiAPI'
 
 const AuthContext = createContext({
   isLoggedIn: false,

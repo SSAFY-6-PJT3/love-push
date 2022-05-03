@@ -2,8 +2,22 @@ import Button from '../Atoms/Button';
 import styled from "styled-components";
 import { IoLocationSharp } from 'react-icons/io5';
 import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LocationPage = () => {
+  const navigate = useNavigate();
+  const geoPosition = () => {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        console.log(position)
+        navigate('/mainpage')
+      },
+      function (error) {
+        navigate('/location');
+        console.error(error);
+      },
+    );
+  };
   // 버튼을 클릭하면 위치정보 동의 요청
   // 동의가 수락되면 메인페이지로 이동
   // 거절한다면 페이지 유지
@@ -22,7 +36,7 @@ const LocationPage = () => {
         fontSize="12px"
         icon={<IoLocationSharp />}
         shadow
-        
+        onClick={geoPosition}
       >
         위치 정보 켜기
       </Button>
