@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot2
+  labels:
+    app: springboot
+spec:
+  selector:
+    matchLabels:
+      app: springboot
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: springboot
+    spec:
+      containers:
+        - image: gkuer/joalarm-springboot
+          name: springboot
+          ports:
+            - containerPort: 8888
+          env:
+            - name: MYSQL_CLUSTER_IP
+              valueFrom:
+                configMapKeyRef:
+                  name: joalarm-springboot-config
+                  key: mysql-cluster-ip
+            - name: MONGO_CLUSTER_IP
+              valueFrom:
+                configMapKeyRef:
+                  name: joalarm-springboot-config
+                  key: mongo-cluster-ip
+            - name: S3_BUCKET_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: joalarm-s3-config
+                  key: s3-bucket-name
+            - name: USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: joalarm-springboot-secret
+                  key: username
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: joalarm-springboot-secret
+                  key: password
+            - name: AWS_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: joalarm-s3-secret
+                  key: aws-access-key
+            - name: AWS_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: joalarm-s3-secret
+                  key: aws-secret-key
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: joalarm-jwt-secret
+                  key: jwt-secret-key

@@ -36,10 +36,11 @@ pipeline{
         stage('List pods') {
 
             steps {
-                withKubeConfig([ credentialId : 'Kubeconfig' , serverUrl : 'https://www.someone-might-like-you.com' ]) {
+                dir("./backend/joalarm") {
+                    kubernetesDeploy configs: "test.yaml", kubeconfigId: 'Kubeconfig'
                     sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
                     sh 'chmod u+x ./kubectl'
-                    sh './kubectl get pods'
+                    sh "./kubectl rollout restart default/springboot"
                 }
             }
         }
