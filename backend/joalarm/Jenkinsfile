@@ -33,7 +33,7 @@ pipeline{
 			}
 		}
 
-        stage('List pods') {
+        stage('K8S Deploy') {
 
             steps {
                 dir("./backend/joalarm") {
