@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import { signUpAPI } from '../api/accountAPI';
+import { signUpAPI, idVaidateAPI } from '../api/accountAPI';
 import useDocumentTitle from '../hooks/useDocumetnTitle';
 
 import BackBtnNav from '../components/Templetes/BackBtnNav';
@@ -64,16 +64,24 @@ const Signup = () => {
     }
   };
 
-  const formSubmitHandler = (v: string) => {
+  const formSubmitHandler = async (v: string) => {
     switch (pageId) {
       // 아이디 입력 페이지
       case '1':
         setUserId(v);
-        if (userIdRegExp.test(v)) {
-          navigate('/signup/2');
-          setErrMsg('');
-        } else {
+        if (!userIdRegExp.test(v)) {
           setErrMsg('6자 이상, 16자 이하의 영문 혹은 숫자로 입력해주세요.');
+        } else {
+          await idVaidateAPI(v)
+            .then((res) => {
+              console.log(res);
+              navigate('/signup/2');
+              setErrMsg('');
+            })
+            .catch((err) => {
+              console.log(err);
+              setErrMsg('이미 사용 중인 아이디입니다.');
+            });
         }
         break;
       // 비밀번호 입력 페이지

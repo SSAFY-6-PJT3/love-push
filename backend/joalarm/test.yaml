@@ -3,20 +3,20 @@ kind: Deployment
 metadata:
   name: springboot2
   labels:
-    app: springboot2
+    app: springboot
 spec:
   selector:
     matchLabels:
-      app: springboot2
+      app: springboot
   replicas: 3
   template:
     metadata:
       labels:
-        app: springboot2
+        app: springboot
     spec:
       containers:
         - image: gkuer/joalarm-springboot
-          name: springboot2
+          name: springboot
           ports:
             - containerPort: 8888
           env:

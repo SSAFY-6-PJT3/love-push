@@ -42,8 +42,7 @@ function App() {
             <Route path="/location" element={<LocationPage />} />
             <Route path="/test" element={<KeyFrame />} />
             <Route path="/storybook" element={<StoryBook />} />
-            <Route path="/chatroom/:pk" element={<MakeChatRoomList />} />{' '}
-            {/* 유저들이 로그인한 상태를 테스트하기 위해, 실제 로그인 연결된 후에는 props로 줄 것 */}
+            <Route path="/chatroom/:pk" element={<MakeChatRoomList />} />
           </GARoutes>
         </BrowserRouter>
       </Background>
