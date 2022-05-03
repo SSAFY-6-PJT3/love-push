@@ -1,62 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: springboot2
+  name: nodeapp-deployment
   labels:
-    app: springboot
+    app: nodeapp
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: springboot
-  replicas: 3
+      app: nodeapp
   template:
     metadata:
       labels:
-        app: springboot
+        app: nodeapp
     spec:
       containers:
-        - image: gkuer/joalarm-springboot
-          name: springboot
+        - name: nodeserver
+          image: thetips4you/nodeapp:latest
           ports:
-            - containerPort: 8888
-          env:
-            - name: MYSQL_CLUSTER_IP
-              valueFrom:
-                configMapKeyRef:
-                  name: joalarm-springboot-config
-                  key: mysql-cluster-ip
-            - name: MONGO_CLUSTER_IP
-              valueFrom:
-                configMapKeyRef:
-                  name: joalarm-springboot-config
-                  key: mongo-cluster-ip
-            - name: S3_BUCKET_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: joalarm-s3-config
-                  key: s3-bucket-name
-            - name: USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: joalarm-springboot-secret
-                  key: username
-            - name: PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: joalarm-springboot-secret
-                  key: password
-            - name: AWS_ACCESS_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: joalarm-s3-secret
-                  key: aws-access-key
-            - name: AWS_SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: joalarm-s3-secret
-                  key: aws-secret-key
-            - name: JWT_SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: joalarm-jwt-secret
-                  key: jwt-secret-key
+            - containerPort: 3000
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeapp-service
+spec:
+  selector:
+    app: nodeapp
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 3000
+      nodePort: 31110
