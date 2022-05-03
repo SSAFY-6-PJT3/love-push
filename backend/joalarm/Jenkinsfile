@@ -39,6 +39,7 @@ pipeline{
                 dir("./backend/joalarm") {
                     script {
                         kubernetesDeploy(configs: "joalarm-auto-deploy-springboot.yaml", kubeconfigId: 'Kubeconfig')
+                        sh './kubectl --kubeconfig=./kube-config.yaml rollout restart deployment springboot'
                     }
                 }
             }
