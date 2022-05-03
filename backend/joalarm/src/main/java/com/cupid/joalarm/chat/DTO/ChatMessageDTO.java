@@ -1,17 +1,16 @@
-package com.cupid.joalarm.chat.dto;
+package com.cupid.joalarm.chat.DTO;
 
 import java.sql.Timestamp;
 
 public class ChatMessageDTO {
     public enum MessageType {
-        JOIN, TALK
+        TALK, QUIT
     }
 
     private MessageType type;
-    private String roomId;
-    private String sender;
+    private long roomId;
+    private long sender;
     private String message;
-    private Timestamp sendTime;
 
     public MessageType getType() {
         return type;
@@ -21,19 +20,19 @@ public class ChatMessageDTO {
         this.type = type;
     }
 
-    public String getRoomId() {
+    public long getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(String roomId) {
+    public void setRoomId(long roomId) {
         this.roomId = roomId;
     }
 
-    public String getSender() {
+    public long getSender() {
         return sender;
     }
 
-    public void setSender(String sender) {
+    public void setSender(long sender) {
         this.sender = sender;
     }
 
@@ -43,13 +42,5 @@ public class ChatMessageDTO {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public Timestamp getSendTime() {
-        return sendTime;
-    }
-
-    public void setSendTime(Timestamp sendTime) {
-        this.sendTime = sendTime;
     }
 }

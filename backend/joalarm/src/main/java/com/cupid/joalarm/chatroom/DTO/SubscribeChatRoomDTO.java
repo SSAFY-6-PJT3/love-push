@@ -1,4 +1,4 @@
-package com.cupid.joalarm.chat.dto;
+package com.cupid.joalarm.chatroom.dto;
 
 public class SubscribeChatRoomDTO {
     private String type;

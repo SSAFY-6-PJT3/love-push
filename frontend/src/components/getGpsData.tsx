@@ -3,8 +3,8 @@ import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import gpsTransKey from '../hooks/gps/gpsTransKey'
-import { openChatAPI } from '../api/openChatAPI'
+import gpsTransKey from '../hooks/gps/gpsTransKey';
+import { openChatAPI } from '../api/openChatAPI';
 
 export default function GetGpsData() {
   const navigate = useNavigate();
@@ -15,14 +15,13 @@ export default function GetGpsData() {
   const [to, setTo] = useState('');
   const [sendHeartSet, updateSendHeartSet] = useState(new Array<number>());
   const [chatUserSet, updateChatUserSet] = useState(new Set<number>());
-  
+
   const onChangeId = (e: any) => {
     setId(e.target.value);
   };
   const onChangeTo = (e: any) => {
     setTo(e.target.value);
   };
-
 
   // 위치정보 가져와서 위도 경도를 도 분 초로 변환
   const geoPosition = () => {
@@ -200,7 +199,7 @@ export default function GetGpsData() {
   }, []);
 
   type Whisper = { type: string; person: number; chatRoom: number };
-  
+
   // 하트를 확인해서 채팅방 || 리스트 추가
   const subscribeHeart = () => {
     // 로그인 완성되면 pk에 따라 connect 시 구독하게끔 변경할 것
@@ -240,10 +239,10 @@ export default function GetGpsData() {
 
   // 서로간의 하트를 보낸 유저 리스트에 추가
   const addSendUsers = (users: number[]) => {
-      updateSendHeartSet((pre) => [...pre, ...users]);
+    updateSendHeartSet((pre) => [...pre, ...users]);
   };
 
-  // 서로 보냈고, 채팅방이 생성 되있지않은 유저들 대상으로 챗룸 생성 
+  // 서로 보냈고, 채팅방이 생성 되있지않은 유저들 대상으로 챗룸 생성
   const receiveHeartEvent = async (user: number) => {
     if (new Set(sendHeartSet).has(user) && !chatUserSet.has(user)) {
       console.log('CREATE CHAT ROOM');

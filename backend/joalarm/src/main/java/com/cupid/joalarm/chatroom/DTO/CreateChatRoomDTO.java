@@ -1,4 +1,4 @@
-package com.cupid.joalarm.chat.dto;
+package com.cupid.joalarm.chatroom.dto;
 
 public class CreateChatRoomDTO {
     private long sendUser;
