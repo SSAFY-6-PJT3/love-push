@@ -61,7 +61,7 @@ spec:
                 secretKeyRef:
                   name: joalarm-jwt-secret
                   key: jwt-secret-key
-
+      restartPolicy: Always
 ---
 
 apiVersion: v1
