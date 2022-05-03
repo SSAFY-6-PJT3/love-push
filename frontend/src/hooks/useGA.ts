@@ -10,7 +10,7 @@ const useGA = () => {
   const location = useLocation();
   const [initialized, setInitialized] = useState(false);
 
-  /* localhost는 인지 못하게  */
+  // 개발환경이 아닐 경우에만 GA initialize
   useEffect(() => {
     if (!window.location.href.includes('localhost')) {
       ReactGA.initialize(`${process.env.REACT_APP_GA_TRACKING_ID}`);
@@ -24,7 +24,11 @@ const useGA = () => {
     }
   }, [initialized, location]);
 
-  // 개발용
+  /*
+   * GA 디버깅용 코드
+   * 개발환경에서도 GA initialize
+   * debug 옵션이 설정되어 console에 트래킹 정보가 출력된다.
+   */
   // useEffect(() => {
   //   ReactGA.initialize(`${process.env.REACT_APP_GA_TRACKING_ID}`, {
   //     debug: true,
