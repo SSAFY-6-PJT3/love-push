@@ -37,7 +37,7 @@ pipeline{
 
             steps {
                 script {
-                    kubernetesDeploy(configs: "test.yaml", kubeconfigId: 'Kubeconfig')
+                    kubernetesDeploy(configs: "./backend/joalarm/test.yaml", kubeconfigId: 'Kubeconfig')
                 }
             }
         }
