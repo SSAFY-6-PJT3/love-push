@@ -3,6 +3,8 @@ import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import gpsTransKey from '../hooks/gps/gpsTransKey';
+import { openChatAPI } from '../api/openChatAPI';
 
 export default function GetGpsData() {
   const navigate = useNavigate();
@@ -13,25 +15,15 @@ export default function GetGpsData() {
   const [to, setTo] = useState('');
   const [sendHeartSet, updateSendHeartSet] = useState(new Array<number>());
   const [chatUserSet, updateChatUserSet] = useState(new Set<number>());
+
   const onChangeId = (e: any) => {
     setId(e.target.value);
   };
   const onChangeTo = (e: any) => {
     setTo(e.target.value);
   };
-  // const addSetFunc = () => {
-  //   console.log(setObj);
-  //   console.log(setObj.has(5));
-  //   updateSetObj((pre) => pre.add(num));
-  //   setNum((n) => n + 1);
-  // };
-  function gpsTransKey(ori: number) {
-    let d: number = Math.floor(ori); // 도 변환
-    let m: number = Math.floor((ori - d) * 60); // 분 변환
-    let s10: number = Math.floor(((ori - d) * 60 - m) * 60 * 10); // 초 변환 * 10, 0.1도마다 약 3m이기 때문
-    return `${d}/${m}/${s10}`;
-  }
 
+  // 위치정보 가져와서 위도 경도를 도 분 초로 변환
   const geoPosition = () => {
     navigator.geolocation.getCurrentPosition(
       function (position) {
@@ -42,7 +34,7 @@ export default function GetGpsData() {
         );
       },
       function (error) {
-        navigate('/mainpage');
+        // navigate('/location');
         console.error(error);
       },
       {
@@ -53,6 +45,7 @@ export default function GetGpsData() {
     );
   };
 
+  // 소켓 클라이언트 생성
   const caculateGpsKey = (gps: String, yx: Array<number>) => {
     const gpsSector = gps.split('/').map((item) => parseInt(item));
     const gpsSector_yx = [gpsSector.slice(0, 3), gpsSector.slice(3)];
@@ -129,6 +122,7 @@ export default function GetGpsData() {
     [],
   );
 
+  // gps키가 존재 + 지역 들어가기 || 지역 이동
   type userType = { pk: number; emojiURL: string };
   type sectorType = { [sector: string]: userType };
   type gpsType = { [gps: string]: sectorType };
@@ -180,6 +174,7 @@ export default function GetGpsData() {
     }
   }, [client, gpsKey]);
 
+  // gps 확인
   useEffect(() => {
     if (navigator.geolocation) {
       // GPS를 지원하면
@@ -205,6 +200,7 @@ export default function GetGpsData() {
 
   type Whisper = { type: string; person: number; chatRoom: number };
 
+  // 하트를 확인해서 채팅방 || 리스트 추가
   const subscribeHeart = () => {
     // 로그인 완성되면 pk에 따라 connect 시 구독하게끔 변경할 것
     client.subscribe(`/sub/user/${id}`, (message) => {
@@ -229,6 +225,7 @@ export default function GetGpsData() {
     });
   };
 
+  // 하트 보내기
   const sendHeart = () => {
     client.publish({
       destination: '/pub/heart',
@@ -240,21 +237,20 @@ export default function GetGpsData() {
     addSendUsers([Number(to)]);
   };
 
+  // 서로간의 하트를 보낸 유저 리스트에 추가
   const addSendUsers = (users: number[]) => {
     updateSendHeartSet((pre) => [...pre, ...users]);
   };
 
+  // 서로 보냈고, 채팅방이 생성 되있지않은 유저들 대상으로 챗룸 생성
   const receiveHeartEvent = async (user: number) => {
     if (new Set(sendHeartSet).has(user) && !chatUserSet.has(user)) {
       console.log('CREATE CHAT ROOM');
       // 채팅방 생성 api 호출
-      const res = await axios.post(
-        'https://www.someone-might-like-you.com/api/chat/room',
-        {
-          sendUser: `${id}`,
-          receiveUser: `${user}`,
-        },
-      );
+      const res = openChatAPI({
+        sendUser: `${id}`,
+        receiveUser: `${user}`,
+      });
       console.log(res);
     }
   };

@@ -49,7 +49,7 @@ public class AccountController {
         String jwt = tokenProvider.createToken(authentication);
         String emojiUrl = accountService.findBySeq(accountSeq).getEmoji();
 
-        return new ResponseEntity<>(new TokenDto(jwt, emojiUrl), HttpStatus.OK);
+        return new ResponseEntity<>(new TokenDto(accountSeq,jwt, emojiUrl), HttpStatus.OK);
     }
 
     @GetMapping("/info")

@@ -36,5 +36,12 @@
       <jdbc-url>mongodb://3.35.170.113:30001/joalarm</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="joalarm@3.35.170.113" uuid="a97f97e1-37b9-42de-93f9-5f8001ca9094">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://3.35.170.113:30000/joalarm?serverTimezone=Asia/Seoul</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

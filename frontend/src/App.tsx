@@ -1,5 +1,7 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import GARoutes from './components/GARoutes';
 
 import Background from './Styles/Background';
 import GlobalStyle from './Styles/GlobalStyle';
@@ -31,7 +33,7 @@ function App() {
       <Background>
         <CustomAlert />
         <BrowserRouter>
-          <Routes>
+          <GARoutes>
             {/* <Route path="/" element={<KeyFrame />} /> */}
             <Route path="/mainpage" element={<MainPage />} />
             <Route path="/signup/:pageId" element={<Signup />} />
@@ -42,12 +44,7 @@ function App() {
             <Route path="/storybook" element={<StoryBook />} />
             <Route path="/chatroom/:pk" element={<MakeChatRoomList />} />{' '}
             {/* 유저들이 로그인한 상태를 테스트하기 위해, 실제 로그인 연결된 후에는 props로 줄 것 */}
-          </Routes>
-          <div>
-            {/* <Link to="chatlobby">
-              <button>채팅</button>
-            </Link> */}
-          </div>
+          </GARoutes>
         </BrowserRouter>
       </Background>
     </>
