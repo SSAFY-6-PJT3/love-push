@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 import MainNav from './MainNav';
+import MainFooter from './MainFooter';
 
 // start of image import
 import Beforeheart from '../../images/icon/heart2.svg';
@@ -129,6 +130,7 @@ const MainPage = () => {
               </div>
             ))}
           </EmojiDiv>
+          <MainFooter />
         </BeforeBackGround>
       </>
     );
@@ -153,6 +155,7 @@ const MainPage = () => {
               </div>
             ))}
           </ImgContainer>
+          <MainFooter />
         </BeforeBackGround>
       </>
     );
@@ -177,6 +180,7 @@ const MainPage = () => {
               </div>
             ))}
           </ImgContainer>
+          <MainFooter />
         </AfterBackGround>
       </>
     );
