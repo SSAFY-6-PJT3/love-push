@@ -6,35 +6,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useNavigate } from 'react-router-dom';
-import chebrasika from "../images/emoji/chebrasika100.svg";
-import genshinimpact from "../images/emoji/genshinimpact48.svg";
-import itachiuchiha from "../images/emoji/itachiuchiha48.svg";
-import tanjirokamado from "../images/emoji/tanjirokamado48.svg";
-import tom from "../images/emoji/tom48.svg";
-import uzumaki from "../images/emoji/uzumaki48.svg";
-import astonished from "../images/emoji/Astonished face.svg";
-import cat from "../images/emoji/Cat.svg";
-import clown from "../images/emoji/Clown face.svg";
-import dog from "../images/emoji/Dog.svg";
-import blowkiss from "../images/emoji/Face blowing a kiss.svg";
-import savoring from "../images/emoji/Face savoring food.svg";
-import mask from "../images/emoji/Face with medical mask.svg";
-import fire from "../images/emoji/Fire.svg";
-import gemstone from "../images/emoji/Gemstone.svg";
-import greenapple from "../images/emoji/Green apple.svg";
-import hamburger from "../images/emoji/Hamburger.svg";
-import joker from "../images/emoji/Joker.svg";
-import lion from "../images/emoji/Lion.svg";
-import panda from "../images/emoji/Panda.svg";
-import peach from "../images/emoji/Peach.svg";
-import robot from "../images/emoji/Robot.svg";
-import rocket from "../images/emoji/Rocket.svg";
-import santa from "../images/emoji/Santa Claus.svg";
-import unicorn from "../images/emoji/Unicorn.svg";
-import weather from "../images/emoji/Weather.svg";
-import xmas from "../images/emoji/Xmas tree.svg";
-import zany from "../images/emoji/Zany face.svg";
-
 import { updateEmojiAPI, readEmojiAPI, SlidesProps } from '../api/emojiAPI';
 import { AuthContext } from '../store/authContext';
 
@@ -44,7 +15,7 @@ const Emoji = () => {
   const [img, setImg] = useState<string>();
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const [state, setState] = useState<number>(0);
-  const [slides1, setSlides] = useState<SlidesProps[]>([]);
+  const [slides, setSlides] = useState<SlidesProps[]>([]);
   const [token, setToken] = useState<string>('');
   const { onChangeEmoji } = useContext(AuthContext);
   const onClickToggleModal = useCallback(() => {
@@ -56,10 +27,10 @@ const Emoji = () => {
     setToken(localStorage.getItem('token') || '')
   }, []);
   const callReadEmojiAPI = () => {
-    readEmojiAPI()
+    readEmojiAPI({ emojiUrl: 'string' })
       .then((res:any) => {
-        console.log(res)
-        // setSlides(res)
+        // console.log(res)
+        setSlides(res)
       })
       .catch((err:any) => {
         console.log(err);
@@ -67,48 +38,17 @@ const Emoji = () => {
   };
   const callUpdateEmojiAPI = () => {
     const UpdateEmojiInfo = {
-      id: slides1[state].id,
-      emoji: slides1[state].emoji,
+      emojiUrl: slides[state],
     }
     updateEmojiAPI(UpdateEmojiInfo, token)
       .then(() => {
-        onChangeEmoji(UpdateEmojiInfo.emoji)
+        onChangeEmoji(UpdateEmojiInfo.emojiUrl.toString())
         console.log('교체 성공')
       })
       .catch((err:any) => {
         console.log(err);
       });
   }
-  const slides = [
-    chebrasika,
-    genshinimpact,
-    itachiuchiha,
-    tanjirokamado,
-    tom,
-    uzumaki,
-    astonished,
-    cat,
-    clown,
-    dog,
-    savoring,
-    blowkiss,
-    fire,
-    hamburger,
-    mask ,
-    gemstone,
-    joker,
-    greenapple,
-    lion,
-    peach,
-    panda,
-    robot,
-    rocket,
-    santa,
-    unicorn,
-    weather,
-    xmas,
-    zany,
-  ];
   const settings = {
     className: "center",
     centerMode: true,
@@ -130,7 +70,7 @@ const Emoji = () => {
         <Modal onClickToggleModal={onClickToggleModal}>
           <CarouselDiv>
             <Carousel {...settings}>
-            {slides.map((slide) => (
+            {slides.map((slide:any) => (
               <div key={slide} className="slide">
                 <Img src={slide} alt="" />
               </div>
