@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: springboot2
   labels:
-    app: springboot2
+    app: springboot
 spec:
   selector:
     matchLabels:
