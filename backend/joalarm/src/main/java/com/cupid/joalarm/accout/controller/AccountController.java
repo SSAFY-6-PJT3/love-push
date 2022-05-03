@@ -107,9 +107,4 @@ public class AccountController {
         else return new ResponseEntity<>(new MessageResponse("사용 가능한 아이디입니다."),resHeaders,HttpStatus.OK);
 
     }
-
-    @PostMapping("test")
-    public ResponseEntity<AccountDto> signup2(@Valid @RequestBody AccountDto accountDto) {
-        return ResponseEntity.ok(accountService.signup(accountDto));
-    }
 }
