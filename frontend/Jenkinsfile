@@ -32,6 +32,17 @@ pipeline{
 				sh 'docker push gkuer/joalarm-react'
 			}
 		}
+
+		stage('K8S Deploy') {
+
+            steps {
+                dir("./frontend") {
+                    script {
+                        kubernetesDeploy(configs: "joalarm-auto-deploy-react.yaml", kubeconfigId: 'Kubeconfig')
+                    }
+                }
+            }
+        }
 	}
 
 	post {
