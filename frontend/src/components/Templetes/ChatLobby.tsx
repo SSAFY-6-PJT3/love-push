@@ -1,5 +1,10 @@
 import { useState, useEffect, useCallback, useMemo, useContext } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import {
+  useParams,
+  useNavigate,
+  useLocation,
+  matchPath,
+} from 'react-router-dom';
 import ChatBoxList from '../Organisms/ChatBoxList';
 import EmptyChatBox from '../Molecules/EmptyChatBox';
 // import Modal from '../Atoms/Modal';
@@ -19,6 +24,7 @@ import { LoginInput } from '../Atoms/Inputs';
 import Modal from '../Atoms/Modal';
 import { AuthContext } from '../../store/authContext';
 import { findMyRoomAPI } from '../../api/chatRoomAPI';
+import ChatReport from '../Molecules/ChatReport';
 
 // 채팅 목록 나열
 // 안 읽은 메세지 수 출력
@@ -53,58 +59,29 @@ import { findMyRoomAPI } from '../../api/chatRoomAPI';
 // 채팅은 최근 채팅 20~30개 제한. -> 너무 많으면 DB에서 가져오는게 힘들수도
 // 리미트 걺고 완성하고, 로컬에 채팅 기록하는 식으로...
 
-type ChatRoom = {
+type chatBox = {
   chatroomSeq: number;
   userList: Array<number>;
   activate: boolean;
 };
 
 function ChatLobbyPage() {
-  const [userId, setUserId] = useState('');
-  const [password, setPassword] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [ChatRoomList, setChatRoomList] = useState(new Array<ChatRoom>());
+  const [roomSeq, updateRoomSeq] = useState(0);
+  const [roomTitle, updateRoomTitle] = useState('');
+  const [ChatRoomList, setChatRoomList] = useState(new Array<chatBox>());
   const { isLoggedIn } = useContext(AuthContext);
-
-  const navigate = useNavigate();
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const userIdChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserId(e.target.value);
-  };
-
-  const passwordChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-
-  const loginHandler = () => {
-    const loginData = {
-      id: userId,
-      password: password,
-    };
-    loginAPI(loginData)
-      .then((res) => {
-        console.log(res);
-        navigate('/mainpage');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const goSignUp = () => {
-    navigate('/signup/1');
-  };
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const pk: number = 1; // 임의로 pk 걸어줌
     findMyRoomAPI({ user: pk })
       .then((res) => {
-        console.log(res);
-
         setChatRoomList(res);
       })
       .catch((err) => console.log(err));
@@ -113,53 +90,26 @@ function ChatLobbyPage() {
   return (
     <ChatLobby>
       <BackBtnNav
-        pageTitle=""
+        pageTitle={pathname === '/chatlobby/chat' ? roomTitle : '채팅방 목록'}
         textColor="black"
         rightSideBtn={
-          <IconButton imgURL="https://img.icons8.com/emoji/48/000000/robot-emoji.png" />
+          pathname === '/chatlobby/chat' && (
+            <IconButton imgURL="https://img.icons8.com/fluency/192/siren.png" />
+          )
         }
         onRightBtnClick={toggleModal}
       />
-      {isModalOpen && (
-        <Modal
-          height="300px"
-          bgColor="#EEF8FF"
-          padding=""
-          onClickToggleModal={toggleModal}
-        >
-          <ModalHeader>로그인</ModalHeader>
-          <LoginInput
-            type="text"
-            placeholder="아이디"
-            value={userId}
-            margin="1.5rem 0 .5rem"
-            onChange={userIdChangeHandler}
-          />
-          <LoginInput
-            type="password"
-            placeholder="비밀번호"
-            value={password}
-            onChange={passwordChangeHandler}
-          />
-          <Button
-            fontWeight="500"
-            margin="1.5rem 0 .5rem"
-            onClick={loginHandler}
-          >
-            로그인
-          </Button>
-          <Button fontWeight="500" bgColor="#2B65BC" onClick={goSignUp}>
-            회원가입
-          </Button>
-        </Modal>
+      {isModalOpen && <ChatReport onClickToggleModal={toggleModal} />}
+
+      {ChatRoomList.length ? (
+        <ChatBoxList
+          chatBoxList={ChatRoomList}
+          updateRoomSeq={updateRoomSeq}
+          updateRoomTitle={updateRoomTitle}
+        />
+      ) : (
+        <EmptyChatBox />
       )}
-      <div>
-        {ChatRoomList.length ? (
-          <ChatBoxList ChatRoomList={ChatRoomList} />
-        ) : (
-          <EmptyChatBox />
-        )}
-      </div>
     </ChatLobby>
   );
 }

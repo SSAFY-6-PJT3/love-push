@@ -10,54 +10,43 @@ import { useNavigate } from 'react-router-dom';
 import { getChatLog } from '../../api/chatAPI';
 import { useEffect, useState } from 'react';
 
+type message = {
+  type: string;
+  roomId: number;
+  sender: number;
+  message: string;
+  sendTime: string;
+};
+
 type ChatBoxProps = {
   chatroomSeq: number;
   partner: number;
   activate: boolean;
+  clickEvent: (seq: number) => void;
+  lastChat: message | undefined;
 };
 
 const ChatBox: React.FC<ChatBoxProps> = ({
   chatroomSeq,
   partner,
   activate,
+  clickEvent,
+  lastChat,
 }) => {
-  const navigate = useNavigate();
-
-  type message = {
-    type: string;
-    roomId: number;
-    sender: number;
-    message: string;
-    sendTime: string;
-  };
-
-  const [chats, updateChats] = useState(new Array<message>());
-  useEffect(() => {
-    console.log(chats);
-
-    getChatLog({ roomSeq: chatroomSeq }).then((res) => updateChats(res));
-  }, []);
-
-  const goChatRoom = () => {
-    navigate('/chatroom');
-    // navigate('/chatroom/{roompk}');
-  };
   return (
     <div>
       <ChatContainer>
-        <ChatProfileEmojiBox>
-          <ChatProfileEmoji />
-        </ChatProfileEmojiBox>
-        <ChatNameMessageBox onClick={goChatRoom}>
+        <ChatProfileEmojiBox>{/* <ChatProfileEmoji /> */}</ChatProfileEmojiBox>
+        <ChatNameMessageBox onClick={() => clickEvent(chatroomSeq)}>
           <RandomNickname>익명의 시라소니</RandomNickname>
           <RecentMessage>
-            {chats.length ? chats[0].message : '채팅방이 생성됐어요!'}
+            {lastChat ? lastChat.message : '채팅방이 생성됐어요!'}
           </RecentMessage>
         </ChatNameMessageBox>
-        <ChatInfoBox onClick={goChatRoom}>
+        <ChatInfoBox onClick={() => clickEvent(chatroomSeq)}>
           <Timeline>
-            {chats.length
-              ? chats[0].sendTime.split(' ').slice(1, 3).join(' ')
+            {lastChat
+              ? lastChat.sendTime.split(' ').slice(1, 3).join(' ')
               : '채팅을 보내보세요!'}
           </Timeline>
           <LeftMessageCount>10</LeftMessageCount>
