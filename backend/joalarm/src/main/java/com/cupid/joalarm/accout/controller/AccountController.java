@@ -108,4 +108,8 @@ public class AccountController {
 
     }
 
+    @PostMapping("test")
+    public ResponseEntity<AccountDto> signup2(@Valid @RequestBody AccountDto accountDto) {
+        return ResponseEntity.ok(accountService.signup(accountDto));
+    }
 }
