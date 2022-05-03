@@ -14,6 +14,7 @@ spec:
       labels:
         app: springboot
     spec:
+      imagePullPolicy: Always
       containers:
         - name: springboot
           image: gkuer/joalarm-springboot:latest
