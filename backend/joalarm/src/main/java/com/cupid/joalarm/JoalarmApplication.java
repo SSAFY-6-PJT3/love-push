@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-// http://localhost:8888/swagger-ui/index.html
+// http://localhost:8888/api/swagger-ui/index.html
 @SpringBootApplication
 @EnableScheduling
 public class JoalarmApplication {

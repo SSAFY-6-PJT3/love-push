@@ -89,7 +89,9 @@ export default function GetGpsData() {
     () =>
       new Client({
         webSocketFactory: function () {
-          return new SockJS('http://localhost:8888/ws-stomp');
+          return new SockJS(
+            'https://www.someone-might-like-you.com/api/ws-stomp',
+          );
         },
         connectHeaders: {
           login: 'userID',
@@ -105,9 +107,6 @@ export default function GetGpsData() {
         onStompError: (frame) => {
           console.log('Broker reported error: ' + frame.headers['message']);
           console.log('Additional details: ' + frame.body);
-          client.publish({
-            destination: '/pub/disconnect',
-          });
         },
         // onWebSocketClose: () => {
         //   client.publish({
@@ -153,7 +152,7 @@ export default function GetGpsData() {
 
   useEffect(() => {
     console.log(chatUserSet);
-    if (gpsKey !== '') {
+    if (client.connected && gpsKey !== '') {
       if (flag) {
         client.publish({
           destination: '/pub/joalarm',
