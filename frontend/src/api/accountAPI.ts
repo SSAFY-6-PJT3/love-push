@@ -31,9 +31,14 @@ interface IReportReqData {
   id?: string;
 }
 
-
 const signUpAPI = async (data: ISignupReqData): Promise<ISignupResponse> => {
   const response = await axiosInstance.post('/accounts', JSON.stringify(data));
+
+  return response.data;
+};
+
+const idVaidateAPI = async (id: string): Promise<{ message: string }> => {
+  const response = await axiosInstance.get('/accounts', { params: { id: id } });
 
   return response.data;
 };
@@ -48,8 +53,12 @@ const loginAPI = async (data: ILoginReqData): Promise<ILoginResponse> => {
 };
 
 const reportAPI = async (data: IReportReqData, token: string) => {
-  const response = await axiosInstance.post('/accounts/report', JSON.stringify(data), {headers: {Authentication: `Bearer ${token}`}});
+  const response = await axiosInstance.post(
+    '/accounts/report',
+    JSON.stringify(data),
+    { headers: { Authentication: `Bearer ${token}` } },
+  );
   return response.data;
 };
 
-export { signUpAPI, loginAPI, reportAPI };
+export { signUpAPI, idVaidateAPI, loginAPI, reportAPI };
