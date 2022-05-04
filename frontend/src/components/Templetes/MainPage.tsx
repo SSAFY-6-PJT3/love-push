@@ -268,6 +268,9 @@ const BeforeBackGround = styled.div`
   overflow-x: hidden;
   width: 100vw;
   height: 100vh;
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
   display: flex;
   flex-direction: column;
   align-items: center;

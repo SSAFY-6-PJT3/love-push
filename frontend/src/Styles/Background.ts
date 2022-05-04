@@ -8,6 +8,9 @@ const Background = styled.div`
   background: linear-gradient(197.56deg, #63dae2 0%, #7fade8 100%);
   background-repeat: no-repeat;
   height: 100vh;
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
 `;
 
 export default Background;
