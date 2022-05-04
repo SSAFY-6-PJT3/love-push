@@ -150,11 +150,6 @@ export default function GetGpsData() {
     [],
   );
 
-  // gps키가 존재 + 지역 들어가기 || 지역 이동
-  type userType = { pk: number; emojiURL: string };
-  type sectorType = { [sector: string]: userType };
-  type gpsType = { [gps: string]: sectorType };
-
   useEffect(() => {
     if (clientConnected) {
       client.subscribe('/sub/basic', (message) => {
