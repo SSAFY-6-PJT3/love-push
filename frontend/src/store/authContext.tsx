@@ -4,12 +4,18 @@
  */
 
 import { createContext, useState, useEffect, ReactNode } from 'react';
-import { SlidesProps } from '../api/emojiAPI'
+import { SlidesProps } from '../api/emojiAPI';
+
+interface IPropsOnLogin {
+  token: string;
+  emojiUrl: string;
+  seq: string;
+}
 
 const AuthContext = createContext({
   isLoggedIn: false,
-  onLogin: (token: string, emojiUrl: string) => { },
-  onChangeEmoji: (emojiUrl: string) => { },
+  onLogin: (data: IPropsOnLogin) => {},
+  onChangeEmoji: (emojiUrl: string) => {},
 });
 
 interface IPropsAuthContextProvider {
@@ -22,16 +28,21 @@ const AuthContextProvider = ({ children }: IPropsAuthContextProvider) => {
 
   useEffect(() => {
     const localToken = localStorage.getItem('token');
+    console.log(localToken);
     if (localToken) {
       setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
     }
   }, [token]);
 
-  const loginHandler = (token: string, emojiUrl: string) => {
-    localStorage.setItem('token', token);
-    localStorage.setItem('emojiUrl', emojiUrl);
-    setToken(token);
+  const loginHandler = (data: IPropsOnLogin) => {
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('emojiUrl', data.emojiUrl);
+    localStorage.setItem('seq', data.seq);
+    setToken(data.token);
   };
+
   const onChangeEmojiHandler = (emojiUrl: string) => {
     localStorage.setItem('emojiUrl', emojiUrl);
   };
