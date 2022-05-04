@@ -20,6 +20,7 @@ pipeline{
 							sh 'docker build -t gkuer/joalarm-react:latest .'
 							mattermostSend(color: "#FF33FF", message: "Jenkins - ${env.BUILD_NUMBER}번째 Frontend 도커 이미지 빌드 완료")
 						} catch(e) {
+							error(e)
 							mattermostSend(color: "#FF33FF", message: "Jenkins - ${env.BUILD_NUMBER}번째 Frontend 도커 이미지 빌드 실패 => 로그 확인 : ${env.BUILD_URL}")
 						}
 					}
