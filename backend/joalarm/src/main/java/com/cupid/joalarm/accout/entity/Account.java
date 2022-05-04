@@ -25,7 +25,7 @@ public class Account {
     private String password;
 
     @Setter
-    @Column(name = "emoji", length = 50)
+    @Column(name = "emoji")
     private String emoji;
 
     @Column(name = "report_cnt")
