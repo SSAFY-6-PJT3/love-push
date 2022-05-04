@@ -15,6 +15,7 @@ pipeline{
 			        sh 'npm i'
                     sh 'CI=false npm run build'
                     sh 'docker build -t gkuer/joalarm-react:latest .'
+					mattermostSend(color: "#FF33FF", message: "Jenkins - Frontend 이미지 빌드 완료")
 			    }
 			}
 		}
@@ -30,6 +31,7 @@ pipeline{
 
 			steps {
 				sh 'docker push gkuer/joalarm-react'
+				mattermostSend(color: "#33FFCC", message: "Dockerhub - Frontend 푸쉬 완료")
 			}
 		}
 
@@ -40,6 +42,7 @@ pipeline{
                     script {
                         kubernetesDeploy(configs: "joalarm-auto-deploy-react.yaml", kubeconfigId: 'Kubeconfig')
 						sh './kubectl --kubeconfig=./kube-config.yaml rollout restart deployment react'
+						mattermostSend(color: "#0066CC", message: "Kubernets - Frontend 배포 완료")
                     }
                 }
             }
