@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 import GARoutes from './components/GARoutes';
 
@@ -10,6 +9,8 @@ import KeyFrame from './pages/KeyFrame';
 import Emoji from './pages/SelectEmoji';
 import StoryBook from './pages/StoryBook';
 import Signup from './pages/Signup';
+import AboutService from './pages/AboutService';
+import NotFound from './pages/NotFound';
 
 import CustomAlert from './components/Atoms/CustomAlert';
 import { ChatTest } from './components/ChatTest';
@@ -43,6 +44,8 @@ function App() {
             <Route path="/test" element={<KeyFrame />} />
             <Route path="/storybook" element={<StoryBook />} />
             <Route path="/chatroom/:pk" element={<MakeChatRoomList />} />
+            <Route path="/about-service" element={<AboutService />} />
+            <Route path="*" element={<NotFound />} />
           </GARoutes>
         </BrowserRouter>
       </Background>
