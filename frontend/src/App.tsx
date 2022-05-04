@@ -44,7 +44,7 @@ function App() {
             <Route path="/test" element={<KeyFrame />} />
             <Route path="/storybook" element={<StoryBook />} />
             <Route path="/chatroom/:pk" element={<MakeChatRoomList />} />
-            <Route path="/about-service" element={<AboutService />} />
+            <Route path="/about-service/:pageId" element={<AboutService />} />
             <Route path="*" element={<NotFound />} />
           </GARoutes>
         </BrowserRouter>

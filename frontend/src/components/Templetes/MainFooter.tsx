@@ -6,7 +6,7 @@ import IconButton from '../Atoms/IconButton';
 const MainFooter = () => {
   const navigate = useNavigate();
   const helpBtnClickHandler = () => {
-    navigate('/about-service');
+    navigate('/about-service/0');
   };
 
   return (
