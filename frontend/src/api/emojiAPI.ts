@@ -31,14 +31,14 @@ interface IUpdateEmojiReqData {
 
 
 const updateEmojiAPI = async (data: IUpdateEmojiReqData, token: string) => {
-  console.log(data)
+  console.log(JSON.stringify(data))
   console.log(token)
-  const response = await axiosInstance.post('/accounts/emoji', JSON.stringify(data), {headers: {Authentication: `Bearer ${token}`}});
+  const response = await axiosInstance.post('accounts/emoji', JSON.stringify(data), {headers: {token: `Bearer ${token}`}});
   return response;
 };
 
 const readEmojiUserAPI = async (data: IReadEmojiUserReqData): Promise<IReadEmojiUserResponse> => {
-  const response = await axiosInstance.get(`/accounts/${data.userId}/emoji`);
+  const response = await axiosInstance.get(`accounts/${data.userId}/emoji`);
   return response.data;
 };
 

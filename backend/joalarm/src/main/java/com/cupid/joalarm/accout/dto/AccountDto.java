@@ -24,7 +24,7 @@ public class AccountDto {
     private String password;
 
     @NotNull
-    @Size(min = 3, max = 50)
+    @Size(min = 3)
     private String emoji;
 
 

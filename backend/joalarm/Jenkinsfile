@@ -15,6 +15,7 @@ pipeline{
 			        sh 'chmod +x ./gradlew'
 			        sh './gradlew clean build'
                     sh 'docker build --build-arg ENVIRONMENT=dev -t gkuer/joalarm-springboot .'
+                    mattermostSend(color: "#FF33FF", message: "Jenkins - Backend 이미지 빌드 완료")
 			    }
 			}
 		}
@@ -30,17 +31,19 @@ pipeline{
 
 			steps {
 				sh 'docker push gkuer/joalarm-springboot'
+				mattermostSend(color: "#33FFCC", message: "Dockerhub - Backend 푸쉬 완료")
 			}
 		}
 
-        stage('List pods') {
+        stage('K8S Deploy') {
 
             steps {
                 dir("./backend/joalarm") {
-                    kubernetesDeploy configs: "test.yaml", kubeconfigId: 'Kubeconfig'
-                    sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
-                    sh 'chmod u+x ./kubectl'
-                    sh "./kubectl rollout restart default/springboot"
+                    script {
+                        kubernetesDeploy(configs: "joalarm-auto-deploy-springboot.yaml", kubeconfigId: 'Kubeconfig')
+                        sh './kubectl --kubeconfig=./kube-config.yaml rollout restart deployment springboot'
+                        mattermostSend(color: "#0066CC", message: "Kubernetes - Backend 배포 완료")
+                    }
                 }
             }
         }

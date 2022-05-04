@@ -1,24 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: springboot2
+  name: springboot
   labels:
     app: springboot
 spec:
+  replicas: 6
   selector:
     matchLabels:
       app: springboot
-  replicas: 3
   template:
     metadata:
       labels:
         app: springboot
     spec:
       containers:
-        - image: gkuer/joalarm-springboot
-          name: springboot
+        - name: springboot
+          image: gkuer/joalarm-springboot:latest
           ports:
             - containerPort: 8888
+          imagePullPolicy: Always
           env:
             - name: MYSQL_CLUSTER_IP
               valueFrom:
@@ -60,3 +61,18 @@ spec:
                 secretKeyRef:
                   name: joalarm-jwt-secret
                   key: jwt-secret-key
+      restartPolicy: Always
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-springboot
+spec:
+  selector:
+    app: springboot
+  ports:
+    - protocol: TCP
+      port: 8888
+      targetPort: 8888
+  type: LoadBalancer
