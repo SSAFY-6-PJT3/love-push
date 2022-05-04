@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import styled from 'styled-components';
 
 import MainNav from './MainNav';
@@ -35,6 +35,7 @@ import unicorn from '../../images/emoji/Unicorn.svg';
 import weather from '../../images/emoji/Weather.svg';
 import xmas from '../../images/emoji/Xmas tree.svg';
 import zany from '../../images/emoji/Zany face.svg';
+import { ClientContext } from '../../store/clientContext';
 // end of image import
 
 const MainPage = () => {
@@ -56,6 +57,13 @@ const MainPage = () => {
       setSignal(false);
     }, 10000);
   };
+
+  const { DoSubscribe, CheckGPS, GpsKeyHandler, sendHeart } =
+    useContext(ClientContext);
+
+  DoSubscribe();
+  CheckGPS();
+  GpsKeyHandler();
 
   const slides1 = [
     chebrasika,
@@ -146,7 +154,7 @@ const MainPage = () => {
           </TitleTag>
           <Heart>
             {/* 클릭이벤트 삭제하고 시그널이 요청이 오면 바뀌게끔 하기 */}
-            <img src={Beforeheart} alt="" onClick={changeSignal} />
+            <img src={Beforeheart} alt="" onClick={sendHeart} />
           </Heart>
           <ImgContainer>
             {slides1.map((slide) => (

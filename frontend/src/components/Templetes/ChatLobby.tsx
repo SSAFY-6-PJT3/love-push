@@ -75,23 +75,9 @@ function ChatLobbyPage() {
   const [ChatRoomList, setChatRoomList] = useState(new Array<chatBox>());
   const { isLoggedIn } = useContext(AuthContext);
 
-  const {       
-    DoSubscribe,
-    CheckGPS,
-    sendHeart,
-    GpsKeyHandler,
-  } = useContext(ClientContext);
-
-    DoSubscribe()
-    CheckGPS()
-    GpsKeyHandler()
-
-    const HeartShot = () => {
-      sendHeart();
-    }
-    // const SubHeart = () => {
-    //   subscribeHeart();
-    // }
+  // const SubHeart = () => {
+  //   subscribeHeart();
+  // }
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -110,15 +96,14 @@ function ChatLobbyPage() {
 
   return (
     <ChatLobby>
-
       <BackBtnNav
         pageTitle={pathname === '/chatlobby/chat' ? roomTitle : '채팅방 목록'}
         textColor="black"
         rightSideBtn={
           pathname === '/chatlobby/chat' && (
             <IconButton imgURL="https://img.icons8.com/fluency/192/siren.png" />
-            )
-          }
+          )
+        }
         onRightBtnClick={toggleModal}
       />
       {isModalOpen && <ChatReport onClickToggleModal={toggleModal} />}
@@ -127,14 +112,10 @@ function ChatLobbyPage() {
           chatBoxList={ChatRoomList}
           updateRoomSeq={updateRoomSeq}
           updateRoomTitle={updateRoomTitle}
-          />
-          ) : (
-
-            <EmptyChatBox />
-            )}
-                  <button 
-        onClick={HeartShot}
-      >탕야</button>
+        />
+      ) : (
+        <EmptyChatBox />
+      )}
     </ChatLobby>
   );
 }
