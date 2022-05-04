@@ -56,7 +56,7 @@ const reportAPI = async (data: IReportReqData, token: string) => {
   const response = await axiosInstance.post(
     '/accounts/report',
     JSON.stringify(data),
-    { headers: { Authentication: `Bearer ${token}` } },
+    { headers: { token: `Bearer ${token}` } },
   );
   return response.data;
 };
