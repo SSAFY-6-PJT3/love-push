@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-import useDocumentTitle from '../hooks/useDocumetnTitle';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 
 import Button from '../components/Atoms/Button';
 

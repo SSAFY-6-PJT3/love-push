@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import { signUpAPI, idVaidateAPI } from '../api/accountAPI';
-import useDocumentTitle from '../hooks/useDocumetnTitle';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 
 import BackBtnNav from '../components/Templetes/BackBtnNav';
 import SignupForm from '../components/Templetes/SignupForm';
