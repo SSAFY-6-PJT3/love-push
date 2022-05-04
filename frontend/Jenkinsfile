@@ -42,7 +42,7 @@ pipeline{
                     script {
                         kubernetesDeploy(configs: "joalarm-auto-deploy-react.yaml", kubeconfigId: 'Kubeconfig')
 						sh './kubectl --kubeconfig=./kube-config.yaml rollout restart deployment react'
-						mattermostSend(color: "#0066CC", message: "Kubernets - Frontend 배포 완료")
+						mattermostSend(color: "#0066CC", message: "Kubernetes - Frontend 배포 완료")
                     }
                 }
             }

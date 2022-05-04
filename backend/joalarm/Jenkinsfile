@@ -42,7 +42,7 @@ pipeline{
                     script {
                         kubernetesDeploy(configs: "joalarm-auto-deploy-springboot.yaml", kubeconfigId: 'Kubeconfig')
                         sh './kubectl --kubeconfig=./kube-config.yaml rollout restart deployment springboot'
-                        mattermostSend(color: "#0066CC", message: "Kubernets - Backend 배포 완료")
+                        mattermostSend(color: "#0066CC", message: "Kubernetes - Backend 배포 완료")
                     }
                 }
             }
