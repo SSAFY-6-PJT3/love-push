@@ -59,6 +59,9 @@ import ChatReport from '../Molecules/ChatReport';
 // 채팅은 최근 채팅 20~30개 제한. -> 너무 많으면 DB에서 가져오는게 힘들수도
 // 리미트 걺고 완성하고, 로컬에 채팅 기록하는 식으로...
 
+// 여기서도 쏴줘야한다.
+
+import { ClientContext } from '../../store/clientContext';
 type chatBox = {
   chatroomSeq: number;
   userList: Array<number>;
@@ -71,6 +74,25 @@ function ChatLobbyPage() {
   const [roomTitle, updateRoomTitle] = useState('');
   const [ChatRoomList, setChatRoomList] = useState(new Array<chatBox>());
   const { isLoggedIn } = useContext(AuthContext);
+
+  const {       
+    SetisConnected,
+    DoSubscribe,
+    DoPublish,
+    CheckGPS,
+    sendHeart,
+    subscribeHeart, } = useContext(ClientContext);
+
+    SetisConnected()
+    DoSubscribe()
+    DoPublish()
+    CheckGPS()
+    const HeartShot = () => {
+      sendHeart();
+    }
+    const SubHeart = () => {
+      subscribeHeart();
+    }
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -89,27 +111,34 @@ function ChatLobbyPage() {
 
   return (
     <ChatLobby>
+
       <BackBtnNav
         pageTitle={pathname === '/chatlobby/chat' ? roomTitle : '채팅방 목록'}
         textColor="black"
         rightSideBtn={
           pathname === '/chatlobby/chat' && (
             <IconButton imgURL="https://img.icons8.com/fluency/192/siren.png" />
-          )
-        }
+            )
+          }
         onRightBtnClick={toggleModal}
       />
       {isModalOpen && <ChatReport onClickToggleModal={toggleModal} />}
-
       {ChatRoomList.length ? (
         <ChatBoxList
           chatBoxList={ChatRoomList}
           updateRoomSeq={updateRoomSeq}
           updateRoomTitle={updateRoomTitle}
-        />
-      ) : (
-        <EmptyChatBox />
-      )}
+          />
+          ) : (
+
+            <EmptyChatBox />
+            )}
+                  <button 
+        onClick={HeartShot}
+      >탕야</button>
+      <button 
+        onClick={SubHeart}
+      >구독</button>
     </ChatLobby>
   );
 }
