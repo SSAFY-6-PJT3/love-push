@@ -12,10 +12,17 @@ pipeline{
 
 			steps {
 			    dir("./backend/joalarm") {
-			        sh 'chmod +x ./gradlew'
-			        sh './gradlew clean build'
-                    sh 'docker build --build-arg ENVIRONMENT=dev -t gkuer/joalarm-springboot .'
-                    mattermostSend(color: "#FF33FF", message: "Jenkins - Backend 이미지 빌드 완료")
+			        script {
+			            mattermostSend(color: "#FFFF8C", message: "Jenkins - ${env.BUILD_NUMBER}번째 Backend 도커 이미지 빌드 시작")
+			            try {
+                            sh 'chmod +x ./gradlew'
+                            sh './gradlew clean build'
+                            sh 'docker build --build-arg ENVIRONMENT=dev -t gkuer/joalarm-springboot .'
+                            mattermostSend(color: "#FF33FF", message: "Jenkins - ${env.BUILD_NUMBER}번째 Backend 도커 이미지 빌드 완료")
+                        } catch(e) {
+                            mattermostSend(color: "#FF33FF", message: "Jenkins - ${env.BUILD_NUMBER}번째 Backend 도커 이미지 빌드 실패 => 로그 확인 : ${env.BUILD_URL}")
+                        }
+                    }
 			    }
 			}
 		}
@@ -31,7 +38,7 @@ pipeline{
 
 			steps {
 				sh 'docker push gkuer/joalarm-springboot'
-				mattermostSend(color: "#33FFCC", message: "Dockerhub - Backend 푸쉬 완료")
+				mattermostSend(color: "#33FFCC", message: "Dockerhub - ${env.BUILD_NUMBER}번째 Backend 푸쉬 완료")
 			}
 		}
 
@@ -42,7 +49,7 @@ pipeline{
                     script {
                         kubernetesDeploy(configs: "joalarm-auto-deploy-springboot.yaml", kubeconfigId: 'Kubeconfig')
                         sh './kubectl --kubeconfig=./kube-config.yaml rollout restart deployment springboot'
-                        mattermostSend(color: "#0066CC", message: "Kubernetes - Backend 배포 완료")
+                        mattermostSend(color: "#0066CC", message: "Kubernetes - ${env.BUILD_NUMBER}번째 Backend 배포 완료")
                     }
                 }
             }
