@@ -76,23 +76,22 @@ function ChatLobbyPage() {
   const { isLoggedIn } = useContext(AuthContext);
 
   const {       
-    SetisConnected,
     DoSubscribe,
-    DoPublish,
     CheckGPS,
     sendHeart,
-    subscribeHeart, } = useContext(ClientContext);
+    GpsKeyHandler,
+  } = useContext(ClientContext);
 
-    SetisConnected()
     DoSubscribe()
-    DoPublish()
     CheckGPS()
+    GpsKeyHandler()
+
     const HeartShot = () => {
       sendHeart();
     }
-    const SubHeart = () => {
-      subscribeHeart();
-    }
+    // const SubHeart = () => {
+    //   subscribeHeart();
+    // }
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -136,9 +135,6 @@ function ChatLobbyPage() {
                   <button 
         onClick={HeartShot}
       >탕야</button>
-      <button 
-        onClick={SubHeart}
-      >구독</button>
     </ChatLobby>
   );
 }
