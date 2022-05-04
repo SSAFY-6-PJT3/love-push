@@ -1,7 +1,14 @@
-import { Client } from "@stomp/stompjs";
-import { useState, useMemo, ReactNode, createContext, useEffect, useReducer } from "react";
-import SockJS from "sockjs-client";
-import { useCallback } from "react";
+import { Client } from '@stomp/stompjs';
+import {
+  useState,
+  useMemo,
+  ReactNode,
+  createContext,
+  useEffect,
+  useReducer,
+} from 'react';
+import SockJS from 'sockjs-client';
+import { useCallback } from 'react';
 import gpsTransKey from '../hooks/gps/gpsTransKey';
 import { openChatAPI } from '../api/openChatAPI';
 
@@ -22,10 +29,9 @@ interface nearBy10mType {
 }
 
 interface GpsInterface {
-  beforeKey: string,
-  nowKey: string,
+  beforeKey: string;
+  nowKey: string;
 }
-
 
 const ClientContext = createContext({
   // isConnected:,
@@ -35,15 +41,15 @@ const ClientContext = createContext({
   sendHeart: () => {},
   GpsKeyHandler: () => {},
   // subscribeHeart: () => {},
-} )
+});
 
 interface IPropsClientContextProvider {
   children: ReactNode;
 }
 
-const ClientContextProvider = ({ children } : IPropsClientContextProvider)  =>{
+const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
+  const seq = Number(localStorage.getItem('seq') || '0');
   const [flag, setFlag] = useState(true);
-  const [id, setId] = useState(0);
   const [mySession, updateMySession] = useState('');
   const [sendHeartSet, updateSendHeartSet] = useState(new Set<number>());
   const [chatUserSet, updateChatUserSet] = useState(new Set<number>());
@@ -56,7 +62,9 @@ const ClientContextProvider = ({ children } : IPropsClientContextProvider)  =>{
     () =>
       new Client({
         webSocketFactory: function () {
-          return new SockJS('https://www.someone-might-like-you.com/api/ws-stomp');
+          return new SockJS(
+            'https://www.someone-might-like-you.com/api/ws-stomp',
+          );
         },
         debug: function (str) {
           console.log(str);
@@ -83,7 +91,7 @@ const ClientContextProvider = ({ children } : IPropsClientContextProvider)  =>{
                 break;
             }
           });
-          client.subscribe(`/sub/user/${id}`, (message) => {
+          client.subscribe(`/sub/user/${seq}`, (message) => {
             // 채팅방 생성 명령 수신(pk로)
             const whisper: Whisper = JSON.parse(message.body);
             switch (whisper.type) {
@@ -117,7 +125,7 @@ const ClientContextProvider = ({ children } : IPropsClientContextProvider)  =>{
       }),
     [],
   );
-  
+
   const gpsReducer = (beforeKey: string, nowKey: string): string => {
     if (clientConnected && beforeKey !== nowKey) {
       if (flag) {
@@ -125,7 +133,7 @@ const ClientContextProvider = ({ children } : IPropsClientContextProvider)  =>{
           destination: '/pub/joalarm',
           body: JSON.stringify({
             gpsKey: nowKey,
-            pair: { pk: `${id}`, emojiURL: 'emoji' },
+            pair: { pk: `${seq}`, emojiURL: 'emoji' },
           }),
         });
         setFlag(false);
@@ -157,7 +165,7 @@ const ClientContextProvider = ({ children } : IPropsClientContextProvider)  =>{
     const values = sectorData.map((v) => sessions.map((k) => v[k])).flat();
 
     const users = new Set(values.map((v) => v.pk));
-    users.delete(id);
+    users.delete(seq);
     users.delete(0);
 
     return { sessions: setSessions, users: users };
@@ -165,16 +173,12 @@ const ClientContextProvider = ({ children } : IPropsClientContextProvider)  =>{
 
   type Whisper = { type: string; person: number; chatRoom: number };
 
-
   const [gpsKey, setGpsKey] = useReducer(gpsReducer, '');
   const [nearBy10mState, nearBy10mDispatch] = useReducer(nearBy10mReducer, {
     sessions: new Set<string>(),
     users: new Set<number>(),
   });
 
-  const onChangeId = (e: any) => {
-    setId(e.target.value);
-  };
   // const onChangeTo = (e: any) => {
   //   setTo(e.target.value);
   // };
@@ -223,30 +227,34 @@ const ClientContextProvider = ({ children } : IPropsClientContextProvider)  =>{
     }
     return ans.join('/');
   };
-  
-    const DoSubscribe = () => {useEffect(() => {
-    if (clientConnected) {
-      client.subscribe('/sub/basic', (message) => {
-        console.log(message.body);
 
-        const sector: gpsType = JSON.parse(message.body);
-        nearBy10mDispatch(sector);
-      });
-    }
-  }, [client, clientConnected])};
+  const DoSubscribe = () => {
+    useEffect(() => {
+      if (clientConnected) {
+        client.subscribe('/sub/basic', (message) => {
+          console.log(message.body);
 
-      // gps 확인
-  const CheckGPS = () => {  useEffect(() => {
-    if (navigator.geolocation) {
-      // GPS를 지원하면
-      setInterval(function () {
-        geoPosition();
-      }, 5000);
-    } else {
-      alert('GPS를 지원하지 않습니다');
-    }
-    client.activate();
-  }, [])};
+          const sector: gpsType = JSON.parse(message.body);
+          nearBy10mDispatch(sector);
+        });
+      }
+    }, [client, clientConnected]);
+  };
+
+  // gps 확인
+  const CheckGPS = () => {
+    useEffect(() => {
+      if (navigator.geolocation) {
+        // GPS를 지원하면
+        setInterval(function () {
+          geoPosition();
+        }, 5000);
+      } else {
+        alert('GPS를 지원하지 않습니다');
+      }
+      client.activate();
+    }, []);
+  };
 
   const testButtonEvent = useCallback(() => {
     setGpsKey('111/222/333/444/555/666');
@@ -259,7 +267,7 @@ const ClientContextProvider = ({ children } : IPropsClientContextProvider)  =>{
       body: JSON.stringify({
         receiveSessions: Array.from(nearBy10mState.sessions),
         receiveUsers: Array.from(nearBy10mState.users),
-        sendUser: `${id}`,
+        sendUser: `${seq}`,
       }),
     });
     updateSendHeartSet((pre) => {
@@ -270,49 +278,51 @@ const ClientContextProvider = ({ children } : IPropsClientContextProvider)  =>{
   };
 
   const receiveHeartEvent = async (user: number) => {
-    if (id !== 0 && sendHeartSet.has(user) && !chatUserSet.has(user)) {
+    if (seq !== 0 && sendHeartSet.has(user) && !chatUserSet.has(user)) {
       console.log('CREATE CHAT ROOM');
       // 채팅방 생성 api 호출
       const res = openChatAPI({
-        sendUser: `${id}`,
+        sendUser: `${seq}`,
         receiveUser: `${user}`,
       });
       console.log(res);
     }
   };
 
-  const GpsKeyHandler = () => {useEffect(() => {
-    const gpsKeyArray: string[] = [];
-    if (gpsKey !== '') {
-      for (let i = -2; i < 3; i++) {
-        for (let j = -2; j < 3; j++) {
-          gpsKeyArray.push(caculateGpsKey(gpsKey, [-i, -j]));
+  const GpsKeyHandler = () => {
+    useEffect(() => {
+      const gpsKeyArray: string[] = [];
+      if (gpsKey !== '') {
+        for (let i = -2; i < 3; i++) {
+          for (let j = -2; j < 3; j++) {
+            gpsKeyArray.push(caculateGpsKey(gpsKey, [-i, -j]));
+          }
         }
+        gpsKeyArray.push(caculateGpsKey(gpsKey, [-3, 0]));
+        gpsKeyArray.push(caculateGpsKey(gpsKey, [3, 0]));
+        gpsKeyArray.push(caculateGpsKey(gpsKey, [0, -3]));
+        gpsKeyArray.push(caculateGpsKey(gpsKey, [0, 3]));
+        updateGpsKeyNearby10m(gpsKeyArray);
       }
-      gpsKeyArray.push(caculateGpsKey(gpsKey, [-3, 0]));
-      gpsKeyArray.push(caculateGpsKey(gpsKey, [3, 0]));
-      gpsKeyArray.push(caculateGpsKey(gpsKey, [0, -3]));
-      gpsKeyArray.push(caculateGpsKey(gpsKey, [0, 3]));
-      updateGpsKeyNearby10m(gpsKeyArray);
-    }
-  }, [gpsKey])};
-
+    }, [gpsKey]);
+  };
 
   return (
-    <ClientContext.Provider value={{
-      // isConnected: isConnected,
-      // SetisConnected: SetisConnected,
-      DoSubscribe: DoSubscribe,
-      // gpsReducer: gpsReducer,
-      CheckGPS: CheckGPS,
-      sendHeart: sendHeart,
-      GpsKeyHandler: GpsKeyHandler,
-      // subscribeHeart: subscribeHeart,
-    }}
+    <ClientContext.Provider
+      value={{
+        // isConnected: isConnected,
+        // SetisConnected: SetisConnected,
+        DoSubscribe: DoSubscribe,
+        // gpsReducer: gpsReducer,
+        CheckGPS: CheckGPS,
+        sendHeart: sendHeart,
+        GpsKeyHandler: GpsKeyHandler,
+        // subscribeHeart: subscribeHeart,
+      }}
     >
       {children}
     </ClientContext.Provider>
-  )
-}
+  );
+};
 
-export { ClientContext, ClientContextProvider, };
+export { ClientContext, ClientContextProvider };
