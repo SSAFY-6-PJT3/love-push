@@ -47,6 +47,7 @@ const ClientContext = createContext({
   GpsKeyHandler: () => {},
   // subscribeHeart: () => {},
   signal: false,
+  nearBy10mState: { sessions: new Set<string>(), users: new Set<number>() },
 });
 
 interface IPropsClientContextProvider {
@@ -328,6 +329,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         GpsKeyHandler: GpsKeyHandler,
         signal: signal,
         // subscribeHeart: subscribeHeart,
+        nearBy10mState: nearBy10mState,
       }}
     >
       {children}
