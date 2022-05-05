@@ -46,22 +46,14 @@ const MainPage = () => {
   //   setCount(인원값)
   // })
   const [count, setCount] = useState<number>(10);
-  const [signal, setSignal] = useState<boolean>(false);
   const isLogin: boolean = true;
   // 로그인 모달 함수
   // 성공시 isLogin True변환
   // 초기 로그인 유저인지 아닌지 확인 필요 useEffect사용
-  const changeSignal = () => {
-    setSignal(true);
-    setTimeout(() => {
-      setSignal(false);
-    }, 10000);
-  };
 
-  const { DoSubscribe, CheckGPS, GpsKeyHandler, sendHeart } =
+  const { CheckGPS, GpsKeyHandler, sendHeart, signal } =
     useContext(ClientContext);
 
-  DoSubscribe();
   CheckGPS();
   GpsKeyHandler();
 
@@ -115,7 +107,7 @@ const MainPage = () => {
           </TitleTag>
           <Heart>
             {/* 클릭시 로그인화면으로 이동 */}
-            <img src={Beforeheart} alt="" onClick={changeSignal} />
+            <img src={Beforeheart} alt="" />
           </Heart>
           <EmojiDiv>
             {slides1.map((slide) => (
