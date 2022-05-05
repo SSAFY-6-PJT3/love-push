@@ -6,9 +6,9 @@ import {
   createContext,
   useEffect,
   useReducer,
+  useCallback,
 } from 'react';
 import SockJS from 'sockjs-client';
-import { useCallback } from 'react';
 import gpsTransKey from '../hooks/gps/gpsTransKey';
 import { openChatAPI } from '../api/openChatAPI';
 
@@ -33,14 +33,21 @@ interface GpsInterface {
   nowKey: string;
 }
 
+interface whisper {
+  type: string;
+  person: number;
+  chatRoom: number;
+}
+
 const ClientContext = createContext({
   // isConnected:,
   // gpsReducer: (data:GpsInterface) => "",
-  DoSubscribe: () => {},
   CheckGPS: () => {},
   sendHeart: () => {},
   GpsKeyHandler: () => {},
   // subscribeHeart: () => {},
+  signal: false,
+  nearBy10mState: { sessions: new Set<string>(), users: new Set<number>() },
 });
 
 interface IPropsClientContextProvider {
@@ -57,6 +64,13 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     new Array<string>(),
   );
   const [clientConnected, updateClientConnected] = useState(false);
+  const [signal, setSignal] = useState<boolean>(false);
+  const changeSignal = () => {
+    setSignal(true);
+    setTimeout(() => {
+      setSignal(false);
+    }, 10000);
+  };
 
   const client = useMemo(
     () =>
@@ -72,39 +86,29 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         onConnect: () => {
           setFlag(true);
           updateClientConnected(true);
+
           const sessionId = (
             (client.webSocket as any)._transport.url as string
           ).split('/')[6]; // sessionId 얻어옴, https 환경에서는 6번째로
           updateMySession(sessionId);
 
+          client.subscribe('/sub/basic', (message) => {
+            console.log(message.body);
+
+            const sector: gpsType = JSON.parse(message.body);
+            nearBy10mDispatch(sector);
+          });
+
           client.subscribe(`/sub/heart/${sessionId}`, (message) => {
             // 세션 구독하게 변경(하트용)
-            const whisper: Whisper = JSON.parse(message.body);
-            switch (whisper.type) {
-              case 'HEART':
-                console.log('U RECEIVE HEART');
-                if (whisper.person !== 0) {
-                  receiveHeartEvent(whisper.person);
-                }
-                break;
-              default:
-                break;
-            }
+            const whisper: whisper = JSON.parse(message.body);
+            receiveMessageCallback(whisper);
           });
+
           client.subscribe(`/sub/user/${seq}`, (message) => {
             // 채팅방 생성 명령 수신(pk로)
-            const whisper: Whisper = JSON.parse(message.body);
-            switch (whisper.type) {
-              case 'CHATROOM':
-                updateChatUserSet((pre) => pre.add(whisper.person));
-                console.log(`${whisper.chatRoom} 채팅방이 신설되었습니다.`);
-                client.subscribe(`/sub/room/${whisper.chatRoom}`, (message) => {
-                  console.log(message);
-                });
-                break;
-              default:
-                break;
-            }
+            const whisper: whisper = JSON.parse(message.body);
+            receiveMessageCallback(whisper);
           });
         },
         onStompError: (frame) => {
@@ -124,6 +128,32 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         heartbeatOutgoing: 4000,
       }),
     [],
+  );
+
+  const receiveMessageCallback = useCallback(
+    (action: whisper) => {
+      switch (action.type) {
+        case 'HEART':
+          // console.log('U RECEIVE HEART');
+          changeSignal();
+          if (action.person !== 0) {
+            receiveHeartEvent(action.person);
+          }
+          break;
+
+        case 'CHATROOM':
+          updateChatUserSet((pre) => pre.add(action.person));
+          console.log(`${action.chatRoom} 채팅방이 신설되었습니다.`);
+          client.subscribe(`/sub/room/${action.chatRoom}`, (message) => {
+            console.log(message);
+          });
+          break;
+
+        default:
+          break;
+      }
+    },
+    [client],
   );
 
   const gpsReducer = (beforeKey: string, nowKey: string): string => {
@@ -170,8 +200,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
 
     return { sessions: setSessions, users: users };
   };
-
-  type Whisper = { type: string; person: number; chatRoom: number };
 
   const [gpsKey, setGpsKey] = useReducer(gpsReducer, '');
   const [nearBy10mState, nearBy10mDispatch] = useReducer(nearBy10mReducer, {
@@ -228,19 +256,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     return ans.join('/');
   };
 
-  const DoSubscribe = () => {
-    useEffect(() => {
-      if (clientConnected) {
-        client.subscribe('/sub/basic', (message) => {
-          console.log(message.body);
-
-          const sector: gpsType = JSON.parse(message.body);
-          nearBy10mDispatch(sector);
-        });
-      }
-    }, [client, clientConnected]);
-  };
-
   // gps 확인
   const CheckGPS = () => {
     useEffect(() => {
@@ -255,10 +270,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
       client.activate();
     }, []);
   };
-
-  const testButtonEvent = useCallback(() => {
-    setGpsKey('111/222/333/444/555/666');
-  }, []);
 
   // 하트 보내기
   const sendHeart = () => {
@@ -312,12 +323,13 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
       value={{
         // isConnected: isConnected,
         // SetisConnected: SetisConnected,
-        DoSubscribe: DoSubscribe,
         // gpsReducer: gpsReducer,
         CheckGPS: CheckGPS,
         sendHeart: sendHeart,
         GpsKeyHandler: GpsKeyHandler,
+        signal: signal,
         // subscribeHeart: subscribeHeart,
+        nearBy10mState: nearBy10mState,
       }}
     >
       {children}
