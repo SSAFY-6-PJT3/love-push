@@ -31,7 +31,7 @@ public class ChatService {
                 .sendTime(df.format(new Date()))
                 .build();
         chatRepository.save(chatEntity);
-        messageTemplate.convertAndSend("/sub/chat/room/" + DTO.getRoomId(), DTO.getMessage());
+        messageTemplate.convertAndSend("/sub/chat/room/" + DTO.getRoomId(), chatEntity);
     }
 
     @Transactional

@@ -23,7 +23,7 @@ import { loginAPI } from '../../api/accountAPI';
 import { LoginInput } from '../Atoms/Inputs';
 import Modal from '../Atoms/Modal';
 import { AuthContext } from '../../store/authContext';
-import { findMyRoomAPI } from '../../api/chatRoomAPI';
+
 import ChatReport from '../Molecules/ChatReport';
 
 // 채팅 목록 나열
@@ -62,19 +62,14 @@ import ChatReport from '../Molecules/ChatReport';
 // 여기서도 쏴줘야한다.
 
 import { ClientContext } from '../../store/clientContext';
-type chatBox = {
-  chatroomSeq: number;
-  userList: Array<number>;
-  activate: boolean;
-};
 
 function ChatLobbyPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [roomSeq, updateRoomSeq] = useState(0);
   const [roomTitle, updateRoomTitle] = useState('');
-  const [ChatRoomList, setChatRoomList] = useState(new Array<chatBox>());
-  const { isLoggedIn } = useContext(AuthContext);
 
+  const { isLoggedIn, onLogin } = useContext(AuthContext);
+
+  const { chatRoomList } = useContext(ClientContext);
   // const SubHeart = () => {
   //   subscribeHeart();
   // }
@@ -84,15 +79,13 @@ function ChatLobbyPage() {
   };
 
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const pk: number = 1; // 임의로 pk 걸어줌
-    findMyRoomAPI({ user: pk })
-      .then((res) => {
-        setChatRoomList(res);
-      })
-      .catch((err) => console.log(err));
+    if (!isLoggedIn) navigate('/');
+    const seq = Number(localStorage.getItem('seq') || '0');
   }, []);
+  console.log(chatRoomList);
 
   return (
     <ChatLobby>
@@ -107,15 +100,7 @@ function ChatLobbyPage() {
         onRightBtnClick={toggleModal}
       />
       {isModalOpen && <ChatReport onClickToggleModal={toggleModal} />}
-      {ChatRoomList.length ? (
-        <ChatBoxList
-          chatBoxList={ChatRoomList}
-          updateRoomSeq={updateRoomSeq}
-          updateRoomTitle={updateRoomTitle}
-        />
-      ) : (
-        <EmptyChatBox />
-      )}
+      {chatRoomList.length ? <ChatBoxList /> : <EmptyChatBox />}
     </ChatLobby>
   );
 }
