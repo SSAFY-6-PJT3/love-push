@@ -1,7 +1,7 @@
 /**
  * @author Seung Hoon Han | UI 개발
- * @modified Joo Ho Kim | 로직 추가
- * @modified Hyeonsooryu | 마크업 구조 리팩터링
+ * @modified Joo Ho Kim | 하트 송수신 로직 추가
+ * @modified Hyeonsooryu | 마크업 구조 리팩터링 & 애니메이션 추가
  */
 
 import { useContext, useState } from 'react';
@@ -9,12 +9,12 @@ import styled from 'styled-components';
 
 import MainNav from './MainNav';
 import MainFooter from './MainFooter';
+import AfterBackGround from '../Molecules/AfterBackground';
+import HeartBtn from '../Molecules/HeartBtn';
 
 import { ClientContext } from '../../store/clientContext';
 
 // start of image import
-import Beforeheart from '../../images/icon/heart2.svg';
-import Afterheart from '../../images/icon/heart1.svg';
 import chebrasika from '../../images/emoji/chebrasika100.svg';
 import genshinimpact from '../../images/emoji/genshinimpact48.svg';
 import itachiuchiha from '../../images/emoji/itachiuchiha48.svg';
@@ -43,16 +43,19 @@ const MainPage = () => {
   const { CheckGPS, GpsKeyHandler, sendHeart, signal, nearBy10mState } =
     useContext(ClientContext);
 
-  // const [heart, setHeart] = useState(false);
+  const [showRedHeart, setShowRedHeart] = useState(false);
 
   CheckGPS();
   GpsKeyHandler();
+
   const heartClickHandler = () => {
-    if (!signal) {
-      sendHeart();
-    }
-    // setHeart(true);
-    // console.log(heart);
+    // if (!signal) {
+    //   sendHeart();
+    // }
+    setShowRedHeart(true);
+    setTimeout(() => {
+      setShowRedHeart(false);
+    }, 4000);
   };
 
   const slides1 = [
@@ -72,28 +75,26 @@ const MainPage = () => {
 
   return (
     <>
-      {signal && <AfterBackGround />}
+      <AfterBackGround show={showRedHeart} />
       <Container>
         <MainNav />
-        {signal && (
+        {showRedHeart && (
           <Title>
             10m 이내의 누군가가 <br />
             하트를 눌렀어요! <br />
             당신을 좋아하는건 아닐까요..?
           </Title>
         )}
-        {!signal && (
+        {!showRedHeart && (
           <Title>
             10m 이내에 <br />
             {nearBy10mState.sessions.size}명의 <br />
             사용자가 있어요!
           </Title>
         )}
-        {signal ? (
-          <AfterHeart src={Afterheart} />
-        ) : (
-          <Heart src={Beforeheart} onClick={heartClickHandler} />
-        )}
+        <HeartWrapper>
+          <HeartBtn show={showRedHeart} onClickHeart={heartClickHandler} />
+        </HeartWrapper>
         <ImgContainer>
           {slides1.map((slide) => (
             <Emoji key={slide} src={slide} alt="" />
@@ -117,42 +118,6 @@ const Container = styled.div`
   }
   overflow-y: hidden;
   overflow-x: hidden;
-`;
-
-const Heart = styled.img`
-  animation: heart-pulse 0.9s infinite ease-out;
-  @keyframes heart-pulse {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1);
-    }
-    70% {
-      transform: scale(1.1);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-`;
-
-const AfterHeart = styled.img`
-  animation: heart-pulse 0.9s infinite ease-out;
-  @keyframes heart-pulse {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1);
-    }
-    70% {
-      transform: scale(1.1);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
 `;
 
 const Emoji = styled.img`
@@ -181,32 +146,9 @@ const Title = styled.h1`
   }
 `;
 
-const AfterBackGround = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: -1;
-  background: linear-gradient(
-    32.33deg,
-    #ff9a9e 0%,
-    #fad0c4 68.68%,
-    #fad0c4 69.38%
-  );
-  background-repeat: no-repeat;
-  height: 100vh;
-  @supports (-webkit-touch-callout: none) {
-    height: -webkit-fill-available;
-  }
-  animation: fadein 1.4s;
-  @keyframes fadein {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
+const HeartWrapper = styled.div`
+  width: 220px;
+  height: 202px;
 `;
 
 const ImgContainer = styled.div`
