@@ -34,7 +34,7 @@ const AboutService = () => {
 
   const btnClickHandler = () => {
     if (pageId === '3') {
-      navigate('/mainpage');
+      navigate('/');
     } else if (pageId) {
       navigate(`/about-service/${+pageId + 1}`);
     }
