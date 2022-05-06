@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import styled from 'styled-components';
 
 import MainNav from './MainNav';
@@ -35,6 +35,7 @@ import unicorn from '../../images/emoji/Unicorn.svg';
 import weather from '../../images/emoji/Weather.svg';
 import xmas from '../../images/emoji/Xmas tree.svg';
 import zany from '../../images/emoji/Zany face.svg';
+import { ClientContext } from '../../store/clientContext';
 // end of image import
 
 const MainPage = () => {
@@ -44,18 +45,15 @@ const MainPage = () => {
   // useEffect((인원값) => {
   //   setCount(인원값)
   // })
-  const [count, setCount] = useState<number>(10);
-  const [signal, setSignal] = useState<boolean>(false);
-  const isLogin: boolean = true;
   // 로그인 모달 함수
   // 성공시 isLogin True변환
-  // 초기 로그인 유저인지 아닌지 확인 필요 useEffect사용
-  const changeSignal = () => {
-    setSignal(true);
-    setTimeout(() => {
-      setSignal(false);
-    }, 10000);
-  };
+  // 초기 로그인 유저인지 아닌지 확인 필요 useEffect사용 -> 필요없어져서 삭제했습니다.
+
+  const { CheckGPS, GpsKeyHandler, sendHeart, signal, nearBy10mState } =
+    useContext(ClientContext);
+
+  CheckGPS();
+  GpsKeyHandler();
 
   const slides1 = [
     chebrasika,
@@ -95,46 +93,7 @@ const MainPage = () => {
     weather,
   ];
 
-  if (!isLogin) {
-    return (
-      <>
-        <BeforeBackGround>
-          <MainNav />
-          <TitleTag>
-            10m 이내에{'\n'}
-            좋아하는 사람이 있다면{'\n'}
-            하트를 눌러보세요
-          </TitleTag>
-          <Heart>
-            {/* 클릭시 로그인화면으로 이동 */}
-            <img src={Beforeheart} alt="" onClick={changeSignal} />
-          </Heart>
-          <EmojiDiv>
-            {slides1.map((slide) => (
-              <div key={slide} className="emoji">
-                <EmojiImg src={slide} alt="" />
-              </div>
-            ))}
-          </EmojiDiv>
-          <ReverseEmojiDiv>
-            {slides2.map((slide) => (
-              <div key={slide} className="emoji">
-                <EmojiImg src={slide} alt="" />
-              </div>
-            ))}
-          </ReverseEmojiDiv>
-          <EmojiDiv>
-            {slides3.map((slide) => (
-              <div key={slide} className="emoji">
-                <EmojiImg src={slide} alt="" />
-              </div>
-            ))}
-          </EmojiDiv>
-          <MainFooter />
-        </BeforeBackGround>
-      </>
-    );
-  } else if (isLogin && !signal) {
+  if (!signal) {
     return (
       <>
         <BeforeBackGround>
@@ -142,11 +101,11 @@ const MainPage = () => {
           <TitleTag>
             10m 이내에{'\n'}
             ‘좋아하면 누르는’ 사용자가{'\n'}
-            {count}명 있어요
+            {nearBy10mState.sessions.size}명 있어요
           </TitleTag>
           <Heart>
             {/* 클릭이벤트 삭제하고 시그널이 요청이 오면 바뀌게끔 하기 */}
-            <img src={Beforeheart} alt="" onClick={changeSignal} />
+            <img src={Beforeheart} alt="" onClick={sendHeart} />
           </Heart>
           <ImgContainer>
             {slides1.map((slide) => (

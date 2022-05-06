@@ -59,6 +59,9 @@ import ChatReport from '../Molecules/ChatReport';
 // 채팅은 최근 채팅 20~30개 제한. -> 너무 많으면 DB에서 가져오는게 힘들수도
 // 리미트 걺고 완성하고, 로컬에 채팅 기록하는 식으로...
 
+// 여기서도 쏴줘야한다.
+
+import { ClientContext } from '../../store/clientContext';
 type chatBox = {
   chatroomSeq: number;
   userList: Array<number>;
@@ -71,6 +74,10 @@ function ChatLobbyPage() {
   const [roomTitle, updateRoomTitle] = useState('');
   const [ChatRoomList, setChatRoomList] = useState(new Array<chatBox>());
   const { isLoggedIn } = useContext(AuthContext);
+
+  // const SubHeart = () => {
+  //   subscribeHeart();
+  // }
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -100,7 +107,6 @@ function ChatLobbyPage() {
         onRightBtnClick={toggleModal}
       />
       {isModalOpen && <ChatReport onClickToggleModal={toggleModal} />}
-
       {ChatRoomList.length ? (
         <ChatBoxList
           chatBoxList={ChatRoomList}
