@@ -3,13 +3,10 @@ package com.cupid.joalarm
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
-import org.conscrypt.Conscrypt
-import java.security.Security
 
 
 class MainActivity : AppCompatActivity() {
@@ -36,8 +33,10 @@ class MainActivity : AppCompatActivity() {
         mWebSettings.cacheMode = WebSettings.LOAD_NO_CACHE // 브라우저 캐시 허용 여부
         mWebSettings.domStorageEnabled = true // 로컬저장소 허용 여부
 
-//        webView.loadUrl("https://www.someone-might-like-you.com/")
-        webView.loadUrl("http://3.35.170.113:31000/mainpage")
+        webView.loadUrl("https://www.someone-might-like-you.com/")
+//        webView.loadUrl("http://3.35.170.113:31000/mainpage")
+//        webView.loadUrl("https://www.naver.com/")
+//        webView.loadUrl("https://www.google.com/")
 
 //        openWebPage("https://www.someone-might-like-you.com/mainPage")
     }
