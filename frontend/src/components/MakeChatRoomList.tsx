@@ -7,9 +7,12 @@ import SockJS from 'sockjs-client';
 
 const getRoomSeq = async (user: string) => {
   const ChatRoomList: Array<number> = [];
-  const RoomRes = await axios.get('http://localhost:8888/chat/findmyroom', {
-    params: { user: user },
-  });
+  const RoomRes = await axios.get(
+    'https://www.someone-might-like-you.com/api/chat/findmyroom',
+    {
+      params: { user: user },
+    },
+  );
   for (var Room of RoomRes.data) {
     ChatRoomList.push(Room['chatroomSeq']);
   }
@@ -20,7 +23,7 @@ const getRoomSeq = async (user: string) => {
 const getHeartList = async (user: string) => {
   const HeartList = new Set<number>();
   const HeartRes = await axios.get(
-    'http://localhost:8888/heart/sendheartlist',
+    'https://www.someone-might-like-you.com/api/heart/sendheartlist',
     {
       params: { user: user },
     },
@@ -56,7 +59,9 @@ export const MakeChatRoomList = () => {
     () =>
       new Client({
         webSocketFactory: function () {
-          return new SockJS('http://localhost:8888/ws-stomp');
+          return new SockJS(
+            'https://www.someone-might-like-you.com/api/ws-stomp',
+          );
         },
         debug: function (str) {
           console.log(str);

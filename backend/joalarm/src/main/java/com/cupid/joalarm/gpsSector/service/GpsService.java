@@ -17,8 +17,11 @@ public class GpsService {
 
     private final GpsRepository gpsRepository;
 
-    public void changeUserSector(String beforeGpsKey, String nowGpsKey, String sessionId) {
-        gpsRepository.changeUserSector(beforeGpsKey, nowGpsKey, sessionId);
+    public void changeUserSector(String beforeGpsKey, String nowGpsKey, String sessionId, PkEmojiPairDTO pkEmojiPairDTO) {
+        if (!"".equals(beforeGpsKey)) {
+            gpsRepository.dropUser(beforeGpsKey, sessionId);
+        }
+        gpsRepository.putUserSector(nowGpsKey, sessionId, pkEmojiPairDTO);
     }
 
     public void changeUserEmoji(String gpsKey, String sessionId, String emojiUrl) {

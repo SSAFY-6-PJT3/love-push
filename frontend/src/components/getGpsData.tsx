@@ -88,7 +88,9 @@ export default function GetGpsData() {
     () =>
       new Client({
         webSocketFactory: function () {
-          return new SockJS('http://localhost:8888/ws-stomp');
+          return new SockJS(
+            'https://www.someone-might-like-you.com/api/ws-stomp',
+          );
         },
         debug: function (str) {
           console.log(str);
@@ -175,7 +177,7 @@ export default function GetGpsData() {
   }, []);
 
   const testButtonEvent = useCallback(() => {
-    setGpsKey('111/222/333/444/555/666');
+    setGpsKey('37/30/432/126/46/162');
   }, []);
 
   type Whisper = { type: string; person: number; chatRoom: number };
@@ -248,7 +250,10 @@ export default function GetGpsData() {
     const setSessions = new Set(sessions);
     setSessions.delete(mySession);
 
-    const values = sectorData.map((v) => sessions.map((k) => v[k])).flat();
+    const values = sectorData
+      .map((v) => sessions.map((k) => v[k]))
+      .flat()
+      .filter((v) => !!v);
 
     const users = new Set(values.map((v) => v.pk));
     users.delete(id);
@@ -310,9 +315,9 @@ export default function GetGpsData() {
       <br />
       현재 내 주변 유저: {nearBy10mState.sessions.size}
       <br />
-      {gpsKeyNearby10m.map((v) => (
+      {/* {gpsKeyNearby10m.map((v) => (
         <div key={v}>{v}</div>
-      ))}
+      ))} */}
     </div>
   );
 }

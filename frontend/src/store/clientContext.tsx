@@ -11,6 +11,8 @@ import {
 import SockJS from 'sockjs-client';
 import gpsTransKey from '../hooks/gps/gpsTransKey';
 import { openChatAPI } from '../api/openChatAPI';
+import { findMyRoomAPI } from '../api/chatRoomAPI';
+import { getChatLog } from '../api/chatAPI';
 
 interface userType {
   pk: number;
@@ -39,24 +41,37 @@ interface whisper {
   chatRoom: number;
 }
 
-const ClientContext = createContext({
-  // isConnected:,
-  // gpsReducer: (data:GpsInterface) => "",
-  CheckGPS: () => {},
-  sendHeart: () => {},
-  GpsKeyHandler: () => {},
-  // subscribeHeart: () => {},
-  signal: false,
-  nearBy10mState: { sessions: new Set<string>(), users: new Set<number>() },
-});
-
 interface IPropsClientContextProvider {
   children: ReactNode;
 }
 
+interface chatBox {
+  chatroomSeq: number;
+  userList: Array<number>;
+  activate: boolean;
+}
+
+interface messageType {
+  type: string;
+  roomId: number;
+  sender: number;
+  message: string;
+  sendTime: string;
+}
+
+interface messages {
+  [seq: number]: { messages: Array<messageType>; newMessage: number };
+}
+
+interface chatsActions {
+  type: string;
+  messageType: messageType;
+  idx: number;
+  messages: Array<messageType>;
+}
+
 const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
   const seq = Number(localStorage.getItem('seq') || '0');
-  const [flag, setFlag] = useState(true);
   const [mySession, updateMySession] = useState('');
   const [sendHeartSet, updateSendHeartSet] = useState(new Set<number>());
   const [chatUserSet, updateChatUserSet] = useState(new Set<number>());
@@ -65,6 +80,34 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
   );
   const [clientConnected, updateClientConnected] = useState(false);
   const [signal, setSignal] = useState<boolean>(false);
+  const [chatRoomList, setChatRoomList] = useState(new Array<chatBox>());
+
+  const chatsReducer = (
+    state: messages,
+    chatsActions: chatsActions,
+  ): messages => {
+    switch (chatsActions.type) {
+      case 'INSERT':
+        state[chatsActions.idx] = {
+          messages: chatsActions.messages,
+          newMessage: 0,
+        };
+        break;
+      case 'CHAT_MESSAGE':
+        state[chatsActions.idx].messages.push(chatsActions.messageType);
+        state[chatsActions.idx].newMessage += 1;
+        break;
+    }
+    return state;
+  };
+
+  const [chats, chatsDispatch] = useReducer(chatsReducer, {} as messages);
+  const [index, updateIndex] = useState<number>(0);
+
+  const updateIndexFunc = (num: number) => {
+    updateIndex(num);
+  };
+
   const changeSignal = () => {
     setSignal(true);
     setTimeout(() => {
@@ -84,7 +127,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
           console.log(str);
         },
         onConnect: () => {
-          setFlag(true);
           updateClientConnected(true);
 
           const sessionId = (
@@ -101,12 +143,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
 
           client.subscribe(`/sub/heart/${sessionId}`, (message) => {
             // 세션 구독하게 변경(하트용)
-            const whisper: whisper = JSON.parse(message.body);
-            receiveMessageCallback(whisper);
-          });
-
-          client.subscribe(`/sub/user/${seq}`, (message) => {
-            // 채팅방 생성 명령 수신(pk로)
             const whisper: whisper = JSON.parse(message.body);
             receiveMessageCallback(whisper);
           });
@@ -130,6 +166,54 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     [],
   );
 
+  // 유저 로그인 상태라면, 채팅방 관련 코드 돌리기
+  useEffect(() => {
+    console.log('useEffect');
+
+    if (seq !== 0 && client && client.connected) {
+      console.log('if');
+
+      client.subscribe(`/sub/user/${seq}`, (message) => {
+        // 채팅방 생성 명령 수신(pk로)
+        const whisper: whisper = JSON.parse(message.body);
+        receiveMessageCallback(whisper);
+      });
+
+      findMyRoomAPI({ user: seq })
+        .then((res) => {
+          const chatRooms = res.reverse();
+          setChatRoomList(chatRooms);
+
+          chatRooms.forEach((chatRoom) => {
+            getChatLog({ roomSeq: chatRoom.chatroomSeq }).then(
+              (res: messageType[]) => {
+                const idx: number = chatRoom.chatroomSeq;
+                const reverseChat: messageType[] = res.reverse();
+
+                chatsDispatch({
+                  type: 'INSERT',
+                  idx: idx,
+                  messages: reverseChat,
+                  messageType: {} as messageType,
+                });
+
+                client.subscribe(`/sub/chat/room/${idx}`, (message) => {
+                  chatsDispatch({
+                    type: 'CHAT_MESSAGE',
+                    idx: idx,
+                    messages: [],
+                    messageType: JSON.parse(message.body),
+                  });
+                });
+              },
+            );
+          });
+        })
+        .catch((err) => console.log(err));
+      console.log(chatRoomList);
+    }
+  }, [seq, client, client.connected]);
+
   const receiveMessageCallback = useCallback(
     (action: whisper) => {
       switch (action.type) {
@@ -143,9 +227,28 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
 
         case 'CHATROOM':
           updateChatUserSet((pre) => pre.add(action.person));
-          console.log(`${action.chatRoom} 채팅방이 신설되었습니다.`);
-          client.subscribe(`/sub/room/${action.chatRoom}`, (message) => {
-            console.log(message);
+          // console.log(`${action.chatRoom} 채팅방이 신설되었습니다.`);
+          const newChatRoom: chatBox = {
+            chatroomSeq: action.chatRoom,
+            userList: [seq, action.person],
+            activate: true,
+          };
+          setChatRoomList((pre) => [newChatRoom, ...pre]);
+
+          chatsDispatch({
+            type: 'NEW_ROOM',
+            idx: action.chatRoom,
+            messages: new Array<messageType>(),
+            messageType: {} as messageType,
+          });
+
+          client.subscribe(`/sub/chat/room/${action.chatRoom}`, (message) => {
+            chatsDispatch({
+              type: 'CHAT_MESSAGE',
+              idx: action.chatRoom,
+              messages: [],
+              messageType: JSON.parse(message.body) as messageType,
+            });
           });
           break;
 
@@ -157,25 +260,15 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
   );
 
   const gpsReducer = (beforeKey: string, nowKey: string): string => {
-    if (clientConnected && beforeKey !== nowKey) {
-      if (flag) {
-        client.publish({
-          destination: '/pub/joalarm',
-          body: JSON.stringify({
-            gpsKey: nowKey,
-            pair: { pk: `${seq}`, emojiURL: 'emoji' },
-          }),
-        });
-        setFlag(false);
-      } else {
-        client.publish({
-          destination: '/pub/sector',
-          body: JSON.stringify({
-            beforeGpsKey: beforeKey,
-            nowGpsKey: nowKey,
-          }),
-        });
-      }
+    if (clientConnected && nowKey !== '' && beforeKey !== nowKey) {
+      client.publish({
+        destination: '/pub/sector',
+        body: JSON.stringify({
+          beforeGpsKey: beforeKey,
+          nowGpsKey: nowKey,
+          pair: { pk: `${seq}`, emojiURL: 'emoji' },
+        }),
+      });
     }
     return nowKey;
   };
@@ -192,14 +285,12 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     const setSessions = new Set(sessions);
     setSessions.delete(mySession);
 
-    const values = sectorData.map((v) => sessions.map((k) => v[k])).flat().filter((v)=> !!v);
-    let users = new Set<number>() 
-    if (values) {
-      console.log(values)
-      users = new Set(values.map((v) => v.pk));
-      users.delete(seq);
-      users.delete(0);
-    }
+    const values = sectorData.map((v) => sessions.map((k) => v[k])).flat();
+
+    const users = new Set(values.map((v) => v.pk));
+    users.delete(seq);
+    users.delete(0);
+
     return { sessions: setSessions, users: users };
   };
 
@@ -320,6 +411,10 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     }, [gpsKey]);
   };
 
+  const chatsHandler = (idx: number): messages => {
+    return chats;
+  };
+
   return (
     <ClientContext.Provider
       value={{
@@ -332,11 +427,36 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         signal: signal,
         // subscribeHeart: subscribeHeart,
         nearBy10mState: nearBy10mState,
+        client: client,
+        chatRoomList: chatRoomList,
+        updateIndexFunc: updateIndexFunc,
+        index: index,
+        chats: chats,
+        chatsHandler: chatsHandler,
       }}
     >
       {children}
     </ClientContext.Provider>
   );
 };
+
+const ClientContext = createContext({
+  // isConnected:,
+  // gpsReducer: (data:GpsInterface) => "",
+  CheckGPS: () => {},
+  sendHeart: () => {},
+  GpsKeyHandler: () => {},
+  // subscribeHeart: () => {},
+  signal: false,
+  nearBy10mState: { sessions: new Set<string>(), users: new Set<number>() },
+  client: new Client(),
+  chatRoomList: new Array<chatBox>(),
+  updateIndexFunc: (num: number) => {},
+  index: 0,
+  chats: {} as messages,
+  chatsHandler: (idx: number) => {
+    return {} as messages;
+  },
+});
 
 export { ClientContext, ClientContextProvider };

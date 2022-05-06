@@ -17,6 +17,9 @@ import ChatLobby from './components/Templetes/ChatLobby';
 import LocationPage from './components/Templetes/LocationPage';
 import MainPage from './components/Templetes/MainPage';
 import { MakeChatRoomList } from './components/MakeChatRoomList';
+import ChatRoom from './components/Templetes/ChatRoom';
+import { useContext } from 'react';
+import { ClientContext } from './store/clientContext';
 
 function App() {
   // const appHeight = () => {
@@ -26,6 +29,7 @@ function App() {
   // };
   // window.addEventListener('resize', appHeight); // 사파리 상, 하단바 유무에 따른 화면비 재설정 이벤트리스너 코드
   // appHeight();
+  const { index, chats, client } = useContext(ClientContext);
 
   return (
     <>
@@ -37,7 +41,17 @@ function App() {
             {/* <Route path="/" element={<KeyFrame />} /> */}
             <Route path="/mainpage" element={<MainPage />} />
             <Route path="/signup/:pageId" element={<Signup />} />
-            <Route path="/chatlobby/*" element={<ChatLobby />} />
+            <Route path="/chatlobby" element={<ChatLobby />} />
+            <Route
+              path="/chat"
+              element={
+                <ChatRoom
+                  idx={index}
+                  chats={chats && chats[index] && chats[index].messages}
+                  client={client}
+                />
+              }
+            />
             <Route path="/location" element={<LocationPage />} />
             <Route path="/test" element={<KeyFrame />} />
             <Route path="/storybook" element={<StoryBook />} />
