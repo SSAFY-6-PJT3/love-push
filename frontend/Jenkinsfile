@@ -12,10 +12,18 @@ pipeline{
 
 			steps {
 			    dir("./frontend") {
-			        sh 'npm i'
-                    sh 'CI=false npm run build'
-                    sh 'docker build -t gkuer/joalarm-react:latest .'
-					mattermostSend(color: "#FF33FF", message: "Jenkins - Frontend 이미지 빌드 완료")
+					script {
+						mattermostSend(color: "#FFFF8C", message: "Jenkins - ${env.BUILD_NUMBER}번째 Frontend 도커 이미지 빌드 시작")
+						try {
+							sh 'npm i'
+							sh 'CI=false npm run build'
+							sh 'docker build -t gkuer/joalarm-react:latest .'
+							mattermostSend(color: "#FF33FF", message: "Jenkins - ${env.BUILD_NUMBER}번째 Frontend 도커 이미지 빌드 완료")
+						} catch(e) {
+							mattermostSend(color: "#FF33FF", message: "Jenkins - ${env.BUILD_NUMBER}번째 Frontend 도커 이미지 빌드 실패 => 로그 확인 : ${env.BUILD_URL}")
+							error(e)
+						}
+					}
 			    }
 			}
 		}
@@ -31,7 +39,7 @@ pipeline{
 
 			steps {
 				sh 'docker push gkuer/joalarm-react'
-				mattermostSend(color: "#33FFCC", message: "Dockerhub - Frontend 푸쉬 완료")
+				mattermostSend(color: "#33FFCC", message: "Dockerhub - ${env.BUILD_NUMBER}번째 Frontend 푸쉬 완료")
 			}
 		}
 
@@ -42,7 +50,7 @@ pipeline{
                     script {
                         kubernetesDeploy(configs: "joalarm-auto-deploy-react.yaml", kubeconfigId: 'Kubeconfig')
 						sh './kubectl --kubeconfig=./kube-config.yaml rollout restart deployment react'
-						mattermostSend(color: "#0066CC", message: "Kubernetes - Frontend 배포 완료")
+						mattermostSend(color: "#0066CC", message: "Kubernetes - ${env.BUILD_NUMBER}번째 Frontend 배포 완료")
                     }
                 }
             }

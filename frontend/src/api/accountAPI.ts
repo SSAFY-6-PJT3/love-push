@@ -25,6 +25,7 @@ interface ILoginReqData {
 interface ILoginResponse {
   emojiUrl: string;
   token: string;
+  seq: string;
 }
 
 interface IReportReqData {

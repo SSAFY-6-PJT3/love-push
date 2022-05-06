@@ -1,22 +1,31 @@
 package com.cupid.joalarm.heart.dto;
 
 public class HeartDTO {
-    private int[] receiveUsers;
-    private int sendUser;
+    private String[] receiveSessions;
+    private long[] receiveUsers;
+    private long sendUser;
 
-    public int[] getReceiveUsers() {
+    public String[] getReceiveSessions() {
+        return receiveSessions;
+    }
+
+    public void setReceiveSessions(String[] receiveSessions) {
+        this.receiveSessions = receiveSessions;
+    }
+
+    public long[] getReceiveUsers() {
         return receiveUsers;
     }
 
-    public void setReceiveUsers(int[] receiveUsers) {
+    public void setReceiveUsers(long[] receiveUsers) {
         this.receiveUsers = receiveUsers;
     }
 
-    public int getSendUser() {
+    public long getSendUser() {
         return sendUser;
     }
 
-    public void setSendUser(int sendUser) {
+    public void setSendUser(long sendUser) {
         this.sendUser = sendUser;
     }
 }

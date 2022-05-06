@@ -18,12 +18,22 @@ public class HeartService {
     private final SimpMessageSendingOperations messageTemplate;
 
     @Transactional
-    public void SendHeart(long sendUser, long receiveUser) {
+    public void logHeartUser(long sendUser, long[] receiveUsers) {
         if (sendUser != 0) {
-            HeartEntity heartEntity = HeartEntity.builder().sendUser(sendUser).receiveUser(receiveUser).build();
-            heartRepository.save(heartEntity);
+            for (long receiveUser : receiveUsers) {
+                HeartEntity heartEntity = HeartEntity.builder().sendUser(sendUser).receiveUser(receiveUser).build();
+                heartRepository.save(heartEntity);
+            }
+
+
         }
-        messageTemplate.convertAndSend("/sub/user/" + receiveUser, new HeartTypeDTO("HEART", sendUser));
+    }
+
+    @Transactional
+    public void sendHeart(long sendUser, String[] receiveSessions) {
+        for (String session : receiveSessions) {
+            messageTemplate.convertAndSend("/sub/heart/" + session, new HeartTypeDTO("HEART", sendUser));
+        }
     }
 
     public List<HeartEntity> SendHeartList(long user) {

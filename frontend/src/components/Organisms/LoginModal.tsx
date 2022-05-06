@@ -19,6 +19,12 @@ interface IPropsModal {
   closeModal: () => void;
 }
 
+interface IPropsOnLogin {
+  token: string;
+  emojiUrl: string;
+  seq: string;
+}
+
 const LoginModal = ({ isModalOpen, closeModal }: IPropsModal) => {
   const navigate = useNavigate();
   const { onLogin } = useContext(AuthContext);
@@ -42,8 +48,8 @@ const LoginModal = ({ isModalOpen, closeModal }: IPropsModal) => {
       password: password,
     };
     loginAPI(loginData)
-      .then((res: any) => {
-        onLogin(res.token, res.emojiUrl);
+      .then((res: IPropsOnLogin) => {
+        onLogin(res);
         closeModal();
         setUserId('');
         setPassword('');

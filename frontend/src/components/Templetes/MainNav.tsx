@@ -27,7 +27,7 @@ const MainNav = () => {
 
   const chatBtnClickHandler = () => {
     if (isLoggedIn) {
-      navigate('/');
+      navigate('/chatlobby');
     } else {
       setShowModal(true);
     }

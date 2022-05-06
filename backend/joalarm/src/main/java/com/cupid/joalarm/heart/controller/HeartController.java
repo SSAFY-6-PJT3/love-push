@@ -16,16 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RequestMapping("accounts")
 @Controller
 public class HeartController {
     private final HeartService heartService;
 
     @MessageMapping("/heart")
     public void sendHeart(HeartDTO DTO) {
-        for (long receiveUser: DTO.getReceiveUsers()){
-            heartService.SendHeart(DTO.getSendUser(), receiveUser);
-        }
+        heartService.logHeartUser(DTO.getSendUser(), DTO.getReceiveUsers());
+        heartService.sendHeart(DTO.getSendUser(), DTO.getReceiveSessions());
     }
 
     @GetMapping("/heart/sendheartlist")
