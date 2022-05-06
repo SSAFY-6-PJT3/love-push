@@ -1,8 +1,16 @@
+/**
+ * @author Seung Hoon Han | UI 개발
+ * @modified Joo Ho Kim | 로직 추가
+ * @modified Hyeonsooryu | 마크업 구조 리팩터링
+ */
+
 import { useContext, useState } from 'react';
 import styled from 'styled-components';
 
 import MainNav from './MainNav';
 import MainFooter from './MainFooter';
+
+import { ClientContext } from '../../store/clientContext';
 
 // start of image import
 import Beforeheart from '../../images/icon/heart2.svg';
@@ -14,28 +22,11 @@ import tanjirokamado from '../../images/emoji/tanjirokamado48.svg';
 import tom from '../../images/emoji/tom48.svg';
 import uzumaki from '../../images/emoji/uzumaki48.svg';
 import astonished from '../../images/emoji/Astonished face.svg';
-import cat from '../../images/emoji/Cat.svg';
-import clown from '../../images/emoji/Clown face.svg';
-import dog from '../../images/emoji/Dog.svg';
-import blowkiss from '../../images/emoji/Face blowing a kiss.svg';
-import savoring from '../../images/emoji/Face savoring food.svg';
-import mask from '../../images/emoji/Face with medical mask.svg';
-import fire from '../../images/emoji/Fire.svg';
 import gemstone from '../../images/emoji/Gemstone.svg';
 import greenapple from '../../images/emoji/Green apple.svg';
-import hamburger from '../../images/emoji/Hamburger.svg';
-import joker from '../../images/emoji/Joker.svg';
-import lion from '../../images/emoji/Lion.svg';
-import panda from '../../images/emoji/Panda.svg';
-import peach from '../../images/emoji/Peach.svg';
-import robot from '../../images/emoji/Robot.svg';
-import rocket from '../../images/emoji/Rocket.svg';
-import santa from '../../images/emoji/Santa Claus.svg';
 import unicorn from '../../images/emoji/Unicorn.svg';
-import weather from '../../images/emoji/Weather.svg';
 import xmas from '../../images/emoji/Xmas tree.svg';
 import zany from '../../images/emoji/Zany face.svg';
-import { ClientContext } from '../../store/clientContext';
 // end of image import
 
 const MainPage = () => {
@@ -52,8 +43,17 @@ const MainPage = () => {
   const { CheckGPS, GpsKeyHandler, sendHeart, signal, nearBy10mState } =
     useContext(ClientContext);
 
+  // const [heart, setHeart] = useState(false);
+
   CheckGPS();
   GpsKeyHandler();
+  const heartClickHandler = () => {
+    if (!signal) {
+      sendHeart();
+    }
+    // setHeart(true);
+    // console.log(heart);
+  };
 
   const slides1 = [
     chebrasika,
@@ -69,91 +69,57 @@ const MainPage = () => {
     gemstone,
     xmas,
   ];
-  const slides2 = [
-    cat,
-    clown,
-    dog,
-    blowkiss,
-    savoring,
-    mask,
-    fire,
-    gemstone,
-    xmas,
-    zany,
-  ];
-  const slides3 = [
-    hamburger,
-    joker,
-    lion,
-    panda,
-    peach,
-    robot,
-    rocket,
-    santa,
-    weather,
-  ];
 
-  if (!signal) {
-    return (
-      <>
-        <BeforeBackGround>
-          <MainNav />
-          <TitleTag>
-            10m 이내에{'\n'}
-            ‘좋아하면 누르는’ 사용자가{'\n'}
-            {nearBy10mState.sessions.size}명 있어요
-          </TitleTag>
-          <Heart>
-            {/* 클릭이벤트 삭제하고 시그널이 요청이 오면 바뀌게끔 하기 */}
-            <img src={Beforeheart} alt="" onClick={sendHeart} />
-          </Heart>
-          <ImgContainer>
-            {slides1.map((slide) => (
-              <div key={slide}>
-                <Emoji src={slide} alt="" />
-              </div>
-            ))}
-          </ImgContainer>
-          <MainFooter />
-        </BeforeBackGround>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <AfterBackGround>
-          <MainNav />
-          <TitleTag>
-            10m 이내의 누군가가{'\n'}
-            하트를 눌렀어요!{'\n'}
+  return (
+    <>
+      {signal && <AfterBackGround />}
+      <Container>
+        <MainNav />
+        {signal && (
+          <Title>
+            10m 이내의 누군가가 <br />
+            하트를 눌렀어요! <br />
             당신을 좋아하는건 아닐까요..?
-          </TitleTag>
-          <Heart>
-            {/* 10초정도 보여주고 넘기기 */}
-            <img src={Afterheart} alt="" />
-          </Heart>
-          <ImgContainer>
-            {slides1.map((slide) => (
-              <div key={slide}>
-                <Emoji src={slide} alt="" />
-              </div>
-            ))}
-          </ImgContainer>
-          <MainFooter />
-        </AfterBackGround>
-      </>
-    );
-  }
+          </Title>
+        )}
+        {!signal && (
+          <Title>
+            10m 이내에 <br />
+            {nearBy10mState.sessions.size}명의 <br />
+            사용자가 있어요!
+          </Title>
+        )}
+        {signal ? (
+          <AfterHeart src={Afterheart} />
+        ) : (
+          <Heart src={Beforeheart} onClick={heartClickHandler} />
+        )}
+        <ImgContainer>
+          {slides1.map((slide) => (
+            <Emoji key={slide} src={slide} alt="" />
+          ))}
+        </ImgContainer>
+        <MainFooter />
+      </Container>
+    </>
+  );
 };
 
-// const MainNavWrapper = styled.div`
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-// `;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
+  overflow-y: hidden;
+  overflow-x: hidden;
+`;
 
-const Heart = styled.div`
+const Heart = styled.img`
   animation: heart-pulse 0.9s infinite ease-out;
   @keyframes heart-pulse {
     0% {
@@ -170,40 +136,23 @@ const Heart = styled.div`
     }
   }
 `;
-const EmojiDiv = styled.div`
-  display: flex;
-  .emoji {
-    margin: 0px 10px 5px 10px;
-  }
-  animation-name: move;
-  animation-duration: 10s;
-  animation-fill-mode: both;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-  @keyframes move {
-    from {
-      transform: translateX(-250px);
+
+const AfterHeart = styled.img`
+  animation: heart-pulse 0.9s infinite ease-out;
+  @keyframes heart-pulse {
+    0% {
+      transform: scale(1);
     }
-    to {
-      transform: translateX(250px);
+    50% {
+      transform: scale(1);
+    }
+    70% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
     }
   }
-`;
-const ReverseEmojiDiv = styled(EmojiDiv)`
-  animation-direction: alternate-reverse;
-  @keyframes move {
-    from {
-      transform: translateX(250px);
-    }
-    to {
-      transform: translateX(-250px);
-    }
-  }
-`;
-const EmojiImg = styled.img`
-  width: 80px;
-  height: 80px;
 `;
 
 const Emoji = styled.img`
@@ -211,7 +160,7 @@ const Emoji = styled.img`
   height: 60px;
 `;
 
-const TitleTag = styled.p`
+const Title = styled.h1`
   white-space: pre-line;
   font-size: 20px;
   font-weight: 700;
@@ -219,92 +168,109 @@ const TitleTag = styled.p`
   line-height: 1.5;
   text-align: center;
   margin-bottom: 20px;
-`;
-
-const BeforeBackGround = styled.div`
-  background: linear-gradient(197.56deg, #63dae2 0%, #7fade8 100%);
-  overflow-y: hidden;
-  overflow-x: hidden;
-  width: 100vw;
-  height: 100vh;
-  @supports (-webkit-touch-callout: none) {
-    height: -webkit-fill-available;
+  animation: 0.8s ease-in-out 0s 1 normal forwards running fadeinBottom;
+  @keyframes fadeinBottom {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 20px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
   }
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 `;
 
-const AfterBackGround = styled(BeforeBackGround)`
+const AfterBackGround = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: -1;
   background: linear-gradient(
     32.33deg,
     #ff9a9e 0%,
     #fad0c4 68.68%,
     #fad0c4 69.38%
   );
+  background-repeat: no-repeat;
+  height: 100vh;
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
+  animation: fadein 1.4s;
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
+
 const ImgContainer = styled.div`
   position: relative;
   display: flex;
   align-items: start;
   justify-content: start;
 
-  div:nth-child(1) {
+  img:nth-child(1) {
     position: absolute;
     top: 70px;
     left: 30px;
   }
-  div:nth-child(2) {
+  img:nth-child(2) {
     position: absolute;
     top: 70px;
     left: -100px;
   }
-  div:nth-child(3) {
+  img:nth-child(3) {
     position: absolute;
     top: 150px;
     left: -140px;
   }
-  div:nth-child(4) {
+  img:nth-child(4) {
     position: absolute;
     top: 70px;
     left: 150px;
   }
-  div:nth-child(5) {
+  img:nth-child(5) {
     position: absolute;
     left: 60px;
   }
-  div:nth-child(6) {
+  img:nth-child(6) {
     position: absolute;
     left: -60px;
   }
-  div:nth-child(7) {
+  img:nth-child(7) {
     position: absolute;
     left: 180px;
   }
-  div:nth-child(8) {
+  img:nth-child(8) {
     position: absolute;
     left: -180px;
   }
-  div:nth-child(9) {
+  img:nth-child(9) {
     position: absolute;
     top: 70px;
     left: -220px;
   }
-  div:nth-child(10) {
+  img:nth-child(10) {
     position: absolute;
     top: 150px;
     left: 120px;
   }
-  div:nth-child(11) {
+  img:nth-child(11) {
     position: absolute;
     top: 150px;
     left: 0px;
   }
-  div:nth-child(12) {
+  img:nth-child(12) {
     position: absolute;
     top: 150px;
     left: -260px;
   }
 `;
+
 export default MainPage;
