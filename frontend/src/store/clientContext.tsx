@@ -286,7 +286,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
 
     const sessions = sectorData.map((v) => Object.keys(v)).flat();
     const setSessions = new Set(sessions);
-    setSessions.delete(mySession);
 
     const values = sectorData.map((v) => sessions.map((k) => v[k])).flat();
 
