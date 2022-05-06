@@ -283,12 +283,14 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     const setSessions = new Set(sessions);
     setSessions.delete(mySession);
 
-    const values = sectorData.map((v) => sessions.map((k) => v[k])).flat();
-
-    const users = new Set(values.map((v) => v.pk));
-    users.delete(seq);
-    users.delete(0);
-
+    const values = sectorData.map((v) => sessions.map((k) => v[k])).flat().filter((v)=> !!v);
+    let users = new Set<number>() 
+    if (values) {
+      console.log(values)
+      users = new Set(values.map((v) => v.pk));
+      users.delete(seq);
+      users.delete(0);
+    }
     return { sessions: setSessions, users: users };
   };
 
