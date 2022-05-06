@@ -34,9 +34,9 @@ public class GpsSectorController {
         // gps 데이터 전달받음
         // 해당 HashMap에서 이전 섹터 삭제, 새 섹터 입력
         // 5s 전체채팅 요청
-        SimpAttributesContextHolder.currentAttributes().setAttribute("GPS", DTO.getNowGpsKey());
-        System.out.println(DTO.getBeforeGpsKey() + " / " + DTO.getNowGpsKey() + " / " + sessionId);
         gpsService.changeUserSector(DTO.getBeforeGpsKey(), DTO.getNowGpsKey(), sessionId);
+        SimpAttributesContextHolder.currentAttributes().setAttribute("GPS", DTO.getNowGpsKey());
+//        System.out.println(DTO.getBeforeGpsKey() + " / " + DTO.getNowGpsKey() + " / " + sessionId);
     }
 
     @MessageMapping("/emoji")
