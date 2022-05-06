@@ -26,6 +26,7 @@ const HeartBtn = ({ show, onClickHeart }: IPropsHeartBtn) => {
           opacity: opacity.to({ range: [0.0, 1.0], output: [0, 1] }),
         }}
         src={Afterheart}
+        onClick={onClickHeart}
       />
     ) : (
       <animated.img

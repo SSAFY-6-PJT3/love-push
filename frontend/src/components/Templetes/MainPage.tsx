@@ -27,6 +27,7 @@ import greenapple from '../../images/emoji/Green apple.svg';
 import unicorn from '../../images/emoji/Unicorn.svg';
 import xmas from '../../images/emoji/Xmas tree.svg';
 import zany from '../../images/emoji/Zany face.svg';
+import { AlertContext } from '../../store/alertContext';
 // end of image import
 
 const MainPage = () => {
@@ -42,20 +43,15 @@ const MainPage = () => {
 
   const { CheckGPS, GpsKeyHandler, sendHeart, signal, nearBy10mState } =
     useContext(ClientContext);
-
-  const [showRedHeart, setShowRedHeart] = useState(false);
+  const { openAlert, setAlertText } = useContext(AlertContext);
 
   CheckGPS();
   GpsKeyHandler();
 
   const heartClickHandler = () => {
-    // if (!signal) {
-    //   sendHeart();
-    // }
-    setShowRedHeart(true);
-    setTimeout(() => {
-      setShowRedHeart(false);
-    }, 4000);
+    setAlertText('하트 발사!');
+    openAlert();
+    sendHeart();
   };
 
   const slides1 = [
@@ -75,25 +71,37 @@ const MainPage = () => {
 
   return (
     <>
-      <AfterBackGround show={showRedHeart} />
+      <AfterBackGround show={signal} />
       <Container>
         <MainNav />
-        {showRedHeart && (
+        {signal && (
           <Title>
             10m 이내의 누군가가 <br />
             하트를 눌렀어요! <br />
             당신을 좋아하는건 아닐까요..?
           </Title>
         )}
-        {!showRedHeart && (
+        {!signal && (
           <Title>
-            10m 이내에 <br />
-            {nearBy10mState.sessions.size}명의 <br />
-            사용자가 있어요!
+            {nearBy10mState.sessions.size === 0 ? (
+              <p>
+                잠시만요!
+                <br />
+                주변의 사용자를
+                <br />
+                검색하는 중이에요..
+              </p>
+            ) : (
+              <p>
+                10m 이내에 <br />
+                {nearBy10mState.sessions.size - 1}명의 <br />
+                사용자가 있어요!
+              </p>
+            )}
           </Title>
         )}
         <HeartWrapper>
-          <HeartBtn show={showRedHeart} onClickHeart={heartClickHandler} />
+          <HeartBtn show={signal} onClickHeart={heartClickHandler} />
         </HeartWrapper>
         <ImgContainer>
           {slides1.map((slide) => (

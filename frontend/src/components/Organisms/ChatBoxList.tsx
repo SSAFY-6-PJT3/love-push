@@ -59,9 +59,7 @@ const ChatBoxListPage = () => {
           lastChat={
             chats &&
             chats[chatRoom.chatroomSeq] &&
-            chats[chatRoom.chatroomSeq].messages[
-              chats[chatRoom.chatroomSeq].messages.length - 1
-            ]
+            chats[chatRoom.chatroomSeq][chats[chatRoom.chatroomSeq].length - 1]
           }
         />
       ))}

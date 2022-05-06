@@ -59,8 +59,11 @@ interface messageType {
   sendTime: string;
 }
 
+// interface messages {
+//   [seq: number]: { messages: Array<messageType>; newMessage: number };
+// }
 interface messages {
-  [seq: number]: { messages: Array<messageType>; newMessage: number };
+  [seq: number]: Array<messageType>;
 }
 
 interface chatsActions {
@@ -86,19 +89,23 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     state: messages,
     chatsActions: chatsActions,
   ): messages => {
+    const new_state = { ...state };
+
     switch (chatsActions.type) {
       case 'INSERT':
-        state[chatsActions.idx] = {
-          messages: chatsActions.messages,
-          newMessage: 0,
-        };
+        new_state[chatsActions.idx] = chatsActions.messages;
         break;
       case 'CHAT_MESSAGE':
-        state[chatsActions.idx].messages.push(chatsActions.messageType);
-        state[chatsActions.idx].newMessage += 1;
+        const new_message = [
+          ...new_state[chatsActions.idx],
+          chatsActions.messageType,
+        ];
+        new_state[chatsActions.idx] = new_message;
+        break;
+      default:
         break;
     }
-    return state;
+    return new_state;
   };
 
   const [chats, chatsDispatch] = useReducer(chatsReducer, {} as messages);
@@ -168,11 +175,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
 
   // 유저 로그인 상태라면, 채팅방 관련 코드 돌리기
   useEffect(() => {
-    console.log('useEffect');
-
     if (seq !== 0 && client && client.connected) {
-      console.log('if');
-
       client.subscribe(`/sub/user/${seq}`, (message) => {
         // 채팅방 생성 명령 수신(pk로)
         const whisper: whisper = JSON.parse(message.body);
@@ -202,7 +205,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
                     type: 'CHAT_MESSAGE',
                     idx: idx,
                     messages: [],
-                    messageType: JSON.parse(message.body),
+                    messageType: JSON.parse(message.body) as messageType,
                   });
                 });
               },
@@ -411,10 +414,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     }, [gpsKey]);
   };
 
-  const chatsHandler = (idx: number): messages => {
-    return chats;
-  };
-
   return (
     <ClientContext.Provider
       value={{
@@ -432,7 +431,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         updateIndexFunc: updateIndexFunc,
         index: index,
         chats: chats,
-        chatsHandler: chatsHandler,
       }}
     >
       {children}
@@ -454,9 +452,6 @@ const ClientContext = createContext({
   updateIndexFunc: (num: number) => {},
   index: 0,
   chats: {} as messages,
-  chatsHandler: (idx: number) => {
-    return {} as messages;
-  },
 });
 
 export { ClientContext, ClientContextProvider };
