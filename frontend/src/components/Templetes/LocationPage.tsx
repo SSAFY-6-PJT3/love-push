@@ -1,26 +1,55 @@
 import Button from '../Atoms/Button';
 import styled from "styled-components";
 import { IoLocationSharp } from 'react-icons/io5';
-import { useCallback } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { readEmojiAPI } from '../../api/emojiAPI'
+import { AlertContext } from '../../store/alertContext';
 
 const LocationPage = () => {
   const navigate = useNavigate();
+  const { openAlert, setAlertText, setAlertSeverity } =
+  useContext(AlertContext);
   const geoPosition = () => {
     navigator.geolocation.getCurrentPosition(
       function (position) {
-        console.log(position)
+        setAlertSeverity('success')
+        setAlertText('위치 동의 성공');
+        openAlert();
         navigate('/mainpage')
       },
       function (error) {
         navigate('/location');
-        console.error(error);
+        setAlertSeverity('error')
+        setAlertText('위치를 켜주세요');
+        openAlert();
       },
     );
   };
-  // 버튼을 클릭하면 위치정보 동의 요청
-  // 동의가 수락되면 메인페이지로 이동
-  // 거절한다면 페이지 유지
+  const [slides1, setSildes1] = useState([])
+  const [slides2, setSildes2] = useState([])
+  const [slides3, setSildes3] = useState([])
+
+  useEffect(() => {
+    callReadEmojiAPI()
+  }, []);
+
+  const callReadEmojiAPI = () => {
+    const emojiUrl = localStorage.getItem('emojiUrl') || ''
+    readEmojiAPI({ emojiUrl: emojiUrl })
+      .then((res: any) => {
+        setSildes1(res.slice(0, 17))
+        setSildes2(res.slice(18, 34))
+        setSildes3(res.slice(35))
+      })
+      .then(() => {
+        console.log(slides3)
+      })
+      .catch((err:any) => {
+        console.log(err);
+      });
+  };
+  
   return (
     <BackGround>
       <TitleTag>
@@ -40,9 +69,33 @@ const LocationPage = () => {
       >
         위치 정보 켜기
       </Button>
+      <MarginDiv>
+        <EmojiDiv>
+          {slides1.map((slide) => (
+            <div key={slide} className="emoji">
+              <EmojiImg src={slide} alt="" />
+            </div>
+          ))}
+        </EmojiDiv>
+        <ReverseEmojiDiv>
+          {slides2.map((slide) => (
+            <div key={slide} className="emoji">
+              <EmojiImg src={slide} alt="" />
+            </div>
+          ))}
+        </ReverseEmojiDiv>
+        <EmojiDiv>
+          {slides3.map((slide) => (
+            <div key={slide} className="emoji">
+              <EmojiImg src={slide} alt="" />
+            </div>
+          ))}
+        </EmojiDiv>
+      </MarginDiv>
     </BackGround>
   )
 }
+
 
 const TitleTag = styled.p`
   white-space: pre-line;
@@ -62,5 +115,60 @@ const BackGround = styled.div`
   align-items: center;
   justify-content: center;
 `
+const EmojiDiv = styled.div`
+  display: flex;
+  .emoji {
+    margin: 0px 10px 5px 10px;
+  }
+  animation-name: move;
+  animation-duration: 10s;
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  @keyframes move {
+    from {
+      transform: translateX(-250px);
+    }
+    to {
+      transform: translateX(250px);
+    }
+  }
+`;
+const ReverseEmojiDiv = styled(EmojiDiv)`
+  animation-direction: alternate-reverse;
+  @keyframes move {
+    from {
+      transform: translateX(250px);
+    }
+    to {
+      transform: translateX(-250px);
+    }
+  }
+`;
 
+const EmojiImg = styled.img`
+  width: 60px;
+  height: 60px;
+  @media (max-height: 450px) { 
+    width: 20px;
+    height: 20px;
+  } 
+  @media (min-height: 1100px) { 
+    width: 100px;
+  height: 100px;
+  } 
+  @media (min-height: 800px) { 
+    width: 80px;
+    height: 80px;
+  } 
+`;
+
+const MarginDiv = styled.div`
+  margin-top: 2rem;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  bottom:0px;
+`
 export default LocationPage;

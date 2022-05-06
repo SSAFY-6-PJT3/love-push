@@ -12,6 +12,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { updateEmojiAPI, readEmojiAPI, SlidesProps } from '../../api/emojiAPI';
 import { AuthContext } from '../../store/authContext';
+import { AlertContext } from '../../store/alertContext';
 
 
 interface IPropsModal {
@@ -24,6 +25,8 @@ const EmojiSelectModal = ({ isModalOpen, closeModal }: IPropsModal) => {
   const [slides, setSlides] = useState<SlidesProps[]>([]);
   const [token, setToken] = useState<string>('');
   const { onChangeEmoji } = useContext(AuthContext);
+  const { openAlert, setAlertText, setAlertSeverity } =
+    useContext(AlertContext);
 
 
   useEffect(() => {
@@ -47,11 +50,18 @@ const EmojiSelectModal = ({ isModalOpen, closeModal }: IPropsModal) => {
     updateEmojiAPI(UpdateEmojiInfo, token)
       .then(() => {
         onChangeEmoji(UpdateEmojiInfo.emojiUrl.toString())
-        console.log('교체 성공')
-
+        callReadEmojiAPI()
+        closeModal()
+      })
+      .then(() => {
+        setAlertText('이모티콘 변경 완료');
+        openAlert();
       })
       .catch((err:any) => {
-        console.log(err);
+        setAlertSeverity('error')
+        setAlertText('이모티콘 변경 실패');
+        openAlert();
+        closeModal()
       });
   }
 
