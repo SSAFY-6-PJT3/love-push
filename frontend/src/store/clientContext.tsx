@@ -131,7 +131,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
 
           const sessionId = (
             (client.webSocket as any)._transport.url as string
-          ).split('/')[5]; // sessionId 얻어옴, https 환경에서는 6번째로
+          ).split('/')[6]; // sessionId 얻어옴, https 환경에서는 6번째로
           updateMySession(sessionId);
 
           client.subscribe('/sub/basic', (message) => {
