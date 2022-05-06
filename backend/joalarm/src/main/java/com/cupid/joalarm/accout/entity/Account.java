@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Account {
     @Id
     @Column(name = "account_seq")
@@ -23,7 +24,8 @@ public class Account {
     @Column(name = "password", length = 100)
     private String password;
 
-    @Column(name = "emoji", length = 50)
+    @Setter
+    @Column(name = "emoji")
     private String emoji;
 
     @Column(name = "report_cnt")

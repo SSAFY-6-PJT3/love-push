@@ -9,6 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class AccountService {
@@ -27,8 +29,44 @@ public class AccountService {
                 .password(passwordEncoder.encode(accountDto.getPassword()))
                 .emoji(accountDto.getEmoji())
                 .build();
-        return AccountDto.from(accountRepository.save(account));
+        return AccountDto.fromEntity(accountRepository.save(account));
     }
 
-
+    @Transactional
+    public AccountDto findAccountById(String id){
+        Optional<Account> account = accountRepository.findOneById(id);
+        if(account.isEmpty()) return null;
+        else return AccountDto.fromEntity(account.get());
+    }
+    @Transactional
+    public boolean existAccountById(String id){
+        Optional<Account> account = accountRepository.findOneById(id);
+        return account.isPresent();
+    }
+    @Transactional
+    public Long findSeqById(String id){
+        Optional<Account> account = accountRepository.findOneById(id);
+        if(account.isEmpty()) return null;
+        else return account.get().getAccountSeq();
+    }
+    @Transactional
+    public String updateEmojiById(Long seq, String emoji){
+        Optional<Account> account = accountRepository.findAccountByAccountSeq(seq);
+        if(account.isEmpty()) return null;
+        account.get().setEmoji(emoji);
+        return account.get().getEmoji();
+    }
+    @Transactional
+    public AccountDto findBySeq(Long seq){
+        Optional<Account> account = accountRepository.findAccountByAccountSeq(seq);
+        if(account.isEmpty()) return null;
+        else return AccountDto.fromEntity(account.get());
+    }
+    @Transactional
+    public boolean reportBYSeq(Long seq){
+        Optional<Account> account = accountRepository.findAccountByAccountSeq(seq);
+        if(account.isEmpty()) return false;
+        account.get().setReportedCnt(account.get().getReportedCnt()+1);
+        return true;
+    }
 }

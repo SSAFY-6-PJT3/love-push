@@ -1,0 +1,65 @@
+pipeline{
+
+	agent any
+
+	environment {
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
+	}
+
+	stages {
+
+		stage('Build') {
+
+			steps {
+			    dir("./backend/joalarm") {
+			        script {
+			            mattermostSend(color: "#FFFF8C", message: "Jenkins - ${env.BUILD_NUMBER}번째 Backend 도커 이미지 빌드 시작")
+			            try {
+                            sh 'chmod +x ./gradlew'
+                            sh './gradlew clean build'
+                            sh 'docker build --build-arg ENVIRONMENT=dev -t gkuer/joalarm-springboot .'
+                            mattermostSend(color: "#FF33FF", message: "Jenkins - ${env.BUILD_NUMBER}번째 Backend 도커 이미지 빌드 완료")
+                        } catch(e) {
+                            mattermostSend(color: "#FF33FF", message: "Jenkins - ${env.BUILD_NUMBER}번째 Backend 도커 이미지 빌드 실패 => 로그 확인 : ${env.BUILD_URL}")
+                        }
+                    }
+			    }
+			}
+		}
+
+		stage('Login') {
+
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
+		}
+
+		stage('Push') {
+
+			steps {
+				sh 'docker push gkuer/joalarm-springboot'
+				mattermostSend(color: "#33FFCC", message: "Dockerhub - ${env.BUILD_NUMBER}번째 Backend 푸쉬 완료")
+			}
+		}
+
+        stage('K8S Deploy') {
+
+            steps {
+                dir("./backend/joalarm") {
+                    script {
+                        kubernetesDeploy(configs: "joalarm-auto-deploy-springboot.yaml", kubeconfigId: 'Kubeconfig')
+                        sh './kubectl --kubeconfig=./kube-config.yaml rollout restart deployment springboot'
+                        mattermostSend(color: "#0066CC", message: "Kubernetes - ${env.BUILD_NUMBER}번째 Backend 배포 완료")
+                    }
+                }
+            }
+        }
+	}
+
+	post {
+		always {
+			sh 'docker logout'
+		}
+	}
+
+}

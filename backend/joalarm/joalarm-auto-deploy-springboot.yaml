@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot
+  labels:
+    app: springboot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springboot
+  template:
+    metadata:
+      labels:
+        app: springboot
+    spec:
+      containers:
+        - name: springboot
+          image: gkuer/joalarm-springboot:latest
+          ports:
+            - containerPort: 8888
+          imagePullPolicy: Always
+          env:
+            - name: MYSQL_CLUSTER_IP
+              valueFrom:
+                configMapKeyRef:
+                  name: joalarm-springboot-config
+                  key: mysql-cluster-ip
+            - name: MONGO_CLUSTER_IP
+              valueFrom:
+                configMapKeyRef:
+                  name: joalarm-springboot-config
+                  key: mongo-cluster-ip
+            - name: S3_BUCKET_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: joalarm-s3-config
+                  key: s3-bucket-name
+            - name: USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: joalarm-springboot-secret
+                  key: username
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: joalarm-springboot-secret
+                  key: password
+            - name: AWS_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: joalarm-s3-secret
+                  key: aws-access-key
+            - name: AWS_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: joalarm-s3-secret
+                  key: aws-secret-key
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: joalarm-jwt-secret
+                  key: jwt-secret-key
+      restartPolicy: Always
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-springboot
+spec:
+  selector:
+    app: springboot
+  ports:
+    - protocol: TCP
+      port: 8888
+      targetPort: 8888
+  type: LoadBalancer
