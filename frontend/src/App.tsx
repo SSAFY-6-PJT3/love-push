@@ -6,7 +6,6 @@ import Background from './Styles/Background';
 import GlobalStyle from './Styles/GlobalStyle';
 
 import KeyFrame from './pages/KeyFrame';
-import Emoji from './pages/SelectEmoji';
 import StoryBook from './pages/StoryBook';
 import Signup from './pages/Signup';
 import AboutService from './pages/AboutService';
@@ -38,7 +37,6 @@ function App() {
             {/* <Route path="/" element={<KeyFrame />} /> */}
             <Route path="/mainpage" element={<MainPage />} />
             <Route path="/signup/:pageId" element={<Signup />} />
-            <Route path="/emoji" element={<Emoji />} />
             <Route path="/chatlobby/*" element={<ChatLobby />} />
             <Route path="/location" element={<LocationPage />} />
             <Route path="/test" element={<KeyFrame />} />
