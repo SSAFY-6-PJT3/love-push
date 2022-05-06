@@ -5,14 +5,12 @@ import Modal from "../components/Atoms/Modal";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useNavigate } from 'react-router-dom';
 import { updateEmojiAPI, readEmojiAPI, SlidesProps } from '../api/emojiAPI';
 import { AuthContext } from '../store/authContext';
-
+import DeleteChatButton from '../components/Atoms/DeleteChatButton'
+import { AlertContext } from '../store/alertContext';
 
 const Emoji = () => {
-  const navigate = useNavigate();
-  const [img, setImg] = useState<string>();
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const [state, setState] = useState<number>(0);
   const [slides, setSlides] = useState<SlidesProps[]>([]);
@@ -21,11 +19,15 @@ const Emoji = () => {
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
+  const { openAlert, setAlertText, setAlertSeverity } =
+    useContext(AlertContext);
 
   useEffect(() => {
     callReadEmojiAPI()
     setToken(localStorage.getItem('token') || '')
   }, []);
+
+  
   const callReadEmojiAPI = () => {
     readEmojiAPI({ emojiUrl: 'string' })
       .then((res:any) => {
@@ -43,10 +45,17 @@ const Emoji = () => {
     updateEmojiAPI(UpdateEmojiInfo, token)
       .then(() => {
         onChangeEmoji(UpdateEmojiInfo.emojiUrl.toString())
-        console.log('교체 성공')
+        callReadEmojiAPI()
+        onClickToggleModal()
+      })
+      .then(() => {
+        setAlertText('이모티콘 변경 완료');
+        openAlert();
       })
       .catch((err:any) => {
-        console.log(err);
+        setAlertSeverity('error')
+        setAlertText('이모티콘 변경 실패');
+        openAlert();
       });
   }
   const settings = {
@@ -64,6 +73,7 @@ const Emoji = () => {
 
   return (
     <div>
+      <DeleteChatButton/>
       {/* 헤더컴포넌트 이모지 버튼 */}
       <DialogButton onClick={onClickToggleModal}>Open Modal</DialogButton> 
       {isOpenModal && (
