@@ -119,7 +119,9 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     () =>
       new Client({
         webSocketFactory: function () {
-          return new SockJS('http://localhost:8888/ws-stomp');
+          return new SockJS(
+            'https://www.someone-might-like-you.com/api/ws-stomp',
+          );
         },
         debug: function (str) {
           console.log(str);
@@ -283,14 +285,12 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     const setSessions = new Set(sessions);
     setSessions.delete(mySession);
 
-    const values = sectorData.map((v) => sessions.map((k) => v[k])).flat().filter((v)=> !!v);
-    let users = new Set<number>() 
-    if (values) {
-      console.log(values)
-      users = new Set(values.map((v) => v.pk));
-      users.delete(seq);
-      users.delete(0);
-    }
+    const values = sectorData.map((v) => sessions.map((k) => v[k])).flat();
+
+    const users = new Set(values.map((v) => v.pk));
+    users.delete(seq);
+    users.delete(0);
+
     return { sessions: setSessions, users: users };
   };
 
