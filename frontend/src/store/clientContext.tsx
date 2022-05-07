@@ -13,6 +13,7 @@ import gpsTransKey from '../hooks/gps/gpsTransKey';
 import { openChatAPI } from '../api/openChatAPI';
 import { findMyRoomAPI } from '../api/chatRoomAPI';
 import { getChatLog } from '../api/chatAPI';
+import { heartSendSetAPI } from '../api/heartAPI';
 
 interface userType {
   pk: number;
@@ -57,6 +58,11 @@ interface messageType {
   sender: number;
   message: string;
   sendTime: string;
+}
+
+interface IheartResponse {
+  sendUser: number;
+  receiveUser: number;
 }
 
 // interface messages {
@@ -213,7 +219,10 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
           });
         })
         .catch((err) => console.log(err));
-      console.log(chatRoomList);
+
+      heartSendSetAPI({ user: seq }).then((res) => {
+        updateSendHeartSet(new Set(res.map((x) => x.receiveUser)));
+      });
     }
   }, [seq, client, client.connected]);
 
@@ -239,7 +248,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
           setChatRoomList((pre) => [newChatRoom, ...pre]);
 
           chatsDispatch({
-            type: 'NEW_ROOM',
+            type: 'INSERT',
             idx: action.chatRoom,
             messages: new Array<messageType>(),
             messageType: {} as messageType,
@@ -372,7 +381,9 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
       destination: '/pub/heart',
       body: JSON.stringify({
         receiveSessions: Array.from(nearBy10mState.sessions),
-        receiveUsers: Array.from(nearBy10mState.users),
+        receiveUsers: Array.from(nearBy10mState.users).filter(
+          (x) => !sendHeartSet.has(x),
+        ),
         sendUser: `${seq}`,
       }),
     });
