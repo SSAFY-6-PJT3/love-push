@@ -36,6 +36,7 @@ const ChatRoom: React.FC<chatRoomProps> = ({
   // 채팅 기록 받아와 넣어주기
   // 로컬스토리지 가능하면 연결해보기
   // 채팅방 가져오면서 유저 emoji 받아오기 => 상위(채팅 리스트)에서 props로 내려주면 끝
+
   const seq = Number(localStorage.getItem('seq') || '0');
   const [message, setMessage] = useState('');
 
@@ -44,8 +45,6 @@ const ChatRoom: React.FC<chatRoomProps> = ({
   };
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      console.log(message);
-
       client.publish({
         destination: '/pub/chat/message',
         body: JSON.stringify({
@@ -70,8 +69,7 @@ const ChatRoom: React.FC<chatRoomProps> = ({
   useEffect(() => {
     if (typeof chats === 'undefined') navigate('..');
     scrollToBottom();
-    // updateRoomTitle('채팅');
-  }, []);
+  }, [chats]);
 
   return (
     <ChatRoomPage>

@@ -47,7 +47,7 @@ function App() {
               element={
                 <ChatRoom
                   idx={index}
-                  chats={chats && chats[index] && chats[index].messages}
+                  chats={chats && chats[index]}
                   client={client}
                 />
               }
