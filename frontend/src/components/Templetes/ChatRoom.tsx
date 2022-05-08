@@ -8,8 +8,9 @@ import BackBtnNav from './BackBtnNav';
 import ChatReport from '../Molecules/ChatReport';
 import { type } from 'os';
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Client } from '@stomp/stompjs';
+import { seteuid } from 'process';
 
 type message = {
   type: string;
@@ -25,6 +26,10 @@ type chatRoomProps = {
   client: Client;
 };
 
+interface CustomizedState {
+  emoji: string
+}
+
 const ChatRoom: React.FC<chatRoomProps> = ({
   idx,
   chats,
@@ -36,9 +41,10 @@ const ChatRoom: React.FC<chatRoomProps> = ({
   // 채팅 기록 받아와 넣어주기
   // 로컬스토리지 가능하면 연결해보기
   // 채팅방 가져오면서 유저 emoji 받아오기 => 상위(채팅 리스트)에서 props로 내려주면 끝
-
+  const navigate = useNavigate();
   const seq = Number(localStorage.getItem('seq') || '0');
   const [message, setMessage] = useState('');
+  const [emoji, setEmoji] = useState<string>()
 
   const onChangeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
@@ -58,14 +64,17 @@ const ChatRoom: React.FC<chatRoomProps> = ({
     }
   };
 
-  const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state as CustomizedState;
   const scrollRef = useRef<HTMLDivElement>(null);
   const scrollToBottom = () => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   };
-
+  useEffect(() => {
+    setEmoji(state.emoji)
+  }, []);
   useEffect(() => {
     if (typeof chats === 'undefined') navigate('..');
     scrollToBottom();
@@ -88,7 +97,7 @@ const ChatRoom: React.FC<chatRoomProps> = ({
           chats.map((chat) =>
             chat.sender !== seq ? ( // 로그인 한 유저 pk와 비교
               <OtherUserChatDiv key={chat.sendTime}>
-                <Img src="emoji" alt="프로필 이모지" />
+                <Img src={emoji} alt="프로필 이모지" />
                 <OtherUserChatText> {chat.message} </OtherUserChatText>
                 <Timeline>
                   {chat.sendTime.split(' ').slice(1, 3).join(' ')}
