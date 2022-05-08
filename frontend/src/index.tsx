@@ -7,15 +7,15 @@ import { AlertContextProvider } from './store/alertContext';
 import { ClientContextProvider } from './store/clientContext';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <AlertContextProvider>
-      <AuthContextProvider>
-        <ClientContextProvider>
+  // <React.StrictMode>
+  <AlertContextProvider>
+    <AuthContextProvider>
+      <ClientContextProvider>
         <App />
-        </ClientContextProvider>
-      </AuthContextProvider>
-    </AlertContextProvider>
-  </React.StrictMode>,
+      </ClientContextProvider>
+    </AuthContextProvider>
+  </AlertContextProvider>,
+  // </React.StrictMode>,
   document.getElementById('root') as HTMLElement,
 );
 

@@ -33,7 +33,8 @@ type messages = {
 
 const ChatBoxListPage = () => {
   const navigate = useNavigate();
-  const { updateIndexFunc, chatRoomList, chats } = useContext(ClientContext);
+  const { updateIndexFunc, chatRoomList, chats, messageCount } =
+    useContext(ClientContext);
 
   useEffect(() => {
     chatRoomList.forEach((chatBox) => {
@@ -61,6 +62,7 @@ const ChatBoxListPage = () => {
             chats[chatRoom.chatroomSeq] &&
             chats[chatRoom.chatroomSeq][chats[chatRoom.chatroomSeq].length - 1]
           }
+          messageCount={messageCount[chatRoom.chatroomSeq]}
         />
       ))}
     </ChatBoxList>

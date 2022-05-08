@@ -13,6 +13,7 @@ import gpsTransKey from '../hooks/gps/gpsTransKey';
 import { openChatAPI } from '../api/openChatAPI';
 import { findMyRoomAPI } from '../api/chatRoomAPI';
 import { getChatLog } from '../api/chatAPI';
+import { heartSendSetAPI } from '../api/heartAPI';
 
 interface userType {
   pk: number;
@@ -59,11 +60,20 @@ interface messageType {
   sendTime: string;
 }
 
+interface IheartResponse {
+  sendUser: number;
+  receiveUser: number;
+}
+
 // interface messages {
 //   [seq: number]: { messages: Array<messageType>; newMessage: number };
 // }
 interface messages {
   [seq: number]: Array<messageType>;
+}
+
+interface newMessageCount {
+  [seq: number]: number;
 }
 
 interface chatsActions {
@@ -84,8 +94,16 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
   const [clientConnected, updateClientConnected] = useState(false);
   const [signal, setSignal] = useState<boolean>(false);
   const [chatRoomList, setChatRoomList] = useState(new Array<chatBox>());
+  const [messageCount, setMessageCount] = useState({} as newMessageCount);
+  const setMessageCountFunc = useCallback((num: number) => {
+    setMessageCount((pre) => {
+      pre[num] = 0;
+      return pre;
+    });
+  }, []);
 
   const chatsReducer = (
+    // 현재 chat_message 부분이 시간 지나면서 2번씩 도는중, 추후 수정해볼 것..
     state: messages,
     chatsActions: chatsActions,
   ): messages => {
@@ -94,6 +112,10 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     switch (chatsActions.type) {
       case 'INSERT':
         new_state[chatsActions.idx] = chatsActions.messages;
+        setMessageCount((pre) => {
+          pre[chatsActions.idx] = 0;
+          return pre;
+        });
         break;
       case 'CHAT_MESSAGE':
         const new_message = [
@@ -201,6 +223,11 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
                 });
 
                 client.subscribe(`/sub/chat/room/${idx}`, (message) => {
+                  setMessageCount((pre) => {
+                    pre[idx] += 1;
+                    return pre;
+                  });
+
                   chatsDispatch({
                     type: 'CHAT_MESSAGE',
                     idx: idx,
@@ -213,7 +240,10 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
           });
         })
         .catch((err) => console.log(err));
-      console.log(chatRoomList);
+
+      heartSendSetAPI({ user: seq }).then((res) => {
+        updateSendHeartSet(new Set(res.map((x) => x.receiveUser)));
+      });
     }
   }, [seq, client, client.connected]);
 
@@ -239,13 +269,18 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
           setChatRoomList((pre) => [newChatRoom, ...pre]);
 
           chatsDispatch({
-            type: 'NEW_ROOM',
+            type: 'INSERT',
             idx: action.chatRoom,
             messages: new Array<messageType>(),
             messageType: {} as messageType,
           });
 
           client.subscribe(`/sub/chat/room/${action.chatRoom}`, (message) => {
+            setMessageCount((pre) => {
+              pre[action.chatRoom] += 1;
+              return pre;
+            });
+
             chatsDispatch({
               type: 'CHAT_MESSAGE',
               idx: action.chatRoom,
@@ -352,19 +387,19 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
   };
 
   // gps 확인
-  const CheckGPS = () => {
-    useEffect(() => {
+  const CheckGPS = useCallback(() => {
+    if (!client.active) {
       if (navigator.geolocation) {
         // GPS를 지원하면
+        client.activate();
         setInterval(function () {
           geoPosition();
         }, 5000);
       } else {
         alert('GPS를 지원하지 않습니다');
       }
-      client.activate();
-    }, []);
-  };
+    }
+  }, [client]);
 
   // 하트 보내기
   const sendHeart = () => {
@@ -372,7 +407,9 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
       destination: '/pub/heart',
       body: JSON.stringify({
         receiveSessions: Array.from(nearBy10mState.sessions),
-        receiveUsers: Array.from(nearBy10mState.users),
+        receiveUsers: Array.from(nearBy10mState.users).filter(
+          (x) => !sendHeartSet.has(x),
+        ),
         sendUser: `${seq}`,
       }),
     });
@@ -395,23 +432,21 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     }
   };
 
-  const GpsKeyHandler = () => {
-    useEffect(() => {
-      const gpsKeyArray: string[] = [];
-      if (gpsKey !== '') {
-        for (let i = -2; i < 3; i++) {
-          for (let j = -2; j < 3; j++) {
-            gpsKeyArray.push(caculateGpsKey(gpsKey, [-i, -j]));
-          }
+  useEffect(() => {
+    const gpsKeyArray: string[] = [];
+    if (gpsKey !== '') {
+      for (let i = -2; i < 3; i++) {
+        for (let j = -2; j < 3; j++) {
+          gpsKeyArray.push(caculateGpsKey(gpsKey, [-i, -j]));
         }
-        gpsKeyArray.push(caculateGpsKey(gpsKey, [-3, 0]));
-        gpsKeyArray.push(caculateGpsKey(gpsKey, [3, 0]));
-        gpsKeyArray.push(caculateGpsKey(gpsKey, [0, -3]));
-        gpsKeyArray.push(caculateGpsKey(gpsKey, [0, 3]));
-        updateGpsKeyNearby10m(gpsKeyArray);
       }
-    }, [gpsKey]);
-  };
+      gpsKeyArray.push(caculateGpsKey(gpsKey, [-3, 0]));
+      gpsKeyArray.push(caculateGpsKey(gpsKey, [3, 0]));
+      gpsKeyArray.push(caculateGpsKey(gpsKey, [0, -3]));
+      gpsKeyArray.push(caculateGpsKey(gpsKey, [0, 3]));
+      updateGpsKeyNearby10m(gpsKeyArray);
+    }
+  }, [gpsKey]);
 
   return (
     <ClientContext.Provider
@@ -421,7 +456,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         // gpsReducer: gpsReducer,
         CheckGPS: CheckGPS,
         sendHeart: sendHeart,
-        GpsKeyHandler: GpsKeyHandler,
+        // GpsKeyHandler: GpsKeyHandler,
         signal: signal,
         // subscribeHeart: subscribeHeart,
         nearBy10mState: nearBy10mState,
@@ -430,6 +465,8 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         updateIndexFunc: updateIndexFunc,
         index: index,
         chats: chats,
+        messageCount: messageCount,
+        setMessageCountFunc: setMessageCountFunc,
       }}
     >
       {children}
@@ -442,7 +479,7 @@ const ClientContext = createContext({
   // gpsReducer: (data:GpsInterface) => "",
   CheckGPS: () => {},
   sendHeart: () => {},
-  GpsKeyHandler: () => {},
+  // GpsKeyHandler: () => {},
   // subscribeHeart: () => {},
   signal: false,
   nearBy10mState: { sessions: new Set<string>(), users: new Set<number>() },
@@ -451,6 +488,8 @@ const ClientContext = createContext({
   updateIndexFunc: (num: number) => {},
   index: 0,
   chats: {} as messages,
+  messageCount: {} as newMessageCount,
+  setMessageCountFunc: (num: number) => {},
 });
 
 export { ClientContext, ClientContextProvider };

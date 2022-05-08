@@ -24,6 +24,7 @@ type chatRoomProps = {
   idx: number;
   chats: message[];
   client: Client;
+  setMessageCountFunc: (num: number) => void;
 };
 
 interface CustomizedState {
@@ -34,6 +35,7 @@ const ChatRoom: React.FC<chatRoomProps> = ({
   idx,
   chats,
   client,
+  setMessageCountFunc,
   // updateRoomTitle,
 }) => {
   // 상위에서 prop줘야할지도
@@ -78,6 +80,7 @@ const ChatRoom: React.FC<chatRoomProps> = ({
   useEffect(() => {
     if (typeof chats === 'undefined') navigate('..');
     scrollToBottom();
+    setMessageCountFunc(idx);
   }, [chats]);
 
   return (
