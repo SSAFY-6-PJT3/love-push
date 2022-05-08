@@ -91,7 +91,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
   const [gpsKeyNearby10m, updateGpsKeyNearby10m] = useState(
     new Array<string>(),
   );
-  const [clientConnected, updateClientConnected] = useState(false);
   const [signal, setSignal] = useState<boolean>(false);
   const [chatRoomList, setChatRoomList] = useState(new Array<chatBox>());
   const [messageCount, setMessageCount] = useState({} as newMessageCount);
@@ -141,7 +140,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     setSignal(true);
     setTimeout(() => {
       setSignal(false);
-    }, 10000);
+    }, 4000);
   };
 
   const client = useMemo(
@@ -156,8 +155,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
           console.log(str);
         },
         onConnect: () => {
-          updateClientConnected(true);
-
           const sessionId = (
             (client.webSocket as any)._transport.url as string
           ).split('/')[6]; // sessionId 얻어옴, https 환경에서는 6번째로
@@ -298,7 +295,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
   );
 
   const gpsReducer = (beforeKey: string, nowKey: string): string => {
-    if (clientConnected && nowKey !== '' && beforeKey !== nowKey) {
+    if (client.connected && nowKey !== '' && beforeKey !== nowKey) {
       client.publish({
         destination: '/pub/sector',
         body: JSON.stringify({
@@ -319,12 +316,12 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
       .map((key) => sector[`${key}`])
       .filter((v) => v !== undefined);
 
-    const sessions = sectorData.map((v) => Object.keys(v)).flat();
+    const sectorObj: sectorType = Object.assign({}, ...sectorData);
+
+    const sessions = Object.keys(sectorObj);
     const setSessions = new Set(sessions);
 
-    const values = sectorData.map((v) => sessions.map((k) => v[k])).flat();
-
-    const users = new Set(values.map((v) => v.pk));
+    const users = new Set(sessions.map((key) => sectorObj[key].pk));
     users.delete(seq);
     users.delete(0);
 
