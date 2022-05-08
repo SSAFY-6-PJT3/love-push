@@ -24,6 +24,7 @@ type ChatBoxProps = {
   activate: boolean;
   clickEvent: (seq: number) => void;
   lastChat: message | undefined;
+  messageCount: number;
 };
 
 const ChatBox: React.FC<ChatBoxProps> = ({
@@ -32,24 +33,27 @@ const ChatBox: React.FC<ChatBoxProps> = ({
   activate,
   clickEvent,
   lastChat,
+  messageCount,
 }) => {
   return (
     <div>
-      <ChatContainer>
+      <ChatContainer onClick={() => clickEvent(chatroomSeq)}>
         <ChatProfileEmojiBox>{/* <ChatProfileEmoji /> */}</ChatProfileEmojiBox>
-        <ChatNameMessageBox onClick={() => clickEvent(chatroomSeq)}>
+        <ChatNameMessageBox>
           <RandomNickname>익명의 시라소니</RandomNickname>
           <RecentMessage>
             {lastChat ? lastChat.message : '채팅방이 생성됐어요!'}
           </RecentMessage>
         </ChatNameMessageBox>
-        <ChatInfoBox onClick={() => clickEvent(chatroomSeq)}>
+        <ChatInfoBox>
           <Timeline>
             {lastChat
               ? lastChat.sendTime.split(' ').slice(1, 3).join(' ')
               : '채팅을 보내보세요!'}
           </Timeline>
-          <LeftMessageCount>10</LeftMessageCount>
+          {messageCount > 0 && (
+            <LeftMessageCount>{messageCount}</LeftMessageCount>
+          )}
         </ChatInfoBox>
       </ChatContainer>
     </div>

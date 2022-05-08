@@ -85,7 +85,6 @@ function ChatLobbyPage() {
     if (!isLoggedIn) navigate('/');
     const seq = Number(localStorage.getItem('seq') || '0');
   }, []);
-  console.log(chatRoomList);
 
   return (
     <ChatLobby>

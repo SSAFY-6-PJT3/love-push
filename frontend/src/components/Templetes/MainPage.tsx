@@ -4,7 +4,7 @@
  * @modified Hyeonsooryu | 마크업 구조 리팩터링 & 애니메이션 추가
  */
 
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import MainNav from './MainNav';
@@ -41,12 +41,13 @@ const MainPage = () => {
   // 성공시 isLogin True변환
   // 초기 로그인 유저인지 아닌지 확인 필요 useEffect사용 -> 필요없어져서 삭제했습니다.
 
-  const { CheckGPS, GpsKeyHandler, sendHeart, signal, nearBy10mState } =
+  const { CheckGPS, sendHeart, signal, nearBy10mState } =
     useContext(ClientContext);
   const { openAlert, setAlertText } = useContext(AlertContext);
 
-  CheckGPS();
-  GpsKeyHandler();
+  useEffect(() => {
+    CheckGPS();
+  }, [CheckGPS]);
 
   const heartClickHandler = () => {
     setAlertText('하트 발사!');
