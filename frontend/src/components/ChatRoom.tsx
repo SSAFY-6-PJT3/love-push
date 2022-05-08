@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Client } from '@stomp/stompjs';
 
+
 type ChatRoomProps = {
   user: string | undefined;
   roomSeq: number;
@@ -31,6 +32,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
         }),
       });
       setMessage('');
+      
     }
   };
   useEffect(() => {

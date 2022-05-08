@@ -42,9 +42,9 @@ const ChatBoxListPage = () => {
     });
   }, [chatRoomList]);
 
-  const getRoomSeqEvent = (seq: number) => {
+  const getRoomSeqEvent = (seq: number, emoji?:string) => {
     updateIndexFunc(seq);
-    navigate('/chat');
+    navigate('/chat', { state: {emoji:emoji}});
     // console.log(chats[seq]);
   };
 

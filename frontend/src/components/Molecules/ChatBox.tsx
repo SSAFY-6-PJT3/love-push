@@ -9,6 +9,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { getChatLog } from '../../api/chatAPI';
 import { useEffect, useState } from 'react';
+import { readEmojiUserAPI } from '../../api/emojiAPI';
 
 type message = {
   type: string;
@@ -22,7 +23,7 @@ type ChatBoxProps = {
   chatroomSeq: number;
   partner: number;
   activate: boolean;
-  clickEvent: (seq: number) => void;
+  clickEvent: (seq: number, emoji?: string) => void;
   lastChat: message | undefined;
   messageCount: number;
 };
@@ -35,10 +36,17 @@ const ChatBox: React.FC<ChatBoxProps> = ({
   lastChat,
   messageCount,
 }) => {
+  const [emoji, setEmoji] = useState<string>()
+  useEffect(() => {
+    readEmojiUserAPI({ userId: partner })
+      .then((res) => {
+        setEmoji(res)
+      })
+  }, [])
   return (
     <div>
-      <ChatContainer onClick={() => clickEvent(chatroomSeq)}>
-        <ChatProfileEmojiBox>{/* <ChatProfileEmoji /> */}</ChatProfileEmojiBox>
+      <ChatContainer onClick={() => clickEvent(chatroomSeq, emoji)}>
+        <ChatProfileEmojiBox><img src={emoji} alt="" /></ChatProfileEmojiBox>
         <ChatNameMessageBox>
           <RandomNickname>익명의 시라소니</RandomNickname>
           <RecentMessage>
