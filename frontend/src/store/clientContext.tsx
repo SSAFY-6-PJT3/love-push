@@ -72,6 +72,10 @@ interface messages {
   [seq: number]: Array<messageType>;
 }
 
+interface newMessageCount {
+  [seq: number]: number;
+}
+
 interface chatsActions {
   type: string;
   messageType: messageType;
@@ -90,8 +94,16 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
   const [clientConnected, updateClientConnected] = useState(false);
   const [signal, setSignal] = useState<boolean>(false);
   const [chatRoomList, setChatRoomList] = useState(new Array<chatBox>());
+  const [messageCount, setMessageCount] = useState({} as newMessageCount);
+  const setMessageCountFunc = useCallback((num: number) => {
+    setMessageCount((pre) => {
+      pre[num] = 0;
+      return pre;
+    });
+  }, []);
 
   const chatsReducer = (
+    // 현재 chat_message 부분이 시간 지나면서 2번씩 도는중, 추후 수정해볼 것..
     state: messages,
     chatsActions: chatsActions,
   ): messages => {
@@ -100,6 +112,10 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     switch (chatsActions.type) {
       case 'INSERT':
         new_state[chatsActions.idx] = chatsActions.messages;
+        setMessageCount((pre) => {
+          pre[chatsActions.idx] = 0;
+          return pre;
+        });
         break;
       case 'CHAT_MESSAGE':
         const new_message = [
@@ -207,6 +223,11 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
                 });
 
                 client.subscribe(`/sub/chat/room/${idx}`, (message) => {
+                  setMessageCount((pre) => {
+                    pre[idx] += 1;
+                    return pre;
+                  });
+
                   chatsDispatch({
                     type: 'CHAT_MESSAGE',
                     idx: idx,
@@ -255,6 +276,11 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
           });
 
           client.subscribe(`/sub/chat/room/${action.chatRoom}`, (message) => {
+            setMessageCount((pre) => {
+              pre[action.chatRoom] += 1;
+              return pre;
+            });
+
             chatsDispatch({
               type: 'CHAT_MESSAGE',
               idx: action.chatRoom,
@@ -361,19 +387,19 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
   };
 
   // gps 확인
-  const CheckGPS = () => {
-    useEffect(() => {
+  const CheckGPS = useCallback(() => {
+    if (!client.active) {
       if (navigator.geolocation) {
         // GPS를 지원하면
+        client.activate();
         setInterval(function () {
           geoPosition();
         }, 5000);
       } else {
         alert('GPS를 지원하지 않습니다');
       }
-      client.activate();
-    }, []);
-  };
+    }
+  }, [client]);
 
   // 하트 보내기
   const sendHeart = () => {
@@ -441,6 +467,8 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         updateIndexFunc: updateIndexFunc,
         index: index,
         chats: chats,
+        messageCount: messageCount,
+        setMessageCountFunc: setMessageCountFunc,
       }}
     >
       {children}
@@ -462,6 +490,8 @@ const ClientContext = createContext({
   updateIndexFunc: (num: number) => {},
   index: 0,
   chats: {} as messages,
+  messageCount: {} as newMessageCount,
+  setMessageCountFunc: (num: number) => {},
 });
 
 export { ClientContext, ClientContextProvider };

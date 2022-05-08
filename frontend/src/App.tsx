@@ -29,7 +29,8 @@ function App() {
   // };
   // window.addEventListener('resize', appHeight); // 사파리 상, 하단바 유무에 따른 화면비 재설정 이벤트리스너 코드
   // appHeight();
-  const { index, chats, client } = useContext(ClientContext);
+  const { index, chats, client, setMessageCountFunc } =
+    useContext(ClientContext);
 
   return (
     <>
@@ -49,6 +50,7 @@ function App() {
                   idx={index}
                   chats={chats && chats[index]}
                   client={client}
+                  setMessageCountFunc={setMessageCountFunc}
                 />
               }
             />

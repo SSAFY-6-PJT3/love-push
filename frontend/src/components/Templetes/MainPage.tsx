@@ -4,7 +4,7 @@
  * @modified Hyeonsooryu | 마크업 구조 리팩터링 & 애니메이션 추가
  */
 
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import MainNav from './MainNav';
@@ -45,7 +45,10 @@ const MainPage = () => {
     useContext(ClientContext);
   const { openAlert, setAlertText } = useContext(AlertContext);
 
-  CheckGPS();
+  useEffect(() => {
+    CheckGPS();
+  }, [CheckGPS]);
+
   GpsKeyHandler();
 
   const heartClickHandler = () => {
