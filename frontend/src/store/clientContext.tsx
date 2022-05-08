@@ -432,23 +432,21 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     }
   };
 
-  const GpsKeyHandler = () => {
-    useEffect(() => {
-      const gpsKeyArray: string[] = [];
-      if (gpsKey !== '') {
-        for (let i = -2; i < 3; i++) {
-          for (let j = -2; j < 3; j++) {
-            gpsKeyArray.push(caculateGpsKey(gpsKey, [-i, -j]));
-          }
+  useEffect(() => {
+    const gpsKeyArray: string[] = [];
+    if (gpsKey !== '') {
+      for (let i = -2; i < 3; i++) {
+        for (let j = -2; j < 3; j++) {
+          gpsKeyArray.push(caculateGpsKey(gpsKey, [-i, -j]));
         }
-        gpsKeyArray.push(caculateGpsKey(gpsKey, [-3, 0]));
-        gpsKeyArray.push(caculateGpsKey(gpsKey, [3, 0]));
-        gpsKeyArray.push(caculateGpsKey(gpsKey, [0, -3]));
-        gpsKeyArray.push(caculateGpsKey(gpsKey, [0, 3]));
-        updateGpsKeyNearby10m(gpsKeyArray);
       }
-    }, [gpsKey]);
-  };
+      gpsKeyArray.push(caculateGpsKey(gpsKey, [-3, 0]));
+      gpsKeyArray.push(caculateGpsKey(gpsKey, [3, 0]));
+      gpsKeyArray.push(caculateGpsKey(gpsKey, [0, -3]));
+      gpsKeyArray.push(caculateGpsKey(gpsKey, [0, 3]));
+      updateGpsKeyNearby10m(gpsKeyArray);
+    }
+  }, [gpsKey]);
 
   return (
     <ClientContext.Provider
@@ -458,7 +456,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         // gpsReducer: gpsReducer,
         CheckGPS: CheckGPS,
         sendHeart: sendHeart,
-        GpsKeyHandler: GpsKeyHandler,
+        // GpsKeyHandler: GpsKeyHandler,
         signal: signal,
         // subscribeHeart: subscribeHeart,
         nearBy10mState: nearBy10mState,
@@ -481,7 +479,7 @@ const ClientContext = createContext({
   // gpsReducer: (data:GpsInterface) => "",
   CheckGPS: () => {},
   sendHeart: () => {},
-  GpsKeyHandler: () => {},
+  // GpsKeyHandler: () => {},
   // subscribeHeart: () => {},
   signal: false,
   nearBy10mState: { sessions: new Set<string>(), users: new Set<number>() },
