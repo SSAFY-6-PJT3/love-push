@@ -29,6 +29,7 @@ interface gpsType {
 interface nearBy10mType {
   sessions: Set<string>;
   users: Set<number>;
+  emojis: Array<string>;
 }
 
 interface GpsInterface {
@@ -356,13 +357,16 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     users.delete(seq);
     users.delete(0);
 
-    return { sessions: setSessions, users: users };
+    const emojis = sessions.map((key) => sectorObj[key].emojiURL);
+
+    return { sessions: setSessions, users: users, emojis: emojis };
   };
 
   const [gpsKey, setGpsKey] = useReducer(gpsReducer, '');
   const [nearBy10mState, nearBy10mDispatch] = useReducer(nearBy10mReducer, {
     sessions: new Set<string>(),
     users: new Set<number>(),
+    emojis: new Array<string>(),
   });
 
   // const onChangeTo = (e: any) => {
@@ -498,7 +502,11 @@ const ClientContext = createContext({
   // GpsKeyHandler: () => {},
   // subscribeHeart: () => {},
   signal: false,
-  nearBy10mState: { sessions: new Set<string>(), users: new Set<number>() },
+  nearBy10mState: {
+    sessions: new Set<string>(),
+    users: new Set<number>(),
+    emojis: new Array<string>(),
+  },
   client: new Client(),
   chatRoomList: new Array<chatBox>(),
   updateIndexFunc: (num: number) => {},
