@@ -14,6 +14,7 @@ import { openChatAPI } from '../api/openChatAPI';
 import { findMyRoomAPI } from '../api/chatRoomAPI';
 import { getChatLog } from '../api/chatAPI';
 import { heartSendSetAPI } from '../api/heartAPI';
+import { readEmojiUserAPI } from '../api/emojiAPI';
 
 interface userType {
   pk: number;
@@ -29,6 +30,7 @@ interface gpsType {
 interface nearBy10mType {
   sessions: Set<string>;
   users: Set<number>;
+  emojis: Array<string>;
 }
 
 interface GpsInterface {
@@ -40,6 +42,7 @@ interface whisper {
   type: string;
   person: number;
   chatRoom: number;
+  initSet?: Set<number>;
 }
 
 interface IPropsClientContextProvider {
@@ -85,13 +88,15 @@ interface chatsActions {
 
 const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
   const seq = Number(localStorage.getItem('seq') || '0');
+  const emoji =
+    localStorage.getItem('emojiUrl') ||
+    'https://cupid-joalarm.s3.ap-northeast-2.amazonaws.com/Green apple.svg';
   const [mySession, updateMySession] = useState('');
-  const [sendHeartSet, updateSendHeartSet] = useState(new Set<number>());
-  const [chatUserSet, updateChatUserSet] = useState(new Set<number>());
   const [gpsKeyNearby10m, updateGpsKeyNearby10m] = useState(
     new Array<string>(),
   );
   const [signal, setSignal] = useState<boolean>(false);
+  const [sendHeartSet, updateSendHeartSet] = useState(new Set<number>());
   const [chatRoomList, setChatRoomList] = useState(new Array<chatBox>());
   const [messageCount, setMessageCount] = useState({} as newMessageCount);
   const setMessageCountFunc = useCallback((num: number) => {
@@ -170,8 +175,69 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
           client.subscribe(`/sub/heart/${sessionId}`, (message) => {
             // 세션 구독하게 변경(하트용)
             const whisper: whisper = JSON.parse(message.body);
-            receiveMessageCallback(whisper);
+            console.log('하트받음');
+            changeSignal();
+
+            receiveMessageDispatch(whisper);
           });
+
+          if (seq !== 0) {
+            client.subscribe(`/sub/user/${seq}`, (message) => {
+              console.log('채팅방 생성 명령 수신');
+              const whisper: whisper = JSON.parse(message.body);
+              receiveMessageDispatch(whisper);
+            });
+
+            findMyRoomAPI({ user: seq })
+              .then((res) => {
+                const chatRooms = res.reverse();
+                setChatRoomList(chatRooms);
+
+                receiveMessageDispatch({
+                  type: 'INIT',
+                  initSet: new Set(chatRooms.map((x) => x.userList).flat()),
+                  chatRoom: 0,
+                  person: 0,
+                });
+
+                chatRooms.forEach((chatRoom) => {
+                  getChatLog({ roomSeq: chatRoom.chatroomSeq }).then(
+                    (res: messageType[]) => {
+                      const idx: number = chatRoom.chatroomSeq;
+                      const reverseChat: messageType[] = res.reverse();
+
+                      chatsDispatch({
+                        type: 'INSERT',
+                        idx: idx,
+                        messages: reverseChat,
+                        messageType: {} as messageType,
+                      });
+
+                      client.subscribe(`/sub/chat/room/${idx}`, (message) => {
+                        setMessageCount((pre) => {
+                          pre[idx] += 1;
+                          return pre;
+                        });
+
+                        chatsDispatch({
+                          type: 'CHAT_MESSAGE',
+                          idx: idx,
+                          messages: [],
+                          messageType: JSON.parse(message.body) as messageType,
+                        });
+                      });
+                    },
+                  );
+                });
+              })
+              .catch((err) => console.log(err));
+
+            heartSendSetAPI({ user: seq }).then((res) => {
+              console.log(res);
+
+              updateSendHeartSet(new Set(res.map((x) => x.receiveUser)));
+            });
+          }
         },
         onStompError: (frame) => {
           console.log('Broker reported error: ' + frame.headers['message']);
@@ -189,109 +255,79 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         heartbeatIncoming: 4000,
         heartbeatOutgoing: 4000,
       }),
-    [],
+    [seq],
   );
 
-  // 유저 로그인 상태라면, 채팅방 관련 코드 돌리기
-  useEffect(() => {
-    if (seq !== 0 && client && client.connected) {
-      client.subscribe(`/sub/user/${seq}`, (message) => {
-        // 채팅방 생성 명령 수신(pk로)
-        const whisper: whisper = JSON.parse(message.body);
-        receiveMessageCallback(whisper);
-      });
+  function receiveMEssageReducer(
+    chatUserSet: Set<number>,
+    action: whisper,
+  ): Set<number> {
+    switch (action.type) {
+      case 'HEART':
+        console.log('HEART');
 
-      findMyRoomAPI({ user: seq })
-        .then((res) => {
-          const chatRooms = res.reverse();
-          setChatRoomList(chatRooms);
-
-          chatRooms.forEach((chatRoom) => {
-            getChatLog({ roomSeq: chatRoom.chatroomSeq }).then(
-              (res: messageType[]) => {
-                const idx: number = chatRoom.chatroomSeq;
-                const reverseChat: messageType[] = res.reverse();
-
-                chatsDispatch({
-                  type: 'INSERT',
-                  idx: idx,
-                  messages: reverseChat,
-                  messageType: {} as messageType,
-                });
-
-                client.subscribe(`/sub/chat/room/${idx}`, (message) => {
-                  setMessageCount((pre) => {
-                    pre[idx] += 1;
-                    return pre;
-                  });
-
-                  chatsDispatch({
-                    type: 'CHAT_MESSAGE',
-                    idx: idx,
-                    messages: [],
-                    messageType: JSON.parse(message.body) as messageType,
-                  });
-                });
-              },
-            );
-          });
-        })
-        .catch((err) => console.log(err));
-
-      heartSendSetAPI({ user: seq }).then((res) => {
-        updateSendHeartSet(new Set(res.map((x) => x.receiveUser)));
-      });
-    }
-  }, [seq, client, client.connected]);
-
-  const receiveMessageCallback = useCallback(
-    (action: whisper) => {
-      switch (action.type) {
-        case 'HEART':
-          // console.log('U RECEIVE HEART');
-          changeSignal();
-          if (action.person !== 0) {
-            receiveHeartEvent(action.person);
+        if (action.person !== 0) {
+          if (
+            seq !== 0 &&
+            sendHeartSet.has(action.person) &&
+            !chatUserSet.has(action.person)
+          ) {
+            console.log('CREATE CHAT ROOM');
+            // 채팅방 생성 api 호출
+            openChatAPI({
+              sendUser: `${seq}`,
+              receiveUser: `${action.person}`,
+            });
           }
-          break;
+        }
+        break;
 
-        case 'CHATROOM':
-          updateChatUserSet((pre) => pre.add(action.person));
-          // console.log(`${action.chatRoom} 채팅방이 신설되었습니다.`);
-          const newChatRoom: chatBox = {
-            chatroomSeq: action.chatRoom,
-            userList: [seq, action.person],
-            activate: true,
-          };
-          setChatRoomList((pre) => [newChatRoom, ...pre]);
+      case 'CHATROOM':
+        chatUserSet.add(action.person);
+        console.log(`${action.chatRoom} 채팅방이 신설되었습니다.`);
+        const newChatRoom: chatBox = {
+          chatroomSeq: action.chatRoom,
+          userList: [seq, action.person],
+          activate: true,
+        };
+        setChatRoomList((pre) => [newChatRoom, ...pre]);
+
+        chatsDispatch({
+          type: 'INSERT',
+          idx: action.chatRoom,
+          messages: new Array<messageType>(),
+          messageType: {} as messageType,
+        });
+
+        client.subscribe(`/sub/chat/room/${action.chatRoom}`, (message) => {
+          setMessageCount((pre) => {
+            pre[action.chatRoom] += 1;
+            return pre;
+          });
 
           chatsDispatch({
-            type: 'INSERT',
+            type: 'CHAT_MESSAGE',
             idx: action.chatRoom,
-            messages: new Array<messageType>(),
-            messageType: {} as messageType,
+            messages: [],
+            messageType: JSON.parse(message.body) as messageType,
           });
+        });
+        break;
 
-          client.subscribe(`/sub/chat/room/${action.chatRoom}`, (message) => {
-            setMessageCount((pre) => {
-              pre[action.chatRoom] += 1;
-              return pre;
-            });
+      case 'INIT':
+        console.log('INIT');
 
-            chatsDispatch({
-              type: 'CHAT_MESSAGE',
-              idx: action.chatRoom,
-              messages: [],
-              messageType: JSON.parse(message.body) as messageType,
-            });
-          });
-          break;
+        return action.initSet ? action.initSet : new Set<number>();
 
-        default:
-          break;
-      }
-    },
-    [client],
+      default:
+        break;
+    }
+    return chatUserSet;
+  }
+
+  const [chatUserSet, receiveMessageDispatch] = useReducer(
+    receiveMEssageReducer,
+    new Set<number>(),
   );
 
   const gpsReducer = (beforeKey: string, nowKey: string): string => {
@@ -301,7 +337,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         body: JSON.stringify({
           beforeGpsKey: beforeKey,
           nowGpsKey: nowKey,
-          pair: { pk: `${seq}`, emojiURL: 'emoji' },
+          pair: { pk: `${seq}`, emojiURL: `${emoji}` },
         }),
       });
     }
@@ -325,13 +361,18 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     users.delete(seq);
     users.delete(0);
 
-    return { sessions: setSessions, users: users };
+    const emojis = sessions
+      .filter((key) => key !== mySession)
+      .map((key) => sectorObj[key].emojiURL);
+
+    return { sessions: setSessions, users: users, emojis: emojis };
   };
 
   const [gpsKey, setGpsKey] = useReducer(gpsReducer, '');
   const [nearBy10mState, nearBy10mDispatch] = useReducer(nearBy10mReducer, {
     sessions: new Set<string>(),
     users: new Set<number>(),
+    emojis: new Array<string>(),
   });
 
   // const onChangeTo = (e: any) => {
@@ -417,18 +458,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     });
   };
 
-  const receiveHeartEvent = async (user: number) => {
-    if (seq !== 0 && sendHeartSet.has(user) && !chatUserSet.has(user)) {
-      console.log('CREATE CHAT ROOM');
-      // 채팅방 생성 api 호출
-      const res = openChatAPI({
-        sendUser: `${seq}`,
-        receiveUser: `${user}`,
-      });
-      console.log(res);
-    }
-  };
-
   useEffect(() => {
     const gpsKeyArray: string[] = [];
     if (gpsKey !== '') {
@@ -479,7 +508,11 @@ const ClientContext = createContext({
   // GpsKeyHandler: () => {},
   // subscribeHeart: () => {},
   signal: false,
-  nearBy10mState: { sessions: new Set<string>(), users: new Set<number>() },
+  nearBy10mState: {
+    sessions: new Set<string>(),
+    users: new Set<number>(),
+    emojis: new Array<string>(),
+  },
   client: new Client(),
   chatRoomList: new Array<chatBox>(),
   updateIndexFunc: (num: number) => {},
