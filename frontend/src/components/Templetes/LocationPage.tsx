@@ -38,9 +38,10 @@ const LocationPage = () => {
     const emojiUrl = localStorage.getItem('emojiUrl') || ''
     readEmojiAPI({ emojiUrl: emojiUrl })
       .then((res: any) => {
-        setSildes1(res.slice(0, 17))
-        setSildes2(res.slice(18, 34))
-        setSildes3(res.slice(35))
+        console.log(res)
+        setSildes1(res.slice(0, 25))
+        setSildes2(res.slice(26, 51))
+        setSildes3(res.slice(52))
       })
       .then(() => {
         console.log(slides3)
