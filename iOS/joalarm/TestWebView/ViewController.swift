@@ -60,7 +60,7 @@ kCLLocationAccuracyBest
 
     // MARK: - Func
     func loadUrl() {
-        if let url = URL(string: "https://www.someone-might-like-you.com/mainpage") {
+        if let url = URL(string: "https://www.someone-might-like-you.com") {
 //        if let url = URL(string: "http://localhost:3000/mainpage") {
             let urlRequest = URLRequest(url: url)
             webKitView?.load(urlRequest)
