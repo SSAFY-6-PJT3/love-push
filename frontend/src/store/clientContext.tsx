@@ -14,6 +14,7 @@ import { openChatAPI } from '../api/openChatAPI';
 import { findMyRoomAPI } from '../api/chatRoomAPI';
 import { getChatLog } from '../api/chatAPI';
 import { heartSendSetAPI } from '../api/heartAPI';
+import { readEmojiUserAPI } from '../api/emojiAPI';
 
 interface userType {
   pk: number;
@@ -87,6 +88,9 @@ interface chatsActions {
 
 const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
   const seq = Number(localStorage.getItem('seq') || '0');
+  const emoji =
+    localStorage.getItem('emojiUrl') ||
+    'https://cupid-joalarm.s3.ap-northeast-2.amazonaws.com/Green apple.svg';
   const [mySession, updateMySession] = useState('');
   const [gpsKeyNearby10m, updateGpsKeyNearby10m] = useState(
     new Array<string>(),
@@ -333,7 +337,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         body: JSON.stringify({
           beforeGpsKey: beforeKey,
           nowGpsKey: nowKey,
-          pair: { pk: `${seq}`, emojiURL: 'emoji' },
+          pair: { pk: `${seq}`, emojiURL: `${emoji}` },
         }),
       });
     }
@@ -357,7 +361,9 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     users.delete(seq);
     users.delete(0);
 
-    const emojis = sessions.map((key) => sectorObj[key].emojiURL);
+    const emojis = sessions
+      .filter((key) => key !== mySession)
+      .map((key) => sectorObj[key].emojiURL);
 
     return { sessions: setSessions, users: users, emojis: emojis };
   };
