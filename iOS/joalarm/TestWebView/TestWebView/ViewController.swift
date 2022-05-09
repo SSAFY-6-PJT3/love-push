@@ -3,9 +3,36 @@ import WebKit
 import CoreLocation
 
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CLLocationManagerDelegate{
     // MARK: - Property
+    // extension으로 CLLocationManagerDelegate 구현하기
     weak var webKitView: WKWebView?
+    
+    var locationManager:CLLocationManager! // 변수 선언할때 !를 붙히넴
+    
+    var lat: Double?
+    var long: Double?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        locationManager = CLLocationManager()
+        loadUrl()
+        locationManager.delegate = self
+        // 아래 함수 요청시 위치권한 팝업 출력
+        self.locationManager.requestWhenInUseAuthorization()
+        // 스와이프를 통해서 뒤로가기 앞으로가기를 할수 있게 해주는 설정값
+        self.webKitView?.allowsBackForwardNavigationGestures = true
+        // 배터리와 위지정확도 센서 결정
+        locationManager.desiredAccuracy =
+kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+        
+        
+    let space = locationManager.location?.coordinate
+    lat = space?.latitude
+    long = space?.longitude }
+
+
     // weak : 약한 참조
     // 해당 인스턴스의 소유권을 가지지 않고, 주소값만을 가지고 있는 포인터 개념
     // 자신이 참조는 하지만 weak 메모리를 해제할 수 있는 권한은 다른 클래스에 있음.
@@ -29,13 +56,6 @@ class ViewController: UIViewController {
             webKitView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             webKitView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ])
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        loadUrl()
-        // 스와이프를 통해서 뒤로가기 앞으로가기를 할수 있게 해주는 설정값 입니다.
-        self.webKitView?.allowsBackForwardNavigationGestures = true
     }
 
     // MARK: - Func
