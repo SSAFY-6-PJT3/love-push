@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
@@ -8,18 +8,8 @@ import MainFooter from '../Templetes/MainFooter';
 import AfterBackGround from '../Molecules/AfterBackground';
 import HeartBtn from '../Molecules/HeartBtn';
 
-import chebrasika from '../../images/emoji/chebrasika100.svg';
-import genshinimpact from '../../images/emoji/genshinimpact48.svg';
-import itachiuchiha from '../../images/emoji/itachiuchiha48.svg';
-import tanjirokamado from '../../images/emoji/tanjirokamado48.svg';
-import tom from '../../images/emoji/tom48.svg';
-import uzumaki from '../../images/emoji/uzumaki48.svg';
-import astonished from '../../images/emoji/Astonished face.svg';
-import gemstone from '../../images/emoji/Gemstone.svg';
-import greenapple from '../../images/emoji/Green apple.svg';
-import unicorn from '../../images/emoji/Unicorn.svg';
-import xmas from '../../images/emoji/Xmas tree.svg';
-import zany from '../../images/emoji/Zany face.svg';
+import { readEmojiAPI } from '../../api/emojiAPI'
+
 import { AlertContext } from '../../store/alertContext';
 import { ClientContext } from '../../store/clientContext';
 
@@ -28,7 +18,7 @@ const EmptyChatBox = () => {
   const navigate = useNavigate();
 
   const heartClickHandler = () => {
-    navigate('/mainpage')
+    navigate('/')
   };
 
   const { CheckGPS, sendHeart, signal, nearBy10mState } =
@@ -37,20 +27,21 @@ const EmptyChatBox = () => {
 
   useDocumentTitle('채팅방이 없습니다 | 좋아하면 누르는');
 
-  const slides1 = [
-    chebrasika,
-    genshinimpact,
-    itachiuchiha,
-    tanjirokamado,
-    tom,
-    uzumaki,
-    astonished,
-    greenapple,
-    unicorn,
-    zany,
-    gemstone,
-    xmas,
-  ];
+  const [slides, setSildes] = useState([])
+  useEffect(() => {
+    callReadEmojiAPI()
+  }, []);
+  const callReadEmojiAPI = () => {
+    const emojiUrl = localStorage.getItem('emojiUrl') || ''
+    readEmojiAPI({ emojiUrl: emojiUrl })
+      .then((res: any) => {
+        console.log(res)
+        setSildes(res.slice(13, 25))
+      })
+      .catch((err:any) => {
+        console.log(err);
+      });
+  };
   
   return (
     <>
@@ -72,7 +63,7 @@ const EmptyChatBox = () => {
           <HeartBtn show={signal} onClickHeart={heartClickHandler} />
         </HeartWrapper>
         <ImgContainer>
-          {slides1.map((slide) => (
+          {slides.map((slide) => (
             <Emoji key={slide} src={slide} alt="" />
           ))}
         </ImgContainer>
@@ -107,7 +98,7 @@ const Title = styled.h1`
   white-space: pre-line;
   font-size: 20px;
   font-weight: 700;
-  color: white;
+  color: black;
   line-height: 1.5;
   text-align: center;
   margin-bottom: 20px;
