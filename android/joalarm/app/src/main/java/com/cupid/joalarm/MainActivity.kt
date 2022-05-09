@@ -1,8 +1,12 @@
 package com.cupid.joalarm
 
 import android.Manifest
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Bundle
+import android.provider.Settings
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -23,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        checkGPS()
         checkPermission()
 
     }
@@ -52,9 +57,9 @@ class MainActivity : AppCompatActivity() {
             grantResults
         )
         if (requestCode === PERMISSION_ACCESS_ALL) {
-            if (grantResults.size > 0) {
+            if (grantResults.isNotEmpty()) {
                 for (grant in grantResults) {
-                    if (grant != PackageManager.PERMISSION_GRANTED) System.exit(0)
+//                    if (grant != PackageManager.PERMISSION_GRANTED) System.exit(0)
                 }
                 openWebPage("https://www.someone-might-like-you.com/mainPage")
             }
@@ -83,4 +88,13 @@ class MainActivity : AppCompatActivity() {
         mWebSettings.domStorageEnabled = true // 로컬저장소 허용 여부
         webView.loadUrl(url)
     }
+    private fun checkGPS(){
+        // GPS 켰는지 확인
+        val locationManager :LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            val gpsOptionsIntent =  Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+            startActivity(gpsOptionsIntent)
+        }
+    }
+
 }
