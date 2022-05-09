@@ -182,8 +182,8 @@ const MyChatDiv = styled.div`
 `;
 
 const Img = styled.img`
-  width: 4rem;
-  height: 4rem;
+  width: 40px;
+  height: 40px;
 `;
 
 const ChatFooter = styled.div`
