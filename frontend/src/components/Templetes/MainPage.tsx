@@ -105,8 +105,8 @@ const MainPage = () => {
           <HeartBtn show={signal} onClickHeart={heartClickHandler} />
         </HeartWrapper>
         <ImgContainer>
-          {slides1.map((slide) => (
-            <Emoji key={slide} src={slide} alt="" />
+          {nearBy10mState.emojis.map((slide, idx) => (
+            <Emoji key={idx} src={slide} alt="" />
           ))}
         </ImgContainer>
         <MainFooter />

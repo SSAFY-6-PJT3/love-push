@@ -36,28 +36,33 @@ const ChatBox: React.FC<ChatBoxProps> = ({
   lastChat,
   messageCount,
 }) => {
-  const [emoji, setEmoji] = useState<string>()
+  const [emoji, setEmoji] = useState<string>();
   useEffect(() => {
-    readEmojiUserAPI({ userId: partner })
-      .then((res) => {
-        setEmoji(res)
-      })
-  }, [])
+    readEmojiUserAPI({ userId: partner }).then((res) => {
+      setEmoji(res);
+    });
+  }, []);
   return (
     <div>
       <ChatContainer onClick={() => clickEvent(chatroomSeq, emoji)}>
-        <ChatProfileEmojiBox><img src={emoji} alt="" /></ChatProfileEmojiBox>
+        <ChatProfileEmojiBox>
+          <img src={emoji} alt="" />
+        </ChatProfileEmojiBox>
         <ChatNameMessageBox>
           <RandomNickname>익명의 시라소니</RandomNickname>
           <RecentMessage>
-            {lastChat ? lastChat.message : '채팅방이 생성됐어요!'}
+            {lastChat
+              ? lastChat.message.length > 8
+                ? lastChat.message.slice(0, 8) + '...'
+                : lastChat.message
+              : '채팅방이 생성됐어요!'}
           </RecentMessage>
         </ChatNameMessageBox>
         <ChatInfoBox>
           <Timeline>
             {lastChat
               ? lastChat.sendTime.split(' ').slice(1, 3).join(' ')
-              : '채팅을 보내보세요!'}
+              : '--:--:--'}
           </Timeline>
           {messageCount > 0 && (
             <LeftMessageCount>{messageCount}</LeftMessageCount>

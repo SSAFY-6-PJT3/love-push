@@ -40,7 +40,7 @@
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://3.35.170.113:30000/joalarm?serverTimezone=Asia/Seoul</jdbc-url>
+      <jdbc-url>jdbc:mysql://3.35.170.113:30000/</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
