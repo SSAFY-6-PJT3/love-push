@@ -40,7 +40,7 @@ function App() {
         <BrowserRouter>
           <GARoutes>
             {/* <Route path="/" element={<KeyFrame />} /> */}
-            <Route path="/mainpage" element={<MainPage />} />
+            <Route path="/" element={<MainPage />} />
             <Route path="/signup/:pageId" element={<Signup />} />
             <Route path="/chatlobby" element={<ChatLobby />} />
             <Route
