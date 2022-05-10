@@ -132,14 +132,13 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
             break;
           case 'QUIT':
             setChatRoomList((pre) => {
-              const newChatRoomList = [...pre];
-              for (let i in newChatRoomList) {
-                if (newChatRoomList[i].chatroomSeq === chatsActions.idx) {
-                  newChatRoomList[i].activate = false;
-                  return newChatRoomList;
+              for (let i in pre) {
+                if (pre[i].chatroomSeq === chatsActions.idx) {
+                  pre[i].activate = false;
+                  return pre;
                 }
               }
-              return newChatRoomList;
+              return pre;
             });
             break;
 
