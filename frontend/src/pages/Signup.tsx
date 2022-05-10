@@ -24,7 +24,7 @@ const Signup = () => {
   useEffect(() => {
     if (pageId === ('4' || '9')) {
       setTimeout(() => {
-        navigate('/mainpage');
+        navigate('/');
       }, 1200);
     }
   }, [pageId]);
@@ -74,7 +74,6 @@ const Signup = () => {
         } else {
           await idVaidateAPI(v)
             .then((res) => {
-              console.log(res);
               navigate('/signup/2');
               setErrMsg('');
             })

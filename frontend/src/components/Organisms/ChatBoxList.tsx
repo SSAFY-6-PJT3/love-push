@@ -33,17 +33,19 @@ type messages = {
 
 const ChatBoxListPage = () => {
   const navigate = useNavigate();
-  const { updateIndexFunc, chatRoomList, chats } = useContext(ClientContext);
+  const { updateIndexFunc, chatRoomList, chats, messageCount } =
+    useContext(ClientContext);
 
   useEffect(() => {
     chatRoomList.forEach((chatBox) => {
       // client 구독 및 채팅 수신 시 카운트 늘리는 이벤트 추가
     });
+    console.log(chatRoomList)
   }, [chatRoomList]);
 
-  const getRoomSeqEvent = (seq: number) => {
+  const getRoomSeqEvent = (seq: number, emoji?:string, partner?:number) => {
     updateIndexFunc(seq);
-    navigate('/chat');
+    navigate('/chat', { state: {emoji:emoji, partner: partner}});
     // console.log(chats[seq]);
   };
 
@@ -59,10 +61,9 @@ const ChatBoxListPage = () => {
           lastChat={
             chats &&
             chats[chatRoom.chatroomSeq] &&
-            chats[chatRoom.chatroomSeq].messages[
-              chats[chatRoom.chatroomSeq].messages.length - 1
-            ]
+            chats[chatRoom.chatroomSeq][chats[chatRoom.chatroomSeq].length - 1]
           }
+          messageCount={messageCount[chatRoom.chatroomSeq]}
         />
       ))}
     </ChatBoxList>
