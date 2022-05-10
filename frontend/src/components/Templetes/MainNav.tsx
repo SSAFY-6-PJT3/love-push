@@ -2,10 +2,12 @@
  * @author Hyeonsooryu
  */
 
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { AuthContext } from '../../store/authContext';
+
+import { readEmojiUserAPI } from '../../api/emojiAPI';
 
 import IconButton from '../Atoms/IconButton';
 import Header from '../Organisms/Header';
@@ -16,6 +18,16 @@ const MainNav = () => {
   const navigate = useNavigate();
   const { isLoggedIn } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
+  const [emojiUrl, setEmojiUrl] = useState(
+    'https://cupid-joalarm.s3.ap-northeast-2.amazonaws.com/Astonished%20face.svg',
+  );
+
+  useEffect(() => {
+    const sessionEmoji = sessionStorage.getItem('emojiUrl');
+    if (sessionEmoji && sessionEmoji !== 'string') {
+      setEmojiUrl(sessionEmoji);
+    }
+  }, []);
 
   const openModal = () => {
     setShowModal(true);
@@ -40,7 +52,7 @@ const MainNav = () => {
           shadow
           margin="4px 8px"
           bgColor="#EEF8FF"
-          imgURL="https://img.icons8.com/emoji/48/000000/robot-emoji.png"
+          imgURL={emojiUrl}
           onClick={openModal}
         />
         <IconButton
