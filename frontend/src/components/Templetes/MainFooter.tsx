@@ -16,6 +16,7 @@ const MainFooter = () => {
         margin="4px 8px"
         bgColor="#EEF8FF"
         imgURL="https://img.icons8.com/emoji/48/000000/question-mark-emoji.png"
+        ariaLabel="도움말"
         onClick={helpBtnClickHandler}
       />
     </Footer>

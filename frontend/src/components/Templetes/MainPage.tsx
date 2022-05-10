@@ -4,7 +4,7 @@
  * @modified Hyeonsooryu | 마크업 구조 리팩터링 & 애니메이션 추가
  */
 
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import MainNav from './MainNav';
@@ -27,6 +27,7 @@ import greenapple from '../../images/emoji/Green apple.svg';
 import unicorn from '../../images/emoji/Unicorn.svg';
 import xmas from '../../images/emoji/Xmas tree.svg';
 import zany from '../../images/emoji/Zany face.svg';
+import { AlertContext } from '../../store/alertContext';
 // end of image import
 
 const MainPage = () => {
@@ -40,22 +41,18 @@ const MainPage = () => {
   // 성공시 isLogin True변환
   // 초기 로그인 유저인지 아닌지 확인 필요 useEffect사용 -> 필요없어져서 삭제했습니다.
 
-  const { CheckGPS, GpsKeyHandler, sendHeart, signal, nearBy10mState } =
+  const { activateClient, sendHeart, signal, nearBy10mState } =
     useContext(ClientContext);
+  const { openAlert, setAlertText } = useContext(AlertContext);
 
-  const [showRedHeart, setShowRedHeart] = useState(false);
-
-  CheckGPS();
-  GpsKeyHandler();
+  useEffect(() => {
+    activateClient();
+  }, [activateClient]);
 
   const heartClickHandler = () => {
-    // if (!signal) {
-    //   sendHeart();
-    // }
-    setShowRedHeart(true);
-    setTimeout(() => {
-      setShowRedHeart(false);
-    }, 4000);
+    setAlertText('하트 발사!');
+    openAlert();
+    sendHeart();
   };
 
   const slides1 = [
@@ -75,29 +72,41 @@ const MainPage = () => {
 
   return (
     <>
-      <AfterBackGround show={showRedHeart} />
+      <AfterBackGround show={signal} />
       <Container>
         <MainNav />
-        {showRedHeart && (
+        {signal && (
           <Title>
             10m 이내의 누군가가 <br />
             하트를 눌렀어요! <br />
             당신을 좋아하는건 아닐까요..?
           </Title>
         )}
-        {!showRedHeart && (
+        {!signal && (
           <Title>
-            10m 이내에 <br />
-            {nearBy10mState.sessions.size}명의 <br />
-            사용자가 있어요!
+            {nearBy10mState.sessions.size === 0 ? (
+              <p>
+                잠시만요!
+                <br />
+                주변의 사용자를
+                <br />
+                검색하는 중이에요..
+              </p>
+            ) : (
+              <p>
+                10m 이내에 <br />
+                {nearBy10mState.sessions.size - 1}명의 <br />
+                사용자가 있어요!
+              </p>
+            )}
           </Title>
         )}
         <HeartWrapper>
-          <HeartBtn show={showRedHeart} onClickHeart={heartClickHandler} />
+          <HeartBtn show={signal} onClickHeart={heartClickHandler} />
         </HeartWrapper>
         <ImgContainer>
-          {slides1.map((slide) => (
-            <Emoji key={slide} src={slide} alt="" />
+          {nearBy10mState.emojis.map((slide, idx) => (
+            <Emoji key={idx} src={slide} alt={`emoji-${idx}`} />
           ))}
         </ImgContainer>
         <MainFooter />
@@ -112,10 +121,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100vh;
-  @supports (-webkit-touch-callout: none) {
-    height: -webkit-fill-available;
-  }
+  height: calc(var(--vh, 1vh) * 100);
   overflow-y: hidden;
   overflow-x: hidden;
 `;

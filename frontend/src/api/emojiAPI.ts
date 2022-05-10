@@ -17,12 +17,7 @@ export interface IReadEmojiResponse {
 }
 
 interface IReadEmojiUserReqData {
-  userId: string;
-}
-
-interface IReadEmojiUserResponse {
-  id: string;
-  emoji: string;
+  userId: number;
 }
 
 interface IUpdateEmojiReqData {
@@ -37,7 +32,7 @@ const updateEmojiAPI = async (data: IUpdateEmojiReqData, token: string) => {
   return response;
 };
 
-const readEmojiUserAPI = async (data: IReadEmojiUserReqData): Promise<IReadEmojiUserResponse> => {
+const readEmojiUserAPI = async (data: IReadEmojiUserReqData) => {
   const response = await axiosInstance.get(`accounts/${data.userId}/emoji`);
   return response.data;
 };

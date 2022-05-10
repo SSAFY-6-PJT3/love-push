@@ -9,6 +9,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { getChatLog } from '../../api/chatAPI';
 import { useEffect, useState } from 'react';
+import { readEmojiUserAPI } from '../../api/emojiAPI';
 
 type message = {
   type: string;
@@ -22,8 +23,9 @@ type ChatBoxProps = {
   chatroomSeq: number;
   partner: number;
   activate: boolean;
-  clickEvent: (seq: number) => void;
+  clickEvent: (seq: number, emoji?: string, partner?: number) => void;
   lastChat: message | undefined;
+  messageCount: number;
 };
 
 const ChatBox: React.FC<ChatBoxProps> = ({
@@ -32,29 +34,49 @@ const ChatBox: React.FC<ChatBoxProps> = ({
   activate,
   clickEvent,
   lastChat,
+  messageCount,
 }) => {
+  const [emoji, setEmoji] = useState<string>();
+  useEffect(() => {
+    readEmojiUserAPI({ userId: partner }).then((res) => {
+      setEmoji(res);
+    });
+  }, []);
   return (
     <div>
-      <ChatContainer>
-        <ChatProfileEmojiBox>{/* <ChatProfileEmoji /> */}</ChatProfileEmojiBox>
-        <ChatNameMessageBox onClick={() => clickEvent(chatroomSeq)}>
+      <ChatContainer onClick={() => clickEvent(chatroomSeq, emoji, partner)}>
+        <ChatProfileEmojiBox>
+          <ChatListEmoji src={emoji} alt="이모지" />
+        </ChatProfileEmojiBox>
+        <ChatNameMessageBox>
           <RandomNickname>익명의 시라소니</RandomNickname>
           <RecentMessage>
-            {lastChat ? lastChat.message : '채팅방이 생성됐어요!'}
+            {lastChat
+              ? lastChat.message.length > 8
+                ? lastChat.message.slice(0, 8) + '...'
+                : lastChat.message
+              : '채팅방이 생성됐어요!'}
           </RecentMessage>
         </ChatNameMessageBox>
-        <ChatInfoBox onClick={() => clickEvent(chatroomSeq)}>
+        <ChatInfoBox>
           <Timeline>
             {lastChat
               ? lastChat.sendTime.split(' ').slice(1, 3).join(' ')
-              : '채팅을 보내보세요!'}
+              : '--:--:--'}
           </Timeline>
-          <LeftMessageCount>10</LeftMessageCount>
+          {messageCount > 0 && (
+            <LeftMessageCount>{messageCount}</LeftMessageCount>
+          )}
         </ChatInfoBox>
       </ChatContainer>
     </div>
   );
 };
+
+const ChatListEmoji = styled.img`
+  width: 64px;
+  height: 64px;
+`;
 
 const ChatContainer = styled.div`
   display: flex;

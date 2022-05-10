@@ -8,8 +8,9 @@ import BackBtnNav from './BackBtnNav';
 import ChatReport from '../Molecules/ChatReport';
 import { type } from 'os';
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Client } from '@stomp/stompjs';
+import { seteuid } from 'process';
 
 type message = {
   type: string;
@@ -23,12 +24,19 @@ type chatRoomProps = {
   idx: number;
   chats: message[];
   client: Client;
+  setMessageCountFunc: (num: number) => void;
 };
+
+interface CustomizedState {
+  emoji: string;
+  partner: number;
+}
 
 const ChatRoom: React.FC<chatRoomProps> = ({
   idx,
   chats,
   client,
+  setMessageCountFunc,
   // updateRoomTitle,
 }) => {
   // 상위에서 prop줘야할지도
@@ -36,16 +44,27 @@ const ChatRoom: React.FC<chatRoomProps> = ({
   // 채팅 기록 받아와 넣어주기
   // 로컬스토리지 가능하면 연결해보기
   // 채팅방 가져오면서 유저 emoji 받아오기 => 상위(채팅 리스트)에서 props로 내려주면 끝
-  const seq = Number(localStorage.getItem('seq') || '0');
+  const navigate = useNavigate();
+  const seq = Number(sessionStorage.getItem('seq') || '0');
   const [message, setMessage] = useState('');
+  const [emoji, setEmoji] = useState<string>();
+  const [partner, setPartner] = useState<number>();
+
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   const onChangeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
   };
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      console.log(message);
-
+    if (e.key === 'Enter' && message.trim().length) {
       client.publish({
         destination: '/pub/chat/message',
         body: JSON.stringify({
@@ -58,20 +77,38 @@ const ChatRoom: React.FC<chatRoomProps> = ({
       setMessage('');
     }
   };
+  const sendMessage = () => {
+    if ( message.trim().length ) {
+      client.publish({
+        destination: '/pub/chat/message',
+        body: JSON.stringify({
+          type: 'TALK',
+          roomId: `${idx}`,
+          sender: `${seq}`,
+          message: `${message}`,
+        }),
+      });
+      setMessage('');
+    }
+  }
 
-  const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state as CustomizedState;
   const scrollRef = useRef<HTMLDivElement>(null);
   const scrollToBottom = () => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   };
-
+  useEffect(() => {
+    setEmoji(state.emoji);
+    setPartner(state.partner);
+  }, []);
   useEffect(() => {
     if (typeof chats === 'undefined') navigate('..');
     scrollToBottom();
-    // updateRoomTitle('채팅');
-  }, []);
+    setMessageCountFunc(idx);
+  }, [chats]);
 
   return (
     <ChatRoomPage>
@@ -81,7 +118,7 @@ const ChatRoom: React.FC<chatRoomProps> = ({
         rightSideBtn={
           <IconButton imgURL="https://img.icons8.com/fluency/192/siren.png" />
         }
-        // onRightBtnClick={ChatReport}
+        onRightBtnClick={openModal}
         // 신고
         // 들어오면 가장 밑으로 내려가야겠넴 붙이는데도 시간이 좀 필요 할 것 같다.
       />
@@ -90,7 +127,7 @@ const ChatRoom: React.FC<chatRoomProps> = ({
           chats.map((chat) =>
             chat.sender !== seq ? ( // 로그인 한 유저 pk와 비교
               <OtherUserChatDiv key={chat.sendTime}>
-                <Img src="emoji" alt="프로필 이모지" />
+                <Img src={emoji} alt="프로필 이모지" />
                 <OtherUserChatText> {chat.message} </OtherUserChatText>
                 <Timeline>
                   {chat.sendTime.split(' ').slice(1, 3).join(' ')}
@@ -125,8 +162,23 @@ const ChatRoom: React.FC<chatRoomProps> = ({
           icon={<IoArrowUpSharp />}
           shadow
           children=""
+          ariaLabel="채팅 보내기"
+          onClick={sendMessage}
         ></Button>
       </ChatFooter>
+
+      <div>
+        {showModal && (
+          <ChatReport
+            isModalOpen={showModal}
+            closeModal={closeModal}
+            client={client}
+            sender={seq}
+            partnerId={partner}
+            roomSeq={idx}
+          />
+        )}
+      </div>
     </ChatRoomPage>
   );
 };
@@ -172,8 +224,8 @@ const MyChatDiv = styled.div`
 `;
 
 const Img = styled.img`
-  width: 4rem;
-  height: 4rem;
+  width: 40px;
+  height: 40px;
 `;
 
 const ChatFooter = styled.div`

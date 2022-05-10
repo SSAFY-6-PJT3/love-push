@@ -21,8 +21,9 @@ const NotFound = () => {
         textColor="black"
         bgColor="white"
         fontWeight="500"
+        ariaLabel="메인 페이지로 이동"
         onClick={() => {
-          navigate('/mainpage');
+          navigate('/');
         }}
       >
         메인 페이지로 이동

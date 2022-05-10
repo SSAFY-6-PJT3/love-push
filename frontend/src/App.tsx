@@ -4,6 +4,7 @@ import GARoutes from './components/GARoutes';
 
 import Background from './Styles/Background';
 import GlobalStyle from './Styles/GlobalStyle';
+import setScreenSize from './Styles/setScreenSize';
 
 import KeyFrame from './pages/KeyFrame';
 import StoryBook from './pages/StoryBook';
@@ -29,7 +30,11 @@ function App() {
   // };
   // window.addEventListener('resize', appHeight); // 사파리 상, 하단바 유무에 따른 화면비 재설정 이벤트리스너 코드
   // appHeight();
-  const { index, chats, client } = useContext(ClientContext);
+
+  setScreenSize();
+
+  const { index, chats, client, setMessageCountFunc } =
+    useContext(ClientContext);
 
   return (
     <>
@@ -39,7 +44,7 @@ function App() {
         <BrowserRouter>
           <GARoutes>
             {/* <Route path="/" element={<KeyFrame />} /> */}
-            <Route path="/mainpage" element={<MainPage />} />
+            <Route path="/" element={<MainPage />} />
             <Route path="/signup/:pageId" element={<Signup />} />
             <Route path="/chatlobby" element={<ChatLobby />} />
             <Route
@@ -47,8 +52,9 @@ function App() {
               element={
                 <ChatRoom
                   idx={index}
-                  chats={chats && chats[index] && chats[index].messages}
+                  chats={chats && chats[index]}
                   client={client}
+                  setMessageCountFunc={setMessageCountFunc}
                 />
               }
             />

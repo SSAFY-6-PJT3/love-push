@@ -29,7 +29,7 @@ interface ILoginResponse {
 }
 
 interface IReportReqData {
-  id?: string;
+  reported?: number;
 }
 
 const signUpAPI = async (data: ISignupReqData): Promise<ISignupResponse> => {
@@ -54,6 +54,7 @@ const loginAPI = async (data: ILoginReqData): Promise<ILoginResponse> => {
 };
 
 const reportAPI = async (data: IReportReqData, token: string) => {
+  console.log(data);
   const response = await axiosInstance.post(
     '/accounts/report',
     JSON.stringify(data),

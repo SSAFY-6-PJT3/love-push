@@ -25,7 +25,6 @@ public class EmojiS3Service {
 
     @PostConstruct
     public void postConstruct() {
-        System.out.println("amazon post get url");
         this.bucketUrl = String.format("https://%s.s3.%s.amazonaws.com/",
                 bucketName, region);
     }
