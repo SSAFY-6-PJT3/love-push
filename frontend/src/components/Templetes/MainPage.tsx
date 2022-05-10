@@ -121,10 +121,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100vh;
-  @supports (-webkit-touch-callout: none) {
-    height: -webkit-fill-available;
-  }
+  height: calc(var(--vh, 1vh) * 100);
   overflow-y: hidden;
   overflow-x: hidden;
 `;

@@ -4,6 +4,7 @@ import GARoutes from './components/GARoutes';
 
 import Background from './Styles/Background';
 import GlobalStyle from './Styles/GlobalStyle';
+import setScreenSize from './Styles/setScreenSize';
 
 import KeyFrame from './pages/KeyFrame';
 import StoryBook from './pages/StoryBook';
@@ -29,6 +30,9 @@ function App() {
   // };
   // window.addEventListener('resize', appHeight); // 사파리 상, 하단바 유무에 따른 화면비 재설정 이벤트리스너 코드
   // appHeight();
+
+  setScreenSize();
+
   const { index, chats, client, setMessageCountFunc } =
     useContext(ClientContext);
 
