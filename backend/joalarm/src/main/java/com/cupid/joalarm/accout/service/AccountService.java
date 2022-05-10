@@ -27,7 +27,7 @@ public class AccountService {
         Account account = Account.builder()
                 .id(accountDto.getId())
                 .password(passwordEncoder.encode(accountDto.getPassword()))
-                .emoji(accountDto.getEmoji())
+                .emoji("https://cupid-joalarm.s3.ap-northeast-2.amazonaws.com/Green apple.svg")
                 .build();
         return AccountDto.fromEntity(accountRepository.save(account));
     }
