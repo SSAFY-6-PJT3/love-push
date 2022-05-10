@@ -84,7 +84,7 @@ const EmojiSelectModal = ({ isModalOpen, closeModal }: IPropsModal) => {
             <Carousel {...settings}>
               {slides.map((slide: any) => (
                 <div key={slide} className="slide">
-                  <Img src={slide} alt="" />
+                  <Img src={slide} alt={slide} />
                 </div>
               ))}
             </Carousel>

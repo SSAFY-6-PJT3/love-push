@@ -27,6 +27,7 @@ const HeartBtn = ({ show, onClickHeart }: IPropsHeartBtn) => {
         }}
         src={Afterheart}
         onClick={onClickHeart}
+        alt="빨간 하트"
       />
     ) : (
       <animated.img
@@ -36,6 +37,7 @@ const HeartBtn = ({ show, onClickHeart }: IPropsHeartBtn) => {
         }}
         src={Beforeheart}
         onClick={onClickHeart}
+        alt="기본 하트"
       />
     ),
   );

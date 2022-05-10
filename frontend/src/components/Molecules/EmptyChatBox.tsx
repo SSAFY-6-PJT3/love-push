@@ -63,7 +63,7 @@ const EmptyChatBox = () => {
         </HeartWrapper>
         <ImgContainer>
           {slides.map((slide) => (
-            <Emoji key={slide} src={slide} alt="" />
+            <Emoji key={slide} src={slide} alt={slide} />
           ))}
         </ImgContainer>
         <MainFooter />

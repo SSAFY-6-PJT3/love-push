@@ -42,7 +42,12 @@ const IconButton = ({
       shadow={shadow}
       onClick={onClick}
     >
-      <Icon src={imgURL} imgWidth={imgWidth} imgHeight={imgHeight} />
+      <Icon
+        src={imgURL}
+        imgWidth={imgWidth}
+        imgHeight={imgHeight}
+        alt="버튼 이미지"
+      />
     </StyledButton>
   );
 };

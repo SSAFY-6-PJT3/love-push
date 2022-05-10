@@ -74,21 +74,21 @@ const LocationPage = () => {
         <EmojiDiv>
           {slides1.map((slide) => (
             <div key={slide} className="emoji">
-              <EmojiImg src={slide} alt="" />
+              <EmojiImg src={slide} alt={slide} />
             </div>
           ))}
         </EmojiDiv>
         <ReverseEmojiDiv>
           {slides2.map((slide) => (
             <div key={slide} className="emoji">
-              <EmojiImg src={slide} alt="" />
+              <EmojiImg src={slide} alt={slide} />
             </div>
           ))}
         </ReverseEmojiDiv>
         <EmojiDiv>
           {slides3.map((slide) => (
             <div key={slide} className="emoji">
-              <EmojiImg src={slide} alt="" />
+              <EmojiImg src={slide} alt={slide} />
             </div>
           ))}
         </EmojiDiv>
