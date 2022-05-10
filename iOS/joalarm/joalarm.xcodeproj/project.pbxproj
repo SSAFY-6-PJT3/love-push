@@ -292,6 +292,10 @@
 				DEVELOPMENT_TEAM = 9MX7BS6WR7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = joalarm/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치정보 권한이 필요합니다.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "위치정보 권한이 필요합니다.";
+				INFOPLIST_KEY_NSLocationUsageDescription = "위치 정보 가져오세욧.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치정보 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -320,6 +324,10 @@
 				DEVELOPMENT_TEAM = 9MX7BS6WR7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = joalarm/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치정보 권한이 필요합니다.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "위치정보 권한이 필요합니다.";
+				INFOPLIST_KEY_NSLocationUsageDescription = "위치 정보 가져오세욧.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치정보 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
