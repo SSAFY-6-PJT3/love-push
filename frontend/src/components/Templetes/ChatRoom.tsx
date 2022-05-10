@@ -77,6 +77,18 @@ const ChatRoom: React.FC<chatRoomProps> = ({
       setMessage('');
     }
   };
+  const sendMessage = () => {
+    client.publish({
+      destination: '/pub/chat/message',
+      body: JSON.stringify({
+        type: 'TALK',
+        roomId: `${idx}`,
+        sender: `${seq}`,
+        message: `${message}`,
+      }),
+    });
+    setMessage('');
+  }
 
   const location = useLocation();
   const state = location.state as CustomizedState;
@@ -149,6 +161,7 @@ const ChatRoom: React.FC<chatRoomProps> = ({
           shadow
           children=""
           ariaLabel="채팅 보내기"
+          onClick={sendMessage}
         ></Button>
       </ChatFooter>
 
