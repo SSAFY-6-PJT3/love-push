@@ -39,13 +39,13 @@ public class AccountController {
     @PostMapping("/login")
     public ResponseEntity<TokenDto> authorize(@Valid @RequestBody LoginDto loginDto) {
         Long accountSeq = accountService.findSeqById(loginDto.getId());
-        System.out.println(accountSeq + "accountseq");
+
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(accountSeq, loginDto.getPassword());
-        System.out.println(authenticationToken + "authenticationToken");
+
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        System.out.println("authentication" + authentication);
+
         String jwt = tokenProvider.createToken(authentication);
         String emojiUrl = accountService.findBySeq(accountSeq).getEmoji();
 
@@ -57,7 +57,7 @@ public class AccountController {
     public ResponseEntity<AccountDto> getUserFromToken(@RequestHeader String token) {
         Optional<String> seqId = securityUtil.getCurrentUsername();
         if (seqId == null) return null;
-        System.out.println("currentUsername " + seqId);
+
 //        System.out.println("token  "+token);
 
 //        AccountDto accountDto = accountService.findById(currentUsername.get());

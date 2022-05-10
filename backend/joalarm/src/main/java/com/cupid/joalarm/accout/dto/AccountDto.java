@@ -23,7 +23,6 @@ public class AccountDto {
     @Size
     private String password;
 
-    @NotNull
     private String emoji;
 
 

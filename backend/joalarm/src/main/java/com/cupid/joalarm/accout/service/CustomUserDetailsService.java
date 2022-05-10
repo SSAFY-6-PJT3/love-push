@@ -26,7 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String seq) throws UsernameNotFoundException {
-        System.out.println("loadUserByUsername");
+//        System.out.println("loadUserByUsername");
         Optional<Account> a =accountRepository.findAccountByAccountSeq(Long.parseLong(seq));
 //        System.out.println("account"+ a.get());
 //        UserDetails u =accountRepository.findOneById(id)

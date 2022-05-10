@@ -1,0 +1,24 @@
+<input
+  type="button"
+  OnClick="javascritp:CallAndroid()"
+  value="CallAndroid 안드로이드의 JavaScript 호출하기"
+/>
+<br />
+<input
+  type="button1"
+  OnClick="javascritp:showAndroidToast('Hello Android!')"
+  value="showAndroidToast 안드로이드의 JavaScript 호출하기"
+/>
+
+<script type="text/javascript">
+  function CallAndroid() {
+    console.log('웹뷰에서 호출된 메시지입니다');
+    var broswerInfo = navigator.userAgent;
+    if (broswerInfo.indexOf('Android') > -1) {
+      window.Android.alertMsg('웹뷰에서 호출된 메시지입니다');
+    }
+  }
+  function showAndroidToast(toast) {
+    Android.showToast(toast);
+  }
+</script>
