@@ -35,7 +35,7 @@ spring:
 
   data:
     mongodb:
-      uri: mongodb://${MONGO_CLUSTER_IP}:27017/joalarm
+      uri: mongodb://${MONGO_CLUSTER_IP}:27017/joalarm?serverTimezone=Asia/Seoul
 # ========== JWT ===========
 jwt:
   secret: ${JWT_SECRET_KEY}
