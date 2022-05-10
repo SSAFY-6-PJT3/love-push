@@ -26,7 +26,7 @@ const AuthContextProvider = ({ children }: IPropsAuthContextProvider) => {
   const [token, setToken] = useState('');
 
   useEffect(() => {
-    const localToken = localStorage.getItem('token');
+    const localToken = sessionStorage.getItem('token');
     console.log(localToken);
     if (localToken) {
       setIsLoggedIn(true);
@@ -36,14 +36,14 @@ const AuthContextProvider = ({ children }: IPropsAuthContextProvider) => {
   }, [token]);
 
   const loginHandler = (data: IPropsOnLogin) => {
-    localStorage.setItem('token', data.token);
-    localStorage.setItem('emojiUrl', data.emojiUrl);
-    localStorage.setItem('seq', data.seq);
+    sessionStorage.setItem('token', data.token);
+    sessionStorage.setItem('emojiUrl', data.emojiUrl);
+    sessionStorage.setItem('seq', data.seq);
     setToken(data.token);
   };
 
   const onChangeEmojiHandler = (emojiUrl: string) => {
-    localStorage.setItem('emojiUrl', emojiUrl);
+    sessionStorage.setItem('emojiUrl', emojiUrl);
   };
 
   return (

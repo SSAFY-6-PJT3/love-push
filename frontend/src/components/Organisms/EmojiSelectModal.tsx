@@ -14,7 +14,6 @@ import { updateEmojiAPI, readEmojiAPI, SlidesProps } from '../../api/emojiAPI';
 import { AuthContext } from '../../store/authContext';
 import { AlertContext } from '../../store/alertContext';
 
-
 interface IPropsModal {
   isModalOpen: boolean;
   closeModal: () => void;
@@ -28,42 +27,41 @@ const EmojiSelectModal = ({ isModalOpen, closeModal }: IPropsModal) => {
   const { openAlert, setAlertText, setAlertSeverity } =
     useContext(AlertContext);
 
-
   useEffect(() => {
-    callReadEmojiAPI()
-    setToken(localStorage.getItem('token') || '')
+    callReadEmojiAPI();
+    setToken(sessionStorage.getItem('token') || '');
   }, []);
   const callReadEmojiAPI = () => {
-    const emojiUrl = localStorage.getItem('emojiUrl') || ''
+    const emojiUrl = sessionStorage.getItem('emojiUrl') || '';
     readEmojiAPI({ emojiUrl: emojiUrl })
-      .then((res:any) => {
-        setSlides(res)
+      .then((res: any) => {
+        setSlides(res);
       })
-      .catch((err:any) => {
+      .catch((err: any) => {
         console.log(err);
       });
   };
   const callUpdateEmojiAPI = () => {
     const UpdateEmojiInfo = {
       emojiUrl: slides[state],
-    }
+    };
     updateEmojiAPI(UpdateEmojiInfo, token)
       .then(() => {
-        onChangeEmoji(UpdateEmojiInfo.emojiUrl.toString())
-        callReadEmojiAPI()
-        closeModal()
+        onChangeEmoji(UpdateEmojiInfo.emojiUrl.toString());
+        callReadEmojiAPI();
+        closeModal();
       })
       .then(() => {
         setAlertText('이모티콘 변경 완료');
         openAlert();
       })
-      .catch((err:any) => {
-        setAlertSeverity('error')
+      .catch((err: any) => {
+        setAlertSeverity('error');
         setAlertText('이모티콘 변경 실패');
         openAlert();
-        closeModal()
+        closeModal();
       });
-  }
+  };
 
   const settings = {
     className: 'center',
@@ -83,7 +81,7 @@ const EmojiSelectModal = ({ isModalOpen, closeModal }: IPropsModal) => {
         <Modal onClickToggleModal={closeModal}>
           <CarouselDiv>
             <Carousel {...settings}>
-              {slides.map((slide:any) => (
+              {slides.map((slide: any) => (
                 <div key={slide} className="slide">
                   <Img src={slide} alt="" />
                 </div>
