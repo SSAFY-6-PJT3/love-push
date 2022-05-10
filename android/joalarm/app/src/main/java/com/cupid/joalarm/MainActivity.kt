@@ -34,6 +34,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        checkGPS()
+        checkPermission()
+    }
+
 
     private fun checkPermission() {
         for (permission in permissions) {
@@ -65,9 +72,9 @@ class MainActivity : AppCompatActivity() {
 //                        System.exit(0)
                     }
                 }
-                openWebPage("https://www.someone-might-like-you.com/test")
+//                openWebPage("https://www.someone-might-like-you.com/test")
 //                openWebPage("https://map.kakao.com/")
-//                openWebPage("https://m.youtube.com/")
+                openWebPage("https://m.youtube.com/")
             }
         }
     }
