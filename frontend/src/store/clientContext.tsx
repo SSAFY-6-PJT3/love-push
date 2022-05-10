@@ -122,12 +122,32 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         });
         break;
       case 'CHAT_MESSAGE':
-        const new_message = [
-          ...new_state[chatsActions.idx],
-          chatsActions.messageType,
-        ];
-        new_state[chatsActions.idx] = new_message;
+        switch (chatsActions.messageType.type) {
+          case 'TALK':
+            const new_message = [
+              ...new_state[chatsActions.idx],
+              chatsActions.messageType,
+            ];
+            new_state[chatsActions.idx] = new_message;
+            break;
+          case 'QUIT':
+            setChatRoomList((pre) => {
+              const newChatRoomList = [...pre];
+              for (let i in newChatRoomList) {
+                if (newChatRoomList[i].chatroomSeq === chatsActions.idx) {
+                  newChatRoomList[i].activate = false;
+                  return newChatRoomList;
+                }
+              }
+              return newChatRoomList;
+            });
+            break;
+
+          default:
+            break;
+        }
         break;
+
       default:
         break;
     }

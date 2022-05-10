@@ -3,6 +3,7 @@ package com.cupid.joalarm.chat.controller;
 import com.cupid.joalarm.chat.DTO.ChatMessageDTO;
 import com.cupid.joalarm.chat.entity.ChatEntity;
 import com.cupid.joalarm.chat.service.ChatService;
+import com.cupid.joalarm.chatroom.service.ChatRoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +18,21 @@ import java.util.List;
 @Controller
 public class ChatController {
     private final ChatService chatService;
+    private final ChatRoomService chatRoomService;
 
     @MessageMapping("chat/message")
     public void message(ChatMessageDTO message) {
-        chatService.CreateChat(message);
+        switch (message.getType()) {
+            case TALK:
+                chatService.CreateChat(message);
+                break;
+            case QUIT:
+                chatService.CreateChat(message);
+                chatRoomService.reportByRoomSeq(message.getRoomId());
+                break;
+            default:
+                break;
+        }
     }
 
     @GetMapping("chat/chatlog")

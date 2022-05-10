@@ -157,8 +157,10 @@ const ChatRoom: React.FC<chatRoomProps> = ({
           <ChatReport
             isModalOpen={showModal}
             closeModal={closeModal}
+            client={client}
+            sender={seq}
             partnerId={partner}
-            roomSeq={seq}
+            roomSeq={idx}
           />
         )}
       </div>
