@@ -317,15 +317,16 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         break;
 
       case 'CHATROOM':
-        const newChatUserSet = new Set(Array.from(chatUserSet));
-        newChatUserSet.add(action.person);
+        chatUserSet.add(action.person);
         console.log(`${action.chatRoom} 채팅방이 신설되었습니다.`);
-        const newChatRoom: chatBox = {
-          chatroomSeq: action.chatRoom,
-          userList: [seq, action.person],
-          activate: true,
-        };
-        setChatRoomList((pre) => [newChatRoom, ...pre]);
+        setChatRoomList((pre) => [
+          {
+            chatroomSeq: action.chatRoom,
+            userList: [seq, action.person],
+            activate: true,
+          } as chatBox,
+          ...pre,
+        ]);
 
         chatsDispatch({
           type: 'INSERT',
@@ -347,7 +348,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
             messageType: JSON.parse(message.body) as messageType,
           });
         });
-        return newChatUserSet;
+        break;
 
       case 'INIT':
         console.log('INIT');
