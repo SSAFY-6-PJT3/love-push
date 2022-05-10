@@ -36,7 +36,7 @@ const Signup = () => {
   // 회원가입 API 호출
   const callSignUpAPI = () => {
     const signupInfo = {
-      emoji: 'https://cupid-joalarm.s3.ap-northeast-2.amazonaws.com/Face savoring food.svg',
+      emoji: 'https://cupid-joalarm.s3.ap-northeast-2.amazonaws.com/Face blowing a kiss.svg',
       id: userId,
       password: password,
     };
