@@ -1,3 +1,8 @@
+/**
+ * @author HanSeunghun
+ * @modified Hyeonsooryu Android 요청 연결
+ */
+
 import Button from '../Atoms/Button';
 import styled from 'styled-components';
 import { IoLocationSharp } from 'react-icons/io5';
@@ -8,31 +13,37 @@ import { AlertContext } from '../../store/alertContext';
 
 const LocationPage = () => {
   const navigate = useNavigate();
-  const { openAlert, setAlertText, setAlertSeverity } =
-    useContext(AlertContext);
-  const geoPosition = () => {
-    navigator.geolocation.getCurrentPosition(
-      function (position) {
-        setAlertSeverity('success');
-        setAlertText('위치 동의 성공');
-        openAlert();
-        navigate('/');
-      },
-      function (error) {
-        navigate('/location');
-        setAlertSeverity('error');
-        setAlertText('위치를 켜주세요');
-        openAlert();
-      },
-    );
-  };
   const [slides1, setSildes1] = useState([]);
   const [slides2, setSildes2] = useState([]);
   const [slides3, setSildes3] = useState([]);
+  const { openAlert, setAlertText, setAlertSeverity } =
+    useContext(AlertContext);
 
   useEffect(() => {
     callReadEmojiAPI();
   }, []);
+
+  const geoPosition = () => {
+    if (/Android/i.test(navigator.userAgent)) {
+      console.log(window.Android);
+      window.Android.requestLocationPermission();
+    } else {
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          setAlertSeverity('success');
+          setAlertText('위치 동의 성공');
+          openAlert();
+          navigate('/');
+        },
+        function (error) {
+          navigate('/location');
+          setAlertSeverity('error');
+          setAlertText('위치를 켜주세요');
+          openAlert();
+        },
+      );
+    }
+  };
 
   const callReadEmojiAPI = () => {
     const emojiUrl = sessionStorage.getItem('emojiUrl') || '';
