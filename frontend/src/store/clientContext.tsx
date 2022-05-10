@@ -317,7 +317,8 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         break;
 
       case 'CHATROOM':
-        chatUserSet.add(action.person);
+        const newChatUserSet = new Set(Array.from(chatUserSet));
+        newChatUserSet.add(action.person);
         console.log(`${action.chatRoom} 채팅방이 신설되었습니다.`);
         const newChatRoom: chatBox = {
           chatroomSeq: action.chatRoom,
@@ -346,7 +347,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
             messageType: JSON.parse(message.body) as messageType,
           });
         });
-        break;
+        return newChatUserSet;
 
       case 'INIT':
         console.log('INIT');
