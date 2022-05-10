@@ -78,11 +78,11 @@ public class TokenProvider implements InitializingBean {
 //        User principal = new User(claims.getSubject(), "", authorities);
 
         // customUserDetailsService 의 loadUserByUsername 호출
-        System.out.println("claims"+claims);
+//        System.out.println("claims"+claims);
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(claims.getSubject());
-        System.out.println(userDetails);
+//        System.out.println(userDetails);
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, token, authorities);
-        System.out.println(usernamePasswordAuthenticationToken);
+//        System.out.println(usernamePasswordAuthenticationToken);
         return usernamePasswordAuthenticationToken;
     }
 
