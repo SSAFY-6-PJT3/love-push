@@ -83,7 +83,7 @@ function ChatLobbyPage() {
 
   useEffect(() => {
     if (!isLoggedIn) navigate('/');
-    const seq = Number(localStorage.getItem('seq') || '0');
+    const seq = Number(sessionStorage.getItem('seq') || '0');
   }, []);
 
   return (

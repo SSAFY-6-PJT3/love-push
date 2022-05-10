@@ -99,6 +99,7 @@ const LoginModal = ({ isModalOpen, closeModal }: IPropsModal) => {
           <Button
             fontWeight="500"
             margin="1.5rem 0 .5rem"
+            ariaLabel="로그인"
             onClick={loginHandler}
           >
             로그인
@@ -106,6 +107,7 @@ const LoginModal = ({ isModalOpen, closeModal }: IPropsModal) => {
           <Button
             fontWeight="500"
             bgColor="#2B65BC"
+            ariaLabel="회원가입"
             onClick={signupClickHandler}
           >
             회원가입

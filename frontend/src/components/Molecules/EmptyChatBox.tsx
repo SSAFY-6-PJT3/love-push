@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import styled from "styled-components";
+import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
 
@@ -8,62 +8,61 @@ import MainFooter from '../Templetes/MainFooter';
 import AfterBackGround from '../Molecules/AfterBackground';
 import HeartBtn from '../Molecules/HeartBtn';
 
-import { readEmojiAPI } from '../../api/emojiAPI'
+import { readEmojiAPI } from '../../api/emojiAPI';
 
 import { AlertContext } from '../../store/alertContext';
 import { ClientContext } from '../../store/clientContext';
-
 
 const EmptyChatBox = () => {
   const navigate = useNavigate();
 
   const heartClickHandler = () => {
-    navigate('/')
+    navigate('/');
   };
 
   const { CheckGPS, sendHeart, signal, nearBy10mState } =
-  useContext(ClientContext);
+    useContext(ClientContext);
   const { openAlert, setAlertText } = useContext(AlertContext);
 
   useDocumentTitle('채팅방이 없습니다 | 좋아하면 누르는');
 
-  const [slides, setSildes] = useState([])
+  const [slides, setSildes] = useState([]);
   useEffect(() => {
-    callReadEmojiAPI()
+    callReadEmojiAPI();
   }, []);
   const callReadEmojiAPI = () => {
-    const emojiUrl = localStorage.getItem('emojiUrl') || ''
+    const emojiUrl = sessionStorage.getItem('emojiUrl') || '';
     readEmojiAPI({ emojiUrl: emojiUrl })
       .then((res: any) => {
-        setSildes(res.slice(13, 25))
+        setSildes(res.slice(13, 25));
       })
-      .catch((err:any) => {
+      .catch((err: any) => {
         console.log(err);
       });
   };
-  
+
   return (
     <>
-      <AfterBackGround show={signal}/>
+      <AfterBackGround show={signal} />
       <Container>
         <MainNav />
-          <Title>
-              <p>
-              서로 하트를 보내면
-              <br />
-              익명 채팅방이 개설됩니다!
-              <br />
-              좋아하는 사람 근처에서
-              <br />
-              하트를 보내보세요!
-              </p>
-          </Title>
+        <Title>
+          <p>
+            서로 하트를 보내면
+            <br />
+            익명 채팅방이 개설됩니다!
+            <br />
+            좋아하는 사람 근처에서
+            <br />
+            하트를 보내보세요!
+          </p>
+        </Title>
         <HeartWrapper>
           <HeartBtn show={signal} onClickHeart={heartClickHandler} />
         </HeartWrapper>
         <ImgContainer>
           {slides.map((slide) => (
-            <Emoji key={slide} src={slide} alt="" />
+            <Emoji key={slide} src={slide} alt={slide} />
           ))}
         </ImgContainer>
         <MainFooter />
@@ -72,20 +71,20 @@ const EmptyChatBox = () => {
   );
 };
 
-export default EmptyChatBox
+export default EmptyChatBox;
 
 const Container = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-width: 100%;
-height: 100vh;
-@supports (-webkit-touch-callout: none) {
-  height: -webkit-fill-available;
-}
-overflow-y: hidden;
-overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
+  overflow-y: hidden;
+  overflow-x: hidden;
 `;
 
 const Emoji = styled.img`
@@ -113,7 +112,6 @@ const Title = styled.h1`
     }
   }
 `;
-
 
 const HeartWrapper = styled.div`
   width: 220px;
@@ -183,7 +181,3 @@ const ImgContainer = styled.div`
     left: -260px;
   }
 `;
-
-
-
-

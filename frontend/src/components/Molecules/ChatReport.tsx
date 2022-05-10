@@ -12,7 +12,6 @@ type chatReportProps = {
   onClickToggleModal: () => void;
 };
 
-
 interface IPropsModal {
   isModalOpen: boolean;
   closeModal: () => void;
@@ -20,7 +19,12 @@ interface IPropsModal {
   roomSeq?: number;
 }
 
-const ChatReport = ({ isModalOpen, closeModal, partnerId, roomSeq }: IPropsModal) => {
+const ChatReport = ({
+  isModalOpen,
+  closeModal,
+  partnerId,
+  roomSeq,
+}: IPropsModal) => {
   const [token, setToken] = useState<string>('');
   const navigate = useNavigate();
   const callReportAPI = () => {
@@ -41,7 +45,7 @@ const ChatReport = ({ isModalOpen, closeModal, partnerId, roomSeq }: IPropsModal
   //   setOpenModal(!isOpenModal);
   // }, [isOpenModal]);
   useEffect(() => {
-    setToken(localStorage.getItem('token') || '');
+    setToken(sessionStorage.getItem('token') || '');
   }, []);
 
   return (
@@ -61,12 +65,12 @@ const ChatReport = ({ isModalOpen, closeModal, partnerId, roomSeq }: IPropsModal
         fontSize="1.2rem"
         fontWeight="400"
         textColor="white"
+        ariaLabel="신고하기"
         onClick={callReportAPI}
       >
         신고하기
       </Button>
     </Modal>
-
   );
 };
 
