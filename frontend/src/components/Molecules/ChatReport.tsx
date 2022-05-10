@@ -12,17 +12,25 @@ type chatReportProps = {
   onClickToggleModal: () => void;
 };
 
-const ChatReport: React.FC<chatReportProps> = ({ onClickToggleModal }) => {
+
+interface IPropsModal {
+  isModalOpen: boolean;
+  closeModal: () => void;
+  partnerId?: number;
+  roomSeq?: number;
+}
+
+const ChatReport = ({ isModalOpen, closeModal, partnerId, roomSeq }: IPropsModal) => {
   const [token, setToken] = useState<string>('');
   const navigate = useNavigate();
-  let { userId } = useParams<{ userId: string }>();
   const callReportAPI = () => {
     const ReportInfo = {
-      id: userId,
+      partnerId: partnerId,
+      roomSeq: roomSeq,
     };
     reportAPI(ReportInfo, token)
       .then(() => {
-        navigate('/mainpage');
+        navigate('/chatlobby');
       })
       .catch((err: any) => {
         console.log(err);
@@ -37,7 +45,7 @@ const ChatReport: React.FC<chatReportProps> = ({ onClickToggleModal }) => {
   }, []);
 
   return (
-    <Modal onClickToggleModal={onClickToggleModal}>
+    <Modal onClickToggleModal={closeModal}>
       <TitleTag>신고하기</TitleTag>
       <div>
         <TextTag>
@@ -49,7 +57,7 @@ const ChatReport: React.FC<chatReportProps> = ({ onClickToggleModal }) => {
       <Button
         width="296px"
         height="32px"
-        bgColor="#4095FF"
+        bgColor="#bb0000"
         fontSize="1.2rem"
         fontWeight="400"
         textColor="white"
@@ -58,7 +66,7 @@ const ChatReport: React.FC<chatReportProps> = ({ onClickToggleModal }) => {
         신고하기
       </Button>
     </Modal>
-    // <FcAssistant size="32px" onClick={onClickToggleModal} />
+
   );
 };
 
@@ -72,7 +80,7 @@ const TextTag = styled.p`
 `;
 const TitleTag = styled(TextTag)`
   font-weight: 700;
-  margin-top: 32px;
+  margin-top: 1rem;
 `;
 
 export default ChatReport;

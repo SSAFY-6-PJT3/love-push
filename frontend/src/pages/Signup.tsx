@@ -24,7 +24,7 @@ const Signup = () => {
   useEffect(() => {
     if (pageId === ('4' || '9')) {
       setTimeout(() => {
-        navigate('/mainpage');
+        navigate('/');
       }, 1200);
     }
   }, [pageId]);

@@ -4,7 +4,6 @@
  */
 
 import { createContext, useState, useEffect, ReactNode } from 'react';
-import { SlidesProps } from '../api/emojiAPI';
 
 interface IPropsOnLogin {
   token: string;

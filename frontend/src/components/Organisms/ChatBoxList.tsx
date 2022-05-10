@@ -40,11 +40,12 @@ const ChatBoxListPage = () => {
     chatRoomList.forEach((chatBox) => {
       // client 구독 및 채팅 수신 시 카운트 늘리는 이벤트 추가
     });
+    console.log(chatRoomList)
   }, [chatRoomList]);
 
-  const getRoomSeqEvent = (seq: number, emoji?:string) => {
+  const getRoomSeqEvent = (seq: number, emoji?:string, partner?:number) => {
     updateIndexFunc(seq);
-    navigate('/chat', { state: {emoji:emoji}});
+    navigate('/chat', { state: {emoji:emoji, partner: partner}});
     // console.log(chats[seq]);
   };
 

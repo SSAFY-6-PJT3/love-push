@@ -28,8 +28,10 @@ type chatRoomProps = {
 };
 
 interface CustomizedState {
-  emoji: string
+  emoji: string;
+  partner: number;
 }
+
 
 const ChatRoom: React.FC<chatRoomProps> = ({
   idx,
@@ -47,7 +49,18 @@ const ChatRoom: React.FC<chatRoomProps> = ({
   const seq = Number(localStorage.getItem('seq') || '0');
   const [message, setMessage] = useState('');
   const [emoji, setEmoji] = useState<string>()
+  const [partner, setPartner] = useState<number>()
 
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+  
   const onChangeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
   };
@@ -76,6 +89,8 @@ const ChatRoom: React.FC<chatRoomProps> = ({
   };
   useEffect(() => {
     setEmoji(state.emoji)
+    setPartner(state.partner)
+    console.log(state.partner)
   }, []);
   useEffect(() => {
     if (typeof chats === 'undefined') navigate('..');
@@ -91,7 +106,7 @@ const ChatRoom: React.FC<chatRoomProps> = ({
         rightSideBtn={
           <IconButton imgURL="https://img.icons8.com/fluency/192/siren.png" />
         }
-        // onRightBtnClick={ChatReport}
+        onRightBtnClick={openModal}
         // 신고
         // 들어오면 가장 밑으로 내려가야겠넴 붙이는데도 시간이 좀 필요 할 것 같다.
       />
@@ -137,6 +152,12 @@ const ChatRoom: React.FC<chatRoomProps> = ({
           children=""
         ></Button>
       </ChatFooter>
+      
+      <div>
+        {showModal && <ChatReport isModalOpen={showModal} closeModal={closeModal} partnerId={partner} roomSeq={seq} />
+      }
+    </div>
+
     </ChatRoomPage>
   );
 };

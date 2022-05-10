@@ -22,7 +22,7 @@ const NotFound = () => {
         bgColor="white"
         fontWeight="500"
         onClick={() => {
-          navigate('/mainpage');
+          navigate('/');
         }}
       >
         메인 페이지로 이동
