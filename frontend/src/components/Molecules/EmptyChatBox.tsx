@@ -35,7 +35,6 @@ const EmptyChatBox = () => {
     const emojiUrl = localStorage.getItem('emojiUrl') || ''
     readEmojiAPI({ emojiUrl: emojiUrl })
       .then((res: any) => {
-        console.log(res)
         setSildes(res.slice(13, 25))
       })
       .catch((err:any) => {

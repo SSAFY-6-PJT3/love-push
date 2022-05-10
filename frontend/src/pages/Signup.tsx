@@ -74,7 +74,6 @@ const Signup = () => {
         } else {
           await idVaidateAPI(v)
             .then((res) => {
-              console.log(res);
               navigate('/signup/2');
               setErrMsg('');
             })
