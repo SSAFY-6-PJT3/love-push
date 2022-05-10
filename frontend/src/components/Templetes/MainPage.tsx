@@ -41,13 +41,13 @@ const MainPage = () => {
   // 성공시 isLogin True변환
   // 초기 로그인 유저인지 아닌지 확인 필요 useEffect사용 -> 필요없어져서 삭제했습니다.
 
-  const { CheckGPS, sendHeart, signal, nearBy10mState } =
+  const { activateClient, sendHeart, signal, nearBy10mState } =
     useContext(ClientContext);
   const { openAlert, setAlertText } = useContext(AlertContext);
 
   useEffect(() => {
-    CheckGPS();
-  }, [CheckGPS]);
+    activateClient();
+  }, [activateClient]);
 
   const heartClickHandler = () => {
     setAlertText('하트 발사!');

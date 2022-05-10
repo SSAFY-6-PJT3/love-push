@@ -238,6 +238,20 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
               updateSendHeartSet(new Set(res.map((x) => x.receiveUser)));
             });
           }
+
+          const interval = setInterval(function () {
+            if (client.connected) {
+              if (navigator.geolocation) {
+                geoPosition();
+              } else {
+                alert('GPS를 지원하지 않습니다');
+              }
+            } else {
+              console.log('중지');
+              clearInterval(interval);
+              setGpsKey('');
+            }
+          }, 5000);
         },
         onStompError: (frame) => {
           console.log('Broker reported error: ' + frame.headers['message']);
@@ -425,17 +439,9 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
   };
 
   // gps 확인
-  const CheckGPS = useCallback(() => {
+  const activateClient = useCallback(() => {
     if (!client.active) {
-      if (navigator.geolocation) {
-        // GPS를 지원하면
-        client.activate();
-        setInterval(function () {
-          geoPosition();
-        }, 5000);
-      } else {
-        alert('GPS를 지원하지 않습니다');
-      }
+      client.activate();
     }
   }, [client]);
 
@@ -480,7 +486,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         // isConnected: isConnected,
         // SetisConnected: SetisConnected,
         // gpsReducer: gpsReducer,
-        CheckGPS: CheckGPS,
+        activateClient: activateClient,
         sendHeart: sendHeart,
         // GpsKeyHandler: GpsKeyHandler,
         signal: signal,
@@ -503,7 +509,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
 const ClientContext = createContext({
   // isConnected:,
   // gpsReducer: (data:GpsInterface) => "",
-  CheckGPS: () => {},
+  activateClient: () => {},
   sendHeart: () => {},
   // GpsKeyHandler: () => {},
   // subscribeHeart: () => {},
