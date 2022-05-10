@@ -40,32 +40,36 @@ const ChatBoxListPage = () => {
     chatRoomList.forEach((chatBox) => {
       // client 구독 및 채팅 수신 시 카운트 늘리는 이벤트 추가
     });
-    console.log(chatRoomList)
+    console.log(chatRoomList);
   }, [chatRoomList]);
 
-  const getRoomSeqEvent = (seq: number, emoji?:string, partner?:number) => {
+  const getRoomSeqEvent = (seq: number, emoji?: string, partner?: number) => {
     updateIndexFunc(seq);
-    navigate('/chat', { state: {emoji:emoji, partner: partner}});
+    navigate('/chat', { state: { emoji: emoji, partner: partner } });
     // console.log(chats[seq]);
   };
 
   return (
     <ChatBoxList>
-      {chatRoomList.map((chatRoom) => (
-        <ChatBox
-          key={chatRoom.chatroomSeq}
-          chatroomSeq={chatRoom.chatroomSeq}
-          partner={chatRoom.userList.filter((x) => x !== 1)[0]}
-          activate={chatRoom.activate}
-          clickEvent={getRoomSeqEvent}
-          lastChat={
-            chats &&
-            chats[chatRoom.chatroomSeq] &&
-            chats[chatRoom.chatroomSeq][chats[chatRoom.chatroomSeq].length - 1]
-          }
-          messageCount={messageCount[chatRoom.chatroomSeq]}
-        />
-      ))}
+      {chatRoomList
+        .filter((chatroom) => chatroom.activate)
+        .map((chatRoom) => (
+          <ChatBox
+            key={chatRoom.chatroomSeq}
+            chatroomSeq={chatRoom.chatroomSeq}
+            partner={chatRoom.userList.filter((x) => x !== 1)[0]}
+            activate={chatRoom.activate}
+            clickEvent={getRoomSeqEvent}
+            lastChat={
+              chats &&
+              chats[chatRoom.chatroomSeq] &&
+              chats[chatRoom.chatroomSeq][
+                chats[chatRoom.chatroomSeq].length - 1
+              ]
+            }
+            messageCount={messageCount[chatRoom.chatroomSeq]}
+          />
+        ))}
     </ChatBoxList>
   );
 };
