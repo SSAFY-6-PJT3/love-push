@@ -89,7 +89,6 @@ const ChatRoom: React.FC<chatRoomProps> = ({
   useEffect(() => {
     setEmoji(state.emoji);
     setPartner(state.partner);
-    console.log(state.partner);
   }, []);
   useEffect(() => {
     if (typeof chats === 'undefined') navigate('..');

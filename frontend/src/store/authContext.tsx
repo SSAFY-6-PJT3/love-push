@@ -27,7 +27,6 @@ const AuthContextProvider = ({ children }: IPropsAuthContextProvider) => {
 
   useEffect(() => {
     const localToken = sessionStorage.getItem('token');
-    console.log(localToken);
     if (localToken) {
       setIsLoggedIn(true);
     } else {
