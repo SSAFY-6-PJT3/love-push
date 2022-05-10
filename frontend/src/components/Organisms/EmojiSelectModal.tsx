@@ -95,6 +95,7 @@ const EmojiSelectModal = ({ isModalOpen, closeModal }: IPropsModal) => {
             fontSize="12px"
             Radius="20px"
             margin="20px 0px 32px 0px"
+            ariaLabel="선택 완료"
             onClick={callUpdateEmojiAPI}
           >
             선택 완료

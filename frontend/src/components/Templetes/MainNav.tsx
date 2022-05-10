@@ -53,6 +53,7 @@ const MainNav = () => {
           margin="4px 8px"
           bgColor="#EEF8FF"
           imgURL={emojiUrl}
+          ariaLabel="이모지 변경"
           onClick={openModal}
         />
         <IconButton
@@ -60,6 +61,7 @@ const MainNav = () => {
           margin="4px 8px"
           bgColor="#EEF8FF"
           imgURL="https://img.icons8.com/emoji/48/000000/speech-balloon.png"
+          ariaLabel="채팅"
           onClick={chatBtnClickHandler}
         />
       </Header>

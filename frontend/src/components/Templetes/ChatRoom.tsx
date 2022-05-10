@@ -149,6 +149,7 @@ const ChatRoom: React.FC<chatRoomProps> = ({
           icon={<IoArrowUpSharp />}
           shadow
           children=""
+          ariaLabel="채팅 보내기"
         ></Button>
       </ChatFooter>
 

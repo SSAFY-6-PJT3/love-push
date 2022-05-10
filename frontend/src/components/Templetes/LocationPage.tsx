@@ -61,11 +61,13 @@ const LocationPage = () => {
       <Button
         width="160px"
         height="40px"
+        Radius="20px"
         bgColor="white"
         textColor="black"
         fontSize="12px"
         icon={<IoLocationSharp />}
         shadow
+        ariaLabel="위치 정보 켜기"
         onClick={geoPosition}
       >
         위치 정보 켜기

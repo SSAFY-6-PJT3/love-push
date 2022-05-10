@@ -65,6 +65,7 @@ const ChatReport = ({
         fontSize="1.2rem"
         fontWeight="400"
         textColor="white"
+        ariaLabel="신고하기"
         onClick={callReportAPI}
       >
         신고하기
