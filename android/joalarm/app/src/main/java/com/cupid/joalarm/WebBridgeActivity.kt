@@ -21,8 +21,9 @@ class WebBridgeActivity : AppCompatActivity() {
             javaScriptEnabled = true
         }
 
-        bridgeWV.addJavascriptInterface(AndroidBridge(this), "Android")
-        bridgeWV.loadUrl("http://172.24.80.1:5500/WebBridgeConnect.html")
+        bridgeWV.addJavascriptInterface(PermissionInterface(this), "Android")
+//        bridgeWV.loadUrl("http://172.24.80.1:5500/WebBridgeConnect.html")
+        bridgeWV.loadUrl("https://www.someone-might-like-you.com/location")
     }
 }
 
