@@ -83,7 +83,7 @@ function ChatLobbyPage() {
 
   useEffect(() => {
     if (!isLoggedIn) navigate('/');
-    const seq = Number(localStorage.getItem('seq') || '0');
+    const seq = Number(sessionStorage.getItem('seq') || '0');
   }, []);
 
   return (
@@ -91,14 +91,14 @@ function ChatLobbyPage() {
       <BackBtnNav
         pageTitle={pathname === '/chatlobby/chat' ? roomTitle : '채팅방 목록'}
         textColor="black"
-        rightSideBtn={
-          pathname === '/chatlobby/chat' && (
-            <IconButton imgURL="https://img.icons8.com/fluency/192/siren.png" />
-          )
-        }
-        onRightBtnClick={toggleModal}
+        // rightSideBtn={
+        //   pathname === '/chatlobby/chat' && (
+        //     <IconButton imgURL="https://img.icons8.com/fluency/192/siren.png" />
+        //   )
+        // }
+        // onRightBtnClick={toggleModal}
       />
-      {isModalOpen && <ChatReport onClickToggleModal={toggleModal} />}
+      {/* {isModalOpen && <ChatReport onClickToggleModal={toggleModal} />} */}
       {chatRoomList.length ? <ChatBoxList /> : <EmptyChatBox />}
     </ChatLobby>
   );

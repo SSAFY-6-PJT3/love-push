@@ -87,9 +87,9 @@ interface chatsActions {
 }
 
 const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
-  const seq = Number(localStorage.getItem('seq') || '0');
+  const seq = Number(sessionStorage.getItem('seq') || '0');
   const emoji =
-    localStorage.getItem('emojiUrl') ||
+    sessionStorage.getItem('emojiUrl') ||
     'https://cupid-joalarm.s3.ap-northeast-2.amazonaws.com/Green apple.svg';
   const [mySession, updateMySession] = useState('');
   const [gpsKeyNearby10m, updateGpsKeyNearby10m] = useState(
@@ -392,7 +392,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
   // const onChangeTo = (e: any) => {
   //   setTo(e.target.value);
   // };
-
   const geoPosition = () => {
     navigator.geolocation.getCurrentPosition(
       function (position) {
@@ -403,7 +402,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         );
       },
       function (error) {
-        // navigate('/location');
         console.error(error);
       },
       {

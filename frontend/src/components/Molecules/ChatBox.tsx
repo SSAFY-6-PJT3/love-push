@@ -23,7 +23,7 @@ type ChatBoxProps = {
   chatroomSeq: number;
   partner: number;
   activate: boolean;
-  clickEvent: (seq: number, emoji?: string) => void;
+  clickEvent: (seq: number, emoji?: string, partner?: number) => void;
   lastChat: message | undefined;
   messageCount: number;
 };
@@ -44,9 +44,9 @@ const ChatBox: React.FC<ChatBoxProps> = ({
   }, []);
   return (
     <div>
-      <ChatContainer onClick={() => clickEvent(chatroomSeq, emoji)}>
+      <ChatContainer onClick={() => clickEvent(chatroomSeq, emoji, partner)}>
         <ChatProfileEmojiBox>
-          <img src={emoji} alt="" />
+          <ChatListEmoji src={emoji} alt="이모지" />
         </ChatProfileEmojiBox>
         <ChatNameMessageBox>
           <RandomNickname>익명의 시라소니</RandomNickname>
@@ -72,6 +72,11 @@ const ChatBox: React.FC<ChatBoxProps> = ({
     </div>
   );
 };
+
+const ChatListEmoji = styled.img`
+  width: 64px;
+  height: 64px;
+`;
 
 const ChatContainer = styled.div`
   display: flex;

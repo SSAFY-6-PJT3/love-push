@@ -28,7 +28,8 @@ type chatRoomProps = {
 };
 
 interface CustomizedState {
-  emoji: string
+  emoji: string;
+  partner: number;
 }
 
 const ChatRoom: React.FC<chatRoomProps> = ({
@@ -44,9 +45,20 @@ const ChatRoom: React.FC<chatRoomProps> = ({
   // 로컬스토리지 가능하면 연결해보기
   // 채팅방 가져오면서 유저 emoji 받아오기 => 상위(채팅 리스트)에서 props로 내려주면 끝
   const navigate = useNavigate();
-  const seq = Number(localStorage.getItem('seq') || '0');
+  const seq = Number(sessionStorage.getItem('seq') || '0');
   const [message, setMessage] = useState('');
-  const [emoji, setEmoji] = useState<string>()
+  const [emoji, setEmoji] = useState<string>();
+  const [partner, setPartner] = useState<number>();
+
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   const onChangeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
@@ -75,7 +87,8 @@ const ChatRoom: React.FC<chatRoomProps> = ({
     }
   };
   useEffect(() => {
-    setEmoji(state.emoji)
+    setEmoji(state.emoji);
+    setPartner(state.partner);
   }, []);
   useEffect(() => {
     if (typeof chats === 'undefined') navigate('..');
@@ -91,7 +104,7 @@ const ChatRoom: React.FC<chatRoomProps> = ({
         rightSideBtn={
           <IconButton imgURL="https://img.icons8.com/fluency/192/siren.png" />
         }
-        // onRightBtnClick={ChatReport}
+        onRightBtnClick={openModal}
         // 신고
         // 들어오면 가장 밑으로 내려가야겠넴 붙이는데도 시간이 좀 필요 할 것 같다.
       />
@@ -135,8 +148,20 @@ const ChatRoom: React.FC<chatRoomProps> = ({
           icon={<IoArrowUpSharp />}
           shadow
           children=""
+          ariaLabel="채팅 보내기"
         ></Button>
       </ChatFooter>
+
+      <div>
+        {showModal && (
+          <ChatReport
+            isModalOpen={showModal}
+            closeModal={closeModal}
+            partnerId={partner}
+            roomSeq={seq}
+          />
+        )}
+      </div>
     </ChatRoomPage>
   );
 };
@@ -182,8 +207,8 @@ const MyChatDiv = styled.div`
 `;
 
 const Img = styled.img`
-  width: 4rem;
-  height: 4rem;
+  width: 40px;
+  height: 40px;
 `;
 
 const ChatFooter = styled.div`

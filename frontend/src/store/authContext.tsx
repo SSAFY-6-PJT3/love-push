@@ -4,7 +4,6 @@
  */
 
 import { createContext, useState, useEffect, ReactNode } from 'react';
-import { SlidesProps } from '../api/emojiAPI';
 
 interface IPropsOnLogin {
   token: string;
@@ -27,8 +26,7 @@ const AuthContextProvider = ({ children }: IPropsAuthContextProvider) => {
   const [token, setToken] = useState('');
 
   useEffect(() => {
-    const localToken = localStorage.getItem('token');
-    console.log(localToken);
+    const localToken = sessionStorage.getItem('token');
     if (localToken) {
       setIsLoggedIn(true);
     } else {
@@ -37,14 +35,14 @@ const AuthContextProvider = ({ children }: IPropsAuthContextProvider) => {
   }, [token]);
 
   const loginHandler = (data: IPropsOnLogin) => {
-    localStorage.setItem('token', data.token);
-    localStorage.setItem('emojiUrl', data.emojiUrl);
-    localStorage.setItem('seq', data.seq);
+    sessionStorage.setItem('token', data.token);
+    sessionStorage.setItem('emojiUrl', data.emojiUrl);
+    sessionStorage.setItem('seq', data.seq);
     setToken(data.token);
   };
 
   const onChangeEmojiHandler = (emojiUrl: string) => {
-    localStorage.setItem('emojiUrl', emojiUrl);
+    sessionStorage.setItem('emojiUrl', emojiUrl);
   };
 
   return (
