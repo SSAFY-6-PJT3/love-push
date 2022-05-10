@@ -19,7 +19,7 @@ const AfterBg = styled(animated.div)`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   z-index: -1;
   background: linear-gradient(
     32.33deg,
@@ -28,9 +28,9 @@ const AfterBg = styled(animated.div)`
     #fad0c4 69.38%
   );
   background-repeat: no-repeat;
-  @supports (-webkit-touch-callout: none) {
-    height: -webkit-fill-available;
-  }
+  // @supports (-webkit-touch-callout: none) {
+  //   height: -webkit-fill-available;
+  // }
 `;
 
 export default AfterBackGround;
