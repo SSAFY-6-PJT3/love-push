@@ -319,14 +319,14 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
       case 'CHATROOM':
         chatUserSet.add(action.person);
         console.log(`${action.chatRoom} 채팅방이 신설되었습니다.`);
-        setChatRoomList((pre) => [
-          {
+        setChatRoomList((pre) => {
+          pre.unshift({
             chatroomSeq: action.chatRoom,
             userList: [seq, action.person],
             activate: true,
-          } as chatBox,
-          ...pre,
-        ]);
+          } as chatBox);
+          return pre;
+        });
 
         chatsDispatch({
           type: 'INSERT',
