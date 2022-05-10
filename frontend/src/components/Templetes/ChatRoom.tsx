@@ -64,7 +64,7 @@ const ChatRoom: React.FC<chatRoomProps> = ({
     setMessage(e.target.value);
   };
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && message.trim().length) {
       client.publish({
         destination: '/pub/chat/message',
         body: JSON.stringify({
@@ -78,16 +78,18 @@ const ChatRoom: React.FC<chatRoomProps> = ({
     }
   };
   const sendMessage = () => {
-    client.publish({
-      destination: '/pub/chat/message',
-      body: JSON.stringify({
-        type: 'TALK',
-        roomId: `${idx}`,
-        sender: `${seq}`,
-        message: `${message}`,
-      }),
-    });
-    setMessage('');
+    if ( message.trim().length ) {
+      client.publish({
+        destination: '/pub/chat/message',
+        body: JSON.stringify({
+          type: 'TALK',
+          roomId: `${idx}`,
+          sender: `${seq}`,
+          message: `${message}`,
+        }),
+      });
+      setMessage('');
+    }
   }
 
   const location = useLocation();
