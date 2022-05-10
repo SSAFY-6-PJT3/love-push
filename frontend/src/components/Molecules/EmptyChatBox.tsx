@@ -80,9 +80,6 @@ const Container = styled.div`
   justify-content: center;
   width: 100%;
   height: calc(var(--vh, 1vh) * 100);
-  // @supports (-webkit-touch-callout: none) {
-  //   height: -webkit-fill-available;
-  // }
   overflow-y: hidden;
   overflow-x: hidden;
 `;

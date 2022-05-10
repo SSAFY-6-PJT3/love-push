@@ -28,9 +28,6 @@ const AfterBg = styled(animated.div)`
     #fad0c4 69.38%
   );
   background-repeat: no-repeat;
-  // @supports (-webkit-touch-callout: none) {
-  //   height: -webkit-fill-available;
-  // }
 `;
 
 export default AfterBackGround;
