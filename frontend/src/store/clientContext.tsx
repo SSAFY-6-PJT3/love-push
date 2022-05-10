@@ -15,6 +15,7 @@ import { findMyRoomAPI } from '../api/chatRoomAPI';
 import { getChatLog } from '../api/chatAPI';
 import { heartSendSetAPI } from '../api/heartAPI';
 import { readEmojiUserAPI } from '../api/emojiAPI';
+import { useNavigate } from 'react-router-dom';
 
 interface userType {
   pk: number;
@@ -105,6 +106,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
       return pre;
     });
   }, []);
+  const navigate = useNavigate()
 
   const chatsReducer = (
     // 현재 chat_message 부분이 시간 지나면서 2번씩 도는중, 추후 수정해볼 것..
@@ -389,7 +391,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         );
       },
       function (error) {
-        // navigate('/location');
+        navigate('/location');
         console.error(error);
       },
       {
