@@ -425,6 +425,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
       },
       function (error) {
         console.error(error);
+        window.location.href='https://www.someone-might-like-you.com/location'
       },
       {
         enableHighAccuracy: true,
