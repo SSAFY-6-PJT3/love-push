@@ -132,13 +132,14 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
             break;
           case 'QUIT':
             setChatRoomList((pre) => {
-              for (let i in pre) {
-                if (pre[i].chatroomSeq === chatsActions.idx) {
-                  pre[i].activate = false;
-                  return pre;
+              const newChatRoomList = [...pre];
+              for (let i in newChatRoomList) {
+                if (newChatRoomList[i].chatroomSeq === chatsActions.idx) {
+                  newChatRoomList[i].activate = false;
+                  return newChatRoomList;
                 }
               }
-              return pre;
+              return newChatRoomList;
             });
             break;
 
@@ -316,37 +317,35 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         break;
 
       case 'CHATROOM':
-        chatUserSet.add(action.person);
+        // chatUserSet.add(action.person);
         console.log(`${action.chatRoom} 채팅방이 신설되었습니다.`);
-        setChatRoomList((pre) => {
-          pre.unshift({
-            chatroomSeq: action.chatRoom,
-            userList: [seq, action.person],
-            activate: true,
-          } as chatBox);
-          return pre;
-        });
+        // const newChatRoom: chatBox = {
+        //   chatroomSeq: action.chatRoom,
+        //   userList: [seq, action.person],
+        //   activate: true,
+        // };
+        // setChatRoomList((pre) => [newChatRoom, ...pre]);
 
-        chatsDispatch({
-          type: 'INSERT',
-          idx: action.chatRoom,
-          messages: new Array<messageType>(),
-          messageType: {} as messageType,
-        });
+        // chatsDispatch({
+        //   type: 'INSERT',
+        //   idx: action.chatRoom,
+        //   messages: new Array<messageType>(),
+        //   messageType: {} as messageType,
+        // });
 
-        client.subscribe(`/sub/chat/room/${action.chatRoom}`, (message) => {
-          setMessageCount((pre) => {
-            pre[action.chatRoom] += 1;
-            return pre;
-          });
+        // client.subscribe(`/sub/chat/room/${action.chatRoom}`, (message) => {
+        //   setMessageCount((pre) => {
+        //     pre[action.chatRoom] += 1;
+        //     return pre;
+        //   });
 
-          chatsDispatch({
-            type: 'CHAT_MESSAGE',
-            idx: action.chatRoom,
-            messages: [],
-            messageType: JSON.parse(message.body) as messageType,
-          });
-        });
+        //   chatsDispatch({
+        //     type: 'CHAT_MESSAGE',
+        //     idx: action.chatRoom,
+        //     messages: [],
+        //     messageType: JSON.parse(message.body) as messageType,
+        //   });
+        // });
         break;
 
       case 'INIT':
