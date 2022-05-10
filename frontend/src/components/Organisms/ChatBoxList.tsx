@@ -48,6 +48,7 @@ const ChatBoxListPage = () => {
     navigate('/chat', { state: { emoji: emoji, partner: partner } });
     // console.log(chats[seq]);
   };
+  const seq = Number(sessionStorage.getItem('seq'))
 
   return (
     <ChatBoxList>
@@ -57,7 +58,7 @@ const ChatBoxListPage = () => {
           <ChatBox
             key={chatRoom.chatroomSeq}
             chatroomSeq={chatRoom.chatroomSeq}
-            partner={chatRoom.userList.filter((x) => x !== 1)[0]}
+            partner={chatRoom.userList.filter((x) => x !== seq)[0]}
             activate={chatRoom.activate}
             clickEvent={getRoomSeqEvent}
             lastChat={
