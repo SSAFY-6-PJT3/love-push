@@ -20,8 +20,7 @@ const EmptyChatBox = () => {
     navigate('/');
   };
 
-  const { CheckGPS, sendHeart, signal, nearBy10mState } =
-    useContext(ClientContext);
+  const { sendHeart, signal, nearBy10mState } = useContext(ClientContext);
   const { openAlert, setAlertText } = useContext(AlertContext);
 
   useDocumentTitle('채팅방이 없습니다 | 좋아하면 누르는');

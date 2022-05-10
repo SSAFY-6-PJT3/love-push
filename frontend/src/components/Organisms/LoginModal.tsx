@@ -53,8 +53,9 @@ const LoginModal = ({ isModalOpen, closeModal }: IPropsModal) => {
         closeModal();
         setUserId('');
         setPassword('');
-        setAlertText('로그인 되었습니다.');
+        setAlertText('로그인 확인!');
         openAlert();
+        window.location.reload();
       })
       .catch((err: any) => {
         console.log(err);

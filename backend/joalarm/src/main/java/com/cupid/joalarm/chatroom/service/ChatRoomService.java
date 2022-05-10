@@ -1,5 +1,7 @@
 package com.cupid.joalarm.chatroom.service;
 
+import com.cupid.joalarm.chat.DTO.ChatMessageDTO;
+import com.cupid.joalarm.chat.entity.ChatEntity;
 import com.cupid.joalarm.chatroom.entity.ChatRoomEntity;
 import com.cupid.joalarm.chatroom.repository.ChatRoomRepository;
 import com.cupid.joalarm.chatroom.dto.CreateChatRoomDTO;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +40,13 @@ public class ChatRoomService {
     }
     public List<ChatRoomEntity> FindMyChatRooms(long user) {
         return chatRoomRepository.findAllByUserListIn(user);
+    }
+
+    public boolean reportByRoomSeq(Long seq) {
+        Optional<ChatRoomEntity> chatRoom = chatRoomRepository.findChatRoomEntityByChatroomSeq(seq);
+        if(chatRoom.isEmpty()) return false;
+        chatRoom.get().setActivate(false);
+        return true;
     }
 
 }
