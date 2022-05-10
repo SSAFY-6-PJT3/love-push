@@ -16,7 +16,7 @@ const LocationPage = () => {
         setAlertSeverity('success')
         setAlertText('위치 동의 성공');
         openAlert();
-        navigate('/mainpage')
+        navigate('/')
       },
       function (error) {
         navigate('/location');
@@ -38,13 +38,9 @@ const LocationPage = () => {
     const emojiUrl = localStorage.getItem('emojiUrl') || ''
     readEmojiAPI({ emojiUrl: emojiUrl })
       .then((res: any) => {
-        console.log(res)
         setSildes1(res.slice(0, 25))
         setSildes2(res.slice(26, 51))
         setSildes3(res.slice(52))
-      })
-      .then(() => {
-        console.log(slides3)
       })
       .catch((err:any) => {
         console.log(err);
