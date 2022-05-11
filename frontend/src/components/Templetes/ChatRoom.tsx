@@ -25,6 +25,7 @@ type chatRoomProps = {
   chats: message[];
   client: Client;
   setMessageCountFunc: (num: number) => void;
+  chatRoomState: boolean;
 };
 
 interface CustomizedState {
@@ -37,6 +38,7 @@ const ChatRoom: React.FC<chatRoomProps> = ({
   chats,
   client,
   setMessageCountFunc,
+  chatRoomState,
   // updateRoomTitle,
 }) => {
   // 상위에서 prop줘야할지도
@@ -78,7 +80,7 @@ const ChatRoom: React.FC<chatRoomProps> = ({
     }
   };
   const sendMessage = () => {
-    if ( message.trim().length ) {
+    if (message.trim().length) {
       client.publish({
         destination: '/pub/chat/message',
         body: JSON.stringify({
@@ -90,7 +92,7 @@ const ChatRoom: React.FC<chatRoomProps> = ({
       });
       setMessage('');
     }
-  }
+  };
 
   const location = useLocation();
   const state = location.state as CustomizedState;
@@ -105,10 +107,11 @@ const ChatRoom: React.FC<chatRoomProps> = ({
     setPartner(state.partner);
   }, []);
   useEffect(() => {
-    if (typeof chats === 'undefined') navigate('..');
+    if (typeof chats === 'undefined' || !chatRoomState)
+      navigate('..', { replace: true });
     scrollToBottom();
     setMessageCountFunc(idx);
-  }, [chats]);
+  }, [chats, chatRoomState]);
 
   return (
     <ChatRoomPage>
