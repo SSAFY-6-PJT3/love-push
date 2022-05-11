@@ -25,6 +25,7 @@ import Modal from '../Atoms/Modal';
 import { AuthContext } from '../../store/authContext';
 
 import ChatReport from '../Molecules/ChatReport';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 // 채팅 목록 나열
 // 안 읽은 메세지 수 출력
@@ -64,6 +65,7 @@ import ChatReport from '../Molecules/ChatReport';
 import { ClientContext } from '../../store/clientContext';
 
 function ChatLobbyPage() {
+  useDocumentTitle('채팅 | 좋아하면 누르는');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [roomTitle, updateRoomTitle] = useState('');
 
@@ -89,7 +91,7 @@ function ChatLobbyPage() {
   return (
     <ChatLobby>
       <BackBtnNav
-        pageTitle={pathname === '/chatlobby/chat' ? roomTitle : '채팅방 목록'}
+        pageTitle={pathname === '/chatlobby/chat' ? roomTitle : '채팅'}
         textColor="black"
         // rightSideBtn={
         //   pathname === '/chatlobby/chat' && (
