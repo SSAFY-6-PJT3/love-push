@@ -7,6 +7,7 @@ import {
   useEffect,
   useReducer,
   useCallback,
+  useContext,
 } from 'react';
 import SockJS from 'sockjs-client';
 
@@ -16,6 +17,7 @@ import { openChatAPI } from '../api/openChatAPI';
 import { findMyRoomAPI } from '../api/chatRoomAPI';
 import { getChatLog } from '../api/chatAPI';
 import { heartSendSetAPI } from '../api/heartAPI';
+import { AlertContext } from './alertContext';
 
 interface userType {
   pk: number;
@@ -77,6 +79,7 @@ interface chatsActions {
 }
 
 const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
+  const { openAlert, setAlertText } = useContext(AlertContext);
   const seq = Number(sessionStorage.getItem('seq') || '0');
   const emoji =
     sessionStorage.getItem('emojiUrl') ||
@@ -286,6 +289,8 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
       case 'CHATROOM':
         if (!chatUserSet.has(action.person)) {
           chatUserSet.add(action.person);
+          setAlertText('채팅방이 생성되었습니다!');
+          openAlert();
           const newChatRoom: chatBox = {
             chatroomSeq: action.chatRoom,
             userList: [seq, action.person],
