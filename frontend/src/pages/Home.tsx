@@ -6,6 +6,7 @@
 
 import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import ReactGA from 'react-ga';
 
 import MainNav from '../components/Templetes/MainNav';
 import MainFooter from '../components/Templetes/MainFooter';
@@ -13,7 +14,6 @@ import AfterBackGround from '../components/Atoms/AfterBackground';
 import HeartBtn from '../components/Molecules/HeartBtn';
 
 import { ClientContext } from '../store/clientContext';
-import { AlertContext } from '../store/alertContext';
 
 import useDocumentTitle from '../hooks/useDocumentTitle';
 
@@ -49,6 +49,10 @@ const MainPage = () => {
   };
 
   const heartClickHandler = () => {
+    ReactGA.event({
+      category: '하트 버튼 클릭',
+      action: '하트 버튼 클릭',
+    });
     updatePushHeart();
     sendHeart();
   };
