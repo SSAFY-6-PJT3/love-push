@@ -4,6 +4,7 @@
 
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 import { AuthContext } from '../../store/authContext';
 
@@ -31,6 +32,17 @@ const MainNav = () => {
 
   const openModal = () => {
     setShowModal(true);
+    if (isLoggedIn) {
+      ReactGA.event({
+        category: '이모지 버튼 클릭',
+        action: '이모지 수정 모달 열기',
+      });
+    } else {
+      ReactGA.event({
+        category: '이모지 버튼 클릭',
+        action: '회원가입 모달 열기',
+      });
+    }
   };
 
   const closeModal = () => {
@@ -39,9 +51,17 @@ const MainNav = () => {
 
   const chatBtnClickHandler = () => {
     if (isLoggedIn) {
+      ReactGA.event({
+        category: '채팅 버튼 클릭',
+        action: '채팅 목록 진입',
+      });
       navigate('/chatlobby');
     } else {
       setShowModal(true);
+      ReactGA.event({
+        category: '채팅 버튼 클릭',
+        action: '회원가입 모달 열기',
+      });
     }
   };
 
