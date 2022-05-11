@@ -10,7 +10,7 @@ const AboutService = () => {
   useDocumentTitle('서비스 소개 | 좋아하면 누르는');
 
   const navigate = useNavigate();
-  const { pageId } = useParams<{ pageId: '0' | '1' | '2' | '3' }>();
+  const { pageId } = useParams<{ pageId: '0' | '1' | '2' | '3' | '4' }>();
 
   const content = [
     {
@@ -28,12 +28,16 @@ const AboutService = () => {
     },
     {
       imgSrc: '/images/about-service/about4.png',
+      description: '우연히 하트를 주고 받으면 익명 채팅을 할 수 있어요!',
+    },
+    {
+      imgSrc: '/images/about-service/about5.png',
       description: '사람들 속에 숨어서, 내 마음을 전해보세요!',
     },
   ];
 
   const btnClickHandler = () => {
-    if (pageId === '3') {
+    if (pageId === '4') {
       navigate('/');
     } else if (pageId) {
       navigate(`/about-service/${+pageId + 1}`);
@@ -52,10 +56,10 @@ const AboutService = () => {
         height="2.6rem"
         Radius="1.3rem"
         fontWeight="500"
-        ariaLabel={pageId === '3' ? '완료' : '다음'}
+        ariaLabel={pageId === '4' ? '완료' : '다음'}
         onClick={btnClickHandler}
       >
-        {pageId === '3' ? '완료' : '다음'}
+        {pageId === '4' ? '완료' : '다음'}
       </Button>
     </Container>
   );
