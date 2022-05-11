@@ -3,14 +3,17 @@ package com.cupid.joalarm
 import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.webkit.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.cupid.joalarm.PermissionInterface.Companion.PERMISSION_ACCESS_ALL
 
 
@@ -43,7 +46,6 @@ class MainActivity : AppCompatActivity() {
 //        checkPermission()
 //        androidBridge.requestLocationPermission()
     }
-
     fun openWebPage(url: String) {
         val webView: WebView = findViewById(R.id.web_view)
 

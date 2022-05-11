@@ -40,6 +40,12 @@ class PermissionInterface(private val mContext: Context) {
         }
     }
 
+    @JavascriptInterface
+    fun requestOpenReportForm(url: String){
+        Log.d("react","react에서 넘어오는 "+url)
+        openWebPage(url)
+    }
+
     fun checkPermission() : Boolean{
         var allAllowed = true
         for (permission in permissions) {
@@ -57,7 +63,7 @@ class PermissionInterface(private val mContext: Context) {
     private fun requestPermissionDialog() {
         var dialog = AlertDialog.Builder(mContext)
             .setTitle("서비스 이용 알림")
-            .setMessage("필수 권한을 허용해야 서비스 정상 이용이 가능합니다. 설정 > 앱 관리 > joalarm > 권한 메뉴에서 항상 허용 후 이용해주세요")
+            .setMessage(R.string.request_permission)
             .setNegativeButton("허용하러가기",
                 DialogInterface.OnClickListener { dialog, which ->
                     Log.d("dialog", "dialog")
@@ -77,7 +83,7 @@ class PermissionInterface(private val mContext: Context) {
     fun requestGPSDialog() {
         var dialog = AlertDialog.Builder(mContext)
             .setTitle("위치 서비스 활성화 요청")
-            .setMessage("앱을 사용하기 위해서 위치 서비스가 필요합니다. GPS 필수 권한을 허용해야 서비스 정상 이용이 가능합니다.")
+            .setMessage(R.string.request_gps)
             .setNegativeButton("위치 서비스 활성화 하러가기") { dialog, which ->
                 Log.d("dialog", "dialog")
                 // 앱 정보 화면까지 이동
@@ -86,6 +92,14 @@ class PermissionInterface(private val mContext: Context) {
             }
             .show()
     }
+    fun openWebPage(url: String) {
+        val webpage: Uri = Uri.parse(url)
+        val intent = Intent(Intent.ACTION_VIEW, webpage)
+        if (intent.resolveActivity(mContext.packageManager) != null) {
+            startActivity(mContext,intent, Bundle())
+        }
+    }
+
     companion object{
         val permissions = arrayOf(
             Manifest.permission.ACCESS_COARSE_LOCATION,
