@@ -3,6 +3,7 @@
  */
 
 import { useNavigate } from 'react-router-dom';
+import ReactGA from 'react-ga';
 import styled from 'styled-components';
 import { IoArrowBack } from 'react-icons/io5';
 
@@ -28,6 +29,10 @@ const BackBtnNav = ({
 }: IPropsBackBtnNav) => {
   const navigate = useNavigate();
   const backBtnClickHandler = () => {
+    ReactGA.event({
+      category: '뒤로가기 클릭',
+      action: '뒤로가기 클릭',
+    });
     navigate(-1);
   };
 

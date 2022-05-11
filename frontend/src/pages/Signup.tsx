@@ -36,7 +36,7 @@ const Signup = () => {
   // 회원가입 API 호출
   const callSignUpAPI = () => {
     const signupInfo = {
-      emoji: 'string',
+      emoji: 'https://cupid-joalarm.s3.ap-northeast-2.amazonaws.com/Face blowing a kiss.svg',
       id: userId,
       password: password,
     };
@@ -74,7 +74,6 @@ const Signup = () => {
         } else {
           await idVaidateAPI(v)
             .then((res) => {
-              console.log(res);
               navigate('/signup/2');
               setErrMsg('');
             })

@@ -87,9 +87,9 @@ interface chatsActions {
 }
 
 const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
-  const seq = Number(localStorage.getItem('seq') || '0');
+  const seq = Number(sessionStorage.getItem('seq') || '0');
   const emoji =
-    localStorage.getItem('emojiUrl') ||
+    sessionStorage.getItem('emojiUrl') ||
     'https://cupid-joalarm.s3.ap-northeast-2.amazonaws.com/Green apple.svg';
   const [mySession, updateMySession] = useState('');
   const [gpsKeyNearby10m, updateGpsKeyNearby10m] = useState(
@@ -122,12 +122,32 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         });
         break;
       case 'CHAT_MESSAGE':
-        const new_message = [
-          ...new_state[chatsActions.idx],
-          chatsActions.messageType,
-        ];
-        new_state[chatsActions.idx] = new_message;
+        switch (chatsActions.messageType.type) {
+          case 'TALK':
+            const new_message = [
+              ...new_state[chatsActions.idx],
+              chatsActions.messageType,
+            ];
+            new_state[chatsActions.idx] = new_message;
+            break;
+          case 'QUIT':
+            setChatRoomList((pre) => {
+              const newChatRoomList = [...pre];
+              for (let i in newChatRoomList) {
+                if (newChatRoomList[i].chatroomSeq === chatsActions.idx) {
+                  newChatRoomList[i].activate = false;
+                  return newChatRoomList;
+                }
+              }
+              return newChatRoomList;
+            });
+            break;
+
+          default:
+            break;
+        }
         break;
+
       default:
         break;
     }
@@ -238,6 +258,20 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
               updateSendHeartSet(new Set(res.map((x) => x.receiveUser)));
             });
           }
+
+          const interval = setInterval(function () {
+            if (client.connected) {
+              if (navigator.geolocation) {
+                geoPosition();
+              } else {
+                alert('GPS를 지원하지 않습니다');
+              }
+            } else {
+              console.log('중지');
+              clearInterval(interval);
+              setGpsKey('');
+            }
+          }, 5000);
         },
         onStompError: (frame) => {
           console.log('Broker reported error: ' + frame.headers['message']);
@@ -283,35 +317,37 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         break;
 
       case 'CHATROOM':
-        chatUserSet.add(action.person);
-        console.log(`${action.chatRoom} 채팅방이 신설되었습니다.`);
-        const newChatRoom: chatBox = {
-          chatroomSeq: action.chatRoom,
-          userList: [seq, action.person],
-          activate: true,
-        };
-        setChatRoomList((pre) => [newChatRoom, ...pre]);
-
-        chatsDispatch({
-          type: 'INSERT',
-          idx: action.chatRoom,
-          messages: new Array<messageType>(),
-          messageType: {} as messageType,
-        });
-
-        client.subscribe(`/sub/chat/room/${action.chatRoom}`, (message) => {
-          setMessageCount((pre) => {
-            pre[action.chatRoom] += 1;
-            return pre;
-          });
+        if (!chatUserSet.has(action.person)) {
+          chatUserSet.add(action.person);
+          console.log(`${action.chatRoom} 채팅방이 신설되었습니다.`);
+          const newChatRoom: chatBox = {
+            chatroomSeq: action.chatRoom,
+            userList: [seq, action.person],
+            activate: true,
+          };
+          setChatRoomList((pre) => [newChatRoom, ...pre]);
 
           chatsDispatch({
-            type: 'CHAT_MESSAGE',
+            type: 'INSERT',
             idx: action.chatRoom,
-            messages: [],
-            messageType: JSON.parse(message.body) as messageType,
+            messages: new Array<messageType>(),
+            messageType: {} as messageType,
           });
-        });
+
+          client.subscribe(`/sub/chat/room/${action.chatRoom}`, (message) => {
+            setMessageCount((pre) => {
+              pre[action.chatRoom] += 1;
+              return pre;
+            });
+
+            chatsDispatch({
+              type: 'CHAT_MESSAGE',
+              idx: action.chatRoom,
+              messages: [],
+              messageType: JSON.parse(message.body) as messageType,
+            });
+          });
+        }
         break;
 
       case 'INIT':
@@ -378,7 +414,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
   // const onChangeTo = (e: any) => {
   //   setTo(e.target.value);
   // };
-
   const geoPosition = () => {
     navigator.geolocation.getCurrentPosition(
       function (position) {
@@ -389,8 +424,8 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         );
       },
       function (error) {
-        // navigate('/location');
         console.error(error);
+        window.location.href='https://www.someone-might-like-you.com/location'
       },
       {
         enableHighAccuracy: true,
@@ -425,17 +460,9 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
   };
 
   // gps 확인
-  const CheckGPS = useCallback(() => {
+  const activateClient = useCallback(() => {
     if (!client.active) {
-      if (navigator.geolocation) {
-        // GPS를 지원하면
-        client.activate();
-        setInterval(function () {
-          geoPosition();
-        }, 5000);
-      } else {
-        alert('GPS를 지원하지 않습니다');
-      }
+      client.activate();
     }
   }, [client]);
 
@@ -480,7 +507,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         // isConnected: isConnected,
         // SetisConnected: SetisConnected,
         // gpsReducer: gpsReducer,
-        CheckGPS: CheckGPS,
+        activateClient: activateClient,
         sendHeart: sendHeart,
         // GpsKeyHandler: GpsKeyHandler,
         signal: signal,
@@ -503,7 +530,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
 const ClientContext = createContext({
   // isConnected:,
   // gpsReducer: (data:GpsInterface) => "",
-  CheckGPS: () => {},
+  activateClient: () => {},
   sendHeart: () => {},
   // GpsKeyHandler: () => {},
   // subscribeHeart: () => {},

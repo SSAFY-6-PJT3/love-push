@@ -7,30 +7,47 @@ import Button from '../Atoms/Button';
 import { useParams, useNavigate } from 'react-router-dom';
 import { reportAPI } from '../../api/accountAPI';
 import { AuthContext } from '../../store/authContext';
+import { Client } from '@stomp/stompjs';
 
 type chatReportProps = {
   onClickToggleModal: () => void;
 };
 
-
 interface IPropsModal {
   isModalOpen: boolean;
   closeModal: () => void;
+  client: Client;
+  sender: number;
   partnerId?: number;
   roomSeq?: number;
 }
 
-const ChatReport = ({ isModalOpen, closeModal, partnerId, roomSeq }: IPropsModal) => {
+const ChatReport = ({
+  isModalOpen,
+  closeModal,
+  client,
+  sender,
+  partnerId,
+  roomSeq,
+}: IPropsModal) => {
   const [token, setToken] = useState<string>('');
   const navigate = useNavigate();
   const callReportAPI = () => {
     const ReportInfo = {
-      partnerId: partnerId,
-      roomSeq: roomSeq,
+      reported: partnerId,
     };
     reportAPI(ReportInfo, token)
       .then(() => {
         navigate('/chatlobby');
+        client.publish({
+          destination: '/pub/chat/message',
+          body: JSON.stringify({
+            type: 'QUIT',
+            roomId: `${roomSeq}`,
+            sender: `${sender}`,
+            message: '',
+          }),
+        });
       })
       .catch((err: any) => {
         console.log(err);
@@ -41,7 +58,7 @@ const ChatReport = ({ isModalOpen, closeModal, partnerId, roomSeq }: IPropsModal
   //   setOpenModal(!isOpenModal);
   // }, [isOpenModal]);
   useEffect(() => {
-    setToken(localStorage.getItem('token') || '');
+    setToken(sessionStorage.getItem('token') || '');
   }, []);
 
   return (
@@ -50,7 +67,8 @@ const ChatReport = ({ isModalOpen, closeModal, partnerId, roomSeq }: IPropsModal
       <div>
         <TextTag>
           신고가 누적된 유저는 {'\n'}
-          채팅 이용이 정지됩니다. {'\n'}
+          채팅 이용이 정지되며 {'\n'}
+          해당 채팅방은 이용이 더 이상 불가합니다. {'\n'}
           정말 신고하시겠습니까?
         </TextTag>
       </div>
@@ -61,12 +79,12 @@ const ChatReport = ({ isModalOpen, closeModal, partnerId, roomSeq }: IPropsModal
         fontSize="1.2rem"
         fontWeight="400"
         textColor="white"
+        ariaLabel="신고하기"
         onClick={callReportAPI}
       >
         신고하기
       </Button>
     </Modal>
-
   );
 };
 

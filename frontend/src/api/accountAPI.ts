@@ -29,8 +29,7 @@ interface ILoginResponse {
 }
 
 interface IReportReqData {
-  partnerId?: number;
-  roomSeq?: number;
+  reported?: number;
 }
 
 const signUpAPI = async (data: ISignupReqData): Promise<ISignupResponse> => {
@@ -50,12 +49,12 @@ const loginAPI = async (data: ILoginReqData): Promise<ILoginResponse> => {
     '/accounts/login',
     JSON.stringify(data),
   );
-  
+
   return response.data;
 };
 
 const reportAPI = async (data: IReportReqData, token: string) => {
-  console.log(data)
+  console.log(data);
   const response = await axiosInstance.post(
     '/accounts/report',
     JSON.stringify(data),

@@ -14,6 +14,8 @@ import HeartBtn from '../Molecules/HeartBtn';
 
 import { ClientContext } from '../../store/clientContext';
 
+import useDocumentTitle from '../../hooks/useDocumentTitle';
+
 // start of image import
 import chebrasika from '../../images/emoji/chebrasika100.svg';
 import genshinimpact from '../../images/emoji/genshinimpact48.svg';
@@ -41,13 +43,15 @@ const MainPage = () => {
   // 성공시 isLogin True변환
   // 초기 로그인 유저인지 아닌지 확인 필요 useEffect사용 -> 필요없어져서 삭제했습니다.
 
-  const { CheckGPS, sendHeart, signal, nearBy10mState } =
+  useDocumentTitle('좋아하면 누르는');
+
+  const { activateClient, sendHeart, signal, nearBy10mState } =
     useContext(ClientContext);
   const { openAlert, setAlertText } = useContext(AlertContext);
 
   useEffect(() => {
-    CheckGPS();
-  }, [CheckGPS]);
+    activateClient();
+  }, [activateClient]);
 
   const heartClickHandler = () => {
     setAlertText('하트 발사!');
@@ -106,7 +110,7 @@ const MainPage = () => {
         </HeartWrapper>
         <ImgContainer>
           {nearBy10mState.emojis.map((slide, idx) => (
-            <Emoji key={idx} src={slide} alt="" />
+            <Emoji key={idx} src={slide} alt={`emoji-${idx}`} />
           ))}
         </ImgContainer>
         <MainFooter />
@@ -121,10 +125,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100vh;
-  @supports (-webkit-touch-callout: none) {
-    height: -webkit-fill-available;
-  }
+  height: calc(var(--vh, 1vh) * 100);
   overflow-y: hidden;
   overflow-x: hidden;
 `;

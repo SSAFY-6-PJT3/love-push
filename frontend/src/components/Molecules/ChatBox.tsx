@@ -45,7 +45,9 @@ const ChatBox: React.FC<ChatBoxProps> = ({
   return (
     <div>
       <ChatContainer onClick={() => clickEvent(chatroomSeq, emoji, partner)}>
-        <ChatProfileEmojiBox><ChatListEmoji src={emoji} alt="" /></ChatProfileEmojiBox>
+        <ChatProfileEmojiBox>
+          <ChatListEmoji src={emoji} alt="이모지" />
+        </ChatProfileEmojiBox>
         <ChatNameMessageBox>
           <RandomNickname>익명의 시라소니</RandomNickname>
           <RecentMessage>
@@ -74,7 +76,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({
 const ChatListEmoji = styled.img`
   width: 64px;
   height: 64px;
-`
+`;
 
 const ChatContainer = styled.div`
   display: flex;

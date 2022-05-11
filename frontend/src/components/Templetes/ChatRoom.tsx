@@ -25,6 +25,7 @@ type chatRoomProps = {
   chats: message[];
   client: Client;
   setMessageCountFunc: (num: number) => void;
+  chatRoomState: boolean;
 };
 
 interface CustomizedState {
@@ -32,12 +33,12 @@ interface CustomizedState {
   partner: number;
 }
 
-
 const ChatRoom: React.FC<chatRoomProps> = ({
   idx,
   chats,
   client,
   setMessageCountFunc,
+  chatRoomState,
   // updateRoomTitle,
 }) => {
   // 상위에서 prop줘야할지도
@@ -46,10 +47,10 @@ const ChatRoom: React.FC<chatRoomProps> = ({
   // 로컬스토리지 가능하면 연결해보기
   // 채팅방 가져오면서 유저 emoji 받아오기 => 상위(채팅 리스트)에서 props로 내려주면 끝
   const navigate = useNavigate();
-  const seq = Number(localStorage.getItem('seq') || '0');
+  const seq = Number(sessionStorage.getItem('seq') || '0');
   const [message, setMessage] = useState('');
-  const [emoji, setEmoji] = useState<string>()
-  const [partner, setPartner] = useState<number>()
+  const [emoji, setEmoji] = useState<string>();
+  const [partner, setPartner] = useState<number>();
 
   const [showModal, setShowModal] = useState(false);
 
@@ -60,12 +61,26 @@ const ChatRoom: React.FC<chatRoomProps> = ({
   const closeModal = () => {
     setShowModal(false);
   };
-  
+
   const onChangeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
   };
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && message.trim().length) {
+      client.publish({
+        destination: '/pub/chat/message',
+        body: JSON.stringify({
+          type: 'TALK',
+          roomId: `${idx}`,
+          sender: `${seq}`,
+          message: `${message}`,
+        }),
+      });
+      setMessage('');
+    }
+  };
+  const sendMessage = () => {
+    if (message.trim().length) {
       client.publish({
         destination: '/pub/chat/message',
         body: JSON.stringify({
@@ -88,15 +103,15 @@ const ChatRoom: React.FC<chatRoomProps> = ({
     }
   };
   useEffect(() => {
-    setEmoji(state.emoji)
-    setPartner(state.partner)
-    console.log(state.partner)
+    setEmoji(state.emoji);
+    setPartner(state.partner);
   }, []);
   useEffect(() => {
-    if (typeof chats === 'undefined') navigate('..');
+    if (typeof chats === 'undefined' || !chatRoomState)
+      navigate('..', { replace: true });
     scrollToBottom();
     setMessageCountFunc(idx);
-  }, [chats]);
+  }, [chats, chatRoomState]);
 
   return (
     <ChatRoomPage>
@@ -150,14 +165,23 @@ const ChatRoom: React.FC<chatRoomProps> = ({
           icon={<IoArrowUpSharp />}
           shadow
           children=""
+          ariaLabel="채팅 보내기"
+          onClick={sendMessage}
         ></Button>
       </ChatFooter>
-      
-      <div>
-        {showModal && <ChatReport isModalOpen={showModal} closeModal={closeModal} partnerId={partner} roomSeq={seq} />
-      }
-    </div>
 
+      <div>
+        {showModal && (
+          <ChatReport
+            isModalOpen={showModal}
+            closeModal={closeModal}
+            client={client}
+            sender={seq}
+            partnerId={partner}
+            roomSeq={idx}
+          />
+        )}
+      </div>
     </ChatRoomPage>
   );
 };
@@ -174,7 +198,7 @@ const ChatRoomPage = styled.div`
 `;
 const ChatBody = styled.div`
   width: 100%;
-  height: 92vh;
+  height: calc(var(--vh, 1vh) * 92);
   display: flex;
   flex-direction: column;
   border-radius: 3px;

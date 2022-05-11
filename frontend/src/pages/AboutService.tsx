@@ -52,6 +52,7 @@ const AboutService = () => {
         height="2.6rem"
         Radius="1.3rem"
         fontWeight="500"
+        ariaLabel={pageId === '3' ? '완료' : '다음'}
         onClick={btnClickHandler}
       >
         {pageId === '3' ? '완료' : '다음'}

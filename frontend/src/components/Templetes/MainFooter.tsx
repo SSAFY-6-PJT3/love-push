@@ -1,11 +1,16 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 import IconButton from '../Atoms/IconButton';
 
 const MainFooter = () => {
   const navigate = useNavigate();
   const helpBtnClickHandler = () => {
+    ReactGA.event({
+      category: '도움말 클릭',
+      action: '도움말 페이지 진입',
+    });
     navigate('/about-service/0');
   };
 
@@ -16,6 +21,7 @@ const MainFooter = () => {
         margin="4px 8px"
         bgColor="#EEF8FF"
         imgURL="https://img.icons8.com/emoji/48/000000/question-mark-emoji.png"
+        ariaLabel="도움말"
         onClick={helpBtnClickHandler}
       />
     </Footer>

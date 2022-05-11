@@ -1,92 +1,59 @@
-import { useContext, useEffect, useState } from 'react';
-import styled from "styled-components";
-import { useNavigate } from 'react-router-dom';
-import useDocumentTitle from '../../hooks/useDocumentTitle';
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-import MainNav from '../Templetes/MainNav';
-import MainFooter from '../Templetes/MainFooter';
-import AfterBackGround from '../Molecules/AfterBackground';
-import HeartBtn from '../Molecules/HeartBtn';
-
-import { readEmojiAPI } from '../../api/emojiAPI'
-
-import { AlertContext } from '../../store/alertContext';
-import { ClientContext } from '../../store/clientContext';
-
+import { readEmojiAPI } from '../../api/emojiAPI';
 
 const EmptyChatBox = () => {
-  const navigate = useNavigate();
+  const [slides, setSildes] = useState([]);
 
-  const heartClickHandler = () => {
-    navigate('/')
-  };
-
-  const { CheckGPS, sendHeart, signal, nearBy10mState } =
-  useContext(ClientContext);
-  const { openAlert, setAlertText } = useContext(AlertContext);
-
-  useDocumentTitle('채팅방이 없습니다 | 좋아하면 누르는');
-
-  const [slides, setSildes] = useState([])
   useEffect(() => {
-    callReadEmojiAPI()
+    callReadEmojiAPI();
   }, []);
+
   const callReadEmojiAPI = () => {
-    const emojiUrl = localStorage.getItem('emojiUrl') || ''
+    const emojiUrl = sessionStorage.getItem('emojiUrl') || '';
     readEmojiAPI({ emojiUrl: emojiUrl })
       .then((res: any) => {
-        console.log(res)
-        setSildes(res.slice(13, 25))
+        setSildes(res.slice(13, 25));
       })
-      .catch((err:any) => {
+      .catch((err: any) => {
         console.log(err);
       });
   };
-  
+
   return (
-    <>
-      <AfterBackGround show={signal}/>
-      <Container>
-        <MainNav />
-          <Title>
-              <p>
-              서로 하트를 보내면
-              <br />
-              익명 채팅방이 개설됩니다!
-              <br />
-              좋아하는 사람 근처에서
-              <br />
-              하트를 보내보세요!
-              </p>
-          </Title>
-        <HeartWrapper>
-          <HeartBtn show={signal} onClickHeart={heartClickHandler} />
-        </HeartWrapper>
-        <ImgContainer>
-          {slides.map((slide) => (
-            <Emoji key={slide} src={slide} alt="" />
-          ))}
-        </ImgContainer>
-        <MainFooter />
-      </Container>
-    </>
+    <Container>
+      <Title>
+        <p>
+          서로 하트를 보내면
+          <br />
+          익명 채팅방이 개설됩니다!
+          <br />
+          좋아하는 사람 근처에서
+          <br />
+          하트를 보내보세요!
+        </p>
+      </Title>
+      <ImgContainer>
+        {slides.map((slide) => (
+          <Emoji key={slide} src={slide} alt={slide} />
+        ))}
+      </ImgContainer>
+    </Container>
   );
 };
 
-export default EmptyChatBox
+export default EmptyChatBox;
 
 const Container = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-width: 100%;
-height: 100vh;
-@supports (-webkit-touch-callout: none) {
-  height: -webkit-fill-available;
-}
-overflow-y: hidden;
-overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 100);
+  overflow-y: hidden;
+  overflow-x: hidden;
 `;
 
 const Emoji = styled.img`
@@ -95,13 +62,12 @@ const Emoji = styled.img`
 `;
 
 const Title = styled.h1`
-  white-space: pre-line;
-  font-size: 20px;
+  font-size: 1.3rem;
   font-weight: 700;
   color: black;
   line-height: 1.5;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 9rem;
   animation: 0.8s ease-in-out 0s 1 normal forwards running fadeinBottom;
   @keyframes fadeinBottom {
     from {
@@ -115,17 +81,8 @@ const Title = styled.h1`
   }
 `;
 
-
-const HeartWrapper = styled.div`
-  width: 220px;
-  height: 202px;
-`;
-
 const ImgContainer = styled.div`
   position: relative;
-  display: flex;
-  align-items: start;
-  justify-content: start;
 
   img:nth-child(1) {
     position: absolute;
@@ -184,7 +141,3 @@ const ImgContainer = styled.div`
     left: -260px;
   }
 `;
-
-
-
-

@@ -19,6 +19,7 @@ interface IPropsIcon {
 
 interface IPropsIconButton extends IPropsStyledButton, IPropsIcon {
   imgURL: string;
+  ariaLabel?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -31,6 +32,7 @@ const IconButton = ({
   shadow,
   imgWidth,
   imgHeight,
+  ariaLabel,
   onClick,
 }: IPropsIconButton) => {
   return (
@@ -41,8 +43,14 @@ const IconButton = ({
       bgColor={bgColor}
       shadow={shadow}
       onClick={onClick}
+      aria-label={ariaLabel}
     >
-      <Icon src={imgURL} imgWidth={imgWidth} imgHeight={imgHeight} />
+      <Icon
+        src={imgURL}
+        imgWidth={imgWidth}
+        imgHeight={imgHeight}
+        alt="버튼 이미지"
+      />
     </StyledButton>
   );
 };
