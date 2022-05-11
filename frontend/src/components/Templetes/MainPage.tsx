@@ -14,6 +14,8 @@ import HeartBtn from '../Molecules/HeartBtn';
 
 import { ClientContext } from '../../store/clientContext';
 
+import useDocumentTitle from '../../hooks/useDocumentTitle';
+
 // start of image import
 import chebrasika from '../../images/emoji/chebrasika100.svg';
 import genshinimpact from '../../images/emoji/genshinimpact48.svg';
@@ -40,6 +42,8 @@ const MainPage = () => {
   // 로그인 모달 함수
   // 성공시 isLogin True변환
   // 초기 로그인 유저인지 아닌지 확인 필요 useEffect사용 -> 필요없어져서 삭제했습니다.
+
+  useDocumentTitle('좋아하면 누르는');
 
   const { activateClient, sendHeart, signal, nearBy10mState } =
     useContext(ClientContext);
