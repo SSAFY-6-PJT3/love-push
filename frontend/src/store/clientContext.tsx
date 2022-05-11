@@ -441,7 +441,9 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     client.publish({
       destination: '/pub/heart',
       body: JSON.stringify({
-        receiveSessions: Array.from(nearBy100mState.sessions),
+        receiveSessions: Array.from(nearBy100mState.sessions).filter(
+          (session) => session !== mySession,
+        ),
         receiveUsers: Array.from(nearBy100mState.users).filter(
           (x) => !sendHeartSet.has(x),
         ),
