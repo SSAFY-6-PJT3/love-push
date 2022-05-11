@@ -34,7 +34,11 @@ function ChatLobbyPage() {
         pageTitle={pathname === '/chatlobby/chat' ? roomTitle : '채팅'}
         textColor="black"
       />
-      {chatRoomList.length ? <ChatBoxList /> : <EmptyChatBox />}
+      {chatRoomList.filter((chatRoom) => chatRoom.activate).length ? (
+        <ChatBoxList />
+      ) : (
+        <EmptyChatBox />
+      )}
     </ChatLobby>
   );
 }
