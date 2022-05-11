@@ -23,4 +23,27 @@ public class ChatRoomEntity {
     @Builder.Default
     private boolean isActivate = true;
 
+    public long getChatroomSeq() {
+        return chatroomSeq;
+    }
+
+    public void setChatroomSeq(long chatroomSeq) {
+        this.chatroomSeq = chatroomSeq;
+    }
+
+    public long[] getUserList() {
+        return userList;
+    }
+
+    public void setUserList(long[] userList) {
+        this.userList = userList;
+    }
+
+    public boolean isActivate() {
+        return isActivate;
+    }
+
+    public void setActivate(boolean activate) {
+        isActivate = activate;
+    }
 }
