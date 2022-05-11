@@ -20,12 +20,14 @@ import AboutService from './pages/AboutService';
 import NotFound from './pages/NotFound';
 
 function App() {
-  setScreenSize();
-
   const { index, chats, client, chatRoomList, setMessageCountFunc } =
     useContext(ClientContext);
 
   const [chatRoomState, setChatRoomState] = useState(true);
+
+  useEffect(() => {
+    setScreenSize();
+  }, []);
 
   useEffect(() => {
     if (chatRoomList && chatRoomList.length > 0) {
