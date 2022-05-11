@@ -13,7 +13,6 @@ const ChatBoxListPage = () => {
 
   useEffect(() => {
     chatRoomList.forEach((chatBox) => {});
-    console.log(chatRoomList);
   }, [chatRoomList]);
 
   const getRoomSeqEvent = (seq: number, emoji?: string, partner?: number) => {
