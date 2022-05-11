@@ -3,7 +3,6 @@
  */
 
 import React, { createContext, useState } from 'react';
-import { AuthContext } from './authContext';
 
 interface IAlertContext {
   open: boolean;

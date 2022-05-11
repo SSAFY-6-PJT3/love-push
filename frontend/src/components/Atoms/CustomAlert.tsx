@@ -1,3 +1,6 @@
+/**
+ * @author Hyeonsooryu
+ */
 import { useContext } from 'react';
 import { Alert, Snackbar } from '@mui/material';
 import styled from 'styled-components';

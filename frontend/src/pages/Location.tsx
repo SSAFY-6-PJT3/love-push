@@ -3,13 +3,13 @@
  * @modified Hyeonsooryu Android 요청 연결
  */
 
-import Button from '../Atoms/Button';
+import Button from '../components/Atoms/Button';
 import styled from 'styled-components';
 import { IoLocationSharp } from 'react-icons/io5';
 import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { readEmojiAPI } from '../../api/emojiAPI';
-import { AlertContext } from '../../store/alertContext';
+import { readEmojiAPI } from '../api/emojiAPI';
+import { AlertContext } from '../store/alertContext';
 
 const LocationPage = () => {
   const navigate = useNavigate();
@@ -115,6 +115,7 @@ const TitleTag = styled.p`
   text-align: center;
   margin-bottom: 40px;
 `;
+
 const BackGround = styled.div`
   background: linear-gradient(197.56deg, #63dae2 0%, #7fade8 100%);
   width: 100vw;
@@ -124,6 +125,7 @@ const BackGround = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 const EmojiDiv = styled.div`
   display: flex;
   .emoji {
@@ -144,6 +146,7 @@ const EmojiDiv = styled.div`
     }
   }
 `;
+
 const ReverseEmojiDiv = styled(EmojiDiv)`
   animation-direction: alternate-reverse;
   @keyframes move {

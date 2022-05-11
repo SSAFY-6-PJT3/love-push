@@ -6,47 +6,14 @@ interface TextStyleProps {
 }
 
 const ChatLobbyTitle = styled.p<TextStyleProps>`
-margin: ${(props) => props.margin};
-width: ${(props) => props.width || '100%'};
-font-size: 2rem;
-font-weight: bold;
-display: flex;
-margin: 1rem 0;
-justify-content: flex-start;
-background-color: #EEF8FF;
-`;
-
-const ChatLobbyDescription = styled.p<TextStyleProps>`
-margin: ${(props) => props.margin};
-width: ${(props) => props.width || '100vh'};
-font-size: 1.5rem;
-font-weight: bold;
-display: flex;
-margin: 1rem 0;
-justify-content: center;
-background-color: #EEF8FF;
-`;
-
-const ChatRoomTitle = styled.p<TextStyleProps>`
-margin: ${(props) => props.margin};
-width: ${(props) => props.width || '100%'};
-font-size: 2rem;
-font-weight: bold;
-display: flex;
-margin: 1rem 0;
-justify-content: center;
-background-color: #EEF8FF;
-`;
-
-const LoginTitle = styled.p<TextStyleProps>`
-margin: ${(props) => props.margin};
-width: ${(props) => props.width || '100%'};
-font-size: 2rem;
-font-weight: bold;
-display: flex;
-margin: 1rem 0;
-justify-content: center;
-background-color: #EEF8FF;
+  margin: ${(props) => props.margin};
+  width: ${(props) => props.width || '100%'};
+  font-size: 2rem;
+  font-weight: bold;
+  display: flex;
+  margin: 1rem 0;
+  justify-content: flex-start;
+  background-color: #eef8ff;
 `;
 
 const LeftMessageCount = styled.div<TextStyleProps>`
@@ -59,7 +26,7 @@ const LeftMessageCount = styled.div<TextStyleProps>`
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background-color: #71E155;
+  background-color: #71e155;
   color: white;
   margin: 1rem;
   border: none;
@@ -71,7 +38,7 @@ const RecentMessage = styled.p<TextStyleProps>`
   font-size: 1rem;
   display: flex;
   margin: 1rem 0;
-  color: #8E8E8E;
+  color: #8e8e8e;
 `;
 
 const RandomNickname = styled.p<TextStyleProps>`
@@ -84,41 +51,48 @@ const RandomNickname = styled.p<TextStyleProps>`
 `;
 
 const Timeline = styled.p<TextStyleProps>`
-margin: ${(props) => props.margin};
-width: ${(props) => props.width };
-font-size: 0.8rem;
-display: flex;
-color: #8E8E8E;
-justify-content: center;
-margin: 1rem 1rem;
+  margin: ${(props) => props.margin};
+  width: ${(props) => props.width};
+  font-size: 0.8rem;
+  display: flex;
+  color: #8e8e8e;
+  justify-content: center;
+  margin: 1rem 1rem;
 `;
 
 const OtherUserChatText = styled.p<TextStyleProps>`
-margin: ${(props) => props.margin};
-width: ${(props) => props.width};
-max-width: 70%;
-overflow-wrap: break-word;
-padding: 8px 16px;
-border-radius: 10px;
-border: none;
-font-weight: 300;
-background-color: #FFFFFF;
-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  margin: ${(props) => props.margin};
+  width: ${(props) => props.width};
+  max-width: 70%;
+  overflow-wrap: break-word;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 300;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 `;
 
 const MyChatText = styled.p<TextStyleProps>`
-margin: ${(props) => props.margin};
-width: ${(props) => props.width};
-max-width: 70%;
-overflow-wrap: break-word;
-padding: 8px 16px;
-border-radius: 10px;
-border: none;
-font-weight: 300;
-background-color: #FFFFFF;
-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-margin-right : 1rem;
+  margin: ${(props) => props.margin};
+  width: ${(props) => props.width};
+  max-width: 70%;
+  overflow-wrap: break-word;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 300;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  margin-right: 1rem;
 `;
 
-
-export { ChatLobbyTitle, ChatLobbyDescription, ChatRoomTitle, LeftMessageCount, RecentMessage, RandomNickname, Timeline, LoginTitle, OtherUserChatText, MyChatText };
+export {
+  ChatLobbyTitle,
+  LeftMessageCount,
+  RecentMessage,
+  RandomNickname,
+  Timeline,
+  OtherUserChatText,
+  MyChatText,
+};
