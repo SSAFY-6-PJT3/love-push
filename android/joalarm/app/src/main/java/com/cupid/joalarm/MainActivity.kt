@@ -1,32 +1,34 @@
 package com.cupid.joalarm
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
-import android.content.Intent
+import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.webkit.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import com.cupid.joalarm.PermissionInterface.Companion.PERMISSION_ACCESS_ALL
 
 
 class MainActivity : AppCompatActivity() {
-    private val androidBridge  = PermissionInterface(this)
 
-    @RequiresApi(Build.VERSION_CODES.Q)
-    val permissions = arrayOf(
-        Manifest.permission.ACCESS_COARSE_LOCATION,
-        Manifest.permission.ACCESS_FINE_LOCATION,
-        Manifest.permission.ACCESS_BACKGROUND_LOCATION
-    )
+    private val permissionManager  = PermissionInterface(this)
+    private var url="https://www.someone-might-like-you.com/"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        if(permissionManager.checkPermission()) openWebPage(url)
+        else {
+            ActivityCompat.requestPermissions(this,
+                PermissionInterface.permissions, PERMISSION_ACCESS_ALL)
+            if(permissionManager.checkPermission()) openWebPage(url+"location")
+        }
 
-        openWebPage("https://www.someone-might-like-you.com/location")
 //        openWebPage("https://www.someone-might-like-you.com/")
         checkGPS()
 //        checkPermission()
@@ -36,6 +38,8 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         checkGPS()
+        if(permissionManager.checkPermission()) openWebPage(url)
+        else openWebPage(url+"location")
 //        checkPermission()
 //        androidBridge.requestLocationPermission()
     }
@@ -80,8 +84,30 @@ class MainActivity : AppCompatActivity() {
         val locationManager: LocationManager =
             getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            val gpsOptionsIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-            startActivity(gpsOptionsIntent)
+            permissionManager.requestGPSDialog()
+        }
+    }
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(
+            requestCode,
+            permissions,
+            grantResults
+        )
+        if (requestCode == PERMISSION_ACCESS_ALL) {
+            if (grantResults.isNotEmpty()) {
+                for (grant in grantResults) {
+                    if (grant != PackageManager.PERMISSION_GRANTED) {
+//                        System.exit(0)
+                    }
+                }
+//                openWebPage("https://www.someone-might-like-you.com/test")
+//                openWebPage("https://map.kakao.com/")
+//                openWebPage("https://m.youtube.com/")
+            }
         }
     }
 
