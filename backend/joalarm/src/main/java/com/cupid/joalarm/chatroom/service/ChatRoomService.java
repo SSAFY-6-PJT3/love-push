@@ -1,7 +1,5 @@
 package com.cupid.joalarm.chatroom.service;
 
-import com.cupid.joalarm.chat.DTO.ChatMessageDTO;
-import com.cupid.joalarm.chat.entity.ChatEntity;
 import com.cupid.joalarm.chatroom.entity.ChatRoomEntity;
 import com.cupid.joalarm.chatroom.repository.ChatRoomRepository;
 import com.cupid.joalarm.chatroom.dto.CreateChatRoomDTO;
@@ -42,10 +40,12 @@ public class ChatRoomService {
         return chatRoomRepository.findAllByUserListIn(user);
     }
 
+    @Transactional
     public boolean reportByRoomSeq(Long seq) {
-        Optional<ChatRoomEntity> chatRoom = chatRoomRepository.findChatRoomEntityByChatroomSeq(seq);
-        if(chatRoom.isEmpty()) return false;
-        chatRoom.get().setActivate(false);
+        ChatRoomEntity chatRoom = chatRoomRepository.findChatRoomEntityByChatroomSeq(seq);
+        if(chatRoom == null) return false;
+        chatRoom.setActivate(false);
+        chatRoomRepository.save(chatRoom);
         return true;
     }
 

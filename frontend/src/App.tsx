@@ -19,7 +19,7 @@ import LocationPage from './components/Templetes/LocationPage';
 import MainPage from './components/Templetes/MainPage';
 import { MakeChatRoomList } from './components/MakeChatRoomList';
 import ChatRoom from './components/Templetes/ChatRoom';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ClientContext } from './store/clientContext';
 
 function App() {
@@ -33,8 +33,17 @@ function App() {
 
   setScreenSize();
 
-  const { index, chats, client, setMessageCountFunc } =
+  const { index, chats, client, chatRoomList, setMessageCountFunc } =
     useContext(ClientContext);
+  const [chatRoomState, setChatRoomState] = useState(true);
+  useEffect(() => {
+    if (chatRoomList && chatRoomList.length > 0) {
+      const state = chatRoomList.filter(
+        (chatRoom) => chatRoom.chatroomSeq === index,
+      )[0];
+      if (state && state.chatroomSeq > 0) setChatRoomState(state.activate);
+    }
+  }, [chatRoomList]);
 
   return (
     <>
@@ -55,6 +64,7 @@ function App() {
                   chats={chats && chats[index]}
                   client={client}
                   setMessageCountFunc={setMessageCountFunc}
+                  chatRoomState={chatRoomState}
                 />
               }
             />
