@@ -78,7 +78,7 @@ const ChatRoom: React.FC<chatRoomProps> = ({
     }
   };
   const sendMessage = () => {
-    if ( message.trim().length ) {
+    if (message.trim().length) {
       client.publish({
         destination: '/pub/chat/message',
         body: JSON.stringify({
@@ -90,7 +90,7 @@ const ChatRoom: React.FC<chatRoomProps> = ({
       });
       setMessage('');
     }
-  }
+  };
 
   const location = useLocation();
   const state = location.state as CustomizedState;
@@ -195,7 +195,7 @@ const ChatRoomPage = styled.div`
 `;
 const ChatBody = styled.div`
   width: 100%;
-  height: 92vh;
+  height: calc(var(--vh, 1vh) * 92);
   display: flex;
   flex-direction: column;
   border-radius: 3px;
