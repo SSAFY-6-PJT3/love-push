@@ -4,7 +4,7 @@
  * @modified Hyeonsooryu | 마크업 구조 리팩터링 & 애니메이션 추가
  */
 
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import MainNav from '../components/Templetes/MainNav';
@@ -20,35 +20,48 @@ import useDocumentTitle from '../hooks/useDocumentTitle';
 const MainPage = () => {
   useDocumentTitle('좋아하면 누르는');
 
-  const { activateClient, sendHeart, signal, nearBy10mState } =
+  const { activateClient, sendHeart, signal, nearBy100mState } =
     useContext(ClientContext);
-  const { openAlert, setAlertText } = useContext(AlertContext);
+
+  const [pushHeart, setPushHeart] = useState(false);
+  const [heartText, setHeartText] = useState('');
 
   useEffect(() => {
     activateClient();
   }, [activateClient]);
 
+  useEffect(() => {
+    if (signal) {
+      setHeartText(
+        '100m 이내의 누군가가\n하트를 눌렀어요!\n당신을 좋아하는건 아닐까요..?',
+      );
+    }
+  }, [signal]);
+
+  const updatePushHeart = () => {
+    setHeartText(
+      '주변 100m 유저에게\n하트를 전송했어요!\n하트가 교환되면 채팅방이 생성될 거에요!',
+    );
+    setPushHeart(true);
+    setTimeout(() => {
+      setPushHeart(false);
+    }, 4000);
+  };
+
   const heartClickHandler = () => {
-    setAlertText('하트 발사!');
-    openAlert();
+    updatePushHeart();
     sendHeart();
   };
 
   return (
     <>
-      <AfterBackGround show={signal} />
+      <AfterBackGround show={signal || pushHeart} />
       <Container>
         <MainNav />
-        {signal && (
+        {(pushHeart || signal) && <Title>{heartText}</Title>}
+        {!signal && !pushHeart && (
           <Title>
-            10m 이내의 누군가가 <br />
-            하트를 눌렀어요! <br />
-            당신을 좋아하는건 아닐까요..?
-          </Title>
-        )}
-        {!signal && (
-          <Title>
-            {nearBy10mState.sessions.size === 0 ? (
+            {nearBy100mState.sessions.size === 0 ? (
               <p>
                 잠시만요!
                 <br />
@@ -58,18 +71,21 @@ const MainPage = () => {
               </p>
             ) : (
               <p>
-                10m 이내에 <br />
-                {nearBy10mState.sessions.size - 1}명의 <br />
+                100m 이내에 <br />
+                {nearBy100mState.sessions.size - 1}명의 <br />
                 사용자가 있어요!
               </p>
             )}
           </Title>
         )}
         <HeartWrapper>
-          <HeartBtn show={signal} onClickHeart={heartClickHandler} />
+          <HeartBtn
+            show={signal || pushHeart}
+            onClickHeart={heartClickHandler}
+          />
         </HeartWrapper>
         <ImgContainer>
-          {nearBy10mState.emojis.map((slide, idx) => (
+          {nearBy100mState.emojis.map((slide, idx) => (
             <Emoji key={idx} src={slide} alt={`emoji-${idx}`} />
           ))}
         </ImgContainer>
