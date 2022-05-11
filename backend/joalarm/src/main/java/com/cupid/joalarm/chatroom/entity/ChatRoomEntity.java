@@ -1,6 +1,7 @@
 package com.cupid.joalarm.chatroom.entity;
 
 import lombok.*;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
@@ -18,10 +19,19 @@ public class ChatRoomEntity {
     public static final String SEQUENCE_NAME = "chatroom_sequence";
 
     @Id
+    private ObjectId _id;
     private long chatroomSeq;
     private long[] userList;
     @Builder.Default
     private boolean isActivate = true;
+
+    public ObjectId get_id() {
+        return _id;
+    }
+
+    public void set_id(ObjectId _id) {
+        this._id = _id;
+    }
 
     public long getChatroomSeq() {
         return chatroomSeq;
