@@ -25,7 +25,6 @@ const LocationPage = () => {
 
   const geoPosition = () => {
     if (/Android/i.test(navigator.userAgent)) {
-      console.log(window.Android);
       window.Android.requestLocationPermission();
     } else {
       navigator.geolocation.getCurrentPosition(
