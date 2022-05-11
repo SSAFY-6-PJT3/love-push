@@ -99,7 +99,11 @@ function ChatLobbyPage() {
         // onRightBtnClick={toggleModal}
       />
       {/* {isModalOpen && <ChatReport onClickToggleModal={toggleModal} />} */}
-      {chatRoomList.length ? <ChatBoxList /> : <EmptyChatBox />}
+      {chatRoomList.filter((chatRoom) => chatRoom.activate).length ? (
+        <ChatBoxList />
+      ) : (
+        <EmptyChatBox />
+      )}
     </ChatLobby>
   );
 }
