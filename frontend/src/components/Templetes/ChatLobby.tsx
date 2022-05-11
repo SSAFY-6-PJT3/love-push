@@ -23,8 +23,9 @@ import { loginAPI } from '../../api/accountAPI';
 import { LoginInput } from '../Atoms/Inputs';
 import Modal from '../Atoms/Modal';
 import { AuthContext } from '../../store/authContext';
-import { findMyRoomAPI } from '../../api/chatRoomAPI';
+
 import ChatReport from '../Molecules/ChatReport';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 // 채팅 목록 나열
 // 안 읽은 메세지 수 출력
@@ -62,19 +63,15 @@ import ChatReport from '../Molecules/ChatReport';
 // 여기서도 쏴줘야한다.
 
 import { ClientContext } from '../../store/clientContext';
-type chatBox = {
-  chatroomSeq: number;
-  userList: Array<number>;
-  activate: boolean;
-};
 
 function ChatLobbyPage() {
+  useDocumentTitle('채팅 | 좋아하면 누르는');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [roomSeq, updateRoomSeq] = useState(0);
   const [roomTitle, updateRoomTitle] = useState('');
-  const [ChatRoomList, setChatRoomList] = useState(new Array<chatBox>());
-  const { isLoggedIn } = useContext(AuthContext);
 
+  const { isLoggedIn, onLogin } = useContext(AuthContext);
+
+  const { chatRoomList } = useContext(ClientContext);
   // const SubHeart = () => {
   //   subscribeHeart();
   // }
@@ -84,35 +81,28 @@ function ChatLobbyPage() {
   };
 
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const pk: number = 1; // 임의로 pk 걸어줌
-    findMyRoomAPI({ user: pk })
-      .then((res) => {
-        setChatRoomList(res);
-      })
-      .catch((err) => console.log(err));
+    if (!isLoggedIn) navigate('/');
+    const seq = Number(sessionStorage.getItem('seq') || '0');
   }, []);
 
   return (
     <ChatLobby>
       <BackBtnNav
-        pageTitle={pathname === '/chatlobby/chat' ? roomTitle : '채팅방 목록'}
+        pageTitle={pathname === '/chatlobby/chat' ? roomTitle : '채팅'}
         textColor="black"
-        rightSideBtn={
-          pathname === '/chatlobby/chat' && (
-            <IconButton imgURL="https://img.icons8.com/fluency/192/siren.png" />
-          )
-        }
-        onRightBtnClick={toggleModal}
+        // rightSideBtn={
+        //   pathname === '/chatlobby/chat' && (
+        //     <IconButton imgURL="https://img.icons8.com/fluency/192/siren.png" />
+        //   )
+        // }
+        // onRightBtnClick={toggleModal}
       />
-      {isModalOpen && <ChatReport onClickToggleModal={toggleModal} />}
-      {ChatRoomList.length ? (
-        <ChatBoxList
-          chatBoxList={ChatRoomList}
-          updateRoomSeq={updateRoomSeq}
-          updateRoomTitle={updateRoomTitle}
-        />
+      {/* {isModalOpen && <ChatReport onClickToggleModal={toggleModal} />} */}
+      {chatRoomList.filter((chatRoom) => chatRoom.activate).length ? (
+        <ChatBoxList />
       ) : (
         <EmptyChatBox />
       )}

@@ -17,26 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class GpsSectorController {
     private final GpsService gpsService;
 
-
-    @MessageMapping("/joalarm")
-    public void joalarm(@Header("simpSessionId") String sessionId, JoalarmDTO DTO) {
-        // gps 데이터 전달받음
-        // 해당 HashMap에 넣기만 함
-        // 5s 전체채팅 요청
-//        System.out.println("joalarm 메세지 확인");
-        SimpAttributesContextHolder.currentAttributes().setAttribute("GPS", DTO.getGpsKey());
-        gpsService.putUserSector(DTO.getGpsKey(), sessionId, DTO.getPair());
-
-    }
-
     @MessageMapping("/sector")
     public void sector(@Header("simpSessionId") String sessionId, SectorDTO DTO) {
         // gps 데이터 전달받음
         // 해당 HashMap에서 이전 섹터 삭제, 새 섹터 입력
         // 5s 전체채팅 요청
-        gpsService.changeUserSector(DTO.getBeforeGpsKey(), DTO.getNowGpsKey(), sessionId);
+        System.out.println(DTO.getBeforeGpsKey() + " / " + DTO.getNowGpsKey() + " / " + sessionId + " / " + DTO.getPair());
+        gpsService.changeUserSector(DTO.getBeforeGpsKey(), DTO.getNowGpsKey(), sessionId, DTO.getPair());
         SimpAttributesContextHolder.currentAttributes().setAttribute("GPS", DTO.getNowGpsKey());
-//        System.out.println(DTO.getBeforeGpsKey() + " / " + DTO.getNowGpsKey() + " / " + sessionId);
     }
 
     @MessageMapping("/emoji")

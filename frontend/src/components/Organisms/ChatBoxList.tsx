@@ -2,9 +2,10 @@ import ChatBox from '../Molecules/ChatBox';
 import styled from 'styled-components';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { ChatTest } from '../ChatTest';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { getChatLog } from '../../api/chatAPI';
 import ChatRoom from '../Templetes/ChatRoom';
+import { ClientContext } from '../../store/clientContext';
 
 type chatBox = {
   chatroomSeq: number;
@@ -27,69 +28,49 @@ type message = {
 };
 
 type messages = {
-  [seq: number]: Array<message>;
+  [seq: number]: { messages: Array<message>; newMessage: number };
 };
 
-const ChatBoxListPage: React.FC<chatBoxListProps> = ({
-  chatBoxList,
-  updateRoomSeq,
-  updateRoomTitle,
-}) => {
-  const [chats, updateChats] = useState<messages>();
-  const [index, updateIndex] = useState<number>(0);
+const ChatBoxListPage = () => {
   const navigate = useNavigate();
+  const { updateIndexFunc, chatRoomList, chats, messageCount } =
+    useContext(ClientContext);
 
   useEffect(() => {
-    chatBoxList.forEach((chatBox) => {
-      getChatLog({ roomSeq: chatBox.chatroomSeq }).then((res: message[]) => {
-        const seq: number = chatBox.chatroomSeq;
-        const reverseChat: message[] = res.reverse();
-        updateChats((chat) => {
-          return { ...chat, [seq]: reverseChat };
-        });
-      });
+    chatRoomList.forEach((chatBox) => {
+      // client 구독 및 채팅 수신 시 카운트 늘리는 이벤트 추가
     });
-  }, [chatBoxList]);
+    console.log(chatRoomList);
+  }, [chatRoomList]);
 
-  const getRoomSeqEvent = (seq: number) => {
-    updateIndex(seq);
-    navigate('chat');
+  const getRoomSeqEvent = (seq: number, emoji?: string, partner?: number) => {
+    updateIndexFunc(seq);
+    navigate('/chat', { state: { emoji: emoji, partner: partner } });
     // console.log(chats[seq]);
   };
+  const seq = Number(sessionStorage.getItem('seq'))
 
   return (
     <ChatBoxList>
-      <Routes>
-        <Route
-          path=""
-          element={chatBoxList.map((chatRoom) => (
-            <ChatBox
-              key={chatRoom.chatroomSeq}
-              chatroomSeq={chatRoom.chatroomSeq}
-              partner={chatRoom.userList.filter((x) => x !== 1)[0]}
-              activate={chatRoom.activate}
-              clickEvent={getRoomSeqEvent}
-              lastChat={
-                chats &&
-                chats[chatRoom.chatroomSeq] &&
-                chats[chatRoom.chatroomSeq][
-                  chats[chatRoom.chatroomSeq].length - 1
-                ]
-              }
-            />
-          ))}
-        />
-        <Route
-          path="chat"
-          element={
-            <ChatRoom
-              chats={chats && chats[index]}
-              updateRoomSeq={updateRoomSeq}
-              updateRoomTitle={updateRoomTitle}
-            />
-          }
-        />
-      </Routes>
+      {chatRoomList
+        .filter((chatroom) => chatroom.activate)
+        .map((chatRoom) => (
+          <ChatBox
+            key={chatRoom.chatroomSeq}
+            chatroomSeq={chatRoom.chatroomSeq}
+            partner={chatRoom.userList.filter((x) => x !== seq)[0]}
+            activate={chatRoom.activate}
+            clickEvent={getRoomSeqEvent}
+            lastChat={
+              chats &&
+              chats[chatRoom.chatroomSeq] &&
+              chats[chatRoom.chatroomSeq][
+                chats[chatRoom.chatroomSeq].length - 1
+              ]
+            }
+            messageCount={messageCount[chatRoom.chatroomSeq]}
+          />
+        ))}
     </ChatBoxList>
   );
 };

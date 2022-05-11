@@ -4,6 +4,7 @@ import GARoutes from './components/GARoutes';
 
 import Background from './Styles/Background';
 import GlobalStyle from './Styles/GlobalStyle';
+import setScreenSize from './Styles/setScreenSize';
 
 import KeyFrame from './pages/KeyFrame';
 import StoryBook from './pages/StoryBook';
@@ -17,6 +18,9 @@ import ChatLobby from './components/Templetes/ChatLobby';
 import LocationPage from './components/Templetes/LocationPage';
 import MainPage from './components/Templetes/MainPage';
 import { MakeChatRoomList } from './components/MakeChatRoomList';
+import ChatRoom from './components/Templetes/ChatRoom';
+import { useContext, useEffect, useState } from 'react';
+import { ClientContext } from './store/clientContext';
 
 function App() {
   // const appHeight = () => {
@@ -27,6 +31,20 @@ function App() {
   // window.addEventListener('resize', appHeight); // 사파리 상, 하단바 유무에 따른 화면비 재설정 이벤트리스너 코드
   // appHeight();
 
+  setScreenSize();
+
+  const { index, chats, client, chatRoomList, setMessageCountFunc } =
+    useContext(ClientContext);
+  const [chatRoomState, setChatRoomState] = useState(true);
+  useEffect(() => {
+    if (chatRoomList && chatRoomList.length > 0) {
+      const state = chatRoomList.filter(
+        (chatRoom) => chatRoom.chatroomSeq === index,
+      )[0];
+      if (state && state.chatroomSeq > 0) setChatRoomState(state.activate);
+    }
+  }, [chatRoomList]);
+
   return (
     <>
       <GlobalStyle />
@@ -35,9 +53,21 @@ function App() {
         <BrowserRouter>
           <GARoutes>
             {/* <Route path="/" element={<KeyFrame />} /> */}
-            <Route path="/mainpage" element={<MainPage />} />
+            <Route path="/" element={<MainPage />} />
             <Route path="/signup/:pageId" element={<Signup />} />
-            <Route path="/chatlobby/*" element={<ChatLobby />} />
+            <Route path="/chatlobby" element={<ChatLobby />} />
+            <Route
+              path="/chat"
+              element={
+                <ChatRoom
+                  idx={index}
+                  chats={chats && chats[index]}
+                  client={client}
+                  setMessageCountFunc={setMessageCountFunc}
+                  chatRoomState={chatRoomState}
+                />
+              }
+            />
             <Route path="/location" element={<LocationPage />} />
             <Route path="/test" element={<KeyFrame />} />
             <Route path="/storybook" element={<StoryBook />} />

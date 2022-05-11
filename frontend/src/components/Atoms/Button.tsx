@@ -21,6 +21,7 @@ interface ButtonStyleProps {
 interface ButtonProps extends ButtonStyleProps {
   icon?: ReactNode;
   children: ReactNode;
+  ariaLabel?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -36,8 +37,9 @@ const Button = ({
   icon,
   children,
   fontWeight,
-  onClick,
   Radius,
+  ariaLabel,
+  onClick,
 }: ButtonProps) => {
   return (
     <StyledButton
@@ -52,6 +54,7 @@ const Button = ({
       fontWeight={fontWeight}
       onClick={onClick}
       Radius={Radius}
+      aria-label={ariaLabel ? ariaLabel : '버튼'}
     >
       <Container>
         {icon}
@@ -71,7 +74,7 @@ Button.defaultProps = {
   margin: '0',
   fontSize: '14px',
   fontWeight: '300',
-  Radius: '16px'
+  Radius: '16px',
 };
 
 const Container = styled.div`

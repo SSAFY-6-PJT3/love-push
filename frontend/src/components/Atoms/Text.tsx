@@ -96,23 +96,27 @@ margin: 1rem 1rem;
 const OtherUserChatText = styled.p<TextStyleProps>`
 margin: ${(props) => props.margin};
 width: ${(props) => props.width};
+max-width: 70%;
+overflow-wrap: break-word;
 padding: 8px 16px;
 border-radius: 10px;
 border: none;
 font-weight: 300;
 background-color: #FFFFFF;
-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);  
+box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 `;
 
 const MyChatText = styled.p<TextStyleProps>`
 margin: ${(props) => props.margin};
 width: ${(props) => props.width};
+max-width: 70%;
+overflow-wrap: break-word;
 padding: 8px 16px;
 border-radius: 10px;
 border: none;
 font-weight: 300;
 background-color: #FFFFFF;
-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);  
+box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 margin-right : 1rem;
 `;
 

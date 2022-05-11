@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +38,15 @@ public class ChatRoomService {
     }
     public List<ChatRoomEntity> FindMyChatRooms(long user) {
         return chatRoomRepository.findAllByUserListIn(user);
+    }
+
+    @Transactional
+    public boolean reportByRoomSeq(Long seq) {
+        ChatRoomEntity chatRoom = chatRoomRepository.findChatRoomEntityByChatroomSeq(seq);
+        if(chatRoom == null) return false;
+        chatRoom.setActivate(false);
+        chatRoomRepository.save(chatRoom);
+        return true;
     }
 
 }

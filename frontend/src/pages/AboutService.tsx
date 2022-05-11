@@ -34,7 +34,7 @@ const AboutService = () => {
 
   const btnClickHandler = () => {
     if (pageId === '3') {
-      navigate('/mainpage');
+      navigate('/');
     } else if (pageId) {
       navigate(`/about-service/${+pageId + 1}`);
     }
@@ -52,6 +52,7 @@ const AboutService = () => {
         height="2.6rem"
         Radius="1.3rem"
         fontWeight="500"
+        ariaLabel={pageId === '3' ? '완료' : '다음'}
         onClick={btnClickHandler}
       >
         {pageId === '3' ? '완료' : '다음'}
