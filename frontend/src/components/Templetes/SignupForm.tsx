@@ -1,6 +1,5 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+
 import { SignupInput } from '../Atoms/Inputs';
 
 interface IProps_SignupForm {

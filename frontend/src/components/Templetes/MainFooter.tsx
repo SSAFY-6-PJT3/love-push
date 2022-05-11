@@ -1,3 +1,6 @@
+/**
+ * @author Hyeonsooryu
+ */
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import ReactGA from 'react-ga';

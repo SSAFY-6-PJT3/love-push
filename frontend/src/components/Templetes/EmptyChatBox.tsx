@@ -1,3 +1,7 @@
+/**
+ * @author HanseungHun
+ * @modified Hyeonsooryu | 마크업 및 스타일링 수정
+ */
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 

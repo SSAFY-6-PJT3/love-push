@@ -4,45 +4,20 @@
  * @modified Hyeonsooryu | 마크업 구조 리팩터링 & 애니메이션 추가
  */
 
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 
-import MainNav from './MainNav';
-import MainFooter from './MainFooter';
-import AfterBackGround from '../Molecules/AfterBackground';
-import HeartBtn from '../Molecules/HeartBtn';
+import MainNav from '../components/Templetes/MainNav';
+import MainFooter from '../components/Templetes/MainFooter';
+import AfterBackGround from '../components/Atoms/AfterBackground';
+import HeartBtn from '../components/Molecules/HeartBtn';
 
-import { ClientContext } from '../../store/clientContext';
+import { ClientContext } from '../store/clientContext';
+import { AlertContext } from '../store/alertContext';
 
-import useDocumentTitle from '../../hooks/useDocumentTitle';
-
-// start of image import
-import chebrasika from '../../images/emoji/chebrasika100.svg';
-import genshinimpact from '../../images/emoji/genshinimpact48.svg';
-import itachiuchiha from '../../images/emoji/itachiuchiha48.svg';
-import tanjirokamado from '../../images/emoji/tanjirokamado48.svg';
-import tom from '../../images/emoji/tom48.svg';
-import uzumaki from '../../images/emoji/uzumaki48.svg';
-import astonished from '../../images/emoji/Astonished face.svg';
-import gemstone from '../../images/emoji/Gemstone.svg';
-import greenapple from '../../images/emoji/Green apple.svg';
-import unicorn from '../../images/emoji/Unicorn.svg';
-import xmas from '../../images/emoji/Xmas tree.svg';
-import zany from '../../images/emoji/Zany face.svg';
-import { AlertContext } from '../../store/alertContext';
-// end of image import
+import useDocumentTitle from '../hooks/useDocumentTitle';
 
 const MainPage = () => {
-  // 위치정보가 불러와진다면 유지
-  // 안된다면 다시 locationpage로
-
-  // useEffect((인원값) => {
-  //   setCount(인원값)
-  // })
-  // 로그인 모달 함수
-  // 성공시 isLogin True변환
-  // 초기 로그인 유저인지 아닌지 확인 필요 useEffect사용 -> 필요없어져서 삭제했습니다.
-
   useDocumentTitle('좋아하면 누르는');
 
   const { activateClient, sendHeart, signal, nearBy10mState } =
@@ -58,21 +33,6 @@ const MainPage = () => {
     openAlert();
     sendHeart();
   };
-
-  const slides1 = [
-    chebrasika,
-    genshinimpact,
-    itachiuchiha,
-    tanjirokamado,
-    tom,
-    uzumaki,
-    astonished,
-    greenapple,
-    unicorn,
-    zany,
-    gemstone,
-    xmas,
-  ];
 
   return (
     <>

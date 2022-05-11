@@ -9,20 +9,23 @@ import {
   useCallback,
 } from 'react';
 import SockJS from 'sockjs-client';
-import gpsTransKey from '../hooks/gps/gpsTransKey';
+
+import gpsTransKey from '../utils/gpsTransKey';
+
 import { openChatAPI } from '../api/openChatAPI';
 import { findMyRoomAPI } from '../api/chatRoomAPI';
 import { getChatLog } from '../api/chatAPI';
 import { heartSendSetAPI } from '../api/heartAPI';
-import { readEmojiUserAPI } from '../api/emojiAPI';
 
 interface userType {
   pk: number;
   emojiURL: string;
 }
+
 interface sectorType {
   [sector: string]: userType;
 }
+
 interface gpsType {
   [gps: string]: sectorType;
 }
@@ -31,11 +34,6 @@ interface nearBy10mType {
   sessions: Set<string>;
   users: Set<number>;
   emojis: Array<string>;
-}
-
-interface GpsInterface {
-  beforeKey: string;
-  nowKey: string;
 }
 
 interface whisper {
@@ -63,14 +61,6 @@ interface messageType {
   sendTime: string;
 }
 
-interface IheartResponse {
-  sendUser: number;
-  receiveUser: number;
-}
-
-// interface messages {
-//   [seq: number]: { messages: Array<messageType>; newMessage: number };
-// }
 interface messages {
   [seq: number]: Array<messageType>;
 }
@@ -278,14 +268,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
           console.log('Broker reported error: ' + frame.headers['message']);
           console.log('Additional details: ' + frame.body);
         },
-        // onWebSocketClose: () => {
-        //   client.publish({
-        //     destination: '/pub/disconnect',
-        //     body: JSON.stringify({
-        //       gpsKey: `${gpsKey}`,
-        //     }),
-        //   });
-        // },
+
         reconnectDelay: 5000,
         heartbeatIncoming: 4000,
         heartbeatOutgoing: 4000,

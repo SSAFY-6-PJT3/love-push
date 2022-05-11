@@ -8,10 +8,8 @@ import ReactGA from 'react-ga';
 
 import { AuthContext } from '../../store/authContext';
 
-import { readEmojiUserAPI } from '../../api/emojiAPI';
-
 import IconButton from '../Atoms/IconButton';
-import Header from '../Organisms/Header';
+import Header from '../Atoms/Header';
 import LoginModal from '../Organisms/LoginModal';
 import EmojiSelectModal from '../Organisms/EmojiSelectModal';
 
