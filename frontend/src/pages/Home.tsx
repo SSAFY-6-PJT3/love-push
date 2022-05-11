@@ -20,7 +20,7 @@ import useDocumentTitle from '../hooks/useDocumentTitle';
 const MainPage = () => {
   useDocumentTitle('좋아하면 누르는');
 
-  const { activateClient, sendHeart, signal, nearBy10mState } =
+  const { activateClient, sendHeart, signal, nearBy100mState } =
     useContext(ClientContext);
   const { openAlert, setAlertText } = useContext(AlertContext);
 
@@ -41,14 +41,14 @@ const MainPage = () => {
         <MainNav />
         {signal && (
           <Title>
-            10m 이내의 누군가가 <br />
+            100m 이내의 누군가가 <br />
             하트를 눌렀어요! <br />
             당신을 좋아하는건 아닐까요..?
           </Title>
         )}
         {!signal && (
           <Title>
-            {nearBy10mState.sessions.size === 0 ? (
+            {nearBy100mState.sessions.size === 0 ? (
               <p>
                 잠시만요!
                 <br />
@@ -58,8 +58,8 @@ const MainPage = () => {
               </p>
             ) : (
               <p>
-                10m 이내에 <br />
-                {nearBy10mState.sessions.size - 1}명의 <br />
+                100m 이내에 <br />
+                {nearBy100mState.sessions.size - 1}명의 <br />
                 사용자가 있어요!
               </p>
             )}
@@ -69,7 +69,7 @@ const MainPage = () => {
           <HeartBtn show={signal} onClickHeart={heartClickHandler} />
         </HeartWrapper>
         <ImgContainer>
-          {nearBy10mState.emojis.map((slide, idx) => (
+          {nearBy100mState.emojis.map((slide, idx) => (
             <Emoji key={idx} src={slide} alt={`emoji-${idx}`} />
           ))}
         </ImgContainer>

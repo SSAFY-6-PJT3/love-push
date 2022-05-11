@@ -32,7 +32,7 @@ interface gpsType {
   [gps: string]: sectorType;
 }
 
-interface nearBy10mType {
+interface nearBy100mType {
   sessions: Set<string>;
   users: Set<number>;
   emojis: Array<string>;
@@ -85,7 +85,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     sessionStorage.getItem('emojiUrl') ||
     'https://cupid-joalarm.s3.ap-northeast-2.amazonaws.com/Face blowing a kiss.svg';
   const [mySession, updateMySession] = useState('');
-  const [gpsKeyNearby10m, updateGpsKeyNearby10m] = useState(
+  const [gpsKeyNearby100m, updateGpsKeyNearby100m] = useState(
     new Array<string>(),
   );
   const [signal, setSignal] = useState<boolean>(false);
@@ -178,7 +178,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
 
           client.subscribe('/sub/basic', (message) => {
             const sector: gpsType = JSON.parse(message.body);
-            nearBy10mDispatch(sector);
+            nearBy100mDispatch(sector);
           });
 
           client.subscribe(`/sub/heart/${sessionId}`, (message) => {
@@ -349,11 +349,11 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     return nowKey;
   };
 
-  const nearBy10mReducer = (
-    state: nearBy10mType,
+  const nearBy100mReducer = (
+    state: nearBy100mType,
     sector: gpsType,
-  ): nearBy10mType => {
-    const sectorData = gpsKeyNearby10m
+  ): nearBy100mType => {
+    const sectorData = gpsKeyNearby100m
       .map((key) => sector[`${key}`])
       .filter((v) => v !== undefined);
 
@@ -374,7 +374,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
   };
 
   const [gpsKey, setGpsKey] = useReducer(gpsReducer, '');
-  const [nearBy10mState, nearBy10mDispatch] = useReducer(nearBy10mReducer, {
+  const [nearBy100mState, nearBy100mDispatch] = useReducer(nearBy100mReducer, {
     sessions: new Set<string>(),
     users: new Set<number>(),
     emojis: new Array<string>(),
@@ -441,8 +441,8 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     client.publish({
       destination: '/pub/heart',
       body: JSON.stringify({
-        receiveSessions: Array.from(nearBy10mState.sessions),
-        receiveUsers: Array.from(nearBy10mState.users).filter(
+        receiveSessions: Array.from(nearBy100mState.sessions),
+        receiveUsers: Array.from(nearBy100mState.users).filter(
           (x) => !sendHeartSet.has(x),
         ),
         sendUser: `${seq}`,
@@ -450,7 +450,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     });
     updateSendHeartSet((pre) => {
       // 하트를 보낸 유저 리스트에 추가
-      nearBy10mState.users.forEach((u) => pre.add(u));
+      nearBy100mState.users.forEach((u) => pre.add(u));
       return pre;
     });
   };
@@ -467,7 +467,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
       gpsKeyArray.push(caculateGpsKey(gpsKey, [3, 0]));
       gpsKeyArray.push(caculateGpsKey(gpsKey, [0, -3]));
       gpsKeyArray.push(caculateGpsKey(gpsKey, [0, 3]));
-      updateGpsKeyNearby10m(gpsKeyArray);
+      updateGpsKeyNearby100m(gpsKeyArray);
     }
   }, [gpsKey]);
 
@@ -482,7 +482,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         // GpsKeyHandler: GpsKeyHandler,
         signal: signal,
         // subscribeHeart: subscribeHeart,
-        nearBy10mState: nearBy10mState,
+        nearBy100mState: nearBy100mState,
         client: client,
         chatRoomList: chatRoomList,
         updateIndexFunc: updateIndexFunc,
@@ -505,7 +505,7 @@ const ClientContext = createContext({
   // GpsKeyHandler: () => {},
   // subscribeHeart: () => {},
   signal: false,
-  nearBy10mState: {
+  nearBy100mState: {
     sessions: new Set<string>(),
     users: new Set<number>(),
     emojis: new Array<string>(),
