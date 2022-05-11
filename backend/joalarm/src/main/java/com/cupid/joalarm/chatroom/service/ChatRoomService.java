@@ -40,10 +40,13 @@ public class ChatRoomService {
         return chatRoomRepository.findAllByUserListIn(user);
     }
 
-    public void reportByRoomSeq(Long seq) {
+    @Transactional
+    public boolean reportByRoomSeq(Long seq) {
         ChatRoomEntity chatRoom = chatRoomRepository.findChatRoomEntityByChatroomSeq(seq);
-        if(chatRoom == null) return;
+        if(chatRoom == null) return false;
         chatRoom.setActivate(false);
+        chatRoomRepository.save(chatRoom);
+        return true;
     }
 
 }
