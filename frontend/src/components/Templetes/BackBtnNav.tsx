@@ -7,7 +7,7 @@ import ReactGA from 'react-ga';
 import styled from 'styled-components';
 import { IoArrowBack } from 'react-icons/io5';
 
-import Header from '../Organisms/Header';
+import Header from '../Atoms/Header';
 
 interface IPropsPageTitle {
   textColor: string;

@@ -1,15 +1,14 @@
-import ChatProfileEmoji from '../Atoms/ChatProfileEmoji';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+
+import { readEmojiUserAPI } from '../../api/emojiAPI';
+
 import {
   LeftMessageCount,
   RecentMessage,
   RandomNickname,
   Timeline,
 } from '../Atoms/Text';
-import { useNavigate } from 'react-router-dom';
-import { getChatLog } from '../../api/chatAPI';
-import { useEffect, useState } from 'react';
-import { readEmojiUserAPI } from '../../api/emojiAPI';
 
 type message = {
   type: string;
@@ -31,17 +30,18 @@ type ChatBoxProps = {
 const ChatBox: React.FC<ChatBoxProps> = ({
   chatroomSeq,
   partner,
-  activate,
   clickEvent,
   lastChat,
   messageCount,
 }) => {
   const [emoji, setEmoji] = useState<string>();
+
   useEffect(() => {
     readEmojiUserAPI({ userId: partner }).then((res) => {
       setEmoji(res);
     });
   }, []);
+
   return (
     <div>
       <ChatContainer onClick={() => clickEvent(chatroomSeq, emoji, partner)}>
@@ -116,12 +116,6 @@ const ChatInfoBox = styled.div`
   justify-content: center;
   border-radius: 50%;
   margin-bottom: 10px;
-`;
-
-const Box2 = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `;
 
 export default ChatBox;

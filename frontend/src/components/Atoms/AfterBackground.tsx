@@ -1,3 +1,6 @@
+/**
+ * @author Hyeonsooryu
+ */
 import { useTransition, animated, config } from 'react-spring';
 import styled from 'styled-components';
 

@@ -1,17 +1,12 @@
-import { randomFillSync } from 'crypto';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import Modal from '../Atoms/Modal';
-import { FcAssistant } from 'react-icons/fc';
-import Button from '../Atoms/Button';
-import { useParams, useNavigate } from 'react-router-dom';
-import { reportAPI } from '../../api/accountAPI';
-import { AuthContext } from '../../store/authContext';
 import { Client } from '@stomp/stompjs';
 
-type chatReportProps = {
-  onClickToggleModal: () => void;
-};
+import { reportAPI } from '../../api/accountAPI';
+
+import Modal from '../Atoms/Modal';
+import Button from '../Atoms/Button';
 
 interface IPropsModal {
   isModalOpen: boolean;
@@ -30,8 +25,10 @@ const ChatReport = ({
   partnerId,
   roomSeq,
 }: IPropsModal) => {
-  const [token, setToken] = useState<string>('');
   const navigate = useNavigate();
+
+  const [token, setToken] = useState<string>('');
+
   const callReportAPI = () => {
     const ReportInfo = {
       reported: partnerId,
@@ -53,10 +50,7 @@ const ChatReport = ({
         console.log(err);
       });
   };
-  // const [isOpenModal, setOpenModal] = useState<boolean>(false);
-  // const onClickToggleModal = useCallback(() => {
-  //   setOpenModal(!isOpenModal);
-  // }, [isOpenModal]);
+
   useEffect(() => {
     setToken(sessionStorage.getItem('token') || '');
   }, []);

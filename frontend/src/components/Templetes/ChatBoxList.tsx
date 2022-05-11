@@ -1,35 +1,10 @@
-import ChatBox from '../Molecules/ChatBox';
+import { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { Route, Routes, useNavigate } from 'react-router-dom';
-import { ChatTest } from '../ChatTest';
-import { useContext, useEffect, useState } from 'react';
-import { getChatLog } from '../../api/chatAPI';
-import ChatRoom from '../Templetes/ChatRoom';
+
 import { ClientContext } from '../../store/clientContext';
 
-type chatBox = {
-  chatroomSeq: number;
-  userList: Array<number>;
-  activate: boolean;
-};
-
-type chatBoxListProps = {
-  chatBoxList: chatBox[];
-  updateRoomSeq: React.Dispatch<React.SetStateAction<number>>;
-  updateRoomTitle: React.Dispatch<React.SetStateAction<string>>;
-};
-
-type message = {
-  type: string;
-  roomId: number;
-  sender: number;
-  message: string;
-  sendTime: string;
-};
-
-type messages = {
-  [seq: number]: { messages: Array<message>; newMessage: number };
-};
+import ChatBox from '../Organisms/ChatBox';
 
 const ChatBoxListPage = () => {
   const navigate = useNavigate();
@@ -37,18 +12,15 @@ const ChatBoxListPage = () => {
     useContext(ClientContext);
 
   useEffect(() => {
-    chatRoomList.forEach((chatBox) => {
-      // client 구독 및 채팅 수신 시 카운트 늘리는 이벤트 추가
-    });
+    chatRoomList.forEach((chatBox) => {});
     console.log(chatRoomList);
   }, [chatRoomList]);
 
   const getRoomSeqEvent = (seq: number, emoji?: string, partner?: number) => {
     updateIndexFunc(seq);
     navigate('/chat', { state: { emoji: emoji, partner: partner } });
-    // console.log(chats[seq]);
   };
-  const seq = Number(sessionStorage.getItem('seq'))
+  const seq = Number(sessionStorage.getItem('seq'));
 
   return (
     <ChatBoxList>
