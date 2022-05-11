@@ -18,7 +18,13 @@ const ReportModal = ({ isModalOpen, closeModal }: IPropsModal) => {
       category: '건의하기 버튼 클릭',
       action: '유저 건의사항 구글 설문 이동',
     });
-    window.open('https://forms.gle/nUCVQ3bFpiwDTD8h6');
+    if (/Android/i.test(navigator.userAgent)) {
+      window.Android.requestOpenReportForm(
+        'https://forms.gle/nUCVQ3bFpiwDTD8h6',
+      );
+    } else {
+      window.open('https://forms.gle/nUCVQ3bFpiwDTD8h6');
+    }
   };
 
   return (
