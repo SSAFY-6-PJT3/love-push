@@ -115,6 +115,7 @@ const ChatRoom: React.FC<chatRoomProps> = ({
       <BackBtnNav
         pageTitle="익명의 시라소니"
         textColor="black"
+        bgColor="#eef8ff"
         rightSideBtn={
           <IconButton imgURL="https://img.icons8.com/fluency/192/siren.png" />
         }
