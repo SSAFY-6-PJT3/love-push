@@ -59,6 +59,7 @@ const EmojiSelectModal = ({ isModalOpen, closeModal }: IPropsModal) => {
       .then(() => {
         setAlertText('이모티콘 변경 완료');
         openAlert();
+        window.location.reload();
       })
       .catch((err: any) => {
         setAlertSeverity('error');
