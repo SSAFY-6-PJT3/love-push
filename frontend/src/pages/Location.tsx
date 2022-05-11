@@ -3,19 +3,27 @@
  * @modified Hyeonsooryu Android 요청 연결
  */
 
-import Button from '../components/Atoms/Button';
-import styled from 'styled-components';
-import { IoLocationSharp } from 'react-icons/io5';
 import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { IoLocationSharp } from 'react-icons/io5';
+
 import { readEmojiAPI } from '../api/emojiAPI';
 import { AlertContext } from '../store/alertContext';
 
+import useDocumentTitle from '../hooks/useDocumentTitle';
+
+import Button from '../components/Atoms/Button';
+
 const LocationPage = () => {
+  useDocumentTitle('위치 정보 동의 | 좋아하면 누르는');
+
   const navigate = useNavigate();
+
   const [slides1, setSildes1] = useState([]);
   const [slides2, setSildes2] = useState([]);
   const [slides3, setSildes3] = useState([]);
+
   const { openAlert, setAlertText, setAlertSeverity } =
     useContext(AlertContext);
 
