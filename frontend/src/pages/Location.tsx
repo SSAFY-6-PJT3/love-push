@@ -37,7 +37,7 @@ const LocationPage = () => {
         function (error) {
           navigate('/location');
           setAlertSeverity('error');
-          setAlertText('위치를 켜주세요');
+          setAlertText('브라우저의 위치 정보 권한을 켜주세요!');
           openAlert();
         },
       );
