@@ -1,3 +1,6 @@
+/**
+ * @author Hyeonsooryu
+ */
 import { useState, useEffect } from 'react';
 import { useTransition, animated, config } from 'react-spring';
 
