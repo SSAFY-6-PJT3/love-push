@@ -90,7 +90,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
   const seq = Number(sessionStorage.getItem('seq') || '0');
   const emoji =
     sessionStorage.getItem('emojiUrl') ||
-    'https://cupid-joalarm.s3.ap-northeast-2.amazonaws.com/Green apple.svg';
+    'https://cupid-joalarm.s3.ap-northeast-2.amazonaws.com/Face blowing a kiss.svg';
   const [mySession, updateMySession] = useState('');
   const [gpsKeyNearby10m, updateGpsKeyNearby10m] = useState(
     new Array<string>(),
@@ -136,9 +136,10 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
               for (let i in newChatRoomList) {
                 if (newChatRoomList[i].chatroomSeq === chatsActions.idx) {
                   newChatRoomList[i].activate = false;
-                  return newChatRoomList;
+                  break;
                 }
               }
+
               return newChatRoomList;
             });
             break;
@@ -425,7 +426,8 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
       },
       function (error) {
         console.error(error);
-        window.location.href='https://www.someone-might-like-you.com/location'
+        window.location.href =
+          'https://www.someone-might-like-you.com/location';
       },
       {
         enableHighAccuracy: true,
