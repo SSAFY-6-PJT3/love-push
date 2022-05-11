@@ -1,11 +1,16 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 import IconButton from '../Atoms/IconButton';
 
 const MainFooter = () => {
   const navigate = useNavigate();
   const helpBtnClickHandler = () => {
+    ReactGA.event({
+      category: '도움말 클릭',
+      action: '도움말 페이지 진입',
+    });
     navigate('/about-service/0');
   };
 

@@ -198,7 +198,7 @@ const ChatRoomPage = styled.div`
 `;
 const ChatBody = styled.div`
   width: 100%;
-  height: 92vh;
+  height: calc(var(--vh, 1vh) * 92);
   display: flex;
   flex-direction: column;
   border-radius: 3px;
