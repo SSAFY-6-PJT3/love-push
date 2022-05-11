@@ -40,7 +40,6 @@ const EmojiSelectModal = ({ isModalOpen, closeModal }: IPropsModal) => {
     readEmojiAPI({ emojiUrl: emojiUrl })
       .then((res: any) => {
         setSlides(res);
-        console.log(res[0]);
       })
       .catch((err: any) => {
         console.log(err);

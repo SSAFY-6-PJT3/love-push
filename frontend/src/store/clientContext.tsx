@@ -167,9 +167,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
             'https://www.someone-might-like-you.com/api/ws-stomp',
           );
         },
-        debug: function (str) {
-          console.log(str);
-        },
         onConnect: () => {
           const sessionId = (
             (client.webSocket as any)._transport.url as string
@@ -177,8 +174,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
           updateMySession(sessionId);
 
           client.subscribe('/sub/basic', (message) => {
-            console.log(message.body);
-
             const sector: gpsType = JSON.parse(message.body);
             nearBy10mDispatch(sector);
           });
@@ -186,7 +181,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
           client.subscribe(`/sub/heart/${sessionId}`, (message) => {
             // 세션 구독하게 변경(하트용)
             const whisper: whisper = JSON.parse(message.body);
-            console.log('하트받음');
             changeSignal();
 
             receiveMessageDispatch(whisper);
@@ -194,7 +188,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
 
           if (seq !== 0) {
             client.subscribe(`/sub/user/${seq}`, (message) => {
-              console.log('채팅방 생성 명령 수신');
               const whisper: whisper = JSON.parse(message.body);
               receiveMessageDispatch(whisper);
             });
@@ -244,8 +237,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
               .catch((err) => console.log(err));
 
             heartSendSetAPI({ user: seq }).then((res) => {
-              console.log(res);
-
               updateSendHeartSet(new Set(res.map((x) => x.receiveUser)));
             });
           }
@@ -258,15 +249,10 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
                 alert('GPS를 지원하지 않습니다');
               }
             } else {
-              console.log('중지');
               clearInterval(interval);
               setGpsKey('');
             }
           }, 5000);
-        },
-        onStompError: (frame) => {
-          console.log('Broker reported error: ' + frame.headers['message']);
-          console.log('Additional details: ' + frame.body);
         },
 
         reconnectDelay: 5000,
@@ -282,15 +268,12 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
   ): Set<number> {
     switch (action.type) {
       case 'HEART':
-        console.log('HEART');
-
         if (action.person !== 0) {
           if (
             seq !== 0 &&
             sendHeartSet.has(action.person) &&
             !chatUserSet.has(action.person)
           ) {
-            console.log('CREATE CHAT ROOM');
             // 채팅방 생성 api 호출
             openChatAPI({
               sendUser: `${seq}`,
@@ -303,7 +286,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
       case 'CHATROOM':
         if (!chatUserSet.has(action.person)) {
           chatUserSet.add(action.person);
-          console.log(`${action.chatRoom} 채팅방이 신설되었습니다.`);
           const newChatRoom: chatBox = {
             chatroomSeq: action.chatRoom,
             userList: [seq, action.person],
@@ -335,8 +317,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         break;
 
       case 'INIT':
-        console.log('INIT');
-
         return action.initSet ? action.initSet : new Set<number>();
 
       default:
