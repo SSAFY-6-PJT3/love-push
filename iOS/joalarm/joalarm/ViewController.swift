@@ -26,14 +26,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         self.webKitView?.allowsBackForwardNavigationGestures = true
         
         // 정확한 위치 요청
-        locationManager.desiredAccuracy =
-kCLLocationAccuracyBest
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        // kCLLocationAccuracyBest -> 기본값 , 가장 높은 정확도
+        // kCLLocationAccuracyHundredMeters -> 100m 내에서 정확하게 파악하기.
         locationManager.startUpdatingLocation()
         
         // 앱이 백그라운드 상태에서 위치가 변경되어도 추적
         // 배터리 이슈가 존재 할 수도
         locationManager.allowsBackgroundLocationUpdates = true
-        // 앱을 종료하면 백그라운드에서 더 이상 위치 안씀 -> 설명이 따로 필요한지?
+        // 앱을 종료하면 백그라운드에서 더 이상 위치 안씀 -> 설명을 따로 해줘여 할까
         
     let space = locationManager.location?.coordinate
     lat = space?.latitude
@@ -68,10 +69,8 @@ kCLLocationAccuracyBest
     // MARK: - Func
     func loadUrl() {
         if let url = URL(string: "https://www.someone-might-like-you.com") {
-//        if let url = URL(string: "http://localhost:3000/mainpage") {
             let urlRequest = URLRequest(url: url)
             webKitView?.load(urlRequest)
-            // self.webKitView.load를 안하네.
         } else {
             // 에러처리문.. 예를들어서 alert를 띄워주거나..
             print("접속에 실패했습니다.")
@@ -102,8 +101,8 @@ extension ViewController {
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
             switch status {
-//            case.authorizedAlways, .authorizedWhenInUse:
-//                print("GPS 권한 설정 완료")
+            case.authorizedAlways, .authorizedWhenInUse:
+                print("GPS 권한 설정 완료")
 //            case.restricted, .notDetermined:
 //                print("GPS 권한 설정 되지 않음")
             case.denied:

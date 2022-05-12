@@ -13,6 +13,7 @@
 		421B295028290D4A00304FD5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 421B294E28290D4A00304FD5 /* Main.storyboard */; };
 		421B295228290D4C00304FD5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 421B295128290D4C00304FD5 /* Assets.xcassets */; };
 		421B295528290D4C00304FD5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 421B295328290D4C00304FD5 /* LaunchScreen.storyboard */; };
+		E479D081282B808E00300F61 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E479D083282B808E00300F61 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,8 @@
 		421B295128290D4C00304FD5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		421B295428290D4C00304FD5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		421B295628290D4C00304FD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E479D082282B808E00300F61 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E479D084282B810000300F61 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +66,7 @@
 				421B295128290D4C00304FD5 /* Assets.xcassets */,
 				421B295328290D4C00304FD5 /* LaunchScreen.storyboard */,
 				421B295628290D4C00304FD5 /* Info.plist */,
+				E479D083282B808E00300F61 /* InfoPlist.strings */,
 			);
 			path = joalarm;
 			sourceTree = "<group>";
@@ -109,6 +113,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = 421B293C28290D4A00304FD5;
 			productRefGroup = 421B294628290D4A00304FD5 /* Products */;
@@ -126,6 +131,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				421B295528290D4C00304FD5 /* LaunchScreen.storyboard in Resources */,
+				E479D081282B808E00300F61 /* InfoPlist.strings in Resources */,
 				421B295228290D4C00304FD5 /* Assets.xcassets in Resources */,
 				421B295028290D4A00304FD5 /* Main.storyboard in Resources */,
 			);
@@ -163,6 +169,15 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		E479D083282B808E00300F61 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E479D082282B808E00300F61 /* en */,
+				E479D084282B810000300F61 /* ko */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -170,6 +185,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -231,6 +247,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -292,12 +309,10 @@
 				DEVELOPMENT_TEAM = 9MX7BS6WR7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = joalarm/Info.plist;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치정보 권한이 필요합니다.";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "위치정보 권한이 필요합니다.";
-				INFOPLIST_KEY_NSLocationUsageDescription = "위치 정보 가져오세욧.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치정보 권한이 필요합니다.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "서비스 이용을 위해 위치 정보 권한이 필요합니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "서비스 이용을 위해 위치 정보 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -324,12 +339,10 @@
 				DEVELOPMENT_TEAM = 9MX7BS6WR7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = joalarm/Info.plist;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치정보 권한이 필요합니다.";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "위치정보 권한이 필요합니다.";
-				INFOPLIST_KEY_NSLocationUsageDescription = "위치 정보 가져오세욧.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치정보 권한이 필요합니다.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "서비스 이용을 위해 위치 정보 권한이 필요합니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "서비스 이용을 위해 위치 정보 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
