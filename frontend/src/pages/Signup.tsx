@@ -4,7 +4,7 @@
 
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 
 import { signUpAPI, idVaidateAPI } from '../api/accountAPI';
 import useDocumentTitle from '../hooks/useDocumentTitle';
@@ -110,13 +110,16 @@ const Signup = () => {
       <BackBtnNav pageTitle="회원가입" />
       <Wrapper>
         {pageId === '1' && (
-          <SignupForm
-            label="아이디를 입력해주세요."
-            type="text"
-            value={userId}
-            onInputChange={inputChangeHandler}
-            onFormSubmit={formSubmitHandler}
-          />
+          <>
+            <SignupForm
+              label="아이디를 입력해주세요."
+              type="text"
+              value={userId}
+              onInputChange={inputChangeHandler}
+              onFormSubmit={formSubmitHandler}
+            />
+            <SignupText>회원가입시 <Link to="/policy"><LinkText>개인정보처리방침</LinkText></Link>을<br/> 동의하는 것으로 간주됩니다.</SignupText>
+          </>
         )}
         {pageId === '2' && (
           <SignupForm
@@ -169,5 +172,17 @@ const ErrMsg = styled.p`
   font-weight: 300;
   color: red;
 `;
+
+const SignupText = styled.span`
+  text-align: center;
+  color: white;
+  font-weight: 300;
+  line-height:1.5;
+  font-size: 12px;
+`
+
+const LinkText = styled.span`
+  font-weight: 700;
+`
 
 export default Signup;
