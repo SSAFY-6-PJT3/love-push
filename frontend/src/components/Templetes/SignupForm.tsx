@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+import Button from '../Atoms/Button';
 import { SignupInput } from '../Atoms/Inputs';
 
 interface IProps_SignupForm {
@@ -36,6 +37,14 @@ const SignupForm = ({
         fontWeight="700"
         onChange={inputChangeHandler}
       />
+      <Button
+        bgColor="white"
+        textColor="black"
+        fontWeight="500"
+        margin="1rem 0 0"
+      >
+        다음
+      </Button>
     </StyledForm>
   );
 };
@@ -44,7 +53,7 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 2rem 2rem;
+  margin: 0 2rem 1rem;
   animation: 0.6s ease-in-out 0s 1 normal forwards running fadeinBottom;
   @keyframes fadeinBottom {
     from {

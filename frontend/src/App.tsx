@@ -18,7 +18,7 @@ import ChatRoom from './pages/ChatRoom';
 import LocationPage from './pages/Location';
 import AboutService from './pages/AboutService';
 import NotFound from './pages/NotFound';
-import Policy from './pages/policy';
+import Policy from './pages/Policy';
 
 function App() {
   const { index, chats, client, chatRoomList, setMessageCountFunc } =
