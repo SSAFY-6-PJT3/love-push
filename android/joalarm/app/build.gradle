@@ -6,7 +6,7 @@ plugins {
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
-
+    kotlinOptions.useIR = true
     defaultConfig {
         applicationId "com.cupid.joalarm"
         minSdkVersion 23

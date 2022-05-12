@@ -17,4 +17,7 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
+    <style name="Theme.Splash.Activity" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/bg_splash</item>
+    </style>
 </resources>
