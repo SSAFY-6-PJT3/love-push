@@ -306,7 +306,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9MX7BS6WR7;
+				DEVELOPMENT_TEAM = 7KCYXYNDX5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = joalarm/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "서비스 이용을 위해 위치 정보 권한이 필요합니다.";
@@ -321,7 +321,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ryu.joalarm;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cupid.joalarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -336,7 +336,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9MX7BS6WR7;
+				DEVELOPMENT_TEAM = 7KCYXYNDX5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = joalarm/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "서비스 이용을 위해 위치 정보 권한이 필요합니다.";
@@ -351,7 +351,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ryu.joalarm;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cupid.joalarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
