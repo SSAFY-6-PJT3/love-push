@@ -33,7 +33,24 @@ const LocationPage = () => {
 
   const geoPosition = () => {
     if (/Android/i.test(navigator.userAgent)) {
-      window.Android.requestLocationPermission();
+      try {
+        window.Android.requestLocationPermission();
+      } catch (err) {
+        navigator.geolocation.getCurrentPosition(
+          function (position) {
+            setAlertSeverity('success');
+            setAlertText('위치 동의 성공');
+            openAlert();
+            navigate('/');
+          },
+          function (error) {
+            navigate('/location');
+            setAlertSeverity('error');
+            setAlertText('브라우저의 위치 정보 권한을 켜주세요!');
+            openAlert();
+          },
+        );
+      }
     } else {
       navigator.geolocation.getCurrentPosition(
         function (position) {
