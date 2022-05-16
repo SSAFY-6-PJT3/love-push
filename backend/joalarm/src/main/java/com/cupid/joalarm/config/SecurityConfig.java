@@ -66,6 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/emojis").permitAll() // 이모지 전체 조회
                 .antMatchers("/heart/**").permitAll()  // 하트 진입점
                 .antMatchers("/accounts/id").permitAll()
+                .antMatchers("/contacts").permitAll()
                 .anyRequest().authenticated()
 
 
