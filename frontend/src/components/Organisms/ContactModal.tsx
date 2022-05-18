@@ -6,6 +6,7 @@ import ReactGA from 'react-ga';
 
 import Modal from '../Atoms/Modal';
 import Button from '../Atoms/Button';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 interface IPropsModal {
   isModalOpen: boolean;
@@ -13,23 +14,25 @@ interface IPropsModal {
 }
 
 const ReportModal = ({ isModalOpen, closeModal }: IPropsModal) => {
+  const navigate = useNavigate();
   const reportBtnClickHandler = () => {
     ReactGA.event({
       category: '건의하기 버튼 클릭',
       action: '유저 건의사항 구글 설문 이동',
     });
-    if (/Android/i.test(navigator.userAgent)) {
-      try {
-        window.Android.requestOpenReportForm(
-          'https://forms.gle/nUCVQ3bFpiwDTD8h6',
-        );
-      } catch (err) {
-        window.open('https://forms.gle/nUCVQ3bFpiwDTD8h6');
-        console.log(err);
-      }
-    } else {
-      window.open('https://forms.gle/nUCVQ3bFpiwDTD8h6');
-    }
+    // if (/Android/i.test(navigator.userAgent)) {
+    //   try {
+    //     window.Android.requestOpenReportForm(
+    //       'https://forms.gle/nUCVQ3bFpiwDTD8h6',
+    //     );
+    //   } catch (err) {
+    //     window.open('https://forms.gle/nUCVQ3bFpiwDTD8h6');
+    //     console.log(err);
+    //   }
+    // } else {
+    //   window.open('https://forms.gle/nUCVQ3bFpiwDTD8h6');
+    // }
+    navigate('/contact/1');
   };
 
   return (

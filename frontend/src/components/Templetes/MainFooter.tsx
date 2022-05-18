@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import ReactGA from 'react-ga';
 
 import IconButton from '../Atoms/IconButton';
-import ReportModal from '../Organisms/ReportModal';
+import ReportModal from '../Organisms/ContactModal';
 
 const MainFooter = () => {
   const navigate = useNavigate();
