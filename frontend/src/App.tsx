@@ -19,6 +19,8 @@ import LocationPage from './pages/Location';
 import AboutService from './pages/AboutService';
 import NotFound from './pages/NotFound';
 import Policy from './pages/Policy';
+import Contact from './pages/Contact';
+import CheckContact from './pages/CheckContact';
 
 function App() {
   const { index, chats, client, chatRoomList, setMessageCountFunc } =
@@ -64,6 +66,8 @@ function App() {
             <Route path="/location" element={<LocationPage />} />
             <Route path="/about-service/:pageId" element={<AboutService />} />
             <Route path="/policy" element={<Policy />} />
+            <Route path="/contact/:pageId" element={<Contact />} />
+            <Route path="/contact/check/" element={<CheckContact />} />
             <Route path="*" element={<NotFound />} />
           </GARoutes>
         </BrowserRouter>
