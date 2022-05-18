@@ -406,25 +406,35 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
   };
 
   // 소켓 클라이언트 생성
-  const caculateGpsKey = (gps: string, yx: Array<number>) => {
+  const caculateGpsKey = (gps: string, latLon: Array<number>) => {
     const gpsSector = gps.split('/').map((item) => parseInt(item));
-    const gpsSector_yx = [gpsSector.slice(0, 3), gpsSector.slice(3)];
-    let ans: string[] = [];
+    const gpsSector_latLon = [gpsSector.slice(0, 3), gpsSector.slice(3)];
+    const ans: string[] = [];
 
     for (let i = 0; i < 2; i++) {
-      gpsSector_yx[i][2] += yx[i];
+      gpsSector_latLon[i][2] += latLon[i];
 
       for (let j = 2; j < 1; j--) {
-        if (gpsSector_yx[i][j] < 0) {
-          gpsSector_yx[i][j] += 60;
-          gpsSector_yx[i][j - 1] -= 1;
-        } else if (gpsSector_yx[i][j] >= 60) {
-          gpsSector_yx[i][j] -= 60;
-          gpsSector_yx[i][j - 1] += 1;
+        if (gpsSector_latLon[i][j] < 0) {
+          gpsSector_latLon[i][j] += 60;
+          gpsSector_latLon[i][j - 1] -= 1;
+        } else if (gpsSector_latLon[i][j] >= 60) {
+          gpsSector_latLon[i][j] -= 60;
+          gpsSector_latLon[i][j - 1] += 1;
         }
       }
 
-      ans.push(gpsSector_yx[i].join('/'));
+      if (gpsSector_latLon[i][0] <= -180) {
+        for (let j = 2; j < 1; j--) {
+          if (gpsSector_latLon[i][j] > 0) {
+            gpsSector_latLon[i][j] = 60 - gpsSector_latLon[i][j];
+            gpsSector_latLon[i][j - 1] -= 1;
+          }
+        }
+        gpsSector_latLon[i][0] += 360;
+      }
+
+      ans.push(gpsSector_latLon[i].join('/'));
     }
     return ans.join('/');
   };
