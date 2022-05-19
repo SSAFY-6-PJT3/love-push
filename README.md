@@ -66,28 +66,21 @@
   하트를 송수신 할 수 있으며, 하트가 매칭된 사용자들은 1:1 채팅이 자동으로 생성합니다 <br><br>
   이모지 변경, 유저 신고 등 부가적인 기능을 제공합니다
 </h3>
-
 <br>
 
 ## 💁 Release History
 
-#### - 22. 05.21 - 앱스토어 출시 (Web view)
+<h3 style="text-align:center;">
+  22.05.21 - 앱스토어 출시</h3>  <h5  style="text-align:center;"><br></h5>
 
-#### - 22.05.20 - 플레이스토어 출시 (Web view)
+<h3 style="text-align:center;">
+  22.05.20 - 플레이스토어 출시</h3>  <h5  style="text-align:center;"><br></h5>
 
-#### - 22.05.13 - Web 2차 배포
-
-* 안내 템플릿
-* 건의함
-* 위치 엑세스 허용 안내
-* 이모지 변경
-
-#### - 22.05.06 - Web 최초 배포 (MVP)
-
-* 사용자간 위치 공유
-* 하트 송수신
-* 채팅
-* 유저 신고
+<h3 style="text-align:center;">
+  22.05.13 - Web 2차 배포</h3>  <h5  style="text-align:center;">안내 템플릿 <br> 건의함 <br> 위치 엑세스 허용 안내 <br> 이모지 변경 <br></h5>
+<h3 style="text-align:center;">
+  22.05.06 - Web 최초 배포</h3>
+ <h5  style="text-align:center;"> 사용자간 위치 공유 <br> 하트 송수신 <br> 채팅 <br> 유저 신고 <br></h5>
 
 
 
@@ -217,11 +210,11 @@
 ||||
 
 
-# 🔥 Individual Tech Section
+# ⚙️ Individual Tech Section
 
 
 
-## 🛰️ Section1, 김주호 - 위치 기반 기술과 채팅에 대하여
+## 🏃 Section1, 김주호 - 위치 기반 기술과 채팅에 대하여
 
 > BE: Springboot Websocket
 >
@@ -305,19 +298,31 @@ public void handleSessionDisconnect(SessionDisconnectEvent event) {
 
 
 
-## ✨ Section2, 남궁휘 - 
+## 🏃 Section2, 남궁휘 - 
 
 
 
-## 👑 Section3, 유현수 -
+## 🏃 Section3, 유현수 -
 
 
-## 🗳️ Section4, 이건희 - 쿠버네티스, 도커, 젠킨스를 활용한 배포와 CI/CD에 대하여
-
-
-
-## 🛡️ Section5, 정은이 - 위치 기반 기술과 채팅에 대하여
+## 🏃 Section4, 이건희 - 쿠버네티스, 도커, 젠킨스를 활용한 배포와 CI/CD에 대하여
 
 
 
-## ❣️ Section6, 한승훈 - 위치 기반 기술과 채팅에 대하여
+## 🏃 Section5, 정은이 - 위치 기반 기술과 채팅에 대하여
+
+
+
+## 🏃 Section6, 한승훈 - 위치 기반 기술과 채팅에 대하여
+
+
+
+
+
+
+## 📖 Reference
+
+formdata - https://developer.mozilla.org/ko/docs/Web/API/FormData
+
+그림판 - https://github.com/shlee0882/painting-js
+
