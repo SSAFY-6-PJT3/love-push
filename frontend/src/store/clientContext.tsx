@@ -408,33 +408,33 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
   // 소켓 클라이언트 생성
   const caculateGpsKey = (gps: string, latLon: Array<number>) => {
     const gpsSector = gps.split('/').map((item) => parseInt(item));
-    const gpsSector_latLon = [gpsSector.slice(0, 3), gpsSector.slice(3)];
+    const gpsSectorLatLon = [gpsSector.slice(0, 3), gpsSector.slice(3)];
     const ans: string[] = [];
 
     for (let i = 0; i < 2; i++) {
-      gpsSector_latLon[i][2] += latLon[i];
+      gpsSectorLatLon[i][2] += latLon[i];
 
       for (let j = 2; j < 1; j--) {
-        if (gpsSector_latLon[i][j] < 0) {
-          gpsSector_latLon[i][j] += 60;
-          gpsSector_latLon[i][j - 1] -= 1;
-        } else if (gpsSector_latLon[i][j] >= 60) {
-          gpsSector_latLon[i][j] -= 60;
-          gpsSector_latLon[i][j - 1] += 1;
+        if (gpsSectorLatLon[i][j] < 0) {
+          gpsSectorLatLon[i][j] += 60;
+          gpsSectorLatLon[i][j - 1] -= 1;
+        } else if (gpsSectorLatLon[i][j] >= 60) {
+          gpsSectorLatLon[i][j] -= 60;
+          gpsSectorLatLon[i][j - 1] += 1;
         }
       }
 
-      if (gpsSector_latLon[i][0] <= -180) {
+      if (gpsSectorLatLon[i][0] <= -180) {
         for (let j = 2; j < 1; j--) {
-          if (gpsSector_latLon[i][j] > 0) {
-            gpsSector_latLon[i][j] = 60 - gpsSector_latLon[i][j];
-            gpsSector_latLon[i][j - 1] -= 1;
+          if (gpsSectorLatLon[i][j] > 0) {
+            gpsSectorLatLon[i][j] = 60 - gpsSectorLatLon[i][j];
+            gpsSectorLatLon[i][j - 1] -= 1;
           }
         }
-        gpsSector_latLon[i][0] += 360;
+        gpsSectorLatLon[i][0] += 360;
       }
 
-      ans.push(gpsSector_latLon[i].join('/'));
+      ans.push(gpsSectorLatLon[i].join('/'));
     }
     return ans.join('/');
   };
