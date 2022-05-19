@@ -155,36 +155,36 @@
 <tr>
   <td valign="top" width="50%">
     <a href="https://github.com/eora21">
-      <img src="README.assets/banner1.png" align="left" style="width: 98%" />
+      <img src="README.assets/seunghoon.png" align="left" style="width: 98%" />
     </a>
   </td>
   <td valign="top" width="50%">
     <a href="https://avatars.githubusercontent.com/u/76445655?v=4">
-      <img src="./static/banner/banner2.png" align="left" style="width: 98%" />
+      <img src="README.assets/geonhee.png" align="left" style="width: 98%" />
     </a>
   </td>
 </tr>
 <tr>
   <td valign="top" width="50%">
     <a href="https://github.com/82surf">
-      <img src="./static/banner/banner3.png" align="left" style="width: 98%" />
+      <img src="README.assets/hyunsu.png" align="left" style="width: 98%" />
     </a>
   </td>
   <td valign="top" width="50%">
     <a href="https://github.com/Gkuer">
-      <img src="./static/banner/banner4.png" align="left" style="width: 98%" />
+      <img src="README.assets/eune.png" align="left" style="width: 98%" />
     </a>
   </td>
   </tr>
   <tr>
     <td valign="top" width="50%">
     <a href="https://github.com/EuneeChung">
-      <img src="./static/banner/banner4.png" align="left" style="width: 98%" />
+      <img src="README.assets/hyi.png" align="left" style="width: 98%" />
     </a>
   </td>
   <td valign="top" width="50%">
     <a href="https://github.com/gkstmdgns422">
-      <img src="./static/banner/banner4.png" align="left" style="width: 98%" />
+      <img src="README.assets/juho.png" align="left" style="width: 98%" />
     </a>
   </td>
 </tr>
@@ -192,40 +192,29 @@
 
 
 
-#### 주요  Stack
+#### 주요 Stack
 
 |                        Content                         |           Main            |                          Detail                          |
 | :----------------------------------------------------: | :-----------------------: | :------------------------------------------------------: |
-|               [**음성인식**](#음성인식 )               | Python 3.9.6 / JavaScript |             webkitSpeechRecognition / Axios              |
-|                 [**드로잉**](#드로잉)                  |        JavaScript         |                Canvas / Blob Data/ Axios                 |
-|                       [**FE**]()                       |  HTML / CSS / JavaScript  |            Django 3.2.9 / HTML5 / CSS3 / ES6             |
-|         [**클러스터링**](#색채-데이터-만들기)          |  C# .Net Framework 4.7.2  |            C#(OpenCvSharp4 - V4.5.3.20210817)            |
-| [**RGB Calculating**](#알고리즘-구성-및-웹페이지-작업) |       Python 3.9.6        |                       Python(Math)                       |
-|                     [**DB**](#db)                      |       Python 3.9.6        |                    Python(Shell_plus)                    |
-|           [**Query 최적화**](#query-최적화)            |       Django 3.2.9        |      prefetch_related / annotate / filter / exclude      |
-|                   [**배포**](#배포)                    |            AWS            | EC2(Ubuntu Server 18.04 LTS) / Cloud9 / Gunicorn / NGINX |
-
-
-
-#### 기본 Stack
-
-|       ent        |      Page       |                         Description                          |
-| :--------------: | :-------------: | :----------------------------------------------------------: |
-|       User       |    accounts/    |                 회원가입 / 로그인 / 로그아웃                 |
-|   예고편 보기    |     detail/     |          영화 포스터 누를 시, 예고편 팝업 자동재생           |
-|   색채 고르기    |     choice/     |                  추천 받고 싶은 색채 고르기                  |
-|   평점순 정렬    |      base/      | TMDB 평점 순으로 정렬 / 한줄평\|리뷰 남길시 추천 안하도록 구성 |
-|   최신순 정렬    |      base/      | 개봉일 최신 순으로 정렬 / 한줄평\|리뷰 남길시 추천 안하도록 구성 |
-| 이전 색채로 정렬 |      base/      | AI Z Score 순으로 정렬 / 한줄평\|리뷰 남길시 추천 안하도록 구성 |
-| 사용자 평균 평점 |     detail/     |        영화에 대해 유저가 남긴 평균 평점 계산 및 출력        |
-| 영화 키워드 검색 |      base/      | 검색 기능으로 제목 > 내용에 키워드 포함여부에 따라 정렬해서 출력 |
-|   퀴즈 만들기    |  quiz_create/   |      사용자가 영화에 대한 그림 퀴즈를 낼 수 있도록 구성      |
-|    퀴즈 풀기     |      quiz/      | 사용자들끼리 문제를 풀고 티어에 대한 점수를 얻을 수 있도록 구성 |
-|  평점 및 한줄평  | movie_comment/  |       영화에 대한 별점과 한줄평을 남길 수 있도록 구성        |
-|   리뷰(+그림)    |     review/     |           그림을 그리며 리뷰를 남길 수 있도록 구성           |
-|   리뷰 속 댓글   | review_comment/ |             리뷰마다 댓글을 남길 수 있도록 구성              |
-|    유저 티어     |      tier/      | 브론즈부터 마스터까지 리뷰 작성, 문제 풀이 등에서 점수 획득  |
-| 영화 Frame 확대  |     detail/     | detail 페이지에서 영화에 대한 프레임 클릭시  Modal로 확대 출력 |
+|              [**하트송수신**](#음성인식 )              | Python 3.9.6 / JavaScript |             webkitSpeechRecognition / Axios              |
+|                  [**채팅**](#드로잉)                   |        JavaScript         |                Canvas / Blob Data/ Axios                 |
+|                   [**위치 공유**]()                    |  HTML / CSS / JavaScript  |            Django 3.2.9 / HTML5 / CSS3 / ES6             |
+|         [**Kubernetes**](#색채-데이터-만들기)          |  C# .Net Framework 4.7.2  |            C#(OpenCvSharp4 - V4.5.3.20210817)            |
+| [**파이프라인 구축**](#알고리즘-구성-및-웹페이지-작업) |       Python 3.9.6        |                       Python(Math)                       |
+|                    [**CI/CD**](#db)                    |       Python 3.9.6        |                    Python(Shell_plus)                    |
+|           [**Ingress Nginx**](#query-최적화)           |       Django 3.2.9        |      prefetch_related / annotate / filter / exclude      |
+|                   [**배포**](#배포)                    |            AWS            | EC2(Ubuntu Server 20.04 LTS) / Cloud9 / Gunicorn / NGINX |
+|                                                        |                           |                                                          |
+|                                                        |                           |                                                          |
+|                                                        |                           |                                                          |
+|                                                        |                           |                                                          |
+|                                                        |                           |                                                          |
+|                                                        |                           |                                                          |
+|                                                        |                           |                                                          |
+|                                                        |                           |                                                          |
+|                                                        |                           |                                                          |
+|                                                        |                           |                                                          |
+|                                                        |                           |                                                          |
 
 
 
@@ -237,11 +226,11 @@
 
 
 
-## ✨ Section2, 남궁휘 - 위치 기반 기술과 채팅에 대하여
+## ✨ Section2, 남궁휘 - 
 
 
 
-## ✨ Section3, 유현수 - 위치 기반 기술과 채팅에 대하여
+## ✨ Section3, 유현수 - 
 
 
 
@@ -249,9 +238,9 @@
 
 
 
-## ✨ Section5, 정은이 - 위치 기반 기술과 채팅에 대하여
+## ✨ Section5, 정은이 - 
 
 
 
-## ✨ Section6, 한승훈 - 위치 기반 기술과 채팅에 대하여
+## ✨ Section6, 한승훈 - 
 
