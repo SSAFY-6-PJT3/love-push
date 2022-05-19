@@ -18,7 +18,7 @@ const MainNav = () => {
   const { isLoggedIn } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
   const [emojiUrl, setEmojiUrl] = useState(
-    'https://cupid-joalarm.s3.ap-northeast-2.amazonaws.com/Astonished%20face.svg',
+    'https://cupid-joalarm.s3.ap-northeast-2.amazonaws.com/Face blowing a kiss.svg',
   );
 
   useEffect(() => {
