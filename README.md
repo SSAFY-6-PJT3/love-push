@@ -1,10 +1,70 @@
-<div align="center">
-  <h1>좋아하면 누르는</h1>
-  <br/>
-  <img src="./README.assets/title2.png">
-</div>
+# 좋아하면 누르는
+
+<h1 align="center" style="max-width: 100%;">
+  <img width="1100" alt="Logo" src="README.assets/title.png" style="max-width: 100%;" /><br/>
+  <a href="https://www.prismfilmstudio.com">www.someone-might-like-you.com</a>
+</h1>
+
+
+
+
+
+<p align="center">
+  <b>Supported</b><br/>
+  <a href="#"><img width="45" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" alt="react" /></a>&nbsp;&nbsp;
+  <a href="#"><img width="45" src="http://assets.stickpng.com/images/5848309bcef1014c0b5e4a9a.png" alt="redux" /></a>&nbsp;&nbsp;
+    <a href="#"><img width="45" src="https://w7.pngwing.com/pngs/727/307/png-transparent-java-development-kit-operating-systems-android-macos-android-text-logo-computer-program.png" alt="java" /></a>&nbsp;&nbsp;
+  <a href="#"><img width="45" src="https://perfectacle.github.io/2017/08/02/Spring-boot-study-001day/thumb.png" alt="springboot" /></a>&nbsp;&nbsp;
+  <a href="#"><img width="45" src="https://t1.daumcdn.net/cfile/tistory/991A86475C91BE1D40" alt="jpa" /></a>&nbsp;&nbsp;
+  <a href="#"><img width="45" src="https://media.vlpt.us/images/ec532/post/bc893d61-4eaa-4f8f-9b2c-e2d2143506a4/aws_ec2.svg" alt="EC2" /></a>&nbsp;&nbsp;
+    <a href="#"><img width="45" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kubernetes_logo_without_workmark.svg/1200px-Kubernetes_logo_without_workmark.svg.png" alt="kube" /></a>&nbsp;&nbsp;
+    <a href="#"><img width="45" src="https://perfectacle.github.io/2019/04/16/spring-boot-docker-image-optimization/thumb.png" alt="docker" /></a>&nbsp;&nbsp;
+    <a href="#"><img width="45" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Jenkins_logo.svg/1200px-Jenkins_logo.svg.png" alt="jenkins" /></a>&nbsp;&nbsp;
+    <a href="#"><img width="45" src="https://blog.kakaocdn.net/dn/rrEfB/btq97aMSAsX/lstil1pt0KJW0Iy2WPO0Mk/img.png" alt="nginx" /></a>&nbsp;&nbsp;
+  <a href="#"><img width="45" src="https://w7.pngwing.com/pngs/747/798/png-transparent-mysql-logo-mysql-database-web-development-computer-software-dolphin-marine-mammal-animals-text.png" alt="mysql" /></a>&nbsp;&nbsp;
+    <a href="#"><img width="45" src="https://w7.pngwing.com/pngs/63/19/png-transparent-mongodb-database-nosql-postgresql-mongo-text-logo-business-thumbnail.png" alt="mongo" />
+
+ 
+
+</p>
+
+
+
+## 💁 Release History
+
+웹 : www.someone-might-like-you.com
+
+안드로이드 : https://play.google.com/store/apps/details?id=com.nianticlabs.pokemongo
+
+아이폰 : https://play.google.com/store/apps/details?id=com.nianticlabs.pokemongo
 
 <br />
+
+
+
+#### 22. 05.21 - 앱스토어 출시 (Web view)
+
+#### 22.05.20 - 플레이스토어 출시 (Web view)
+
+#### 22.05.13 - Web 2차 배포
+
+* 안내 템플릿
+* 건의함
+* 위치 엑세스 허용 안내
+* 이모지 변경
+
+#### 22.05.06 - Web 최초 배포 (MVP)
+
+* 사용자간 위치 공유
+
+* 하트 송수신
+
+* 채팅
+
+* 유저 신고
+
+  
+
 <br />
 
 ## 목차
