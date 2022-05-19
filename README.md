@@ -135,21 +135,21 @@
 
 ### 💡 기획 및 운영
 
-| <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Git-logo.svg/768px-Git-logo.svg.png?20160811101906" alt="Git" width="50px" height="50px" /> |      |       |        |            |         |
-| :----------------------------------------------------------: | :--: | ----- | ------ | ---------- | ------- |
-|                             Git                              | JIRA | Figma | Notion | Mattermost | Discord |
+| <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Git-logo.svg/768px-Git-logo.svg.png?20160811101906" alt="Git" width="50px" height="50px" /> | <img src="https://wac-cdn-2.atlassian.com/image/upload/f_auto,q_auto/dam/jcr:b544631f-b225-441b-9e05-57b7fd0d495b/Jira%20Software@2x-icon-blue.png" alt="jira" width="50px" height="50px" /> | <img src="https://cdn2.downdetector.com/static/uploads/logo/figma2.png" alt="figma" width="50px" height="50px" /> | <img src="https://blog.kakaocdn.net/dn/2CufY/btq8RTsnYaT/3EQm1A8iL54UcCzFkemVJ1/img.png" alt="notion" width="50px" height="50px" /> | <img src="https://play-lh.googleusercontent.com/FERhw8K6nxOmNNthc4zLb6FnkO5_iDs-W4w3Uc_GiHosUYJlkeXHp-Qom5kbq4u__Ns" alt="mattermost" width="50px" height="50px" /> | <img src="https://play-lh.googleusercontent.com/0oO5sAneb9lJP6l8c6DH4aj6f85qNpplQVHmPmbbBxAukDnlO7DarDW0b-kEIHa8SQ=w512" alt="discord" width="50px" height="50px" /> |
+| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+|                             Git                              |                             JIRA                             |                            Figma                             |                            Notion                            |                          Mattermost                          |                           Discord                            |
 
 
 
 ### 📱 App
 
-|        |                |       |       |
-| :----: | :------------: | :---: | :---: |
-| Kotlin | Android Studio | Swift | Xcode |
+| <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Kotlin_Icon.svg/1200px-Kotlin_Icon.svg.png" alt="kotlin" width="50px" height="50px" /> | <img src="https://blog.kakaocdn.net/dn/bU8z6O/btqKXLx6c0Y/szaVg2oqCAUxMYex0n8zs1/img.png" alt="android_studio" width="50px" height="50px" /> | <img src="https://images.velog.io/images/gooreum_90/post/c53e169b-71ea-4bf5-84ce-9523949b2dfd/swiftlogo.png" alt="swift" width="50px" height="50px" /> | <img src="https://is5-ssl.mzstatic.com/image/thumb/Purple122/v4/9d/25/cf/9d25cfe3-2476-20ae-ed0f-8d67a188bad7/Xcode-85-220-0-4-2x.png/1200x630bb.png" alt="xcode" width="50px" height="50px" /> |
+| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+|                            Kotlin                            |                        Android Studio                        |                            Swift                             |                            Xcode                             |
 
 
 
-## ✨ 팀 & 기술
+## 💞 팀 & 기술
 
 <table>
 <tr>
@@ -191,8 +191,7 @@
 </table>  
 
 
-
-#### 주요 Stack
+#### 🖥️ 주요 Stack
 
 |                        Content                         |           Main            |                          Detail                          |
 | :----------------------------------------------------: | :-----------------------: | :------------------------------------------------------: |
@@ -215,14 +214,94 @@
 |                                                        |                           |                                                          |
 |                                                        |                           |                                                          |
 |                                                        |                           |                                                          |
+||||
+
+
+# 🔥 Individual Tech Section
 
 
 
-# ✨ Individual Tech Section
+## 🛰️ Section1, 김주호 - 위치 기반 기술과 채팅에 대하여
+
+> BE: Springboot Websocket
+>
+> FE: sockjs-client@1.6.0 / @stomp/stompjs@6.1.2 / @types/sockjs-client@1.5.1 / @types/stompjs@2.3.5
+
+#### 어떻게 근처 유저들을 얻어올 것인가?
+
+제일 쉬운 방법은, 내 위치를 중심으로 모든 유저들과의 거리를 계산 후 100m 이내인 유저를 걸러내면 된다.
+
+허나 이는 유저의 수가 많아지면 많아질수록 효율이 급감하며, 계속해서 유저들의 실시간 위치를 받아내야만 한다.
+
+좋은 방법이 아닐 것 같아 많은 고민을 하던 중, [우아한 Tech 분산 이벤트 스트리밍](https://youtu.be/PvAlbOm9WN8?t=5516) 영상과 [카카오의 W3W](https://kakaomap.tistory.com/238)에서 영감을 얻어 전 세계를 정해진 크기의 구획으로 나눈 후 내 구획을 기준으로 주변의 구획 데이터를 얻어오면 될 것 같았다.
+
+해당하는 방식이라면 주변 구획에 접근하여 유저 목록을 생성할 수 있으니, 굉장히 좋은 방법이라 생각했다.
+
+아쉽게도 카카오의 W3W나 일반 [W3W](https://developer.what3words.com/public-api/docs)가 근처 구획만을 생성, 획득하는 방법으로는 방향성이 맞지 않다고 느껴졌기 때문에, **직접 gps 데이터를 계산하여 구획을 생성하는 방식**을 채택하였다.
+
+#### gps data -> sector data?
+
+보통 gps 데이터를 수신할 경우, 37.xxxxxxx, 127.xxxxxxx 의 값을 가져오게 된다.
+
+해당하는 값을 하나의 구획으로 바꾸어야 한다. 구획은 몇 m로 세팅해야 하며, 손 쉽게 나눌 수 있는 방법은 무엇이 있을까?
+
+우선 1m가 gps상에서 몇 차이가 나는지 확인해 보았다. [해당 글을 참고](https://m.cafe.daum.net/gpsyn/Pllz/530)하자면, 0.00001도 차이가 대략 1m라 한다. 정확하게는 물론 아니겠지만, 해당 방법으로 전 세계 구획을 나눈 후 작업해도 괜찮을 것 같다는 생각을 했다. 그러나 더욱 정확한 계측을 위해, [두 지역 사이의 거리를 측정해 주는 사이트](http://www.movable-type.co.uk/scripts/latlong.html)를 찾아갔다.
+
+![img](README.assets/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fed37fafd-1e8b-4da1-9a86-e5025e64e01b%2FUntitled.png)
+
+해당 사이트의 계산에 의하면, `3m`는 도분초 좌표계 기준으로 `0.0973초`만큼 차이가 있었다.
+
+![img](README.assets/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F364cd5ca-4fe0-4d76-b841-13e267fde059%2FUntitled.png)
+
+`0.1초` 차이는 `3.083m`만큼 차이가 났으며, `1초` 차이는 `30.83m`차이였다.
+
+그렇다면, gps 데이터를 수신한 후 도분초 좌표계로 변환하고, 소수점을 제외한 데이터를 구획으로 삼으면 되지 않을까 하는 생각이 들어 바로 착수했다. 정확히 100m는 어렵겠지만, 대략적인 100m 데이터를 얻을 수 있으므로..
+
+#### Sector 구현
+
+지구의 모든 구역을 30m * 30m 2차원 배열로 만들기에는 메모리 낭비가 너무 크다. index도 계산해줘야 하는 이슈가 있으므로 HashMap을 만든 후 gps 구획 데이터를 key로 들고 있기로 했다.
+
+비로그인 사용자도 이용할 수 있어야 하므로 소켓 세션 id를 해당 구획 value의 key로 잡고, pk와 이모지URL을 value로 지니고 있게끔 했다.
+
+```json
+{
+	"36/21/101/127/20/583":{
+	"5ubuuxi3":{
+		"pk":1,"emojiURL":"emoji"
+		}
+	}
+}
+```
+
+또한 유저가 이동해 구획이 변경되거나 로그인 등으로 이모지가 변경된다면 basic 채널에 메세지를 전송하여 모든 유저가 알 수 있게끔 메세지를 보내도록 했다. 이는 스케쥴러를 사용하였다.
+
+```java
+@Scheduled(fixedRate = 5000)
+public void sendBasicChat() {  // basic으로 전체 채팅 보내기
+    if (gpsRepository.getOperationCommand()) {
+        messageTemplate.convertAndSend("/sub/basic", gpsRepository.getAllGpsSectorData());
+        gpsRepository.setOffOperationCommand();
+    }
+}
+```
 
 
 
-## ✨ Section1, 김주호 - 위치 기반 기술과 채팅에 대하여
+소켓통신이 끊긴다면 해당하는 구획에서 데이터를 삭제해야 하므로, 소켓 연결 및 구획 변경 시마다 각각의 세션에 현재 구획을 들고 있다가, 끊길 경우 구획으로 접근해 해당하는 세션id값을 제거하도록 했다.
+
+```java
+@EventListener
+public void handleSessionConnect(SessionConnectEvent event) {
+    SimpAttributesContextHolder.currentAttributes().setAttribute("GPS", "");
+}
+
+@EventListener
+public void handleSessionDisconnect(SessionDisconnectEvent event) {
+    String gpsKey = (String) SimpAttributesContextHolder.currentAttributes().getAttribute("GPS");
+    String sessionId = event.getSessionId();
+    gpsRepository.dropUser(gpsKey, sessionId);
+}
+```
 
 
 
@@ -230,17 +309,15 @@
 
 
 
-## ✨ Section3, 유현수 - 
+## 👑 Section3, 유현수 -
+
+
+## 🗳️ Section4, 이건희 - 쿠버네티스, 도커, 젠킨스를 활용한 배포와 CI/CD에 대하여
 
 
 
-## ✨ Section4, 이건희 - 쿠버네티스, 도커, 젠킨스를 활용한 배포와 CI/CD에 대하여
+## 🛡️ Section5, 정은이 - 위치 기반 기술과 채팅에 대하여
 
 
 
-## ✨ Section5, 정은이 - 
-
-
-
-## ✨ Section6, 한승훈 - 
-
+## ❣️ Section6, 한승훈 - 위치 기반 기술과 채팅에 대하여
