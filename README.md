@@ -196,8 +196,8 @@
 |                    [**CI/CD**](#db)                    |       Python 3.9.6        |                    Python(Shell_plus)                    |
 |           [**Ingress Nginx**](#query-최적화)           |       Django 3.2.9        |      prefetch_related / annotate / filter / exclude      |
 |                   [**배포**](#배포)                    |            AWS            | EC2(Ubuntu Server 20.04 LTS) / Cloud9 / Gunicorn / NGINX |
-|                                                        |                           |                                                          |
-|                                                        |                           |                                                          |
+| [**회원관리**](#--back-end) | JWT / Spring Security | JWT / HS512 / Spring Security |
+| Android | Kotlin | Android Studio 4.1.1 / Web View |
 |                                                        |                           |                                                          |
 |                                                        |                           |                                                          |
 |                                                        |                           |                                                          |
