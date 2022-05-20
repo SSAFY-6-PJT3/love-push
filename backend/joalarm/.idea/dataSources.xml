@@ -43,5 +43,19 @@
       <jdbc-url>jdbc:mysql://3.35.170.113:30000/</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="joalarm@3.35.170.113 [2]" uuid="abb4b7ec-b498-4d59-b8d4-493ed1f919c5">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://3.35.170.113:30000/joalarm</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="joalarm@3.35.170.113 [3]" uuid="bf9a99d2-32c6-413d-b7bb-aad4805d417a">
+      <driver-ref>mongo</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.dbschema.MongoJdbcDriver</jdbc-driver>
+      <jdbc-url>mongodb://3.35.170.113:30001/joalarm</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
