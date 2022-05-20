@@ -1,4 +1,4 @@
-# 좋아하면 누르는
+<h1  align="center"> 좋아하면 누르는 </h1>
 
 <h1 align="center" style="max-width: 100%;">
   <img width="1100" alt="Logo" src="README.assets/title.png" style="max-width: 100%;" /><br/>
@@ -18,11 +18,10 @@
 </table>
 
 
-
 <p align="center">
   <b>Supported</b><br/>
   <a href="#"><img width="45" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" alt="react" /></a>&nbsp;&nbsp;
-    <a href="#"><img width="45" src="https://w7.pngwing.com/pngs/727/307/png-transparent-java-development-kit-operating-systems-android-macos-android-text-logo-computer-program.png" alt="java" /></a>&nbsp;&nbsp;
+    <a href="#"><img width="45" src="README.assets/java.png" alt="java" /></a>&nbsp;&nbsp;
   <a href="#"><img width="45" src="https://perfectacle.github.io/2017/08/02/Spring-boot-study-001day/thumb.png" alt="springboot" /></a>&nbsp;&nbsp;
   <a href="#"><img width="45" src="https://t1.daumcdn.net/cfile/tistory/991A86475C91BE1D40" alt="jpa" /></a>&nbsp;&nbsp;
   <a href="#"><img width="45" src="https://media.vlpt.us/images/ec532/post/bc893d61-4eaa-4f8f-9b2c-e2d2143506a4/aws_ec2.svg" alt="EC2" /></a>&nbsp;&nbsp;
@@ -30,8 +29,9 @@
     <a href="#"><img width="45" src="https://perfectacle.github.io/2019/04/16/spring-boot-docker-image-optimization/thumb.png" alt="docker" /></a>&nbsp;&nbsp;
     <a href="#"><img width="45" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Jenkins_logo.svg/1200px-Jenkins_logo.svg.png" alt="jenkins" /></a>&nbsp;&nbsp;
     <a href="#"><img width="45" src="https://blog.kakaocdn.net/dn/rrEfB/btq97aMSAsX/lstil1pt0KJW0Iy2WPO0Mk/img.png" alt="nginx" /></a>&nbsp;&nbsp;
-  <a href="#"><img width="45" src="https://w7.pngwing.com/pngs/747/798/png-transparent-mysql-logo-mysql-database-web-development-computer-software-dolphin-marine-mammal-animals-text.png" alt="mysql" /></a>&nbsp;&nbsp;
-    <a href="#"><img width="45" src="https://w7.pngwing.com/pngs/63/19/png-transparent-mongodb-database-nosql-postgresql-mongo-text-logo-business-thumbnail.png" alt="mongo" />
+  <a href="#"><img width="45" src="README.assets/mysql.png" alt="mysql" /></a>&nbsp;&nbsp;
+    <a href="#"><img width="45" src="README.assets/mongo.png" alt="mongo" />
+
 
 
 
@@ -56,31 +56,31 @@
 </table>
 
 
-
-<h1 style="text-align:center" >
+<h1 align="center" >
    익명 속에서 설렘을
 </h1>
-<h3 style="text-align:center">
+<h3 align="center">
   <br>
   주변 100m 이내의 사용자들은 서로의 위치를 공유합니다 <br><br>
   하트를 송수신 할 수 있으며, 하트가 매칭된 사용자들은 1:1 채팅이 자동으로 생성합니다 <br><br>
   이모지 변경, 유저 신고 등 부가적인 기능을 제공합니다
 </h3>
+
 <br>
 
 ## 💁 Release History
 
-<h3 style="text-align:center;">
-  22.05.21 - 앱스토어 출시</h3>  <h5  style="text-align:center;"><br></h5>
+<h3 align="center">
+  22.05.21 - 앱스토어 출시</h3>  <h5  align="center"><br></h5>
 
-<h3 style="text-align:center;">
-  22.05.20 - 플레이스토어 출시</h3>  <h5  style="text-align:center;"><br></h5>
+<h3 align="center">
+  22.05.20 - 플레이스토어 출시</h3>  <h5  align="center"><br></h5>
 
-<h3 style="text-align:center;">
-  22.05.13 - Web 2차 배포</h3>  <h5  style="text-align:center;">안내 템플릿 <br> 건의함 <br> 위치 엑세스 허용 안내 <br> 이모지 변경 <br></h5>
-<h3 style="text-align:center;">
+<h3 align="center">
+  22.05.13 - Web 2차 배포</h3>  <h5  align="center">안내 템플릿 <br> 건의함 <br> 위치 엑세스 허용 안내 <br> 이모지 변경 <br></h5>
+<h3 align="center">
   22.05.06 - Web 최초 배포</h3>
- <h5  style="text-align:center;"> 사용자간 위치 공유 <br> 하트 송수신 <br> 채팅 <br> 유저 신고 <br></h5>
+ <h5  align="center"> 사용자간 위치 공유 <br> 하트 송수신 <br> 채팅 <br> 유저 신고 <br></h5>
 
 
 
