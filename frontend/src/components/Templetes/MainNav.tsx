@@ -8,10 +8,8 @@ import ReactGA from 'react-ga';
 
 import { AuthContext } from '../../store/authContext';
 
-import { readEmojiUserAPI } from '../../api/emojiAPI';
-
 import IconButton from '../Atoms/IconButton';
-import Header from '../Organisms/Header';
+import Header from '../Atoms/Header';
 import LoginModal from '../Organisms/LoginModal';
 import EmojiSelectModal from '../Organisms/EmojiSelectModal';
 
@@ -20,7 +18,7 @@ const MainNav = () => {
   const { isLoggedIn } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
   const [emojiUrl, setEmojiUrl] = useState(
-    'https://cupid-joalarm.s3.ap-northeast-2.amazonaws.com/Astonished%20face.svg',
+    'https://cupid-joalarm.s3.ap-northeast-2.amazonaws.com/Face blowing a kiss.svg',
   );
 
   useEffect(() => {

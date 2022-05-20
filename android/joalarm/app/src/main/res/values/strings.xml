@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">joalarm</string>
+    <string name="app_name">좋아하면 누르는</string>
+    <string name="request_permission">필수 권한을 허용해야 서비스 정상 이용이 가능합니다. 설정 > 앱 관리 > 좋아하면 누르는 > 권한 메뉴에서 항상 허용 후 이용해주세요</string>
+    <string name="request_gps">앱을 사용하기 위해서 위치 서비스가 필요합니다. GPS 필수 권한을 허용해야 서비스 정상 이용이 가능합니다.</string>
 </resources>

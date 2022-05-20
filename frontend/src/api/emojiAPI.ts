@@ -13,7 +13,7 @@ interface IReadEmojiReqData {
 }
 
 export interface IReadEmojiResponse {
-  data: Array<SlidesProps>
+  data: Array<SlidesProps>;
 }
 
 interface IReadEmojiUserReqData {
@@ -24,11 +24,12 @@ interface IUpdateEmojiReqData {
   emojiUrl: SlidesProps;
 }
 
-
 const updateEmojiAPI = async (data: IUpdateEmojiReqData, token: string) => {
-  console.log(JSON.stringify(data))
-  console.log(token)
-  const response = await axiosInstance.post('accounts/emoji', JSON.stringify(data), {headers: {token: `Bearer ${token}`}});
+  const response = await axiosInstance.post(
+    'accounts/emoji',
+    JSON.stringify(data),
+    { headers: { token: `Bearer ${token}` } },
+  );
   return response;
 };
 
@@ -37,7 +38,9 @@ const readEmojiUserAPI = async (data: IReadEmojiUserReqData) => {
   return response.data;
 };
 
-const readEmojiAPI = async (data: IReadEmojiReqData): Promise<IReadEmojiResponse> => {
+const readEmojiAPI = async (
+  data: IReadEmojiReqData,
+): Promise<IReadEmojiResponse> => {
   const response = await axiosInstance.post('/emojis', JSON.stringify(data));
   return response.data;
 };

@@ -7,35 +7,35 @@ import {
   useEffect,
   useReducer,
   useCallback,
+  useContext,
 } from 'react';
 import SockJS from 'sockjs-client';
-import gpsTransKey from '../hooks/gps/gpsTransKey';
+
+import gpsTransKey from '../utils/gpsTransKey';
+
 import { openChatAPI } from '../api/openChatAPI';
 import { findMyRoomAPI } from '../api/chatRoomAPI';
 import { getChatLog } from '../api/chatAPI';
 import { heartSendSetAPI } from '../api/heartAPI';
-import { readEmojiUserAPI } from '../api/emojiAPI';
+import { AlertContext } from './alertContext';
 
 interface userType {
   pk: number;
   emojiURL: string;
 }
+
 interface sectorType {
   [sector: string]: userType;
 }
+
 interface gpsType {
   [gps: string]: sectorType;
 }
 
-interface nearBy10mType {
+interface nearBy100mType {
   sessions: Set<string>;
   users: Set<number>;
   emojis: Array<string>;
-}
-
-interface GpsInterface {
-  beforeKey: string;
-  nowKey: string;
 }
 
 interface whisper {
@@ -63,14 +63,6 @@ interface messageType {
   sendTime: string;
 }
 
-interface IheartResponse {
-  sendUser: number;
-  receiveUser: number;
-}
-
-// interface messages {
-//   [seq: number]: { messages: Array<messageType>; newMessage: number };
-// }
 interface messages {
   [seq: number]: Array<messageType>;
 }
@@ -87,12 +79,13 @@ interface chatsActions {
 }
 
 const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
+  const { openAlert, setAlertText } = useContext(AlertContext);
   const seq = Number(sessionStorage.getItem('seq') || '0');
   const emoji =
     sessionStorage.getItem('emojiUrl') ||
-    'https://cupid-joalarm.s3.ap-northeast-2.amazonaws.com/Green apple.svg';
+    'https://cupid-joalarm.s3.ap-northeast-2.amazonaws.com/Face blowing a kiss.svg';
   const [mySession, updateMySession] = useState('');
-  const [gpsKeyNearby10m, updateGpsKeyNearby10m] = useState(
+  const [gpsKeyNearby100m, updateGpsKeyNearby100m] = useState(
     new Array<string>(),
   );
   const [signal, setSignal] = useState<boolean>(false);
@@ -136,9 +129,10 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
               for (let i in newChatRoomList) {
                 if (newChatRoomList[i].chatroomSeq === chatsActions.idx) {
                   newChatRoomList[i].activate = false;
-                  return newChatRoomList;
+                  break;
                 }
               }
+
               return newChatRoomList;
             });
             break;
@@ -176,9 +170,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
             'https://www.someone-might-like-you.com/api/ws-stomp',
           );
         },
-        debug: function (str) {
-          console.log(str);
-        },
         onConnect: () => {
           const sessionId = (
             (client.webSocket as any)._transport.url as string
@@ -186,16 +177,13 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
           updateMySession(sessionId);
 
           client.subscribe('/sub/basic', (message) => {
-            console.log(message.body);
-
             const sector: gpsType = JSON.parse(message.body);
-            nearBy10mDispatch(sector);
+            nearBy100mDispatch(sector);
           });
 
           client.subscribe(`/sub/heart/${sessionId}`, (message) => {
             // 세션 구독하게 변경(하트용)
             const whisper: whisper = JSON.parse(message.body);
-            console.log('하트받음');
             changeSignal();
 
             receiveMessageDispatch(whisper);
@@ -203,7 +191,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
 
           if (seq !== 0) {
             client.subscribe(`/sub/user/${seq}`, (message) => {
-              console.log('채팅방 생성 명령 수신');
               const whisper: whisper = JSON.parse(message.body);
               receiveMessageDispatch(whisper);
             });
@@ -253,8 +240,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
               .catch((err) => console.log(err));
 
             heartSendSetAPI({ user: seq }).then((res) => {
-              console.log(res);
-
               updateSendHeartSet(new Set(res.map((x) => x.receiveUser)));
             });
           }
@@ -267,24 +252,12 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
                 alert('GPS를 지원하지 않습니다');
               }
             } else {
-              console.log('중지');
               clearInterval(interval);
               setGpsKey('');
             }
           }, 5000);
         },
-        onStompError: (frame) => {
-          console.log('Broker reported error: ' + frame.headers['message']);
-          console.log('Additional details: ' + frame.body);
-        },
-        // onWebSocketClose: () => {
-        //   client.publish({
-        //     destination: '/pub/disconnect',
-        //     body: JSON.stringify({
-        //       gpsKey: `${gpsKey}`,
-        //     }),
-        //   });
-        // },
+
         reconnectDelay: 5000,
         heartbeatIncoming: 4000,
         heartbeatOutgoing: 4000,
@@ -298,15 +271,12 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
   ): Set<number> {
     switch (action.type) {
       case 'HEART':
-        console.log('HEART');
-
         if (action.person !== 0) {
           if (
             seq !== 0 &&
             sendHeartSet.has(action.person) &&
             !chatUserSet.has(action.person)
           ) {
-            console.log('CREATE CHAT ROOM');
             // 채팅방 생성 api 호출
             openChatAPI({
               sendUser: `${seq}`,
@@ -319,7 +289,8 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
       case 'CHATROOM':
         if (!chatUserSet.has(action.person)) {
           chatUserSet.add(action.person);
-          console.log(`${action.chatRoom} 채팅방이 신설되었습니다.`);
+          setAlertText('채팅방이 생성되었습니다!');
+          openAlert();
           const newChatRoom: chatBox = {
             chatroomSeq: action.chatRoom,
             userList: [seq, action.person],
@@ -351,8 +322,6 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         break;
 
       case 'INIT':
-        console.log('INIT');
-
         return action.initSet ? action.initSet : new Set<number>();
 
       default:
@@ -380,11 +349,11 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     return nowKey;
   };
 
-  const nearBy10mReducer = (
-    state: nearBy10mType,
+  const nearBy100mReducer = (
+    state: nearBy100mType,
     sector: gpsType,
-  ): nearBy10mType => {
-    const sectorData = gpsKeyNearby10m
+  ): nearBy100mType => {
+    const sectorData = gpsKeyNearby100m
       .map((key) => sector[`${key}`])
       .filter((v) => v !== undefined);
 
@@ -405,7 +374,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
   };
 
   const [gpsKey, setGpsKey] = useReducer(gpsReducer, '');
-  const [nearBy10mState, nearBy10mDispatch] = useReducer(nearBy10mReducer, {
+  const [nearBy100mState, nearBy100mDispatch] = useReducer(nearBy100mReducer, {
     sessions: new Set<string>(),
     users: new Set<number>(),
     emojis: new Array<string>(),
@@ -425,7 +394,8 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
       },
       function (error) {
         console.error(error);
-        window.location.href='https://www.someone-might-like-you.com/location'
+        window.location.href =
+          'https://www.someone-might-like-you.com/location';
       },
       {
         enableHighAccuracy: true,
@@ -436,25 +406,35 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
   };
 
   // 소켓 클라이언트 생성
-  const caculateGpsKey = (gps: string, yx: Array<number>) => {
+  const caculateGpsKey = (gps: string, latLon: Array<number>) => {
     const gpsSector = gps.split('/').map((item) => parseInt(item));
-    const gpsSector_yx = [gpsSector.slice(0, 3), gpsSector.slice(3)];
-    let ans: string[] = [];
+    const gpsSectorLatLon = [gpsSector.slice(0, 3), gpsSector.slice(3)];
+    const ans: string[] = [];
 
     for (let i = 0; i < 2; i++) {
-      gpsSector_yx[i][2] += yx[i];
+      gpsSectorLatLon[i][2] += latLon[i];
 
       for (let j = 2; j < 1; j--) {
-        if (gpsSector_yx[i][j] < 0) {
-          gpsSector_yx[i][j] += 60;
-          gpsSector_yx[i][j - 1] -= 1;
-        } else if (gpsSector_yx[i][j] >= 60) {
-          gpsSector_yx[i][j] -= 60;
-          gpsSector_yx[i][j - 1] += 1;
+        if (gpsSectorLatLon[i][j] < 0) {
+          gpsSectorLatLon[i][j] += 60;
+          gpsSectorLatLon[i][j - 1] -= 1;
+        } else if (gpsSectorLatLon[i][j] >= 60) {
+          gpsSectorLatLon[i][j] -= 60;
+          gpsSectorLatLon[i][j - 1] += 1;
         }
       }
 
-      ans.push(gpsSector_yx[i].join('/'));
+      if (gpsSectorLatLon[i][0] <= -180) {
+        for (let j = 2; j < 1; j--) {
+          if (gpsSectorLatLon[i][j] > 0) {
+            gpsSectorLatLon[i][j] = 60 - gpsSectorLatLon[i][j];
+            gpsSectorLatLon[i][j - 1] -= 1;
+          }
+        }
+        gpsSectorLatLon[i][0] += 360;
+      }
+
+      ans.push(gpsSectorLatLon[i].join('/'));
     }
     return ans.join('/');
   };
@@ -471,8 +451,10 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     client.publish({
       destination: '/pub/heart',
       body: JSON.stringify({
-        receiveSessions: Array.from(nearBy10mState.sessions),
-        receiveUsers: Array.from(nearBy10mState.users).filter(
+        receiveSessions: Array.from(nearBy100mState.sessions).filter(
+          (session) => session !== mySession,
+        ),
+        receiveUsers: Array.from(nearBy100mState.users).filter(
           (x) => !sendHeartSet.has(x),
         ),
         sendUser: `${seq}`,
@@ -480,7 +462,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
     });
     updateSendHeartSet((pre) => {
       // 하트를 보낸 유저 리스트에 추가
-      nearBy10mState.users.forEach((u) => pre.add(u));
+      nearBy100mState.users.forEach((u) => pre.add(u));
       return pre;
     });
   };
@@ -497,7 +479,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
       gpsKeyArray.push(caculateGpsKey(gpsKey, [3, 0]));
       gpsKeyArray.push(caculateGpsKey(gpsKey, [0, -3]));
       gpsKeyArray.push(caculateGpsKey(gpsKey, [0, 3]));
-      updateGpsKeyNearby10m(gpsKeyArray);
+      updateGpsKeyNearby100m(gpsKeyArray);
     }
   }, [gpsKey]);
 
@@ -512,7 +494,7 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
         // GpsKeyHandler: GpsKeyHandler,
         signal: signal,
         // subscribeHeart: subscribeHeart,
-        nearBy10mState: nearBy10mState,
+        nearBy100mState: nearBy100mState,
         client: client,
         chatRoomList: chatRoomList,
         updateIndexFunc: updateIndexFunc,
@@ -535,7 +517,7 @@ const ClientContext = createContext({
   // GpsKeyHandler: () => {},
   // subscribeHeart: () => {},
   signal: false,
-  nearBy10mState: {
+  nearBy100mState: {
     sessions: new Set<string>(),
     users: new Set<number>(),
     emojis: new Array<string>(),

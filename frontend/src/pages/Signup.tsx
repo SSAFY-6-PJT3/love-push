@@ -4,7 +4,7 @@
 
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 
 import { signUpAPI, idVaidateAPI } from '../api/accountAPI';
 import useDocumentTitle from '../hooks/useDocumentTitle';
@@ -30,13 +30,14 @@ const Signup = () => {
   }, [pageId]);
 
   // 아이디, 비밀번호 정규식
-  const userIdRegExp = /^[a-z0-9]{6,16}$/;
-  const passwordRegExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{6,16}$/;
+  const userIdRegExp = /^[a-z0-9]{4,16}$/;
+  const passwordRegExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{4,16}$/;
 
   // 회원가입 API 호출
   const callSignUpAPI = () => {
     const signupInfo = {
-      emoji: 'https://cupid-joalarm.s3.ap-northeast-2.amazonaws.com/Face blowing a kiss.svg',
+      emoji:
+        'https://cupid-joalarm.s3.ap-northeast-2.amazonaws.com/Face blowing a kiss.svg',
       id: userId,
       password: password,
     };
@@ -70,7 +71,7 @@ const Signup = () => {
       case '1':
         setUserId(v);
         if (!userIdRegExp.test(v)) {
-          setErrMsg('6자 이상, 16자 이하의 영문 혹은 숫자로 입력해주세요.');
+          setErrMsg('4자 이상, 16자 이하의 영문 혹은 숫자로 입력해주세요.');
         } else {
           await idVaidateAPI(v)
             .then((res) => {
@@ -90,7 +91,7 @@ const Signup = () => {
           navigate('/signup/3');
           setErrMsg('');
         } else {
-          setErrMsg('6자 이상, 16자 이하의 영문, 숫자 조합으로 입력해주세요.');
+          setErrMsg('4자 이상, 16자 이하의 영문, 숫자 조합으로 입력해주세요.');
         }
         break;
       // 비밀번호 확인 페이지
@@ -110,13 +111,15 @@ const Signup = () => {
       <BackBtnNav pageTitle="회원가입" />
       <Wrapper>
         {pageId === '1' && (
-          <SignupForm
-            label="아이디를 입력해주세요."
-            type="text"
-            value={userId}
-            onInputChange={inputChangeHandler}
-            onFormSubmit={formSubmitHandler}
-          />
+          <>
+            <SignupForm
+              label="아이디를 입력해주세요."
+              type="text"
+              value={userId}
+              onInputChange={inputChangeHandler}
+              onFormSubmit={formSubmitHandler}
+            />
+          </>
         )}
         {pageId === '2' && (
           <SignupForm
@@ -143,6 +146,13 @@ const Signup = () => {
           <SignupResult>회원가입에 실패했습니다.</SignupResult>
         )}
         {errMsg && <ErrMsg>{errMsg}</ErrMsg>}
+        <SignupText>
+          회원가입시{' '}
+          <Link to="/policy">
+            <LinkText>개인정보처리방침</LinkText>
+          </Link>
+          을<br /> 동의하는 것으로 간주됩니다.
+        </SignupText>
       </Wrapper>
     </>
   );
@@ -168,6 +178,30 @@ const ErrMsg = styled.p`
   text-align: center;
   font-weight: 300;
   color: red;
+  margin: 1rem 0 2rem;
+`;
+
+const SignupText = styled.span`
+  text-align: center;
+  color: white;
+  font-weight: 300;
+  line-height: 1.5;
+  font-size: 12px;
+  animation: 0.6s ease-in-out 0s 1 normal forwards running fadeinBottom;
+  @keyframes fadeinBottom {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 50px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+`;
+
+const LinkText = styled.span`
+  font-weight: 700;
 `;
 
 export default Signup;

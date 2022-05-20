@@ -3,16 +3,20 @@
  * @modified Hanseunghun
  */
 
-import React, { useState, useEffect, useContext } from 'react';
-import Button from '../Atoms/Button';
+import { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import Modal from '../Atoms/Modal';
 import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import { updateEmojiAPI, readEmojiAPI, SlidesProps } from '../../api/emojiAPI';
+
 import { AuthContext } from '../../store/authContext';
 import { AlertContext } from '../../store/alertContext';
+
+import { updateEmojiAPI, readEmojiAPI, SlidesProps } from '../../api/emojiAPI';
+
+import Button from '../Atoms/Button';
+import Modal from '../Atoms/Modal';
+
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 interface IPropsModal {
   isModalOpen: boolean;
@@ -36,7 +40,6 @@ const EmojiSelectModal = ({ isModalOpen, closeModal }: IPropsModal) => {
     readEmojiAPI({ emojiUrl: emojiUrl })
       .then((res: any) => {
         setSlides(res);
-        console.log(res[0]);
       })
       .catch((err: any) => {
         console.log(err);
@@ -55,6 +58,7 @@ const EmojiSelectModal = ({ isModalOpen, closeModal }: IPropsModal) => {
       .then(() => {
         setAlertText('이모티콘 변경 완료');
         openAlert();
+        window.location.reload();
       })
       .catch((err: any) => {
         setAlertSeverity('error');
@@ -145,4 +149,5 @@ const Img = styled.img`
   width: 50px;
   height: 50px;
 `;
+
 export default EmojiSelectModal;
