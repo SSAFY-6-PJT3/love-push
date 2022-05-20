@@ -166,28 +166,28 @@
 
 #### 🖥️ 주요 Stack
 
-|                        Content                         |           Main            |                          Detail                          |
-| :----------------------------------------------------: | :-----------------------: | :------------------------------------------------------: |
-|              [**하트송수신**](#음성인식)               | Python 3.9.6 / JavaScript |             webkitSpeechRecognition / Axios              |
-|                  [**채팅**](#드로잉)                   |        JavaScript         |                Canvas / Blob Data/ Axios                 |
-|                   [**위치 공유**]()                    |  HTML / CSS / JavaScript  |            Django 3.2.9 / HTML5 / CSS3 / ES6             |
-|         [**Kubernetes**](#색채-데이터-만들기)          |  C# .Net Framework 4.7.2  |            C#(OpenCvSharp4 - V4.5.3.20210817)            |
-| [**파이프라인 구축**](#알고리즘-구성-및-웹페이지-작업) |       Python 3.9.6        |                       Python(Math)                       |
-|                    [**CI/CD**](#db)                    |       Python 3.9.6        |                    Python(Shell_plus)                    |
-|           [**Ingress Nginx**](#query-최적화)           |       Django 3.2.9        |      prefetch_related / annotate / filter / exclude      |
-|                   [**배포**](#배포)                    |            AWS            | EC2(Ubuntu Server 20.04 LTS) / Cloud9 / Gunicorn / NGINX |
-|                                                        |                           |                                                          |
-|                                                        |                           |                                                          |
-|                                                        |                           |                                                          |
-|                                                        |                           |                                                          |
-|                                                        |                           |                                                          |
-|                                                        |                           |                                                          |
-|                                                        |                           |                                                          |
-|                                                        |                           |                                                          |
-|                                                        |                           |                                                          |
-|                                                        |                           |                                                          |
-|                                                        |                           |                                                          |
-|                                                        |                           |                                                          |
+|                           Content                            |          Main           |                          Detail                          |
+| :----------------------------------------------------------: | :---------------------: | :------------------------------------------------------: |
+| [**위치 공유**](#Section1, 김주호 - 위치 기반 기술과 채팅에 대하여) |   Spring / TypeScript   |             Socket / SockJS / Stomp / Axios              |
+|              [**하트 송수신 및 채팅**](#드로잉)              |   Spring / TypeScript   |             Socket / SockJS / Stomp / Axios              |
+|                      [**위치 공유**]()                       | HTML / CSS / JavaScript |            Django 3.2.9 / HTML5 / CSS3 / ES6             |
+|            [**Kubernetes**](#색채-데이터-만들기)             | C# .Net Framework 4.7.2 |            C#(OpenCvSharp4 - V4.5.3.20210817)            |
+|    [**파이프라인 구축**](#알고리즘-구성-및-웹페이지-작업)    |      Python 3.9.6       |                       Python(Math)                       |
+|                       [**CI/CD**](#db)                       |      Python 3.9.6       |                    Python(Shell_plus)                    |
+|              [**Ingress Nginx**](#query-최적화)              |      Django 3.2.9       |      prefetch_related / annotate / filter / exclude      |
+|                      [**배포**](#배포)                       |           AWS           | EC2(Ubuntu Server 20.04 LTS) / Cloud9 / Gunicorn / NGINX |
+|                                                              |                         |                                                          |
+|                                                              |                         |                                                          |
+|                                                              |                         |                                                          |
+|                                                              |                         |                                                          |
+|                                                              |                         |                                                          |
+|                                                              |                         |                                                          |
+|                                                              |                         |                                                          |
+|                                                              |                         |                                                          |
+|                                                              |                         |                                                          |
+|                                                              |                         |                                                          |
+|                                                              |                         |                                                          |
+|                                                              |                         |                                                          |
 
 # ⚙️ Individual Tech Section
 
