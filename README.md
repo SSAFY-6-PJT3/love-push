@@ -216,11 +216,11 @@
 
 우선 1m가 gps상에서 몇 차이가 나는지 확인해 보았다. [해당 글을 참고](https://m.cafe.daum.net/gpsyn/Pllz/530)하자면, 0.00001도 차이가 대략 1m라 한다. 정확하게는 물론 아니겠지만, 해당 방법으로 전 세계 구획을 나눈 후 작업해도 괜찮을 것 같다는 생각을 했다. 그러나 더욱 정확한 계측을 위해, [두 지역 사이의 거리를 측정해 주는 사이트](http://www.movable-type.co.uk/scripts/latlong.html)를 찾아갔다.
 
-![img](README.assets/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fed37fafd-1e8b-4da1-9a86-e5025e64e01b%2FUntitled-16529499134435.png)
+![img](README.assets/gps1.png)
 
 해당 사이트의 계산에 의하면, `3m`는 도분초 좌표계 기준으로 `0.0973초`만큼 차이가 있었다.
 
-![img](README.assets/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F364cd5ca-4fe0-4d76-b841-13e267fde059%2FUntitled-16529499240377.png)
+![img](README.assets/gps2.png)
 
 `0.1초` 차이는 `3.083m`만큼 차이가 났으며, `1초` 차이는 `30.83m`차이였다.
 
