@@ -17,8 +17,6 @@
   </tbody>
 </table>
 
-
-
 <p align="center">
   <b>Supported</b><br/>
   <a href="#"><img width="45" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" alt="react" /></a>&nbsp;&nbsp;
@@ -32,8 +30,6 @@
     <a href="#"><img width="45" src="https://blog.kakaocdn.net/dn/rrEfB/btq97aMSAsX/lstil1pt0KJW0Iy2WPO0Mk/img.png" alt="nginx" /></a>&nbsp;&nbsp;
   <a href="#"><img width="45" src="https://w7.pngwing.com/pngs/747/798/png-transparent-mysql-logo-mysql-database-web-development-computer-software-dolphin-marine-mammal-animals-text.png" alt="mysql" /></a>&nbsp;&nbsp;
     <a href="#"><img width="45" src="https://w7.pngwing.com/pngs/63/19/png-transparent-mongodb-database-nosql-postgresql-mongo-text-logo-business-thumbnail.png" alt="mongo" />
-
-
 
 ## 💁 개요
 
@@ -54,8 +50,6 @@
     </tr>
   </tbody>
 </table>
-
-
 
 <h1 style="text-align:center" >
    익명 속에서 설렘을
@@ -82,65 +76,51 @@
   22.05.06 - Web 최초 배포</h3>
  <h5  style="text-align:center;"> 사용자간 위치 공유 <br> 하트 송수신 <br> 채팅 <br> 유저 신고 <br></h5>
 
-
-
 ## 🛠 아키텍처
-
-
 
 ![Lovepush_Architecture](README.assets/Lovepush_Architecture.jpg)
 
-
-
 ## 🛠 기술 스택
 
-### 💎 **Front-end** 
+### 💎 **Front-end**
 
 | <img src="https://profilinator.rishav.dev/skills-assets/html5-original-wordmark.svg" alt="HTML5" width="50px" height="50px" /> | <img src="https://profilinator.rishav.dev/skills-assets/css3-original-wordmark.svg" alt="CSS3" width="50px" height="50px" /> | <img src="https://profilinator.rishav.dev/skills-assets/javascript-original.svg" alt="TypeScript" width="50px" height="50px" /> |
-| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-|                            HTML5                             |                             CSS3                             |                          javascript                          |
+| :----------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
+|                                                             HTML5                                                              |                                                             CSS3                                                             |                                                           javascript                                                            |
 
 | <img src="https://profilinator.rishav.dev/skills-assets/react-original-wordmark.svg" alt="React.js" width="50px" height="50px" /> | Stomp | TypeScript |
-| :----------------------------------------------------------: | :---: | :--------: |
-|                            React                             | Stomp | TypeScript |
+| :-------------------------------------------------------------------------------------------------------------------------------: | :---: | :--------: |
+|                                                               React                                                               | Stomp | TypeScript |
 
 ### 🚀 **Back-end**
 
 | <img src="https://profilinator.rishav.dev/skills-assets/java-original-wordmark.svg" alt="Java" width="50px" height="50px" /> | <img src="https://www.seekpng.com/png/full/8-80775_spring-logo-png-transparent-spring-java.png" alt="Spring-Boot" width="50px" height="50px" /> | <img src="https://spring.io/images/projects/spring-data-79cc203ed8c54191215a60f9e5dc638f.svg" alt="JPA" width="50px" height="50px" /> | <img src="https://spring.io/images/projects/spring-security-b712a4cdb778e72eb28b8c55ec39dbd1.svg" alt="Spring-Security" width="50px" height="50px" /> | <img src="https://jwt.io/img/pic_logo.svg" alt="jwt" width="50px" height="50px" /> |
-| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-|                             Java                             |                         Spring-Boot                          |                          Spring-JPA                          |                       Spring-Security                        |                             JWT                              |
+| :--------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------: |
+|                                                             Java                                                             |                                                                   Spring-Boot                                                                   |                                                              Spring-JPA                                                               |                                                                    Spring-Security                                                                    |                                        JWT                                         |
 
-
-
-###  🚊 DB
+### 🚊 DB
 
 | <img src="https://profilinator.rishav.dev/skills-assets/mysql-original-wordmark.svg" alt="MySQL" width="50px" height="50px" /> | <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/mongodb/mongodb-original-wordmark.svg" alt="MongoDB" width="50px" height="50px" /> |
-| :----------------------------------------------------------: | :----------------------------------------------------------: |
-|                            MySQL                             |                           Mongodb                            |
+| :----------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                             MySQL                                                              |                                                                                            Mongodb                                                                                             |
 
 ### 🐬 **DevOps**
 
 | <img src="https://profilinator.rishav.dev/skills-assets/nginx-original.svg" alt="NGiNX" width="50px" height="50px" /> | <img src="https://pbs.twimg.com/profile_images/1351702967561252865/aXfcETIt_400x400.jpg" alt="aws" width="50px" height="50px" /> | <img src="https://profilinator.rishav.dev/skills-assets/docker-original-wordmark.svg" alt="docker" width="50px" height="50px" /> | <img src="https://www.jenkins.io/images/logos/jenkins/jenkins.svg" alt="jenkins" width="50px" height="50px" /> | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kubernetes_logo_without_workmark.svg/926px-Kubernetes_logo_without_workmark.svg.png" alt="kubernetes" width="50px" height="50px" /> |
-| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-|                            NGiNX                             |                             aws                              |                            docker                            |                           Jenkins                            |                          Kubernetes                          |
-
-
+| :-------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                         NGiNX                                                         |                                                               aws                                                                |                                                              docker                                                              |                                                    Jenkins                                                     |                                                                                               Kubernetes                                                                                                |
 
 ### 💡 기획 및 운영
 
 | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Git-logo.svg/768px-Git-logo.svg.png?20160811101906" alt="Git" width="50px" height="50px" /> | <img src="https://wac-cdn-2.atlassian.com/image/upload/f_auto,q_auto/dam/jcr:b544631f-b225-441b-9e05-57b7fd0d495b/Jira%20Software@2x-icon-blue.png" alt="jira" width="50px" height="50px" /> | <img src="https://cdn2.downdetector.com/static/uploads/logo/figma2.png" alt="figma" width="50px" height="50px" /> | <img src="https://blog.kakaocdn.net/dn/2CufY/btq8RTsnYaT/3EQm1A8iL54UcCzFkemVJ1/img.png" alt="notion" width="50px" height="50px" /> | <img src="https://play-lh.googleusercontent.com/FERhw8K6nxOmNNthc4zLb6FnkO5_iDs-W4w3Uc_GiHosUYJlkeXHp-Qom5kbq4u__Ns" alt="mattermost" width="50px" height="50px" /> | <img src="https://play-lh.googleusercontent.com/0oO5sAneb9lJP6l8c6DH4aj6f85qNpplQVHmPmbbBxAukDnlO7DarDW0b-kEIHa8SQ=w512" alt="discord" width="50px" height="50px" /> |
-| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-|                             Git                              |                             JIRA                             |                            Figma                             |                            Notion                            |                          Mattermost                          |                           Discord                            |
-
-
+| :-------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                                               Git                                                                               |                                                                                             JIRA                                                                                             |                                                       Figma                                                       |                                                               Notion                                                                |                                                                             Mattermost                                                                              |                                                                               Discord                                                                                |
 
 ### 📱 App
 
 | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Kotlin_Icon.svg/1200px-Kotlin_Icon.svg.png" alt="kotlin" width="50px" height="50px" /> | <img src="https://blog.kakaocdn.net/dn/bU8z6O/btqKXLx6c0Y/szaVg2oqCAUxMYex0n8zs1/img.png" alt="android_studio" width="50px" height="50px" /> | <img src="https://images.velog.io/images/gooreum_90/post/c53e169b-71ea-4bf5-84ce-9523949b2dfd/swiftlogo.png" alt="swift" width="50px" height="50px" /> | <img src="https://is5-ssl.mzstatic.com/image/thumb/Purple122/v4/9d/25/cf/9d25cfe3-2476-20ae-ed0f-8d67a188bad7/Xcode-85-220-0-4-2x.png/1200x630bb.png" alt="xcode" width="50px" height="50px" /> |
-| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-|                            Kotlin                            |                        Android Studio                        |                            Swift                             |                            Xcode                             |
-
-
+| :--------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                                           Kotlin                                                                           |                                                                Android Studio                                                                |                                                                         Swift                                                                          |                                                                                              Xcode                                                                                              |
 
 ## 💞 팀 & 기술
 
@@ -181,14 +161,13 @@
     </a>
   </td>
 </tr>
-</table>  
-
+</table>
 
 #### 🖥️ 주요 Stack
 
 |                        Content                         |           Main            |                          Detail                          |
 | :----------------------------------------------------: | :-----------------------: | :------------------------------------------------------: |
-|              [**하트송수신**](#음성인식 )              | Python 3.9.6 / JavaScript |             webkitSpeechRecognition / Axios              |
+|              [**하트송수신**](#음성인식)               | Python 3.9.6 / JavaScript |             webkitSpeechRecognition / Axios              |
 |                  [**채팅**](#드로잉)                   |        JavaScript         |                Canvas / Blob Data/ Axios                 |
 |                   [**위치 공유**]()                    |  HTML / CSS / JavaScript  |            Django 3.2.9 / HTML5 / CSS3 / ES6             |
 |         [**Kubernetes**](#색채-데이터-만들기)          |  C# .Net Framework 4.7.2  |            C#(OpenCvSharp4 - V4.5.3.20210817)            |
@@ -207,12 +186,9 @@
 |                                                        |                           |                                                          |
 |                                                        |                           |                                                          |
 |                                                        |                           |                                                          |
-||||
-
+|                                                        |                           |                                                          |
 
 # ⚙️ Individual Tech Section
-
-
 
 ## 🏃 Section1, 김주호 - 위치 기반 기술과 채팅에 대하여
 
@@ -252,17 +228,18 @@
 
 #### Sector 구현
 
-지구의 모든 구역을 30m * 30m 2차원 배열로 만들기에는 메모리 낭비가 너무 크다. index도 계산해줘야 하는 이슈가 있으므로 HashMap을 만든 후 gps 구획 데이터를 key로 들고 있기로 했다.
+지구의 모든 구역을 30m \* 30m 2차원 배열로 만들기에는 메모리 낭비가 너무 크다. index도 계산해줘야 하는 이슈가 있으므로 HashMap을 만든 후 gps 구획 데이터를 key로 들고 있기로 했다.
 
 비로그인 사용자도 이용할 수 있어야 하므로 소켓 세션 id를 해당 구획 value의 key로 잡고, pk와 이모지URL을 value로 지니고 있게끔 했다.
 
 ```json
 {
-	"36/21/101/127/20/583":{
-	"5ubuuxi3":{
-		"pk":1,"emojiURL":"emoji"
-		}
-	}
+  "36/21/101/127/20/583": {
+    "5ubuuxi3": {
+      "pk": 1,
+      "emojiURL": "emoji"
+    }
+  }
 }
 ```
 
@@ -277,8 +254,6 @@ public void sendBasicChat() {  // basic으로 전체 채팅 보내기
     }
 }
 ```
-
-
 
 소켓통신이 끊긴다면 해당하는 구획에서 데이터를 삭제해야 하므로, 소켓 연결 및 구획 변경 시마다 각각의 세션에 현재 구획을 들고 있다가, 끊길 경우 구획으로 접근해 해당하는 세션id값을 제거하도록 했다.
 
@@ -296,33 +271,143 @@ public void handleSessionDisconnect(SessionDisconnectEvent event) {
 }
 ```
 
+## ✨ Section2, 남궁휘 -
 
+## 👑 Section3, 유현수 - Google Analytics
 
-## 🏃 Section2, 남궁휘 - 
+### Google Analytics 적용하기
 
+> react-ga 라이브러리를 사용해 React에 Google Analytics(이하 GA)를 적용하는 방법
 
+#### GA 계정 생성
 
-## 🏃 Section3, 유현수 -
+- [Google Analytics](https://analytics.google.com) 사이트에 접속해 계정을 생성합니다.
+- 속성 설정 > 고급 옵션 보기 > **유니버설 애널리틱스 속성만 만들기 를 선택**합니다.
+  - **react-ga 라이브러리가 UA(유니버설 애널리틱스)만 지원하기 때문**입니다.
+- 계정 생성이 완료되면 "UA-XXXX" 포맷의 추적 ID를 확인합니다.
 
+#### react-ga 설치
 
-## 🏃 Section4, 이건희 - 쿠버네티스, 도커, 젠킨스를 활용한 배포와 CI/CD에 대하여
+> 주의사항: 22/05/02 기준 react-ga는 react v17까지만 지원합니다.
 
+아래 명령어로 `react-ga` 라이브러리를 설치할 수 있습니다.
 
+```bash
+# npm
+$ npm install react-ga
+```
 
-## 🏃 Section5, 정은이 - 위치 기반 기술과 채팅에 대하여
+#### useGA 커스텀 훅 만들기
 
+`ReactGA.initialize` 시 앞에서 확인한 추적 ID를 적용합니다.
 
+```javascript
+// hooks/useGA
 
-## 🏃 Section6, 한승훈 - 위치 기반 기술과 채팅에 대하여
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import ReactGA from "react-ga";
 
+const useGA = () => {
+  const location = useLocation();
+  const [initialized, setInitialized] = useState(false);
 
+  // 개발환경이 아닐 경우에만 GA initialize
+  useEffect(() => {
+    if (!window.location.href.includes("localhost")) {
+      ReactGA.initialize(`${process.env.REACT_APP_GA_TRACKING_ID}`);
+    }
+    setInitialized(true);
+  }, []);
 
+  // GA initialize가 되어있다면 pageview 전송
+  useEffect(() => {
+    if (initialized) {
+      ReactGA.pageview(location.pathname + location.search);
+    }
+  }, [initialized, location]);
 
+  /*
+   * GA 디버깅용 코드
+   * 개발환경에서도 GA initialize.
+   * debug 옵션이 설정되어 console에 트래킹 정보를 출력.
+   */
+  // useEffect(() => {
+  //   ReactGA.initialize(`${process.env.REACT_APP_GA_TRACKING_ID}`, {
+  //     debug: true,
+  //   });
+  //   ReactGA.pageview(location.pathname + location.search);
+  // }, [location]);
+};
 
+export default useGA;
+```
 
-## 📖 Reference
+#### GARoutes 컴포넌트 만들기
 
-formdata - https://developer.mozilla.org/ko/docs/Web/API/FormData
+`react-router-dom`의 `useLocation` hook은 Router 내부에서만 동작하는 hook입니다.
+때문에 `useGA` 훅을 바로 `App.js`에 적용하면 에러가 발생합니다.
+이를 방지하기 위해 `useGA` 훅을 사용하는 커스텀 `Router` 컴포넌트를 만들어 사용합니다.
 
-그림판 - https://github.com/shlee0882/painting-js
+```javascript
+// components/GARoutes
 
+import { ReactNode } from "react";
+import { Routes } from "react-router-dom";
+
+import useGA from "../hooks/useGA";
+
+const GARoutes = ({ children }: { children: ReactNode }) => {
+  useGA();
+  return <Routes>{children}</Routes>;
+};
+
+export default GARoutes;
+```
+
+이렇게 만든 `GARouter` 컴포넌트를 `App.tsx`에 적용합니다.
+
+```javascript
+// App.tsx
+
+import GARoutes from "./components/GARoutes";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <GARoutes>
+        <Route path="/" element={<IndexPage />} />
+        <Route path="/info" element={<InfoPage />} />
+      </GARoutes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+```
+
+#### GA 이벤트 추적하기
+
+[`ReactGA.event(args)`](https://github.com/react-ga/react-ga#reactgaeventargs) API를 사용해 이벤트를 추적할 수 있습니다. `category`, `action`는 필수로 입력해야하는 인자입니다.
+이벤트 핸들러 내부에 작성하면 해당 이벤트를 추적합니다.
+
+```javascript
+// Home.tsx
+
+...
+const heartClickHandler = () => {
+    ReactGA.event({
+      category: '하트 버튼 클릭',
+      action: '하트 버튼 클릭',
+    });
+    updatePushHeart();
+    sendHeart();
+  };
+...
+```
+
+## 🗳️ Section4, 이건희 - 쿠버네티스, 도커, 젠킨스를 활용한 배포와 CI/CD에 대하여
+
+## 🛡️ Section5, 정은이 - 위치 기반 기술과 채팅에 대하여
+
+## ❣ Section6, 한승훈 -
