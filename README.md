@@ -4,7 +4,6 @@
   <img width="1100" alt="Logo" src="README.assets/title.png" style="max-width: 100%;" /><br/>
 </h1>
 
-
 <table>
   <tbody>
     <tr>
@@ -17,7 +16,6 @@
     </tr>
   </tbody>
 </table>
-
 
 <p align="center">
   <b>Supported</b><br/>
@@ -32,8 +30,6 @@
     <a href="#"><img width="45" src="https://blog.kakaocdn.net/dn/rrEfB/btq97aMSAsX/lstil1pt0KJW0Iy2WPO0Mk/img.png" alt="nginx" /></a>&nbsp;&nbsp;
   <a href="#"><img width="45" src="https://w7.pngwing.com/pngs/747/798/png-transparent-mysql-logo-mysql-database-web-development-computer-software-dolphin-marine-mammal-animals-text.png" alt="mysql" /></a>&nbsp;&nbsp;
     <a href="#"><img width="45" src="https://w7.pngwing.com/pngs/63/19/png-transparent-mongodb-database-nosql-postgresql-mongo-text-logo-business-thumbnail.png" alt="mongo" />
-
-
 ## 💁 개요
 
 ### 다운로드 및 실행
@@ -54,7 +50,6 @@
   </tbody>
 </table>
 
-
 <h1 style="text-align:center" >
    익명 속에서 설렘을
 </h1>
@@ -72,10 +67,8 @@
 <h3 style="text-align:center;">
   22.05.21 - 앱스토어 출시</h3>  <h5  style="text-align:center;"><br></h5>
 
-
 <h3 style="text-align:center;">
   22.05.20 - 플레이스토어 출시</h3>  <h5  style="text-align:center;"><br></h5>
-
 
 <h3 style="text-align:center;">
   22.05.13 - Web 2차 배포</h3>  <h5  style="text-align:center;">안내 템플릿 <br> 건의함 <br> 위치 엑세스 허용 안내 <br> 이모지 변경 <br></h5>
@@ -92,42 +85,42 @@
 ### 💎 **Front-end**
 
 | <img src="https://profilinator.rishav.dev/skills-assets/html5-original-wordmark.svg" alt="HTML5" width="50px" height="50px" /> | <img src="https://profilinator.rishav.dev/skills-assets/css3-original-wordmark.svg" alt="CSS3" width="50px" height="50px" /> | <img src="https://profilinator.rishav.dev/skills-assets/javascript-original.svg" alt="TypeScript" width="50px" height="50px" /> |
-| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-|                            HTML5                             |                             CSS3                             |                          javascript                          |
+| :----------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
+|                                                             HTML5                                                              |                                                             CSS3                                                             |                                                           javascript                                                            |
 
-| <img src="https://profilinator.rishav.dev/skills-assets/react-original-wordmark.svg" alt="React.js" width="50px" height="50px" /> | Stomp | TypeScript |
-| :----------------------------------------------------------: | :---: | :--------: |
-|                            React                             | Stomp | TypeScript |
+| <img src="https://profilinator.rishav.dev/skills-assets/react-original-wordmark.svg" alt="React.js" width="50px" height="50px" /> | <img src="https://stomp.github.io/images/project-logo.png" alt="stomp" height="50px" /> | <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/typescript-icon.svg" alt="typescript" width="50px" height="50px" /> |
+| :-------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                               React                                                               |                                          Stomp                                          |                                                                  TypeScript                                                                   |
 
 ### 🚀 **Back-end**
 
 | <img src="https://profilinator.rishav.dev/skills-assets/java-original-wordmark.svg" alt="Java" width="50px" height="50px" /> | <img src="https://www.seekpng.com/png/full/8-80775_spring-logo-png-transparent-spring-java.png" alt="Spring-Boot" width="50px" height="50px" /> | <img src="https://spring.io/images/projects/spring-data-79cc203ed8c54191215a60f9e5dc638f.svg" alt="JPA" width="50px" height="50px" /> | <img src="https://spring.io/images/projects/spring-security-b712a4cdb778e72eb28b8c55ec39dbd1.svg" alt="Spring-Security" width="50px" height="50px" /> | <img src="https://jwt.io/img/pic_logo.svg" alt="jwt" width="50px" height="50px" /> |
-| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-|                             Java                             |                         Spring-Boot                          |                          Spring-JPA                          |                       Spring-Security                        |                             JWT                              |
+| :--------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------: |
+|                                                             Java                                                             |                                                                   Spring-Boot                                                                   |                                                              Spring-JPA                                                               |                                                                    Spring-Security                                                                    |                                        JWT                                         |
 
 ### 🚊 DB
 
 | <img src="https://profilinator.rishav.dev/skills-assets/mysql-original-wordmark.svg" alt="MySQL" width="50px" height="50px" /> | <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/mongodb/mongodb-original-wordmark.svg" alt="MongoDB" width="50px" height="50px" /> |
-| :----------------------------------------------------------: | :----------------------------------------------------------: |
-|                            MySQL                             |                           Mongodb                            |
+| :----------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                             MySQL                                                              |                                                                                            Mongodb                                                                                             |
 
 ### 🐬 **DevOps**
 
 | <img src="https://profilinator.rishav.dev/skills-assets/nginx-original.svg" alt="NGiNX" width="50px" height="50px" /> | <img src="https://pbs.twimg.com/profile_images/1351702967561252865/aXfcETIt_400x400.jpg" alt="aws" width="50px" height="50px" /> | <img src="https://profilinator.rishav.dev/skills-assets/docker-original-wordmark.svg" alt="docker" width="50px" height="50px" /> | <img src="https://www.jenkins.io/images/logos/jenkins/jenkins.svg" alt="jenkins" width="50px" height="50px" /> | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kubernetes_logo_without_workmark.svg/926px-Kubernetes_logo_without_workmark.svg.png" alt="kubernetes" width="50px" height="50px" /> |
-| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-|                            NGiNX                             |                             aws                              |                            docker                            |                           Jenkins                            |                          Kubernetes                          |
+| :-------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                         NGiNX                                                         |                                                               aws                                                                |                                                              docker                                                              |                                                    Jenkins                                                     |                                                                                               Kubernetes                                                                                                |
 
 ### 💡 기획 및 운영
 
 | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Git-logo.svg/768px-Git-logo.svg.png?20160811101906" alt="Git" width="50px" height="50px" /> | <img src="https://wac-cdn-2.atlassian.com/image/upload/f_auto,q_auto/dam/jcr:b544631f-b225-441b-9e05-57b7fd0d495b/Jira%20Software@2x-icon-blue.png" alt="jira" width="50px" height="50px" /> | <img src="https://cdn2.downdetector.com/static/uploads/logo/figma2.png" alt="figma" width="50px" height="50px" /> | <img src="https://blog.kakaocdn.net/dn/2CufY/btq8RTsnYaT/3EQm1A8iL54UcCzFkemVJ1/img.png" alt="notion" width="50px" height="50px" /> | <img src="https://play-lh.googleusercontent.com/FERhw8K6nxOmNNthc4zLb6FnkO5_iDs-W4w3Uc_GiHosUYJlkeXHp-Qom5kbq4u__Ns" alt="mattermost" width="50px" height="50px" /> | <img src="https://play-lh.googleusercontent.com/0oO5sAneb9lJP6l8c6DH4aj6f85qNpplQVHmPmbbBxAukDnlO7DarDW0b-kEIHa8SQ=w512" alt="discord" width="50px" height="50px" /> |
-| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-|                             Git                              |                             JIRA                             |                            Figma                             |                            Notion                            |                          Mattermost                          |                           Discord                            |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                                               Git                                                                               |                                                                                             JIRA                                                                                             |                                                       Figma                                                       |                                                               Notion                                                                |                                                                             Mattermost                                                                              |                                                                               Discord                                                                                |
 
 ### 📱 App
 
 | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Kotlin_Icon.svg/1200px-Kotlin_Icon.svg.png" alt="kotlin" width="50px" height="50px" /> | <img src="https://blog.kakaocdn.net/dn/bU8z6O/btqKXLx6c0Y/szaVg2oqCAUxMYex0n8zs1/img.png" alt="android_studio" width="50px" height="50px" /> | <img src="https://images.velog.io/images/gooreum_90/post/c53e169b-71ea-4bf5-84ce-9523949b2dfd/swiftlogo.png" alt="swift" width="50px" height="50px" /> | <img src="https://is5-ssl.mzstatic.com/image/thumb/Purple122/v4/9d/25/cf/9d25cfe3-2476-20ae-ed0f-8d67a188bad7/Xcode-85-220-0-4-2x.png/1200x630bb.png" alt="xcode" width="50px" height="50px" /> |
-| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-|                            Kotlin                            |                        Android Studio                        |                            Swift                             |                            Xcode                             |
+| :--------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                                           Kotlin                                                                           |                                                                Android Studio                                                                |                                                                         Swift                                                                          |                                                                                              Xcode                                                                                              |
 
 ## 💞 팀 & 기술
 
@@ -170,32 +163,20 @@
 </tr>
 </table>
 
-
-
 #### 🖥️ 주요 Stack
 
-|                        Content                         |           Main            |                          Detail                          |
-| :----------------------------------------------------: | :-----------------------: | :------------------------------------------------------: |
-|              [**하트송수신**](#음성인식)               | Python 3.9.6 / JavaScript |             webkitSpeechRecognition / Axios              |
-|                  [**채팅**](#드로잉)                   |        JavaScript         |                Canvas / Blob Data/ Axios                 |
-|                   [**위치 공유**]()                    |  HTML / CSS / JavaScript  |            Django 3.2.9 / HTML5 / CSS3 / ES6             |
-|         [**Kubernetes**](#색채-데이터-만들기)          |  C# .Net Framework 4.7.2  |            C#(OpenCvSharp4 - V4.5.3.20210817)            |
-| [**파이프라인 구축**](#알고리즘-구성-및-웹페이지-작업) |       Python 3.9.6        |                       Python(Math)                       |
-|                    [**CI/CD**](#db)                    |       Python 3.9.6        |                    Python(Shell_plus)                    |
-|           [**Ingress Nginx**](#query-최적화)           |       Django 3.2.9        |      prefetch_related / annotate / filter / exclude      |
-|                   [**배포**](#배포)                    |            AWS            | EC2(Ubuntu Server 20.04 LTS) / Cloud9 / Gunicorn / NGINX |
-|               [**회원관리**](#back-end)                |   JWT / Spring Security   |              JWT / HS512 / Spring Security               |
-|                        Android                         |          Kotlin           |             Android Studio 4.1.1 / Web View              |
-|                          iOS                           |           Swift           |             Xcode 13.3.1 / Web View / WebKit             |
-|                                                        |                           |                                                          |
-|                                                        |                           |                                                          |
-|                                                        |                           |                                                          |
-|                                                        |                           |                                                          |
-|                                                        |                           |                                                          |
-|                                                        |                           |                                                          |
-|                                                        |                           |                                                          |
-|                                                        |                           |                                                          |
-|                                                        |                           |                                                          |
+|         Content         |                  Main                  |                     Detail                     |
+| :---------------------: | :------------------------------------: | :--------------------------------------------: |
+|      **위치 공유**      |          Spring / TypeScript           |        Socket / SockJS / Stomp / Axios         |
+| **하트 송수신 및 채팅** |          Spring / TypeScript           |        Socket / SockJS / Stomp / Axios         |
+|     **kubernetes**      |           Kubernetes 1.14.0            |               Kubernetes 1.14.0                |
+|   **파이프라인 구축**   |            Jenkins Pipeline            |                Jenkins Pipeline                |
+|        **CI/CD**        | Docker, Jenkins, Dockerhub, Kubernetes | Docker, Jenkins, Dockerhub, Kubernetes Rollout |
+|    **Ingress Nginx**    |        Kubernetes ingress-nginx        | Nginx, Let's encrypt, Kubernetes ingress-nginx |
+|        **배포**         |                  AWS                   |          EC2(Ubuntu Server 20.04 LTS)          |
+|      **회원관리**       |         JWT / Spring Security          |         JWT / HS512 / Spring Security          |
+|         Android         |                 Kotlin                 |        Android Studio 4.1.1 / Web View         |
+|           iOS           |                 Swift                  |        Xcode 13.3.1 / Web View / WebKit        |
 
 # ⚙️ Individual Tech Section
 
@@ -280,7 +261,6 @@ public void handleSessionDisconnect(SessionDisconnectEvent event) {
 }
 ```
 
-=======
 ![image-20220520094541666](README.assets/image-20220520094541666.png)
 
 대략 해당 그림과 같은 구조가 만들어진다.
@@ -381,11 +361,9 @@ public void CreateChat(ChatMessageDTO DTO) {
 
 해당하는 방법으로 100m 이내 유저를 얻어왔으며, 하트를 교환하고 채팅을 나눌 수 있도록 하였다.
 
-
-
 ## ✨ Section2, 남궁휘 - Swift에서 하이브리드 앱을 개발해보자!
 
-###  iOS에서 웹 페이지를 띄워줄 수 있는 방법은 크게 3가지
+### iOS에서 웹 페이지를 띄워줄 수 있는 방법은 크게 3가지
 
 - WebKit
 - Open Safari
@@ -393,21 +371,15 @@ public void CreateChat(ChatMessageDTO DTO) {
 
 이들 중 iOS 13 버전 이상 부터는 WebKit 사용을 권장하고 있기 때문에, WebKit을 사용하기로 결정했습니다.
 
-
-
 ### WebKit이란?
 
 WebKit은 인터넷 창을 띄워 줄 수 있게 WebView 기능을 제공해주는 라이브러리 입니다.
-
-
 
 ### WebKit 사용방법
 
 > 1. WKWebView 프레임워크를 프로젝트에 추가해줍니다.
 > 2. 사용하려는 ViewController에 WebKit을 import해줍니다.
 > 3. 필요에 따라 plist 수정 하면서 기능을 조정합니다.
-
-
 
 ### 하이브리드 앱 구현
 
@@ -423,12 +395,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
     // MARK: - Property
     // extension으로 CLLocationManagerDelegate 구현하기
     weak var webKitView: WKWebView?
-    
+
     var locationManager:CLLocationManager! // 변수 선언할때 !를 붙히넴
-    
+
     var lat: Double?
     var long: Double?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager = CLLocationManager()
@@ -437,21 +409,21 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
 
         // 아래 함수 요청시 위치권한 팝업 출력
         self.locationManager.requestWhenInUseAuthorization()
-    
+
         // 스와이프를 통해서 뒤로가기 앞으로가기를 할수 있게 해주는 설정값
         self.webKitView?.allowsBackForwardNavigationGestures = true
-        
+
         // 정확한 위치 요청
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         // kCLLocationAccuracyBest -> 기본값 , 가장 높은 정확도
         // kCLLocationAccuracyHundredMeters -> 100m 내에서 정확하게 파악하기.
         locationManager.startUpdatingLocation()
-        
+
         // 앱이 백그라운드 상태에서 위치가 변경되어도 추적
         // 배터리 이슈가 존재 할 수도
         locationManager.allowsBackgroundLocationUpdates = true
         // 앱을 종료하면 백그라운드에서 더 이상 위치 안씀 -> 설명을 따로 해줘여 할까
-        
+
     let space = locationManager.location?.coordinate
     lat = space?.latitude
     long = space?.longitude }
@@ -496,8 +468,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
 
 ```
 
-
-
 #### info.plist 수정하기(ATS 작성)
 
 info.plist 파일에서 오른쪽을 클릭해서 Add Row를 클릭해줍니다.
@@ -508,13 +478,11 @@ Allow Arbitrary Loads - True(1이 True 2가 False)를 추가해줍니다.
 
 **Allow Arbitrary Loads** 는 모든 URL에 한에서 http, https 상관없이 `Bool값으로 처리 하겠다` 라는 뜻입니다.
 
-값이 True라면  http라도 통신을 하겠다는 의미입니다. 
+값이 True라면 http라도 통신을 하겠다는 의미입니다.
 
 이렇게 해두면 만들어놓은 웹 페이지가 정상적으로 뜨는걸 확인 할 수 있습니다
 
 추후 예외 URL(웹사이트) 만 허용시키는 방식을 추가로 적용해서 보안을 좀 더 강화하려고 합니다.
-
-
 
 ### 위치 정보 요청하기
 
@@ -529,7 +497,7 @@ extension ViewController {
     func getLocationUsagePermission() {
         self.locationManager.requestWhenInUseAuthorization()
     }
-    
+
     // 위치 정보 권한 없을 시, 앱 설정 창으로 보내주는 코드
     func setLocationAuth() {
         let authAlertController: UIAlertController
@@ -562,8 +530,6 @@ extension ViewController {
 }
 
 ```
-
-
 
 ## 👑 Section3, 유현수 - Google Analytics
 
@@ -706,45 +672,41 @@ const heartClickHandler = () => {
 
 > 쿠버네티스 설계부터 CI/CD 적용까지, 처음이라 어려웠고, 자동화까지 완성했을 때는 그만큼 보람을 느꼈다.
 
-
-
 #### 쿠버네티스 도입 목적
 
-* 무중단 배포
-* 부하분산
-* 오토힐링
-* 컨테이너의 관리 용이
-
-
+- 무중단 배포
+- 부하분산
+- 오토힐링
+- 컨테이너의 관리 용이
 
 #### 클러스터 설계
 
 ![Lovepush_Architecture](README.assets/Lovepush_Architecture.jpg)
 
-* EC2서버 4개가 가용자원으로, 마스터 노드 1개와 워커 노드 3개로 구성한다.
+- EC2서버 4개가 가용자원으로, 마스터 노드 1개와 워커 노드 3개로 구성한다.
 
-* Mysql, Mongodb로 DB 이원화를 적용한다. (채팅의 Read속도 고려)
+- Mysql, Mongodb로 DB 이원화를 적용한다. (채팅의 Read속도 고려)
 
-* 해당 DB는 PVC-PV 마운트하여 영구적으로 보관한다.
+- 해당 DB는 PVC-PV 마운트하여 영구적으로 보관한다.
 
-* Desired State : 백엔드는 팟 10개 / 프론트엔드는  팟 7개로 설정하였다.
+- Desired State : 백엔드는 팟 10개 / 프론트엔드는 팟 7개로 설정하였다.
 
-* Ingress-nginx를 적용하였고, Let's Encrypt를 통해 HTTPS를 적용하였다.
+- Ingress-nginx를 적용하였고, Let's Encrypt를 통해 HTTPS를 적용하였다.
 
-* Jenkins Pipeline을 구축하여, 일련의 과정을 자동화한다.
+- Jenkins Pipeline을 구축하여, 일련의 과정을 자동화한다.
 
-  * Git의 변화를 감지하여 Code를 받아오고,
-  * 해당 코드로 Docker Image를 생성한다.
-  * 생성된 Docker Image를 Dockerhub에 Push한다.
-  * Kube와 연동하여 해당 Deployment를 Rollout한다.
+  - Git의 변화를 감지하여 Code를 받아오고,
+  - 해당 코드로 Docker Image를 생성한다.
+  - 생성된 Docker Image를 Dockerhub에 Push한다.
+  - Kube와 연동하여 해당 Deployment를 Rollout한다.
 
-* Mattermost와 연동하여 빌드 현황과 로그를 공유한다.
+- Mattermost와 연동하여 빌드 현황과 로그를 공유한다.
 
   ![스크린샷 2022-05-20 오전 11.02.28](README.assets/mattermost.png)
 
 ## 🛡️ Section5, 정은이 - JWT와 Spring Security를 통한 인증과 인가
 
-#### JWT를 사용한 이유 
+#### JWT를 사용한 이유
 
 - 간편하고 쉽게 적용 가능
 - 중앙의 인증 서버 , 데이터 스토어에 대한 의존성 없음
@@ -752,7 +714,7 @@ const heartClickHandler = () => {
 
 #### Spring Security 를 사용한 이유
 
-- Spring Security 는 Spring  기반의 애플리케이션의 보안( 인증과 권한, 인가 등)을 담당하는 스프링 하위 프레임워크이다.
+- Spring Security 는 Spring 기반의 애플리케이션의 보안( 인증과 권한, 인가 등)을 담당하는 스프링 하위 프레임워크이다.
 - 모든 URL을 가로채어 인증을 요구하고, 해당 URL에 접근할 수 있는 권한 설정이 가능하다. 아직까진 USER 에 대한 API 가 대부분이지만, 관리자 페이지 등을 만들시에 확장 가능성이 높다.
 
 #### Dependency 설정
@@ -903,7 +865,7 @@ public boolean validateToken(String token) {
           HttpServletRequest httpServletRequest =(HttpServletRequest) request;
           String jwt = resolveToken(httpServletRequest);
           String requestURI = httpServletRequest.getRequestURI();
-  
+
           if(StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)){
               Authentication authentication = tokenProvider.getAuthentication(jwt);
               SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -911,7 +873,7 @@ public boolean validateToken(String token) {
           }else{
               logger.debug("유효한 JWT 토큰이 없습니다. uri {}",requestURI);
           }
-  
+
           chain.doFilter(request,response);
       }
   ```
@@ -968,13 +930,13 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
 
 - `@EnableGlobalMethodSecurity(prePostEnabled = true) @PreAuthorize` 어노테이션 메소드 단위로 추가하기 위해서 적용
 
-- tokenProvider , jwtAuthenticationEntryPoint  , jwtAccessDeniedHandler  주입
+- tokenProvider , jwtAuthenticationEntryPoint , jwtAccessDeniedHandler 주입
 
   ```java
   private final TokenProvider tokenProvider;
   private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
   private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
-  
+
   public SecurityConfig(TokenProvider tokenProvider,JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, JwtAccessDeniedHandler jwtAccessDeniedHandler){
       this.tokenProvider=tokenProvider;
       this.jwtAuthenticationEntryPoint =jwtAuthenticationEntryPoint;
@@ -998,33 +960,33 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
       protected void configure(HttpSecurity http) throws Exception {
           http
                   .csrf().disable() // token 방식을 사용하기 때문에  disable
-  
+
                   .exceptionHandling() // Exception 핸들링 클래스 추가
                   .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                   .accessDeniedHandler(jwtAccessDeniedHandler)
-  
+
                   .and() // h2 console을 위한 설정
                   .headers()
                   .frameOptions()
                   .sameOrigin()
-  
+
                   .and() // 세션을 사용하지 않기 떄문에 stateless 설정정
                   .sessionManagement()
                   .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-  
+
                   .and()
                   .authorizeRequests()
                   .antMatchers("/hello").permitAll()
                   .antMatchers("/accounts").permitAll() // singup
                   .antMatchers("/accounts/login").permitAll() // login 토큰이 없는 상태에서 요청
                   .anyRequest().authenticated()
-  
+
                   .and()
                   .apply(new JwtSecurityConfig(tokenProvider)); // addFilterBefore로 등록했던 JwtSecurityConfig 적용
       }
   ```
 
-  ### 
+  ###
 
   ## Repository 관련 코드 생성
 
@@ -1054,25 +1016,25 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
   import org.springframework.security.core.userdetails.UserDetailsService;
   import org.springframework.security.core.userdetails.UsernameNotFoundException;
   import org.springframework.stereotype.Component;
-  
+
   import java.util.List;
   import java.util.stream.Collectors;
-  
+
   @Component("userDetailsService")
   public class CustomUserDetailsService implements UserDetailsService {
       private final UserRepository userRepository;
-  
+
       public CustomUserDetailsService(UserRepository userRepository) {
           this.userRepository = userRepository;
       }
-  
+
       @Override
       public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
           return userRepository.findOneWithAuthoritiesByUsername(username)
                   .map(user -> createUser(username, user))
                   .orElseThrow(() -> new UsernameNotFoundException(username + " -> 데이터베이스에서 찾을 수 없습니다."));
       }
-  
+
       private org.springframework.security.core.userdetails.User createUser(String username, User user) {
           if (!user.isActivated()) {
               throw new RuntimeException(username + " -> 활성화되어 있지 않습니다.");
@@ -1098,7 +1060,7 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
 
 ### React-slick 이란?
 
-> 리액트에서 대중적으로 쓰이는 jQuery slick 라이브러리로 캐러셀을 만들때 주로 사용한다. 
+> 리액트에서 대중적으로 쓰이는 jQuery slick 라이브러리로 캐러셀을 만들때 주로 사용한다.
 
 #### 설치 방법
 
@@ -1115,7 +1077,7 @@ $ npm install react-slick
 import Slider from "react-slick"; // slider 불러오기
 
 // styled-component를 사용할때 필요한 import문
-import 'slick-carousel/slick/slick.css'; 
+import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 const settings = {
@@ -1147,9 +1109,9 @@ const settings = {
 
 ![캐러셀](README.assets/캐러셀.png)
 
-> 실제 캐러셀을 개발자 모드로 분석한 결과 중앙과 앙옆의 클래스가 구분되어 지정되어 있었다. 그렇기에 
+> 실제 캐러셀을 개발자 모드로 분석한 결과 중앙과 앙옆의 클래스가 구분되어 지정되어 있었다. 그렇기에
 >
-> slick-center, slick-current로 중앙을 구분하였다. 
+> slick-center, slick-current로 중앙을 구분하였다.
 
 ```react
 .slick-current {
@@ -1158,8 +1120,6 @@ const settings = {
 ```
 
 > css를 위와 같이 설정함으로써 가운데 이모지의 크기를 확대하여 3d형태로 표현하였다.
-
-
 
 #### 이모지 좌우 움직임 및 화면 너비 & 높이별 이모지 크기 조절
 
@@ -1201,8 +1161,6 @@ animation-direction: alternate; // 방향 설정
 }
 ```
 
-
-
 ### styled-component (CSS in JS)
 
 #### styled-component란?
@@ -1224,7 +1182,7 @@ $ npm install styled-components
 - 기본 태그의 css 설정
   - `const 컴포넌트명 = styled.태그명`
 - 컴포넌트 상속
-  - `const 컴포넌트명 = styled.상속명` 
+  - `const 컴포넌트명 = styled.상속명`
   - 사용할때 `${props => css설정}`
 - 변수명 변경
   - `const 컴포넌트명 = styled(기존 컴포넌트)`
