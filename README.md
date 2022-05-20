@@ -128,12 +128,12 @@
 <tr>
   <td valign="top" width="50%">
     <a href="https://github.com/eora21">
-      <img src="README.assets/seunghoon.png" align="left" style="width: 98%" />
+      <img src="README.assets/juho.png" align="left" style="width: 98%" />
     </a>
   </td>
   <td valign="top" width="50%">
-    <a href="https://avatars.githubusercontent.com/u/76445655?v=4">
-      <img src="README.assets/geonhee.png" align="left" style="width: 98%" />
+    <a href="https://github.com/glowforever42">
+      <img src="README.assets/hyi.png" align="left" style="width: 98%" />
     </a>
   </td>
 </tr>
@@ -145,23 +145,24 @@
   </td>
   <td valign="top" width="50%">
     <a href="https://github.com/Gkuer">
-      <img src="README.assets/eune.png" align="left" style="width: 98%" />
+      <img src="README.assets/geonhee.png" align="left" style="width: 98%" />
     </a>
   </td>
   </tr>
   <tr>
     <td valign="top" width="50%">
     <a href="https://github.com/EuneeChung">
-      <img src="README.assets/hyi.png" align="left" style="width: 98%" />
+      <img src="README.assets/eune.png" align="left" style="width: 98%" />
     </a>
   </td>
   <td valign="top" width="50%">
     <a href="https://github.com/gkstmdgns422">
-      <img src="README.assets/juho.png" align="left" style="width: 98%" />
+      <img src="README.assets/seunghoon.png" align="left" style="width: 98%" />
     </a>
   </td>
 </tr>
 </table>
+
 
 #### 🖥️ 주요 Stack
 
