@@ -1,8 +1,9 @@
-<h1  align="center"> 좋아하면 누르는 </h1>
+# 좋아하면 누르는
 
 <h1 align="center" style="max-width: 100%;">
   <img width="1100" alt="Logo" src="README.assets/title.png" style="max-width: 100%;" /><br/>
 </h1>
+
 
 <table>
   <tbody>
@@ -17,14 +18,11 @@
   </tbody>
 </table>
 
-<<<<<<< HEAD
 
-=======
->>>>>>> upstream/develop
 <p align="center">
   <b>Supported</b><br/>
   <a href="#"><img width="45" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" alt="react" /></a>&nbsp;&nbsp;
-    <a href="#"><img width="45" src="README.assets/java.png" alt="java" /></a>&nbsp;&nbsp;
+    <a href="#"><img width="45" src="https://w7.pngwing.com/pngs/727/307/png-transparent-java-development-kit-operating-systems-android-macos-android-text-logo-computer-program.png" alt="java" /></a>&nbsp;&nbsp;
   <a href="#"><img width="45" src="https://perfectacle.github.io/2017/08/02/Spring-boot-study-001day/thumb.png" alt="springboot" /></a>&nbsp;&nbsp;
   <a href="#"><img width="45" src="https://t1.daumcdn.net/cfile/tistory/991A86475C91BE1D40" alt="jpa" /></a>&nbsp;&nbsp;
   <a href="#"><img width="45" src="https://media.vlpt.us/images/ec532/post/bc893d61-4eaa-4f8f-9b2c-e2d2143506a4/aws_ec2.svg" alt="EC2" /></a>&nbsp;&nbsp;
@@ -32,8 +30,8 @@
     <a href="#"><img width="45" src="https://perfectacle.github.io/2019/04/16/spring-boot-docker-image-optimization/thumb.png" alt="docker" /></a>&nbsp;&nbsp;
     <a href="#"><img width="45" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Jenkins_logo.svg/1200px-Jenkins_logo.svg.png" alt="jenkins" /></a>&nbsp;&nbsp;
     <a href="#"><img width="45" src="https://blog.kakaocdn.net/dn/rrEfB/btq97aMSAsX/lstil1pt0KJW0Iy2WPO0Mk/img.png" alt="nginx" /></a>&nbsp;&nbsp;
-  <a href="#"><img width="45" src="README.assets/mysql.png" alt="mysql" /></a>&nbsp;&nbsp;
-    <a href="#"><img width="45" src="README.assets/mongo.png" alt="mongo" />
+  <a href="#"><img width="45" src="https://w7.pngwing.com/pngs/747/798/png-transparent-mysql-logo-mysql-database-web-development-computer-software-dolphin-marine-mammal-animals-text.png" alt="mysql" /></a>&nbsp;&nbsp;
+    <a href="#"><img width="45" src="https://w7.pngwing.com/pngs/63/19/png-transparent-mongodb-database-nosql-postgresql-mongo-text-logo-business-thumbnail.png" alt="mongo" />
 
 
 ## 💁 개요
@@ -55,32 +53,35 @@
     </tr>
   </tbody>
 </table>
-<h1 align="center" >
+
+
+<h1 style="text-align:center" >
    익명 속에서 설렘을
 </h1>
-<h3 align="center">
+<h3 style="text-align:center">
   <br>
   주변 100m 이내의 사용자들은 서로의 위치를 공유합니다 <br><br>
   하트를 송수신 할 수 있으며, 하트가 매칭된 사용자들은 1:1 채팅이 자동으로 생성합니다 <br><br>
   이모지 변경, 유저 신고 등 부가적인 기능을 제공합니다
 </h3>
 
-
 <br>
 
 ## 💁 Release History
 
-<h3 align="center">
-  22.05.21 - 앱스토어 출시</h3>  <h5  align="center"><br></h5>
+<h3 style="text-align:center;">
+  22.05.21 - 앱스토어 출시</h3>  <h5  style="text-align:center;"><br></h5>
 
-<h3 align="center">
-  22.05.20 - 플레이스토어 출시</h3>  <h5  align="center"><br></h5>
 
-<h3 align="center">
-  22.05.13 - Web 2차 배포</h3>  <h5  align="center">안내 템플릿 <br> 건의함 <br> 위치 엑세스 허용 안내 <br> 이모지 변경 <br></h5>
-<h3 align="center">
+<h3 style="text-align:center;">
+  22.05.20 - 플레이스토어 출시</h3>  <h5  style="text-align:center;"><br></h5>
+
+
+<h3 style="text-align:center;">
+  22.05.13 - Web 2차 배포</h3>  <h5  style="text-align:center;">안내 템플릿 <br> 건의함 <br> 위치 엑세스 허용 안내 <br> 이모지 변경 <br></h5>
+<h3 style="text-align:center;">
   22.05.06 - Web 최초 배포</h3>
- <h5  align="center"> 사용자간 위치 공유 <br> 하트 송수신 <br> 채팅 <br> 유저 신고 <br></h5>
+ <h5  style="text-align:center;"> 사용자간 위치 공유 <br> 하트 송수신 <br> 채팅 <br> 유저 신고 <br></h5>
 
 ## 🛠 아키텍처
 
@@ -91,42 +92,42 @@
 ### 💎 **Front-end**
 
 | <img src="https://profilinator.rishav.dev/skills-assets/html5-original-wordmark.svg" alt="HTML5" width="50px" height="50px" /> | <img src="https://profilinator.rishav.dev/skills-assets/css3-original-wordmark.svg" alt="CSS3" width="50px" height="50px" /> | <img src="https://profilinator.rishav.dev/skills-assets/javascript-original.svg" alt="TypeScript" width="50px" height="50px" /> |
-| :----------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
-|                                                             HTML5                                                              |                                                             CSS3                                                             |                                                           javascript                                                            |
+| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+|                            HTML5                             |                             CSS3                             |                          javascript                          |
 
 | <img src="https://profilinator.rishav.dev/skills-assets/react-original-wordmark.svg" alt="React.js" width="50px" height="50px" /> | Stomp | TypeScript |
-| :-------------------------------------------------------------------------------------------------------------------------------: | :---: | :--------: |
-|                                                               React                                                               | Stomp | TypeScript |
+| :----------------------------------------------------------: | :---: | :--------: |
+|                            React                             | Stomp | TypeScript |
 
 ### 🚀 **Back-end**
 
 | <img src="https://profilinator.rishav.dev/skills-assets/java-original-wordmark.svg" alt="Java" width="50px" height="50px" /> | <img src="https://www.seekpng.com/png/full/8-80775_spring-logo-png-transparent-spring-java.png" alt="Spring-Boot" width="50px" height="50px" /> | <img src="https://spring.io/images/projects/spring-data-79cc203ed8c54191215a60f9e5dc638f.svg" alt="JPA" width="50px" height="50px" /> | <img src="https://spring.io/images/projects/spring-security-b712a4cdb778e72eb28b8c55ec39dbd1.svg" alt="Spring-Security" width="50px" height="50px" /> | <img src="https://jwt.io/img/pic_logo.svg" alt="jwt" width="50px" height="50px" /> |
-| :--------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------: |
-|                                                             Java                                                             |                                                                   Spring-Boot                                                                   |                                                              Spring-JPA                                                               |                                                                    Spring-Security                                                                    |                                        JWT                                         |
+| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+|                             Java                             |                         Spring-Boot                          |                          Spring-JPA                          |                       Spring-Security                        |                             JWT                              |
 
 ### 🚊 DB
 
 | <img src="https://profilinator.rishav.dev/skills-assets/mysql-original-wordmark.svg" alt="MySQL" width="50px" height="50px" /> | <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/mongodb/mongodb-original-wordmark.svg" alt="MongoDB" width="50px" height="50px" /> |
-| :----------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                                             MySQL                                                              |                                                                                            Mongodb                                                                                             |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+|                            MySQL                             |                           Mongodb                            |
 
 ### 🐬 **DevOps**
 
 | <img src="https://profilinator.rishav.dev/skills-assets/nginx-original.svg" alt="NGiNX" width="50px" height="50px" /> | <img src="https://pbs.twimg.com/profile_images/1351702967561252865/aXfcETIt_400x400.jpg" alt="aws" width="50px" height="50px" /> | <img src="https://profilinator.rishav.dev/skills-assets/docker-original-wordmark.svg" alt="docker" width="50px" height="50px" /> | <img src="https://www.jenkins.io/images/logos/jenkins/jenkins.svg" alt="jenkins" width="50px" height="50px" /> | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kubernetes_logo_without_workmark.svg/926px-Kubernetes_logo_without_workmark.svg.png" alt="kubernetes" width="50px" height="50px" /> |
-| :-------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                                         NGiNX                                                         |                                                               aws                                                                |                                                              docker                                                              |                                                    Jenkins                                                     |                                                                                               Kubernetes                                                                                                |
+| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+|                            NGiNX                             |                             aws                              |                            docker                            |                           Jenkins                            |                          Kubernetes                          |
 
 ### 💡 기획 및 운영
 
 | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Git-logo.svg/768px-Git-logo.svg.png?20160811101906" alt="Git" width="50px" height="50px" /> | <img src="https://wac-cdn-2.atlassian.com/image/upload/f_auto,q_auto/dam/jcr:b544631f-b225-441b-9e05-57b7fd0d495b/Jira%20Software@2x-icon-blue.png" alt="jira" width="50px" height="50px" /> | <img src="https://cdn2.downdetector.com/static/uploads/logo/figma2.png" alt="figma" width="50px" height="50px" /> | <img src="https://blog.kakaocdn.net/dn/2CufY/btq8RTsnYaT/3EQm1A8iL54UcCzFkemVJ1/img.png" alt="notion" width="50px" height="50px" /> | <img src="https://play-lh.googleusercontent.com/FERhw8K6nxOmNNthc4zLb6FnkO5_iDs-W4w3Uc_GiHosUYJlkeXHp-Qom5kbq4u__Ns" alt="mattermost" width="50px" height="50px" /> | <img src="https://play-lh.googleusercontent.com/0oO5sAneb9lJP6l8c6DH4aj6f85qNpplQVHmPmbbBxAukDnlO7DarDW0b-kEIHa8SQ=w512" alt="discord" width="50px" height="50px" /> |
-| :-------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                                                               Git                                                                               |                                                                                             JIRA                                                                                             |                                                       Figma                                                       |                                                               Notion                                                                |                                                                             Mattermost                                                                              |                                                                               Discord                                                                                |
+| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+|                             Git                              |                             JIRA                             |                            Figma                             |                            Notion                            |                          Mattermost                          |                           Discord                            |
 
 ### 📱 App
 
 | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Kotlin_Icon.svg/1200px-Kotlin_Icon.svg.png" alt="kotlin" width="50px" height="50px" /> | <img src="https://blog.kakaocdn.net/dn/bU8z6O/btqKXLx6c0Y/szaVg2oqCAUxMYex0n8zs1/img.png" alt="android_studio" width="50px" height="50px" /> | <img src="https://images.velog.io/images/gooreum_90/post/c53e169b-71ea-4bf5-84ce-9523949b2dfd/swiftlogo.png" alt="swift" width="50px" height="50px" /> | <img src="https://is5-ssl.mzstatic.com/image/thumb/Purple122/v4/9d/25/cf/9d25cfe3-2476-20ae-ed0f-8d67a188bad7/Xcode-85-220-0-4-2x.png/1200x630bb.png" alt="xcode" width="50px" height="50px" /> |
-| :--------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                                                           Kotlin                                                                           |                                                                Android Studio                                                                |                                                                         Swift                                                                          |                                                                                              Xcode                                                                                              |
+| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+|                            Kotlin                            |                        Android Studio                        |                            Swift                             |                            Xcode                             |
 
 ## 💞 팀 & 기술
 
@@ -170,6 +171,7 @@
 </table>
 
 
+
 #### 🖥️ 주요 Stack
 
 |                        Content                         |           Main            |                          Detail                          |
@@ -177,21 +179,23 @@
 |              [**하트송수신**](#음성인식)               | Python 3.9.6 / JavaScript |             webkitSpeechRecognition / Axios              |
 |                  [**채팅**](#드로잉)                   |        JavaScript         |                Canvas / Blob Data/ Axios                 |
 |                   [**위치 공유**]()                    |  HTML / CSS / JavaScript  |            Django 3.2.9 / HTML5 / CSS3 / ES6             |
-||||
-| [**Kubernetes**](#개요) |  Kubernetes 1.14.0  |            Kubernetes 1.14.0            |
-| [**파이프라인 구축**](#개요) |       Jenkins Pipeline       |                       Jenkins Pipeline                       |
-|                    [**CI/CD**](#개요)                    | Docker, Jenkins, Dockerhub, Kubernetes |                    Docker, Jenkins, Dockerhub, Kubernetes Rollout                    |
-|           [**Ingress Nginx**](#개요)           | Kubernetes ingress-nginx |      Nginx, Let's encrypt, Kubernetes ingress-nginx      |
-|                  [**배포**](#개요)   |            AWS            | EC2(Ubuntu Server 20.04 LTS) |
-||||
-|                              |                                        |                                                |
-|                              |                                        |                                                |
-|                              |                                        |                                                |
-|                              |                                        |                                                |
-|                              |                                        |                                                |
-| [**회원관리**](#back-end) | JWT / Spring Security | JWT / HS512 / Spring Security |
-| Android | Kotlin | Android Studio 4.1.1 / Web View |
-
+|         [**Kubernetes**](#색채-데이터-만들기)          |  C# .Net Framework 4.7.2  |            C#(OpenCvSharp4 - V4.5.3.20210817)            |
+| [**파이프라인 구축**](#알고리즘-구성-및-웹페이지-작업) |       Python 3.9.6        |                       Python(Math)                       |
+|                    [**CI/CD**](#db)                    |       Python 3.9.6        |                    Python(Shell_plus)                    |
+|           [**Ingress Nginx**](#query-최적화)           |       Django 3.2.9        |      prefetch_related / annotate / filter / exclude      |
+|                   [**배포**](#배포)                    |            AWS            | EC2(Ubuntu Server 20.04 LTS) / Cloud9 / Gunicorn / NGINX |
+|               [**회원관리**](#back-end)                |   JWT / Spring Security   |              JWT / HS512 / Spring Security               |
+|                        Android                         |          Kotlin           |             Android Studio 4.1.1 / Web View              |
+|                          iOS                           |           Swift           |             Xcode 13.3.1 / Web View / WebKit             |
+|                                                        |                           |                                                          |
+|                                                        |                           |                                                          |
+|                                                        |                           |                                                          |
+|                                                        |                           |                                                          |
+|                                                        |                           |                                                          |
+|                                                        |                           |                                                          |
+|                                                        |                           |                                                          |
+|                                                        |                           |                                                          |
+|                                                        |                           |                                                          |
 
 # ⚙️ Individual Tech Section
 
@@ -276,6 +280,7 @@ public void handleSessionDisconnect(SessionDisconnectEvent event) {
 }
 ```
 
+=======
 ![image-20220520094541666](README.assets/image-20220520094541666.png)
 
 대략 해당 그림과 같은 구조가 만들어진다.
@@ -349,9 +354,6 @@ client.publish({
     message: `${message}`,
   }),
 });
-```
-
-```java
 @MessageMapping("chat/message")
     public void message(ChatMessageDTO message) {
         switch (message.getType()) {
@@ -361,9 +363,6 @@ client.publish({
             ...
         }
     }
-```
-
-```java
 @Transactional
 public void CreateChat(ChatMessageDTO DTO) {
     String pattern = "yyyy-MM-dd a KK:mm ss:SSS";
@@ -382,7 +381,189 @@ public void CreateChat(ChatMessageDTO DTO) {
 
 해당하는 방법으로 100m 이내 유저를 얻어왔으며, 하트를 교환하고 채팅을 나눌 수 있도록 하였다.
 
-## ✨ Section2, 남궁휘 -
+
+
+## ✨ Section2, 남궁휘 - Swift에서 하이브리드 앱을 개발해보자!
+
+###  iOS에서 웹 페이지를 띄워줄 수 있는 방법은 크게 3가지
+
+- WebKit
+- Open Safari
+- SFSafariViewController
+
+이들 중 iOS 13 버전 이상 부터는 WebKit 사용을 권장하고 있기 때문에, WebKit을 사용하기로 결정했습니다.
+
+
+
+### WebKit이란?
+
+WebKit은 인터넷 창을 띄워 줄 수 있게 WebView 기능을 제공해주는 라이브러리 입니다.
+
+
+
+### WebKit 사용방법
+
+> 1. WKWebView 프레임워크를 프로젝트에 추가해줍니다.
+> 2. 사용하려는 ViewController에 WebKit을 import해줍니다.
+> 3. 필요에 따라 plist 수정 하면서 기능을 조정합니다.
+
+
+
+### 하이브리드 앱 구현
+
+View가 Load되면 사전에 제작해놓은 웹 페이지를 띄워주도록 구현했습니다
+
+```swift
+import UIKit
+import WebKit
+import CoreLocation
+
+
+class ViewController: UIViewController, CLLocationManagerDelegate{
+    // MARK: - Property
+    // extension으로 CLLocationManagerDelegate 구현하기
+    weak var webKitView: WKWebView?
+    
+    var locationManager:CLLocationManager! // 변수 선언할때 !를 붙히넴
+    
+    var lat: Double?
+    var long: Double?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        locationManager = CLLocationManager()
+        loadUrl()
+        locationManager.delegate = self
+
+        // 아래 함수 요청시 위치권한 팝업 출력
+        self.locationManager.requestWhenInUseAuthorization()
+    
+        // 스와이프를 통해서 뒤로가기 앞으로가기를 할수 있게 해주는 설정값
+        self.webKitView?.allowsBackForwardNavigationGestures = true
+        
+        // 정확한 위치 요청
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        // kCLLocationAccuracyBest -> 기본값 , 가장 높은 정확도
+        // kCLLocationAccuracyHundredMeters -> 100m 내에서 정확하게 파악하기.
+        locationManager.startUpdatingLocation()
+        
+        // 앱이 백그라운드 상태에서 위치가 변경되어도 추적
+        // 배터리 이슈가 존재 할 수도
+        locationManager.allowsBackgroundLocationUpdates = true
+        // 앱을 종료하면 백그라운드에서 더 이상 위치 안씀 -> 설명을 따로 해줘여 할까
+        
+    let space = locationManager.location?.coordinate
+    lat = space?.latitude
+    long = space?.longitude }
+
+
+    // weak : 약한 참조
+    // 해당 인스턴스의 소유권을 가지지 않고, 주소값만을 가지고 있는 포인터 개념
+    // 자신이 참조는 하지만 weak 메모리를 해제할 수 있는 권한은 다른 클래스에 있음.
+    // MARK: - View Life Cycle
+    override func loadView() {
+        // rootView
+        let view = UIView()
+        self.view = view
+
+        // WebKitView
+        let webConfiguration = WKWebViewConfiguration()
+        let webKitView: WKWebView = WKWebView(frame: .zero, configuration: webConfiguration)
+        self.webKitView = webKitView
+        webKitView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(webKitView)
+
+        // WebKitView 제약사항
+        NSLayoutConstraint.activate([
+            webKitView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+            webKitView.heightAnchor.constraint(equalTo: self.view.heightAnchor),
+            webKitView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            webKitView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+        ])
+    }
+
+    // MARK: - Func
+    func loadUrl() {
+        if let url = URL(string: "https://www.someone-might-like-you.com") {
+            let urlRequest = URLRequest(url: url)
+            webKitView?.load(urlRequest)
+        } else {
+            // 에러처리문.. 예를들어서 alert를 띄워주거나..
+            print("접속에 실패했습니다.")
+        }
+    }
+}
+
+```
+
+
+
+#### info.plist 수정하기(ATS 작성)
+
+info.plist 파일에서 오른쪽을 클릭해서 Add Row를 클릭해줍니다.
+
+![allow](README.assets/allow.png)
+
+Allow Arbitrary Loads - True(1이 True 2가 False)를 추가해줍니다.
+
+**Allow Arbitrary Loads** 는 모든 URL에 한에서 http, https 상관없이 `Bool값으로 처리 하겠다` 라는 뜻입니다.
+
+값이 True라면  http라도 통신을 하겠다는 의미입니다. 
+
+이렇게 해두면 만들어놓은 웹 페이지가 정상적으로 뜨는걸 확인 할 수 있습니다
+
+추후 예외 URL(웹사이트) 만 허용시키는 방식을 추가로 적용해서 보안을 좀 더 강화하려고 합니다.
+
+
+
+### 위치 정보 요청하기
+
+저희 서비스는 위치 정보가 반드시 필요한 서비스기 때문에, 디바이스에 요청을 받아오는 과정이 필요 했습니다.
+
+ViewController에 extension을 통해 기능을 구현했습니다.
+
+디바이스에 위치 정보 요청을 하고 만약 요청을 거절 했다면, 앱의 설정창으로 보내서 권한을 다시 설정 할 수 있게 해주었습니다.
+
+```swift
+extension ViewController {
+    func getLocationUsagePermission() {
+        self.locationManager.requestWhenInUseAuthorization()
+    }
+    
+    // 위치 정보 권한 없을 시, 앱 설정 창으로 보내주는 코드
+    func setLocationAuth() {
+        let authAlertController: UIAlertController
+        authAlertController = UIAlertController(title: "위치 정보 권한 요청", message: "저희 서비스를 이용하시기 위해서는 위치 정보가 필요합니다. 위치 접근 허용을 해주세요.", preferredStyle: .alert)
+        // 앱 설명에 필수권한으로 적어두기.
+        let getAuthAction: UIAlertAction
+        getAuthAction = UIAlertAction(title: "네 알겠습니다.", style: UIAlertAction.Style.default, handler: { _ in
+            // 보내주면 해당 앱의 설정 창으로 가게 된다. 가능하다면 설명을 자세히 적어 주기.
+            if let appSettings = URL(string: UIApplication.openSettingsURLString){
+                UIApplication.shared.open(appSettings, options: [:], completionHandler: nil)
+            }
+        })
+        authAlertController.addAction(getAuthAction)
+        self.present(authAlertController, animated: true, completion: nil)
+    }
+
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+            switch status {
+            case.authorizedAlways, .authorizedWhenInUse:
+                print("GPS 권한 설정 완료")
+//            case.restricted, .notDetermined:
+//                print("GPS 권한 설정 되지 않음")
+            case.denied:
+//                print("GPS 권한 거부 됨") 굳이 케이스 다 필요없이 디나이랑 디폴트만 있으면 될듯. 스위치는 해야하니까.
+                setLocationAuth()
+            default:
+                print("GPS Default")
+            }
+        }
+}
+
+```
+
+
 
 ## 👑 Section3, 유현수 - Google Analytics
 
@@ -561,8 +742,6 @@ const heartClickHandler = () => {
 
   ![스크린샷 2022-05-20 오전 11.02.28](README.assets/mattermost.png)
 
-
-
 ## 🛡️ Section5, 정은이 - JWT와 Spring Security를 통한 인증과 인가
 
 #### JWT를 사용한 이유 
@@ -580,9 +759,6 @@ const heartClickHandler = () => {
 
 ```grable
 implementation 'org.springframework.boot:spring-boot-starter-security'
-```
-
-```
 implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
 runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
 runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
@@ -949,7 +1125,7 @@ const settings = {
     slidesToShow: 1, // 한 화면에 보이는 갯수
     slidesToScroll: 1 // 한번에 넘어가는 컨텐츠 수
     arrows: false, // 양옆 이동 화살표
-  	beforeChange: (current: any, next: any) => setState(next), // 현재 센터 번호를 지정
+    beforeChange: (current: any, next: any) => setState(next), // 현재 센터 번호를 지정
 };
 
 <Slider {...settings}>
@@ -1061,11 +1237,11 @@ import styled from "styled-components";
 
 const Example = () => {
     return (
-      	<>
-      		<Button>Hello</Button>
-        	<NewButton color="blue">new Button</NewButton>
-      	</>
-  	);
+        <>
+          <Button>Hello</Button>
+          <NewButton color="blue">new Button</NewButton>
+        </>
+    );
 }
 // 기본 button태그 설정
 const Button = styled.button`
@@ -1080,4 +1256,3 @@ const NewButton = styled.Button`
 
 export default Example;
 ```
-
