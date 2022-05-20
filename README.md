@@ -30,7 +30,6 @@
     <a href="#"><img width="45" src="https://blog.kakaocdn.net/dn/rrEfB/btq97aMSAsX/lstil1pt0KJW0Iy2WPO0Mk/img.png" alt="nginx" /></a>&nbsp;&nbsp;
   <a href="#"><img width="45" src="https://w7.pngwing.com/pngs/747/798/png-transparent-mysql-logo-mysql-database-web-development-computer-software-dolphin-marine-mammal-animals-text.png" alt="mysql" /></a>&nbsp;&nbsp;
     <a href="#"><img width="45" src="https://w7.pngwing.com/pngs/63/19/png-transparent-mongodb-database-nosql-postgresql-mongo-text-logo-business-thumbnail.png" alt="mongo" />
-
 ## 💁 개요
 
 ### 다운로드 및 실행
@@ -60,6 +59,7 @@
   하트를 송수신 할 수 있으며, 하트가 매칭된 사용자들은 1:1 채팅이 자동으로 생성합니다 <br><br>
   이모지 변경, 유저 신고 등 부가적인 기능을 제공합니다
 </h3>
+
 <br>
 
 ## 💁 Release History
@@ -88,9 +88,9 @@
 | :----------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
 |                                                             HTML5                                                              |                                                             CSS3                                                             |                                                           javascript                                                            |
 
-| <img src="https://profilinator.rishav.dev/skills-assets/react-original-wordmark.svg" alt="React.js" width="50px" height="50px" /> | Stomp | TypeScript |
-| :-------------------------------------------------------------------------------------------------------------------------------: | :---: | :--------: |
-|                                                               React                                                               | Stomp | TypeScript |
+| <img src="https://profilinator.rishav.dev/skills-assets/react-original-wordmark.svg" alt="React.js" width="50px" height="50px" /> | <img src="https://stomp.github.io/images/project-logo.png" alt="stomp" height="50px" /> | <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/typescript-icon.svg" alt="typescript" width="50px" height="50px" /> |
+| :-------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                               React                                                               |                                          Stomp                                          |                                                                  TypeScript                                                                   |
 
 ### 🚀 **Back-end**
 
@@ -165,29 +165,18 @@
 
 #### 🖥️ 주요 Stack
 
-|                               Content                               |          Main           |                          Detail                          |
-| :-----------------------------------------------------------------: | :---------------------: | :------------------------------------------------------: |
-| [**위치 공유**](#Section1, 김주호 - 위치 기반 기술과 채팅에 대하여) |   Spring / TypeScript   |             Socket / SockJS / Stomp / Axios              |
-|                 [**하트 송수신 및 채팅**](#드로잉)                  |   Spring / TypeScript   |             Socket / SockJS / Stomp / Axios              |
-|                          [**위치 공유**]()                          | HTML / CSS / JavaScript |            Django 3.2.9 / HTML5 / CSS3 / ES6             |
-|                [**Kubernetes**](#색채-데이터-만들기)                | C# .Net Framework 4.7.2 |            C#(OpenCvSharp4 - V4.5.3.20210817)            |
-|       [**파이프라인 구축**](#알고리즘-구성-및-웹페이지-작업)        |      Python 3.9.6       |                       Python(Math)                       |
-|                          [**CI/CD**](#db)                           |      Python 3.9.6       |                    Python(Shell_plus)                    |
-|                 [**Ingress Nginx**](#query-최적화)                  |      Django 3.2.9       |      prefetch_related / annotate / filter / exclude      |
-|                          [**배포**](#배포)                          |           AWS           | EC2(Ubuntu Server 20.04 LTS) / Cloud9 / Gunicorn / NGINX |
-|                      [**회원관리**](#back-end)                      |  JWT / Spring Security  |              JWT / HS512 / Spring Security               |
-|                               Android                               |         Kotlin          |             Android Studio 4.1.1 / Web View              |
-|                                                                     |                         |                                                          |
-|                                                                     |                         |                                                          |
-|                                                                     |                         |                                                          |
-|                                                                     |                         |                                                          |
-|                                                                     |                         |                                                          |
-|                                                                     |                         |                                                          |
-|                                                                     |                         |                                                          |
-|                                                                     |                         |                                                          |
-|                                                                     |                         |                                                          |
-|                                                                     |                         |                                                          |
-|                                                                     |                         |                                                          |
+|         Content         |                  Main                  |                     Detail                     |
+| :---------------------: | :------------------------------------: | :--------------------------------------------: |
+|      **위치 공유**      |          Spring / TypeScript           |        Socket / SockJS / Stomp / Axios         |
+| **하트 송수신 및 채팅** |          Spring / TypeScript           |        Socket / SockJS / Stomp / Axios         |
+|     **kubernetes**      |           Kubernetes 1.14.0            |               Kubernetes 1.14.0                |
+|   **파이프라인 구축**   |            Jenkins Pipeline            |                Jenkins Pipeline                |
+|        **CI/CD**        | Docker, Jenkins, Dockerhub, Kubernetes | Docker, Jenkins, Dockerhub, Kubernetes Rollout |
+|    **Ingress Nginx**    |        Kubernetes ingress-nginx        | Nginx, Let's encrypt, Kubernetes ingress-nginx |
+|        **배포**         |                  AWS                   |          EC2(Ubuntu Server 20.04 LTS)          |
+|      **회원관리**       |         JWT / Spring Security          |         JWT / HS512 / Spring Security          |
+|         Android         |                 Kotlin                 |        Android Studio 4.1.1 / Web View         |
+|           iOS           |                 Swift                  |        Xcode 13.3.1 / Web View / WebKit        |
 
 # ⚙️ Individual Tech Section
 
@@ -345,9 +334,6 @@ client.publish({
     message: `${message}`,
   }),
 });
-```
-
-```java
 @MessageMapping("chat/message")
     public void message(ChatMessageDTO message) {
         switch (message.getType()) {
@@ -357,9 +343,6 @@ client.publish({
             ...
         }
     }
-```
-
-```java
 @Transactional
 public void CreateChat(ChatMessageDTO DTO) {
     String pattern = "yyyy-MM-dd a KK:mm ss:SSS";
@@ -378,7 +361,175 @@ public void CreateChat(ChatMessageDTO DTO) {
 
 해당하는 방법으로 100m 이내 유저를 얻어왔으며, 하트를 교환하고 채팅을 나눌 수 있도록 하였다.
 
-## ✨ Section2, 남궁휘 -
+## ✨ Section2, 남궁휘 - Swift에서 하이브리드 앱을 개발해보자!
+
+### iOS에서 웹 페이지를 띄워줄 수 있는 방법은 크게 3가지
+
+- WebKit
+- Open Safari
+- SFSafariViewController
+
+이들 중 iOS 13 버전 이상 부터는 WebKit 사용을 권장하고 있기 때문에, WebKit을 사용하기로 결정했습니다.
+
+### WebKit이란?
+
+WebKit은 인터넷 창을 띄워 줄 수 있게 WebView 기능을 제공해주는 라이브러리 입니다.
+
+### WebKit 사용방법
+
+> 1. WKWebView 프레임워크를 프로젝트에 추가해줍니다.
+> 2. 사용하려는 ViewController에 WebKit을 import해줍니다.
+> 3. 필요에 따라 plist 수정 하면서 기능을 조정합니다.
+
+### 하이브리드 앱 구현
+
+View가 Load되면 사전에 제작해놓은 웹 페이지를 띄워주도록 구현했습니다
+
+```swift
+import UIKit
+import WebKit
+import CoreLocation
+
+
+class ViewController: UIViewController, CLLocationManagerDelegate{
+    // MARK: - Property
+    // extension으로 CLLocationManagerDelegate 구현하기
+    weak var webKitView: WKWebView?
+
+    var locationManager:CLLocationManager! // 변수 선언할때 !를 붙히넴
+
+    var lat: Double?
+    var long: Double?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        locationManager = CLLocationManager()
+        loadUrl()
+        locationManager.delegate = self
+
+        // 아래 함수 요청시 위치권한 팝업 출력
+        self.locationManager.requestWhenInUseAuthorization()
+
+        // 스와이프를 통해서 뒤로가기 앞으로가기를 할수 있게 해주는 설정값
+        self.webKitView?.allowsBackForwardNavigationGestures = true
+
+        // 정확한 위치 요청
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        // kCLLocationAccuracyBest -> 기본값 , 가장 높은 정확도
+        // kCLLocationAccuracyHundredMeters -> 100m 내에서 정확하게 파악하기.
+        locationManager.startUpdatingLocation()
+
+        // 앱이 백그라운드 상태에서 위치가 변경되어도 추적
+        // 배터리 이슈가 존재 할 수도
+        locationManager.allowsBackgroundLocationUpdates = true
+        // 앱을 종료하면 백그라운드에서 더 이상 위치 안씀 -> 설명을 따로 해줘여 할까
+
+    let space = locationManager.location?.coordinate
+    lat = space?.latitude
+    long = space?.longitude }
+
+
+    // weak : 약한 참조
+    // 해당 인스턴스의 소유권을 가지지 않고, 주소값만을 가지고 있는 포인터 개념
+    // 자신이 참조는 하지만 weak 메모리를 해제할 수 있는 권한은 다른 클래스에 있음.
+    // MARK: - View Life Cycle
+    override func loadView() {
+        // rootView
+        let view = UIView()
+        self.view = view
+
+        // WebKitView
+        let webConfiguration = WKWebViewConfiguration()
+        let webKitView: WKWebView = WKWebView(frame: .zero, configuration: webConfiguration)
+        self.webKitView = webKitView
+        webKitView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(webKitView)
+
+        // WebKitView 제약사항
+        NSLayoutConstraint.activate([
+            webKitView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+            webKitView.heightAnchor.constraint(equalTo: self.view.heightAnchor),
+            webKitView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            webKitView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+        ])
+    }
+
+    // MARK: - Func
+    func loadUrl() {
+        if let url = URL(string: "https://www.someone-might-like-you.com") {
+            let urlRequest = URLRequest(url: url)
+            webKitView?.load(urlRequest)
+        } else {
+            // 에러처리문.. 예를들어서 alert를 띄워주거나..
+            print("접속에 실패했습니다.")
+        }
+    }
+}
+
+```
+
+#### info.plist 수정하기(ATS 작성)
+
+info.plist 파일에서 오른쪽을 클릭해서 Add Row를 클릭해줍니다.
+
+![allow](README.assets/allow.png)
+
+Allow Arbitrary Loads - True(1이 True 2가 False)를 추가해줍니다.
+
+**Allow Arbitrary Loads** 는 모든 URL에 한에서 http, https 상관없이 `Bool값으로 처리 하겠다` 라는 뜻입니다.
+
+값이 True라면 http라도 통신을 하겠다는 의미입니다.
+
+이렇게 해두면 만들어놓은 웹 페이지가 정상적으로 뜨는걸 확인 할 수 있습니다
+
+추후 예외 URL(웹사이트) 만 허용시키는 방식을 추가로 적용해서 보안을 좀 더 강화하려고 합니다.
+
+### 위치 정보 요청하기
+
+저희 서비스는 위치 정보가 반드시 필요한 서비스기 때문에, 디바이스에 요청을 받아오는 과정이 필요 했습니다.
+
+ViewController에 extension을 통해 기능을 구현했습니다.
+
+디바이스에 위치 정보 요청을 하고 만약 요청을 거절 했다면, 앱의 설정창으로 보내서 권한을 다시 설정 할 수 있게 해주었습니다.
+
+```swift
+extension ViewController {
+    func getLocationUsagePermission() {
+        self.locationManager.requestWhenInUseAuthorization()
+    }
+
+    // 위치 정보 권한 없을 시, 앱 설정 창으로 보내주는 코드
+    func setLocationAuth() {
+        let authAlertController: UIAlertController
+        authAlertController = UIAlertController(title: "위치 정보 권한 요청", message: "저희 서비스를 이용하시기 위해서는 위치 정보가 필요합니다. 위치 접근 허용을 해주세요.", preferredStyle: .alert)
+        // 앱 설명에 필수권한으로 적어두기.
+        let getAuthAction: UIAlertAction
+        getAuthAction = UIAlertAction(title: "네 알겠습니다.", style: UIAlertAction.Style.default, handler: { _ in
+            // 보내주면 해당 앱의 설정 창으로 가게 된다. 가능하다면 설명을 자세히 적어 주기.
+            if let appSettings = URL(string: UIApplication.openSettingsURLString){
+                UIApplication.shared.open(appSettings, options: [:], completionHandler: nil)
+            }
+        })
+        authAlertController.addAction(getAuthAction)
+        self.present(authAlertController, animated: true, completion: nil)
+    }
+
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+            switch status {
+            case.authorizedAlways, .authorizedWhenInUse:
+                print("GPS 권한 설정 완료")
+//            case.restricted, .notDetermined:
+//                print("GPS 권한 설정 되지 않음")
+            case.denied:
+//                print("GPS 권한 거부 됨") 굳이 케이스 다 필요없이 디나이랑 디폴트만 있으면 될듯. 스위치는 해야하니까.
+                setLocationAuth()
+            default:
+                print("GPS Default")
+            }
+        }
+}
+
+```
 
 ## 👑 Section3, 유현수 - Google Analytics
 
@@ -515,6 +666,44 @@ const heartClickHandler = () => {
 
 ## 🗳️ Section4, 이건희 - 쿠버네티스, 도커, 젠킨스를 활용한 배포와 CI/CD에 대하여
 
+### `개요`
+
+> 높은 트래픽과 소켓 통신으로 인한 부하를 예상했다. 해당 트래픽과 부하를 Devops가 나 혼자인 우리 팀이 감당하기 위해 쿠버네티스를 도입했다.
+
+> 쿠버네티스 설계부터 CI/CD 적용까지, 처음이라 어려웠고, 자동화까지 완성했을 때는 그만큼 보람을 느꼈다.
+
+#### 쿠버네티스 도입 목적
+
+- 무중단 배포
+- 부하분산
+- 오토힐링
+- 컨테이너의 관리 용이
+
+#### 클러스터 설계
+
+![Lovepush_Architecture](README.assets/Lovepush_Architecture.jpg)
+
+- EC2서버 4개가 가용자원으로, 마스터 노드 1개와 워커 노드 3개로 구성한다.
+
+- Mysql, Mongodb로 DB 이원화를 적용한다. (채팅의 Read속도 고려)
+
+- 해당 DB는 PVC-PV 마운트하여 영구적으로 보관한다.
+
+- Desired State : 백엔드는 팟 10개 / 프론트엔드는 팟 7개로 설정하였다.
+
+- Ingress-nginx를 적용하였고, Let's Encrypt를 통해 HTTPS를 적용하였다.
+
+- Jenkins Pipeline을 구축하여, 일련의 과정을 자동화한다.
+
+  - Git의 변화를 감지하여 Code를 받아오고,
+  - 해당 코드로 Docker Image를 생성한다.
+  - 생성된 Docker Image를 Dockerhub에 Push한다.
+  - Kube와 연동하여 해당 Deployment를 Rollout한다.
+
+- Mattermost와 연동하여 빌드 현황과 로그를 공유한다.
+
+  ![스크린샷 2022-05-20 오전 11.02.28](README.assets/mattermost.png)
+
 ## 🛡️ Section5, 정은이 - JWT와 Spring Security를 통한 인증과 인가
 
 #### JWT를 사용한 이유
@@ -532,9 +721,6 @@ const heartClickHandler = () => {
 
 ```grable
 implementation 'org.springframework.boot:spring-boot-starter-security'
-```
-
-```
 implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
 runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
 runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
@@ -901,7 +1087,7 @@ const settings = {
     slidesToShow: 1, // 한 화면에 보이는 갯수
     slidesToScroll: 1 // 한번에 넘어가는 컨텐츠 수
     arrows: false, // 양옆 이동 화살표
-  	beforeChange: (current: any, next: any) => setState(next), // 현재 센터 번호를 지정
+    beforeChange: (current: any, next: any) => setState(next), // 현재 센터 번호를 지정
 };
 
 <Slider {...settings}>
@@ -1009,11 +1195,11 @@ import styled from "styled-components";
 
 const Example = () => {
     return (
-      	<>
-      		<Button>Hello</Button>
-        	<NewButton color="blue">new Button</NewButton>
-      	</>
-  	);
+        <>
+          <Button>Hello</Button>
+          <NewButton color="blue">new Button</NewButton>
+        </>
+    );
 }
 // 기본 button태그 설정
 const Button = styled.button`
