@@ -89,7 +89,7 @@ const MainPage = () => {
           />
         </HeartWrapper>
         <ImgContainer>
-          {nearBy100mState.emojis.map((slide, idx) => (
+          {nearBy100mState.emojis.slice(0,12).map((slide, idx) => (
             <Emoji key={idx} src={slide} alt={`emoji-${idx}`} />
           ))}
         </ImgContainer>
