@@ -700,6 +700,48 @@ const heartClickHandler = () => {
 
 ## 🗳️ Section4, 이건희 - 쿠버네티스, 도커, 젠킨스를 활용한 배포와 CI/CD에 대하여
 
+### `개요`
+
+> 높은 트래픽과 소켓 통신으로 인한 부하를 예상했다. 해당 트래픽과 부하를 Devops가 나 혼자인 우리 팀이 감당하기 위해 쿠버네티스를 도입했다.
+
+> 쿠버네티스 설계부터 CI/CD 적용까지, 처음이라 어려웠고, 자동화까지 완성했을 때는 그만큼 보람을 느꼈다.
+
+
+
+#### 쿠버네티스 도입 목적
+
+* 무중단 배포
+* 부하분산
+* 오토힐링
+* 컨테이너의 관리 용이
+
+
+
+#### 클러스터 설계
+
+![Lovepush_Architecture](README.assets/Lovepush_Architecture.jpg)
+
+* EC2서버 4개가 가용자원으로, 마스터 노드 1개와 워커 노드 3개로 구성한다.
+
+* Mysql, Mongodb로 DB 이원화를 적용한다. (채팅의 Read속도 고려)
+
+* 해당 DB는 PVC-PV 마운트하여 영구적으로 보관한다.
+
+* Desired State : 백엔드는 팟 10개 / 프론트엔드는  팟 7개로 설정하였다.
+
+* Ingress-nginx를 적용하였고, Let's Encrypt를 통해 HTTPS를 적용하였다.
+
+* Jenkins Pipeline을 구축하여, 일련의 과정을 자동화한다.
+
+  * Git의 변화를 감지하여 Code를 받아오고,
+  * 해당 코드로 Docker Image를 생성한다.
+  * 생성된 Docker Image를 Dockerhub에 Push한다.
+  * Kube와 연동하여 해당 Deployment를 Rollout한다.
+
+* Mattermost와 연동하여 빌드 현황과 로그를 공유한다.
+
+  ![스크린샷 2022-05-20 오전 11.02.28](README.assets/mattermost.png)
+
 ## 🛡️ Section5, 정은이 - JWT와 Spring Security를 통한 인증과 인가
 
 #### JWT를 사용한 이유 
