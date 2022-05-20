@@ -175,7 +175,7 @@
 |                    [**CI/CD**](#db)                    |       Python 3.9.6        |                    Python(Shell_plus)                    |
 |           [**Ingress Nginx**](#query-최적화)           |       Django 3.2.9        |      prefetch_related / annotate / filter / exclude      |
 |                   [**배포**](#배포)                    |            AWS            | EC2(Ubuntu Server 20.04 LTS) / Cloud9 / Gunicorn / NGINX |
-| [**회원관리**](#--back-end) | JWT / Spring Security | JWT / HS512 / Spring Security |
+| [**회원관리**](#back-end) | JWT / Spring Security | JWT / HS512 / Spring Security |
 | Android | Kotlin | Android Studio 4.1.1 / Web View |
 |                                                        |                           |                                                          |
 |                                                        |                           |                                                          |
@@ -408,6 +408,359 @@ const heartClickHandler = () => {
 
 ## 🗳️ Section4, 이건희 - 쿠버네티스, 도커, 젠킨스를 활용한 배포와 CI/CD에 대하여
 
-## 🛡️ Section5, 정은이 - 위치 기반 기술과 채팅에 대하여
+## 🛡️ Section5, 정은이 - JWT와 Spring Security를 통한 인증과 인가
+
+#### JWT를 사용한 이유 
+
+- 간편하고 쉽게 적용 가능
+- 중앙의 인증 서버 , 데이터 스토어에 대한 의존성 없음
+- 시스템 수평 확장 유리
+
+#### Spring Security 를 사용한 이유
+
+- Spring Security 는 Spring  기반의 애플리케이션의 보안( 인증과 권한, 인가 등)을 담당하는 스프링 하위 프레임워크이다.
+- 모든 URL을 가로채어 인증을 요구하고, 해당 URL에 접근할 수 있는 권한 설정이 가능하다. 아직까진 USER 에 대한 API 가 대부분이지만, 관리자 페이지 등을 만들시에 확장 가능성이 높다.
+
+#### Dependency 설정
+
+```grable
+implementation 'org.springframework.boot:spring-boot-starter-security'
+```
+
+```
+implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
+runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
+runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
+```
+
+#### YML - JWT 설정
+
+```
+jwt:
+  header:[header key]
+  secret:[secret key]
+  token-validity-in-seconds:[seconds]
+```
+
+### TokenProvider
+
+```java
+@Component
+public class TokenProvider implements InitializingBean {
+    private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
+
+    private static final String AUTHORITIES_KEY = "auth";
+
+    private final String secret;
+    private final long tokenValidityInMilliseconds;
+    private Key key;
+
+    public TokenProvider(
+            @Value("${jwt.secret}") String secret,
+            @Value("${jwt.token-validity-in-seconds}") long tokenValidityInMilliseconds) {
+        this.secret = secret;
+        this.tokenValidityInMilliseconds = tokenValidityInMilliseconds*1000;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        byte[] keyBytes = Decoders.BASE64.decode(secret);
+        this.key = Keys.hmacShaKeyFor(keyBytes);
+    }
+}
+implements InitializingBean
+```
+
+`afterPropertiesSet()` 을 오버라이드 한 이유는
+
+BEAN이 생성이 되고 주입을 받은 후에 secret값을 Base64 Decode해서 Key 변수에 할당
+
+```
+createToken(Authentication authentication)
+```
+
+- Authentication 객체의 권한정보를 이용해서 토큰을 생성하는 메소드
+
+```java
+public String createToken(Authentication authentication) {
+        String authorities = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+
+        long now = (new Date()).getTime();
+        Date validity = new Date(now + this.tokenValidityInMilliseconds);
+
+        return Jwts.builder()
+                .setSubject(authentication.getName())
+                .claim(AUTHORITIES_KEY,authorities)
+                .signWith(key, SignatureAlgorithm.HS512)
+                .setExpiration(validity)
+                .compact();
+    }
+```
+
+authentication 파라미터를 받아서 권한들,
+
+application.yml에서 설정했던 만료 시간 ( expire time ) 도 설정 후,
+
+JWT 토큰을 생성해서 리턴합니다!
+
+```
+getAuthentication(String token)
+```
+
+- token에 담겨있는 정보를 이용해 Authentication 객체를 리턴하는 메소드 생성
+- 토큰으로 클레임을 만들고 이를 이용해 user 객체(`org.springframework.security.core.userdetails.User`)를 만들어서 최종적으로 Authentication 객체를 리턴
+
+```java
+public Authentication getAuthentication(String token){
+    Claims claims = Jwts
+            .parserBuilder()
+            .setSigningKey(key)
+            .build()
+            .parseClaimsJws(token)
+            .getBody();
+
+    Collection<? extends GrantedAuthority> authorities =
+            Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
+                    .map(SimpleGrantedAuthority::new)
+                    .collect(Collectors.toList());
+    User principal = new User(claims.getSubject(),"",authorities);
+    return new UsernamePasswordAuthenticationToken(principal,token,authorities);
+}
+validateToken(String token)
+```
+
+- 토큰을 parameter로 받아서 토큰의 유효성 검증을 수행하는 validateToken 메소드
+- 토큰을 파싱해보고 발생하는 예외들을 캐치, 문제가 있으면 false, 정상이면 true
+
+```java
+public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            return true;
+        } catch (SecurityException | MalformedJwtException e){
+            logger.info("잘못된 JWT 서명입니다.");
+        }catch (ExpiredJwtException e){
+            logger.info("만료된 JWT 토큰입니다.");
+        }catch (UnsupportedJwtException e){
+            logger.info("지원되지 않은 JWT 토큰입니다.");
+        }catch (IllegalArgumentException e){
+            logger.info("JWT 토큰이 잘못되었습니다.");
+        }
+        return false;
+    }
+```
+
+## JwtFilter
+
+- JWT를 위한 커스텀 필터를 만들기 위해 JwtFilter 클래스 생성
+
+- JwtFilter는 TokenProvider를 주입 받음
+
+- GenericFilterBean 을 extends 해서 doFilter Override ⇒ 실제 필터링 로직은 doFilter 내부에 작성
+
+- `resolveToken()` 필터링을 하기 위해 토큰 정보가 필요함 ⇒ 토큰 정보를 꺼내오기 위한 `resolveToken()` 메소드 추가
+
+- `doFilter()` 토큰의 인증 정보를 securityContext에 저장하는 역할 수행
+
+  - resolveToken() 을 통해 토큰을 받아와서 유효성 검증을 하고 정상 토큰이면 SecurityContext에 저장
+
+  ```java
+  @Override
+      public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+          HttpServletRequest httpServletRequest =(HttpServletRequest) request;
+          String jwt = resolveToken(httpServletRequest);
+          String requestURI = httpServletRequest.getRequestURI();
+  
+          if(StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)){
+              Authentication authentication = tokenProvider.getAuthentication(jwt);
+              SecurityContextHolder.getContext().setAuthentication(authentication);
+              logger.debug("Security Contexted에 '{}' 인증정보를 저장했ㅅ브니다.. uri {}",authentication.getAuthorities(),requestURI);
+          }else{
+              logger.debug("유효한 JWT 토큰이 없습니다. uri {}",requestURI);
+          }
+  
+          chain.doFilter(request,response);
+      }
+  ```
+
+### JwtSecurityConfig
+
+TokenProvider, JwtFilter 를 SecurityConfig에 적용할 때 사용할 JwtSecurityConfig 클래스 추가
+
+- SecurityConfigurerAdapter 를 extends
+- TokenProvider를 주입받아서 JwtFilter를 통해 Security로직에 필터를 등록합니다.
+
+## JwtAuthenticationEntryPoint
+
+유효한 자격 증명을 제공하지 않고 접근하려 할 때 `401 Unauthorized` 에러를 반환하는 클래스
+
+```java
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+@Component
+public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
+    @Override
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED); // 401 Unauthorized
+    }
+}
+```
+
+## JwtAccessDeniedHandler
+
+필요한 권한이 존재하지 않는 경우에 403 Forbidden 에러를 리턴하기
+
+```java
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class JwtAccessDeniedHandler implements AccessDeniedHandler {
+    @Override
+    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
+        response.sendError(HttpServletResponse.SC_FORBIDDEN); // 403 Forbidden
+    }
+}
+```
+
+## 5개 클래스 SecurityConfig에 추가
+
+- `@EnableGlobalMethodSecurity(prePostEnabled = true) @PreAuthorize` 어노테이션 메소드 단위로 추가하기 위해서 적용
+
+- tokenProvider , jwtAuthenticationEntryPoint  , jwtAccessDeniedHandler  주입
+
+  ```java
+  private final TokenProvider tokenProvider;
+  private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+  private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+  
+  public SecurityConfig(TokenProvider tokenProvider,JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, JwtAccessDeniedHandler jwtAccessDeniedHandler){
+      this.tokenProvider=tokenProvider;
+      this.jwtAuthenticationEntryPoint =jwtAuthenticationEntryPoint;
+      this.jwtAccessDeniedHandler=jwtAccessDeniedHandler;
+  }
+  ```
+
+- password encoder
+
+  ```java
+  @Bean
+  public PasswordEncoder passwordEncoder(){
+      return new BCryptPasswordEncoder();
+  }
+  ```
+
+- 오버라이드한 `configure()` 수정
+
+  ```java
+  @Override
+      protected void configure(HttpSecurity http) throws Exception {
+          http
+                  .csrf().disable() // token 방식을 사용하기 때문에  disable
+  
+                  .exceptionHandling() // Exception 핸들링 클래스 추가
+                  .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                  .accessDeniedHandler(jwtAccessDeniedHandler)
+  
+                  .and() // h2 console을 위한 설정
+                  .headers()
+                  .frameOptions()
+                  .sameOrigin()
+  
+                  .and() // 세션을 사용하지 않기 떄문에 stateless 설정정
+                  .sessionManagement()
+                  .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+  
+                  .and()
+                  .authorizeRequests()
+                  .antMatchers("/hello").permitAll()
+                  .antMatchers("/accounts").permitAll() // singup
+                  .antMatchers("/accounts/login").permitAll() // login 토큰이 없는 상태에서 요청
+                  .anyRequest().authenticated()
+  
+                  .and()
+                  .apply(new JwtSecurityConfig(tokenProvider)); // addFilterBefore로 등록했던 JwtSecurityConfig 적용
+      }
+  ```
+
+  ### 
+
+  ## Repository 관련 코드 생성
+
+  `findOneWithAuthoritiesByUsername`
+
+  username으로 권한정보도 같이 가지고 오는 메소드
+
+  `@EntityGraph(attributePaths = "authorities")`
+
+  쿼리가 수행될때 Lazy 조회가 아니고, Eager 조회로 authorities정보를 같이 가져옴
+
+  ## 로그인 API, 관련 로직 생성
+
+  ## `CustomUserDetailsService`
+
+  Spring Security에서 중요한 부분 중 하나인 UserDetailsService를 구현한 CustomUserDetailsService 클래스
+
+  - 로그인시에 DB에서 유저정보와 권한정보를 가지고 옴
+  - 해당 정보를 기반으로 userdetails.user 객체를 생성해서 리턴
+
+  ```java
+  import com.cupid.joalarm.accout.entity.User;
+  import com.cupid.joalarm.accout.repository.UserRepository;
+  import org.springframework.security.core.GrantedAuthority;
+  import org.springframework.security.core.authority.SimpleGrantedAuthority;
+  import org.springframework.security.core.userdetails.UserDetails;
+  import org.springframework.security.core.userdetails.UserDetailsService;
+  import org.springframework.security.core.userdetails.UsernameNotFoundException;
+  import org.springframework.stereotype.Component;
+  
+  import java.util.List;
+  import java.util.stream.Collectors;
+  
+  @Component("userDetailsService")
+  public class CustomUserDetailsService implements UserDetailsService {
+      private final UserRepository userRepository;
+  
+      public CustomUserDetailsService(UserRepository userRepository) {
+          this.userRepository = userRepository;
+      }
+  
+      @Override
+      public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+          return userRepository.findOneWithAuthoritiesByUsername(username)
+                  .map(user -> createUser(username, user))
+                  .orElseThrow(() -> new UsernameNotFoundException(username + " -> 데이터베이스에서 찾을 수 없습니다."));
+      }
+  
+      private org.springframework.security.core.userdetails.User createUser(String username, User user) {
+          if (!user.isActivated()) {
+              throw new RuntimeException(username + " -> 활성화되어 있지 않습니다.");
+          }
+          List<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream()
+                  .map(authority -> new SimpleGrantedAuthority(authority.getAuthorityName()))
+                  .collect(Collectors.toList());
+          return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
+      }
+  }
+  ```
+
+  ## AccountController
+
+  - `TokenProvider` , `AuthenticationManagerBuilder` 주입
+  - `authenticate` 가 실행이 될떄, `CustomUserDetailsService`.`loadUserByUsername` 메소드가 실행 되서 얻은 `Authentication` 객체 생성
+  - 이 객체를 `SecurityContextHolder` 에 저장
+  - `createToken` 을 통해서 JWT Token 생성
+  - JWT token을 Response Header 에도 추가
+  - TokenDto에 body로 반환
 
 ## ❣ Section6, 한승훈 -
