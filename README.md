@@ -216,11 +216,11 @@
 
 우선 1m가 gps상에서 몇 차이가 나는지 확인해 보았다. [해당 글을 참고](https://m.cafe.daum.net/gpsyn/Pllz/530)하자면, 0.00001도 차이가 대략 1m라 한다. 정확하게는 물론 아니겠지만, 해당 방법으로 전 세계 구획을 나눈 후 작업해도 괜찮을 것 같다는 생각을 했다. 그러나 더욱 정확한 계측을 위해, [두 지역 사이의 거리를 측정해 주는 사이트](http://www.movable-type.co.uk/scripts/latlong.html)를 찾아갔다.
 
-![img](README.assets/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fed37fafd-1e8b-4da1-9a86-e5025e64e01b%2FUntitled.png)
+![img](README.assets/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fed37fafd-1e8b-4da1-9a86-e5025e64e01b%2FUntitled-16529499134435.png)
 
 해당 사이트의 계산에 의하면, `3m`는 도분초 좌표계 기준으로 `0.0973초`만큼 차이가 있었다.
 
-![img](README.assets/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F364cd5ca-4fe0-4d76-b841-13e267fde059%2FUntitled.png)
+![img](README.assets/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F364cd5ca-4fe0-4d76-b841-13e267fde059%2FUntitled-16529499240377.png)
 
 `0.1초` 차이는 `3.083m`만큼 차이가 났으며, `1초` 차이는 `30.83m`차이였다.
 
@@ -247,7 +247,7 @@
 
 ```java
 @Scheduled(fixedRate = 5000)
-public void sendBasicChat() {  // basic으로 전체 채팅 보내기
+public void sendBasicChat() {
     if (gpsRepository.getOperationCommand()) {
         messageTemplate.convertAndSend("/sub/basic", gpsRepository.getAllGpsSectorData());
         gpsRepository.setOffOperationCommand();
@@ -270,6 +270,112 @@ public void handleSessionDisconnect(SessionDisconnectEvent event) {
     gpsRepository.dropUser(gpsKey, sessionId);
 }
 ```
+
+![image-20220520094541666](README.assets/image-20220520094541666.png)
+
+대략 해당 그림과 같은 구조가 만들어진다.
+
+#### 채팅 시스템을 이용한 근처 유저들과 하트 송수신 및 채팅방 구현
+
+100m 이내 유저들을 얻어 왔으므로, 하트 버튼을 누른다면 각각의 유저에게 메세지를 보내는 방법으로 구성하였다. 비로그인 사용자들도 하트를 얻을 수 있도록, sessionId를 얻어와 해당 채널을 subscribe한 후, 하트 메세지를 받으면 이벤트를 호출하도록 했다.
+
+```tsx
+const sessionId = (
+    (client.webSocket as any)._transport.url as string
+).split('/')[6];
+
+...
+
+client.subscribe(`/sub/heart/${sessionId}`, (message) => {
+    const whisper: whisper = JSON.parse(message.body);
+    changeSignal();
+    receiveMessageDispatch(whisper);
+});
+```
+
+`changeSignal`에서는 단순 boolean 값을 true, false로 바꿔주어 하트를 받았는지 아닌지 확인하게끔 했으며, `receiveMessageDispatch`를 통해 하트를 전송한 유저와의 관련성을 체크한다. 만약 하트가 교환되었으면서 채팅방이 미생성된 유저라면, 채팅방 생성 api에 접근하여 채팅방을 신설한 후 양쪽 유저에게 채팅방 생성 알림을 보낸다.
+
+FE에서 채팅방 생성 알림이 수신되면, 생성된 채팅방을 목록에 추가한 후 방의 pk로 subscribe를 수행한다. Stomp 특성 상 subscribe와 함께 어떠한 동작을 할 지 Callback을 지정해줘야 하기 때문에 한 번에 작성하였다. 그러나 이 둘을 따로 분리시켜 `구독 / 구독이벤트` 형태로 구축했으면 좀 더 가독성이 좋은 코드가 되지 않았을까 싶다.
+
+```tsx
+if (!chatUserSet.has(action.person)) {
+  chatUserSet.add(action.person);
+  setAlertText("채팅방이 생성되었습니다!");
+  openAlert();
+  const newChatRoom: chatBox = {
+    chatroomSeq: action.chatRoom,
+    userList: [seq, action.person],
+    activate: true,
+  };
+  setChatRoomList((pre) => [newChatRoom, ...pre]);
+
+  chatsDispatch({
+    type: "INSERT",
+    idx: action.chatRoom,
+    messages: new Array<messageType>(),
+    messageType: {} as messageType,
+  });
+
+  client.subscribe(`/sub/chat/room/${action.chatRoom}`, (message) => {
+    setMessageCount((pre) => {
+      pre[action.chatRoom] += 1;
+      return pre;
+    });
+
+    chatsDispatch({
+      type: "CHAT_MESSAGE",
+      idx: action.chatRoom,
+      messages: [],
+      messageType: JSON.parse(message.body) as messageType,
+    });
+  });
+}
+```
+
+방 내부에서는 채팅방의 데이터를 담아 publish를 수행한다. BE에서는 한 곳에 채팅 메세지를 받고, 데이터에 따라 어떠한 채팅방에 어떻게 전달할 것인지를 선택하는 구조로 하였다.
+
+```tsx
+client.publish({
+  destination: "/pub/chat/message",
+  body: JSON.stringify({
+    type: "TALK",
+    roomId: `${idx}`,
+    sender: `${seq}`,
+    message: `${message}`,
+  }),
+});
+```
+
+```java
+@MessageMapping("chat/message")
+    public void message(ChatMessageDTO message) {
+        switch (message.getType()) {
+            case TALK:
+                chatService.CreateChat(message);
+                break;
+            ...
+        }
+    }
+```
+
+```java
+@Transactional
+public void CreateChat(ChatMessageDTO DTO) {
+    String pattern = "yyyy-MM-dd a KK:mm ss:SSS";
+    DateFormat df = new SimpleDateFormat(pattern);
+    ChatEntity chatEntity = ChatEntity.builder()
+        .type(DTO.getType())
+        .roomId(DTO.getRoomId())
+        .sender(DTO.getSender())
+        .message(DTO.getMessage())
+        .sendTime(df.format(new Date()))
+        .build();
+    chatRepository.save(chatEntity);
+    messageTemplate.convertAndSend("/sub/chat/room/" + DTO.getRoomId(), chatEntity);
+}
+```
+
+해당하는 방법으로 100m 이내 유저를 얻어왔으며, 하트를 교환하고 채팅을 나눌 수 있도록 하였다.
 
 ## ✨ Section2, 남궁휘 -
 
