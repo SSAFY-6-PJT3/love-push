@@ -516,4 +516,166 @@ const heartClickHandler = () => {
 
 ## 🛡️ Section5, 정은이 - 위치 기반 기술과 채팅에 대하여
 
-## ❣ Section6, 한승훈 -
+## ❣ Section6, 한승훈 - React-slick & styled-component
+
+### React-slick 이란?
+
+> 리액트에서 대중적으로 쓰이는 jQuery slick 라이브러리로 캐러셀을 만들때 주로 사용한다. 
+
+#### 설치 방법
+
+```bash
+$ npm install react-slick
+```
+
+#### 사용방법
+
+> slider를 import하고 settings를 설정한뒤, Slider 내부에 settings를 넣으면 실행된다.
+
+```react
+// 공식 문서의 일부
+import Slider from "react-slick"; // slider 불러오기
+
+// styled-component를 사용할때 필요한 import문
+import 'slick-carousel/slick/slick.css'; 
+import 'slick-carousel/slick/slick-theme.css';
+
+const settings = {
+    dots: true, // 컨텐츠 이동 버튼
+    infinite: true, // 슬라이드의 마지막 부분과 처음부분을 이어 무한 재생
+    speed: 500, // 넘기는 속도
+    slidesToShow: 1, // 한 화면에 보이는 갯수
+    slidesToScroll: 1 // 한번에 넘어가는 컨텐츠 수
+    arrows: false, // 양옆 이동 화살표
+  	beforeChange: (current: any, next: any) => setState(next), // 현재 센터 번호를 지정
+};
+
+<Slider {...settings}>
+    <div>
+      <h3>1</h3>
+    </div>
+</Slider>
+```
+
+#### 이모지 캐러셀 중앙 값만 크기 키우기
+
+> 공식 문서에 나온 캐러셀은 내부가 정해져 있기에 자신이 원하는 곳마다 꾸미기가 가능하였다.
+>
+> 그러나 우리가 사용하는 캐러셀 내부는 이모지를 모두 불러와 나눠주기에 하나하나 수정이 불가능하였으며
+>
+> 공식문서에도 따로 알려주는 것이 없었다. 그렇기에 코드 해부와 중앙 및 양옆의 값을 구분해서 css를 다르게
+>
+> 설정하였다.
+
+![캐러셀](README.assets/캐러셀.png)
+
+> 실제 캐러셀을 개발자 모드로 분석한 결과 중앙과 앙옆의 클래스가 구분되어 지정되어 있었다. 그렇기에 
+>
+> slick-center, slick-current로 중앙을 구분하였다. 
+
+```react
+.slick-current {
+  transform: scale(1.6) // 크기를 1.6배로 확대
+}
+```
+
+> css를 위와 같이 설정함으로써 가운데 이모지의 크기를 확대하여 3d형태로 표현하였다.
+
+
+
+#### 이모지 좌우 움직임 및 화면 너비 & 높이별 이모지 크기 조절
+
+> 이모지 좌우 움직임은 css animation을 활용
+
+```react
+animation-name: move; // 애니메이션 종류 (@keyframes이름)
+animation-duration: 10s; // 구동 시간
+animation-fill-mode: both; // 애니메이션을 전과 후에 스타일을 적용
+animation-timing-function: linear; // 애니메이션 진행 방식
+animation-iteration-count: infinite; // 애니메이션을 얼마나 재생할지
+animation-direction: alternate; // 방향 설정
+@keyframes move {
+  from {
+    transform: translateX(-250px); // -250px 부터 시작
+  }
+  to {
+    transform: translateX(250px); // 250px 까지 이동
+  }
+}
+```
+
+> 핸드폰마다 너비, 높이가 다르기에 location page에서 이모지가 작거나 넘처흐르는 현상을 수정해야 했다.
+>
+> 따라서, @media를 활용하여 이모지 크기를 변경하였다.
+
+```
+@media (max-height: 450px) {
+  width: 20px;
+  height: 20px;
+}
+@media (min-height: 1100px) {
+  width: 100px;
+  height: 100px;
+}
+@media (min-height: 800px) {
+  width: 80px;
+  height: 80px;
+}
+```
+
+
+
+### styled-component (CSS in JS)
+
+#### styled-component란?
+
+> 리액트에서 가장 많이 사용되고 있는 css in js방식으로 앱에 맞는 CSS 라이브러리이다.
+>
+> 대표적인 장점으로 코드가독성, 재사용성, props 전달 가능이 있다.
+
+#### 설치 방법
+
+```bash
+$ npm install styled-components
+```
+
+#### 사용방법
+
+> styled를 import하고 사용하고 싶은 태그를 커스텀마이징해서 사용하면 된다.
+
+- 기본 태그의 css 설정
+  - `const 컴포넌트명 = styled.태그명`
+- 컴포넌트 상속
+  - `const 컴포넌트명 = styled.상속명` 
+  - 사용할때 `${props => css설정}`
+- 변수명 변경
+  - `const 컴포넌트명 = styled(기존 컴포넌트)`
+- 스타일만을 위한 변수가 기본 React 노드로 전달되거나 DOM 요소로 렌더링되는 것을 방지하려면 변수 이름 앞에 `$` 기호를 붙이면 된다.
+
+#### 예시문
+
+```react
+import styled from "styled-components";
+
+const Example = () => {
+    return (
+      	<>
+      		<Button>Hello</Button>
+        	<NewButton color="blue">new Button</NewButton>
+      	</>
+  	);
+}
+// 기본 button태그 설정
+const Button = styled.button`
+  width: 200px;
+  padding: 30px;
+`;
+
+// Button 컴포넌트 상속
+const NewButton = styled.Button`
+  color: ${props => props.color || "red"};
+`;
+
+export default Example;
+```
+
