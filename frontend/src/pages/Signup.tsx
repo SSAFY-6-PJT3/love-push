@@ -149,9 +149,12 @@ const Signup = () => {
         <SignupText>
           회원가입시{' '}
           <Link to="/policy">
-            <LinkText>개인정보처리방침</LinkText>
+            <LinkText>개인정보처리방침</LinkText> 및
           </Link>
-          을<br /> 동의하는 것으로 간주됩니다.
+          <Link to="/eula">
+            <LinkText> 최종 사용자 라이센스 계약</LinkText>
+          </Link>
+          에<br /> 동의하는 것으로 간주됩니다.
         </SignupText>
       </Wrapper>
     </>

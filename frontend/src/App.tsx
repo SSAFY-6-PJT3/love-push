@@ -21,6 +21,7 @@ import NotFound from './pages/NotFound';
 import Policy from './pages/Policy';
 import Contact from './pages/Contact';
 import CheckContact from './pages/CheckContact';
+import Eula from './pages/Eula';
 
 function App() {
   const { index, chats, client, chatRoomList, setMessageCountFunc } =
@@ -66,6 +67,7 @@ function App() {
             <Route path="/location" element={<LocationPage />} />
             <Route path="/about-service/:pageId" element={<AboutService />} />
             <Route path="/policy" element={<Policy />} />
+            <Route path="/eula" element={<Eula />} />
             <Route path="/contact/:pageId" element={<Contact />} />
             <Route path="/contact/check/" element={<CheckContact />} />
             <Route path="*" element={<NotFound />} />
