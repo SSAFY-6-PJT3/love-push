@@ -32,9 +32,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         locationManager.startUpdatingLocation()
         
         // 앱이 백그라운드 상태에서 위치가 변경되어도 추적
-        // 배터리 이슈가 존재 할 수도
         locationManager.allowsBackgroundLocationUpdates = true
-        // 앱을 종료하면 백그라운드에서 더 이상 위치 안씀 -> 설명을 따로 해줘여 할까
         
     let space = locationManager.location?.coordinate
     lat = space?.latitude
