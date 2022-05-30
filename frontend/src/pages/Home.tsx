@@ -33,14 +33,14 @@ const MainPage = () => {
   useEffect(() => {
     if (signal) {
       setHeartText(
-        '100m 이내의 누군가가\n하트를 눌렀어요!\n당신을 좋아하는건 아닐까요..?',
+        '누군가\n마음을 표현했어요!\n당신을 좋아하는건 아닐까요..?',
       );
     }
   }, [signal]);
 
   const updatePushHeart = () => {
     setHeartText(
-      '주변 100m 유저에게\n하트를 전송했어요!\n하트가 교환되면 채팅방이 생성될 거에요!',
+      '당신의 마음이\n주변 사람들에게\n익명으로 전달됐어요!',
     );
     setPushHeart(true);
     setTimeout(() => {
@@ -62,7 +62,7 @@ const MainPage = () => {
       <AfterBackGround show={signal || pushHeart} />
       <Container>
         <MainNav />
-        {(pushHeart || signal) && <Title>{heartText}</Title>}
+        {(pushHeart || signal) && <HeartTitle>{heartText}</HeartTitle>}
         {!signal && !pushHeart && (
           <Title>
             {nearBy100mState.sessions.size === 0 ? (
@@ -134,6 +134,10 @@ const Title = styled.h1`
       transform: translate3d(0, 0, 0);
     }
   }
+`;
+
+const HeartTitle = styled(Title)`
+  color: black;
 `;
 
 const HeartWrapper = styled.div`
