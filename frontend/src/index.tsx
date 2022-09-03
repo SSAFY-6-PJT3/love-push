@@ -6,15 +6,17 @@ import { AuthContextProvider } from './store/authContext';
 import { AlertContextProvider } from './store/alertContext';
 import { ClientContextProvider } from './store/clientContext';
 
+
+import { Provider } from 'react-redux';
+import { legacy_createStore as createStore} from 'redux'
+import store from './redux/createReduxStore'
+
+
 ReactDOM.render(
   // <React.StrictMode>
-  <AlertContextProvider>
-    <AuthContextProvider>
-      <ClientContextProvider>
-        <App />
-      </ClientContextProvider>
-    </AuthContextProvider>
-  </AlertContextProvider>,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   // </React.StrictMode>,
   document.getElementById('root') as HTMLElement,
 );
