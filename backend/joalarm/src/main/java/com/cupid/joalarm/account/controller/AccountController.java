@@ -1,8 +1,8 @@
-package com.cupid.joalarm.accout.controller;
+package com.cupid.joalarm.account.controller;
 
-import com.cupid.joalarm.accout.dto.*;
-import com.cupid.joalarm.accout.jwt.TokenProvider;
-import com.cupid.joalarm.accout.service.AccountService;
+import com.cupid.joalarm.account.dto.*;
+import com.cupid.joalarm.account.jwt.TokenProvider;
+import com.cupid.joalarm.account.service.AccountService;
 import com.cupid.joalarm.util.MessageResponse;
 import com.cupid.joalarm.util.SecurityUtil;
 import io.swagger.annotations.Api;

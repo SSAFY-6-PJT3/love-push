@@ -1,4 +1,4 @@
-package com.cupid.joalarm.accout.jwt;
+package com.cupid.joalarm.account.jwt;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

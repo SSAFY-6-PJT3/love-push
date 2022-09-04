@@ -1,7 +1,7 @@
-package com.cupid.joalarm.accout.service;
+package com.cupid.joalarm.account.service;
 
-import com.cupid.joalarm.accout.entity.Account;
-import com.cupid.joalarm.accout.repository.AccountRepository;
+import com.cupid.joalarm.account.entity.Account;
+import com.cupid.joalarm.account.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,4 +1,4 @@
-package com.cupid.joalarm.accout.entity;
+package com.cupid.joalarm.account.entity;
 
 import lombok.*;
 
@@ -27,7 +27,4 @@ public class Account {
     @Setter
     @Column(name = "emoji")
     private String emoji;
-
-    @Column(name = "report_cnt")
-    private int reportedCnt;
 }

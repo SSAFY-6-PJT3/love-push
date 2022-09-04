@@ -1,6 +1,6 @@
 package com.cupid.joalarm.chatroom.service;
 
-import com.cupid.joalarm.chatroom.entity.ChatRoomEntity;
+import com.cupid.joalarm.chatroom.entity.ChatroomEntity;
 import com.cupid.joalarm.chatroom.repository.ChatRoomRepository;
 import com.cupid.joalarm.chatroom.dto.CreateChatRoomDTO;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +24,7 @@ public class ChatRoomService {
         long receiveUser = DTO.getReceiveUser();
         long[] users= new long[] {sendUser, receiveUser};
 
-        ChatRoomEntity chatRoomEntity = ChatRoomEntity.builder().userList(users).build();
+        ChatroomEntity chatRoomEntity = ChatroomEntity.builder().userList(users).build();
         chatRoomRepository.save(chatRoomEntity);
 
         messageTemplate.convertAndSend("/sub/user/" + sendUser, new com.cupid.joalarm.chatroom.dto.SubscribeChatRoomDTO("CHATROOM", receiveUser, chatRoomEntity.getChatroomSeq()));
@@ -33,16 +32,16 @@ public class ChatRoomService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public List<ChatRoomEntity> FindRoom() {
+    public List<ChatroomEntity> FindRoom() {
         return chatRoomRepository.findAll();
     }
-    public List<ChatRoomEntity> FindMyChatRooms(long user) {
+    public List<ChatroomEntity> FindMyChatRooms(long user) {
         return chatRoomRepository.findAllByUserListIn(user);
     }
 
     @Transactional
     public boolean reportByRoomSeq(Long seq) {
-        ChatRoomEntity chatRoom = chatRoomRepository.findChatRoomEntityByChatroomSeq(seq);
+        ChatroomEntity chatRoom = chatRoomRepository.findChatRoomEntityByChatroomSeq(seq);
         if(chatRoom == null) return false;
         chatRoom.setActivate(false);
         chatRoomRepository.save(chatRoom);
