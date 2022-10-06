@@ -1,5 +1,6 @@
 package com.cupid.joalarm.account.entity;
 
+import com.cupid.joalarm.base.entity.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Account {
+public class Account extends BaseTimeEntity {
     @Id
     @Column(name = "account_seq")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,4 +28,16 @@ public class Account {
     @Setter
     @Column(name = "emoji")
     private String emoji;
+
+    private int receiveHeartCnt;
+
+    private int touchHeartCnt;
+
+    public void receiveHeartCntPlus() {
+        this.receiveHeartCnt++;
+    }
+
+    public void touchHeartCntPlus() {
+        this.touchHeartCnt++;
+    }
 }

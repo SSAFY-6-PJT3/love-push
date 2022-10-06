@@ -1,5 +1,6 @@
 package com.cupid.joalarm.chatroom.entity;
 
+import com.cupid.joalarm.base.entity.BaseTimeEntity;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,13 +13,15 @@ import javax.persistence.*;
 @Builder
 @Document(collection = "chatroom")
 
-public class ChatroomEntity {
+public class Chatroom extends BaseTimeEntity {
 
     @Id @GeneratedValue
     @Column(name = "chatroom_id")
     private Long id;
 
-    private String name;
+//    private String name;
 
     private boolean isActivate = true;
+
+    private String lastMessage;
 }

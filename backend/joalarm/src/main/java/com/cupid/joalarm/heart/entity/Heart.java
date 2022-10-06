@@ -1,6 +1,6 @@
 package com.cupid.joalarm.heart.entity;
 
-import com.cupid.joalarm.embeddable.AccountsEmbedded;
+import com.cupid.joalarm.base.entity.BaseTimeEntity;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,8 +11,8 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Document(collection = "heart")
-
-public class HeartEntity {
+@Builder
+public class Heart extends BaseTimeEntity {
 
     @EmbeddedId
     private AccountsEmbedded sendReceiveAccount;

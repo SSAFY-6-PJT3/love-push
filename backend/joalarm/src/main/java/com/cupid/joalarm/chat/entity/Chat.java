@@ -1,7 +1,8 @@
 package com.cupid.joalarm.chat.entity;
 
 import com.cupid.joalarm.account.entity.Account;
-import com.cupid.joalarm.chatroom.entity.ChatroomEntity;
+import com.cupid.joalarm.base.entity.BaseTimeEntity;
+import com.cupid.joalarm.chatroom.entity.Chatroom;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @Builder
 @Document(collection = "chat")
 
-public class ChatEntity {
+public class Chat extends BaseTimeEntity {
 
     @Id @GeneratedValue
     @Column(name = "chat_id")
@@ -26,7 +27,7 @@ public class ChatEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chatroom_id")
-    private ChatroomEntity chatroom;
+    private Chatroom chatroom;
 
     private LocalDateTime sendTime;
 
