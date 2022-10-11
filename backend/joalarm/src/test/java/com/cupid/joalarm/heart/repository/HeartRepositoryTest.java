@@ -75,6 +75,6 @@ class HeartRepositoryTest {
         }
         System.out.println("receiveMyHeartAccountsSeq = " + sb);
 
-        assertThat(receiveMyHeartAccountsSeq).containsExactly(2L, 3L);
+        assertThat(receiveMyHeartAccountsSeq).containsExactly(account2.getAccountSeq(), account3.getAccountSeq());
     }
 }
