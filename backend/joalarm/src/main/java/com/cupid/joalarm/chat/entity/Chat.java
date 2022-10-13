@@ -4,7 +4,7 @@ import com.cupid.joalarm.account.entity.Account;
 import com.cupid.joalarm.base.entity.BaseTimeEntity;
 import com.cupid.joalarm.chatroom.entity.Chatroom;
 import lombok.*;
-import org.springframework.data.mongodb.core.mapping.Document;
+//import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,23 +13,23 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-@Document(collection = "chat")
+//@Document(collection = "chat")
 
 public class Chat extends BaseTimeEntity {
 
     @Id @GeneratedValue
-    @Column(name = "chat_id")
-    private Long id;
+    @Column(name = "chat_seq")
+    private Long seq;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "account_seq")
     private Account account;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chatroom_id")
+    @JoinColumn(name = "chatroom_seq")
     private Chatroom chatroom;
 
-    private LocalDateTime sendTime;
+    private String message;
 
     @Enumerated(EnumType.STRING)
     private ChatTypeEnum chatType;
