@@ -28,7 +28,7 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws-stomp")
-        .setAllowedOrigins("*")
+        .setAllowedOrigins("http://localhost:81")
         .withSockJS();
     }
 
