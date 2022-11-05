@@ -32,7 +32,7 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
         .setAllowedOrigins("*")
         .withSockJS()
         .setClientLibraryUrl(
-          "https://cdn.jsdelivr.net/sockjs/latest/sockjs.min.js")
+          "https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.0/sockjs.min.js")
         .setInterceptors(new HttpSessionHandshakeInterceptor());
     }
 
