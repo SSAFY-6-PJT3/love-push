@@ -47,7 +47,7 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
     @EventListener
     public void handleSessionDisconnect(SessionDisconnectEvent event) {
         String gpsKey = (String) SimpAttributesContextHolder.currentAttributes().getAttribute("GPS");
-        String sessionId = event.getSessionId();
+        String sessionId = event.getSessionId(); 
         System.out.println("DISCONNECT / " + sessionId + " / " + gpsKey);
         gpsRepository.dropUser(gpsKey, sessionId);
     }
