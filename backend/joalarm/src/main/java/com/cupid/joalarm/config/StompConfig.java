@@ -12,7 +12,6 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.messaging.*;
-import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 
 @Configuration
 @RequiredArgsConstructor
@@ -30,10 +29,7 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws-stomp")
         .setAllowedOrigins("*")
-        .withSockJS()
-        .setClientLibraryUrl(
-          "https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.0/sockjs.min.js")
-        .setInterceptors(new HttpSessionHandshakeInterceptor());
+        .withSockJS();
     }
 
     @EventListener
