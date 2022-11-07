@@ -27,7 +27,9 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws-stomp").setAllowedOrigins("http://localhost:3000").withSockJS();
+        registry.addEndpoint("/ws-stomp")
+        .setAllowedOrigins("https://www.someone-might-like-you.com")
+        .withSockJS();
     }
 
     @EventListener
@@ -41,7 +43,7 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
     @EventListener
     public void handleSessionDisconnect(SessionDisconnectEvent event) {
         String gpsKey = (String) SimpAttributesContextHolder.currentAttributes().getAttribute("GPS");
-        String sessionId = event.getSessionId();
+        String sessionId = event.getSessionId(); 
         System.out.println("DISCONNECT / " + sessionId + " / " + gpsKey);
         gpsRepository.dropUser(gpsKey, sessionId);
     }

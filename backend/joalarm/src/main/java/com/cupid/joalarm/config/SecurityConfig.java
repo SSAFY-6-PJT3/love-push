@@ -67,6 +67,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/heart/**").permitAll()  // 하트 진입점
                 .antMatchers("/accounts/id").permitAll()
                 .antMatchers("/contacts").permitAll()
+                .antMatchers("/feed").permitAll()
+                .antMatchers("/feed/**").permitAll()
                 .anyRequest().authenticated()
 
 

@@ -71,6 +71,7 @@ public class AccountController {
     @ApiOperation(value = "해당 유저 emoji 변경", notes = "토큰과 변경할 emoji url을 받아 변경합니다.")
     public ResponseEntity<String> updateEmoji(@RequestHeader String token, @RequestBody EmojiDto emojiDto) {
         Optional<String> seqId = securityUtil.getCurrentUsername();
+        System.out.println("seqId = " + seqId);
         if (seqId.isEmpty() || emojiDto.getEmojiUrl().isEmpty()) return ResponseEntity.noContent().build();
         Long seq = Long.parseLong(seqId.get());
         String emojiUrl = accountService.updateEmojiById(seq, emojiDto.getEmojiUrl());
