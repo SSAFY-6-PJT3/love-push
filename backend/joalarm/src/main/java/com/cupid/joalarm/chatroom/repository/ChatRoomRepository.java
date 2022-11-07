@@ -1,12 +1,10 @@
 package com.cupid.joalarm.chatroom.repository;
 
-import com.cupid.joalarm.chatroom.entity.ChatroomEntity;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import com.cupid.joalarm.chatroom.entity.Chatroom;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import java.util.Optional;
 
-public interface ChatRoomRepository extends MongoRepository<ChatroomEntity, String> {
-    public List<ChatroomEntity> findAllByUserListIn(long user);
-    public List<ChatroomEntity> findAll();
-    public ChatroomEntity findChatRoomEntityByChatroomSeq(long seq);
+public interface ChatRoomRepository extends JpaRepository<Chatroom, Long> {
+    Optional<Chatroom> findBySeq(Long seq);
 }

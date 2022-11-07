@@ -46,8 +46,8 @@ public class AccountChatroomRepositoryImpl implements AccountChatroomRepositoryC
                 )
 
                 .leftJoin(lastMessage)
-                .on(lastMessage.createdDate.eq(JPAExpressions
-                            .select(lastMessage.createdDate.max())
+                .on(lastMessage.seq.eq(JPAExpressions
+                            .select(lastMessage.seq.max())
                             .from(lastMessage)
                             .where(lastMessage.chatroom.seq.eq(chatroom.seq)))
                 )

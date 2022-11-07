@@ -23,6 +23,6 @@ public class AccountsEmbedded implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "receive_account_id")
-    Account receiveAccount;
+    private Account receiveAccount;
 
 }
