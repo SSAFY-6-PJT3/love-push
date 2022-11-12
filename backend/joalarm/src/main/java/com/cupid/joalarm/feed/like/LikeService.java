@@ -33,11 +33,11 @@ public class LikeService {
     }
 
     @Transactional
-    public ResponseEntity<?> likeFeed(Long feed_id) {
+    public ResponseEntity<?> likeFeed(Long feed_id, String user) {
 
         // Get User
-        String accountName = securityUtil.getCurrentUsername().get();
-        Optional<Account> accountOpt = accountRepository.findOneById(accountName);
+        Long seq = Long.parseLong(user);
+        Optional<Account> accountOpt = accountRepository.findById(seq);
         Account account = accountOpt.get();
 
         // Get Feed
@@ -63,11 +63,11 @@ public class LikeService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public List<LikeUserDto> getLikeUsers(Long feed_id) {
+    public List<LikeUserDto> getLikeUsers(Long feed_id, String user) {
 
         // Get User
-        String accountName = securityUtil.getCurrentUsername().get();
-        Optional<Account> accountOpt = accountRepository.findOneById(accountName);
+        Long seq = Long.parseLong(user);
+        Optional<Account> accountOpt = accountRepository.findById(seq);
         Account account = accountOpt.get();
 
         // Get Feed
@@ -89,7 +89,7 @@ public class LikeService {
     }
 
     @Transactional
-    public ResponseEntity<?> undoLikeFeed(Long feed_id) {
+    public ResponseEntity<?> undoLikeFeed(Long feed_id, String user) {
 
         // Get Feed
         Optional<Feed> optFeed = feedRepository.findById(feed_id);// Check Like Status
@@ -100,8 +100,8 @@ public class LikeService {
         Feed feed = optFeed.get();
 
         // Get User
-        String accountName = securityUtil.getCurrentUsername().get();
-        Optional<Account> accountOpt = accountRepository.findOneById(accountName);
+        Long seq = Long.parseLong(user);
+        Optional<Account> accountOpt = accountRepository.findById(seq);
         Account account = accountOpt.get();
 
         // Get Like
