@@ -194,6 +194,7 @@ public class FeedService {
         FeedListDto result = new FeedListDto();
 
         result.setFeedId(feed.getFeedId());
+        result.setTitle(feed.getTitle());
         result.setContent(feed.getContent());
         result.setMediaUrl(feed.getMediaUrl());
         result.setLikeCnt(feed.getLikeCnt());
@@ -210,16 +211,16 @@ public class FeedService {
             result.setLikeStatus(false);
         }
 
-        List<String> tempTags = new ArrayList<>();
-        for (Tag tag : feed.getTags()) {
-            tempTags.add(tag.getName());
-        };
-        result.setTags(tempTags);
+//        List<String> tempTags = new ArrayList<>();
+//        for (Tag tag : feed.getTags()) {
+//            tempTags.add(tag.getName());
+//        };
+//        result.setTags(tempTags);
 
         return result;
     }
 
-    public List<FeedDto> getProfileFeeds(String email, String user) {
+    public List<FeedDto> getProfileFeeds(String user) {
 
         // Get User
         Long seq = Long.parseLong(user);
@@ -238,10 +239,10 @@ public class FeedService {
             feedDto.setUsername(feed.getAccount().getId());
 
             List<String> tempTags = new ArrayList<>();
-            for (Tag tag : feed.getTags()) {
-                tempTags.add(tag.getName());
-            };
-            feedDto.setTags(tempTags);
+//            for (Tag tag : feed.getTags()) {
+//                tempTags.add(tag.getName());
+//            };
+//            feedDto.setTags(tempTags);
 
             // Check like_status
             Like like_flag = likeRepository.findByAccountAndFeed(account, feed);
