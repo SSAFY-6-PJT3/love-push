@@ -4,11 +4,9 @@ import com.cupid.joalarm.feed.Feed;
 import com.cupid.joalarm.feed.FeedRepository;
 import com.cupid.joalarm.account.entity.Account;
 import com.cupid.joalarm.account.repository.AccountRepository;
-import com.cupid.joalarm.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,14 +20,12 @@ public class LikeService {
     private AccountRepository accountRepository;
     private FeedRepository feedRepository;
     private LikeRepository likeRepository;
-    private SecurityUtil securityUtil;
 
     @Autowired
-    public LikeService(AccountRepository accountRepository, FeedRepository feedRepository, LikeRepository likeRepository, SecurityUtil securityUtil) {
+    public LikeService(AccountRepository accountRepository, FeedRepository feedRepository, LikeRepository likeRepository) {
         this.accountRepository = accountRepository;
         this.feedRepository = feedRepository;
         this.likeRepository = likeRepository;
-        this.securityUtil = securityUtil;
     }
 
     @Transactional
