@@ -1,4 +1,4 @@
-package com.cupid.joalarm.feed.comment;
+package com.cupid.joalarm.feed.childcomment;
 
 import io.swagger.annotations.ApiParam;
 import lombok.*;
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentDto {
+public class ChildCommentDto {
 
     private Long commentId;
 

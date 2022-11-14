@@ -1,6 +1,10 @@
 package com.cupid.joalarm.feed;
 
 import com.cupid.joalarm.account.dto.AccountDto;
+import com.cupid.joalarm.feed.childcomment.ChildComment;
+import com.cupid.joalarm.feed.childcomment.ChildCommentDto;
+import com.cupid.joalarm.feed.childcomment.ChildCommentListDto;
+import com.cupid.joalarm.feed.childcomment.ChildCommentRepository;
 import com.cupid.joalarm.util.SecurityUtil;
 import com.cupid.joalarm.feed.media.GlobalConfig;
 import com.cupid.joalarm.feed.comment.Comment;
@@ -37,9 +41,10 @@ public class FeedService {
     public TagRepository tagRepository;
     public LikeRepository likeRepository;
     public SecurityUtil securityUtil;
+    public ChildCommentRepository childCommentRepository;
 
     @Autowired
-    public FeedService(FeedRepository feedRepository, AccountRepository accountRepository, CommentRepository commentRepository, GlobalConfig config, TagRepository tagRepository, LikeRepository likeRepository, SecurityUtil securityUtil) {
+    public FeedService(FeedRepository feedRepository, AccountRepository accountRepository, CommentRepository commentRepository, GlobalConfig config, TagRepository tagRepository, LikeRepository likeRepository, SecurityUtil securityUtil, ChildCommentRepository childCommentRepository) {
         this.feedRepository = feedRepository;
         this.accountRepository = accountRepository;
         this.commentRepository = commentRepository;
@@ -47,6 +52,7 @@ public class FeedService {
         this.tagRepository = tagRepository;
         this.likeRepository = likeRepository;
         this.securityUtil = securityUtil;
+        this.childCommentRepository = childCommentRepository;
     }
 
     @Transactional
@@ -194,6 +200,7 @@ public class FeedService {
         FeedListDto result = new FeedListDto();
 
         result.setFeedId(feed.getFeedId());
+        result.setTitle(feed.getTitle());
         result.setContent(feed.getContent());
         result.setMediaUrl(feed.getMediaUrl());
         result.setLikeCnt(feed.getLikeCnt());
@@ -210,16 +217,16 @@ public class FeedService {
             result.setLikeStatus(false);
         }
 
-        List<String> tempTags = new ArrayList<>();
-        for (Tag tag : feed.getTags()) {
-            tempTags.add(tag.getName());
-        };
-        result.setTags(tempTags);
+//        List<String> tempTags = new ArrayList<>();
+//        for (Tag tag : feed.getTags()) {
+//            tempTags.add(tag.getName());
+//        };
+//        result.setTags(tempTags);
 
         return result;
     }
 
-    public List<FeedDto> getProfileFeeds(String email, String user) {
+    public List<FeedDto> getProfileFeeds(String user) {
 
         // Get User
         Long seq = Long.parseLong(user);
@@ -238,10 +245,10 @@ public class FeedService {
             feedDto.setUsername(feed.getAccount().getId());
 
             List<String> tempTags = new ArrayList<>();
-            for (Tag tag : feed.getTags()) {
-                tempTags.add(tag.getName());
-            };
-            feedDto.setTags(tempTags);
+//            for (Tag tag : feed.getTags()) {
+//                tempTags.add(tag.getName());
+//            };
+//            feedDto.setTags(tempTags);
 
             // Check like_status
             Like like_flag = likeRepository.findByAccountAndFeed(account, feed);
@@ -443,6 +450,8 @@ public class FeedService {
         }
     }
 
+    //=========================Comment=========================//
+
     public List<CommentListDto> getComments(Long feed_id) {
 
         // Get Feed
@@ -456,6 +465,7 @@ public class FeedService {
             CommentListDto commentListDto = new CommentListDto();
 
             commentListDto.setCommentId(comment.getCommentId());
+            commentListDto.setUserId(comment.getAccount().getAccountSeq());
             commentListDto.setUsername(comment.getAccount().getId());
             commentListDto.setContent(comment.getContent());
             commentListDto.setCreatedAt(comment.getCreatedAt());
@@ -495,6 +505,65 @@ public class FeedService {
     public ResponseEntity<?> deleteComment(Long comment_id) {
 
         commentRepository.deleteById(comment_id);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    //=========================ChildComment=========================//
+
+    public List<ChildCommentListDto> getChildComments(Long comment_id) {
+
+        // Get Comment
+        Optional<Comment> comment = commentRepository.findById(comment_id);
+        if (!comment.isPresent()) {
+            return null;
+        }
+        List<ChildCommentListDto> result = new ArrayList<>();
+
+        for (ChildComment childComment : childCommentRepository.findByComment(comment.get())) {
+            ChildCommentListDto childCommentListDto = new ChildCommentListDto();
+
+            childCommentListDto.setCommentId(childComment.getCommentId());
+            childCommentListDto.setUserId(childComment.getAccount().getAccountSeq());
+            childCommentListDto.setUsername(childComment.getAccount().getId());
+            childCommentListDto.setContent(childComment.getContent());
+            childCommentListDto.setCreatedAt(childComment.getCreatedAt());
+
+            result.add(childCommentListDto);
+        }
+
+        return result;
+    }
+
+    @Transactional
+    public ResponseEntity<?> postChildComment(Long comment_id, ChildCommentDto childCommentDto, String user) {
+
+        // Get User
+        Long seq = Long.parseLong(user);
+        Optional<Account> accountOpt = accountRepository.findById(seq);
+        Account account = accountOpt.get();
+
+        // Get Comment
+        Optional<Comment> comment = commentRepository.findById(comment_id);
+        if (!comment.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        // Build & Save Comment
+        ChildComment childComment = ChildComment.builder()
+                .content(childCommentDto.getContent())
+                .comment(comment.get())
+                .account(account)
+                .build();
+
+        childCommentRepository.save(childComment);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Transactional
+    public ResponseEntity<?> deleteChildComment(Long child_comment_id) {
+
+        childCommentRepository.deleteById(child_comment_id);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
