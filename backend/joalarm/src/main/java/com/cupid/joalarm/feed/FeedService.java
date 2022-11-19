@@ -420,7 +420,14 @@ public class FeedService {
 //        }
 
         // Update Feed
-        feed.setContent(feedDto.getContent());
+        if (feedDto.getContent()!=null) {
+            feed.setContent(feedDto.getContent());
+        }
+
+        if (feedDto.getMediaUrl()!=null) {
+            feed.setMediaUrl(feedDto.getMediaUrl());
+        }
+        
 //        feed.setTags(resTags);
         feedRepository.save(feed);
 
