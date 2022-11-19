@@ -117,7 +117,6 @@ public class FeedService {
         
         // Create Feed
         Feed feed = Feed.builder()
-                .title(feedDto.getTitle())
                 .content(feedDto.getContent())
                 .likeCnt(0L)
 //                .mediaUrl(resourcePathname)
@@ -144,7 +143,6 @@ public class FeedService {
             FeedDto feedDto = new FeedDto();
 
             feedDto.setFeedId(feed.getFeedId());
-            feedDto.setTitle(feed.getTitle());
             feedDto.setContent(feed.getContent());
             feedDto.setMediaUrl(feed.getMediaUrl());
             feedDto.setLikeCnt(feed.getLikeCnt());
@@ -200,14 +198,13 @@ public class FeedService {
         FeedListDto result = new FeedListDto();
 
         result.setFeedId(feed.getFeedId());
-        result.setTitle(feed.getTitle());
         result.setContent(feed.getContent());
         result.setMediaUrl(feed.getMediaUrl());
         result.setLikeCnt(feed.getLikeCnt());
         result.setUsername(feed.getAccount().getId());
         result.setCreatedAt(feed.getCreatedAt());
         result.setUpdatedAt(feed.getUpdatedAt());
-        result.setFeedId(feed.getAccount().getAccountSeq());
+        result.setUserId(feed.getAccount().getAccountSeq());
 
         // Check like_status
         Like like_flag = likeRepository.findByAccountAndFeed(account, feed);
@@ -238,7 +235,6 @@ public class FeedService {
             FeedDto feedDto = new FeedDto();
 
             feedDto.setFeedId(feed.getFeedId());
-            feedDto.setTitle(feed.getTitle());
             feedDto.setContent(feed.getContent());
             feedDto.setMediaUrl(feed.getMediaUrl());
             feedDto.setLikeCnt(feed.getLikeCnt());
@@ -383,7 +379,6 @@ public class FeedService {
         FeedDto feedDto = new FeedDto();
 
         feedDto.setFeedId(feed.getFeedId());
-        feedDto.setTitle(feed.getTitle());
         feedDto.setContent(feed.getContent());
         feedDto.setCreatedAt(feed.getCreatedAt());
         feedDto.setUpdatedAt(feed.getUpdatedAt());
@@ -425,8 +420,14 @@ public class FeedService {
 //        }
 
         // Update Feed
-        feed.setTitle(feedDto.getTitle());
-        feed.setContent(feedDto.getContent());
+        if (feedDto.getContent()!=null) {
+            feed.setContent(feedDto.getContent());
+        }
+
+        if (feedDto.getMediaUrl()!=null) {
+            feed.setMediaUrl(feedDto.getMediaUrl());
+        }
+
 //        feed.setTags(resTags);
         feedRepository.save(feed);
 
@@ -466,7 +467,6 @@ public class FeedService {
 
             commentListDto.setCommentId(comment.getCommentId());
             commentListDto.setUserId(comment.getAccount().getAccountSeq());
-            commentListDto.setUsername(comment.getAccount().getId());
             commentListDto.setContent(comment.getContent());
             commentListDto.setCreatedAt(comment.getCreatedAt());
 
@@ -523,16 +523,33 @@ public class FeedService {
         for (ChildComment childComment : childCommentRepository.findByComment(comment.get())) {
             ChildCommentListDto childCommentListDto = new ChildCommentListDto();
 
-            childCommentListDto.setCommentId(childComment.getCommentId());
+            childCommentListDto.setChildId(childComment.getChildId());
             childCommentListDto.setUserId(childComment.getAccount().getAccountSeq());
-            childCommentListDto.setUsername(childComment.getAccount().getId());
             childCommentListDto.setContent(childComment.getContent());
             childCommentListDto.setCreatedAt(childComment.getCreatedAt());
+            childCommentListDto.setCommentId(childComment.getComment().getCommentId());
 
             result.add(childCommentListDto);
         }
 
         return result;
+    }
+
+    public ChildCommentDto getChildComment(Long comment_id, Long childId) {
+
+        // Get Comment
+        Optional<ChildComment> childCommentOpt = childCommentRepository.findById(childId);
+        ChildComment childComment = childCommentOpt.get();
+
+        ChildCommentDto childCommentDto = new ChildCommentDto();
+
+        childCommentDto.setChildId(childComment.getChildId());
+        childCommentDto.setUserId(childComment.getAccount().getAccountSeq());
+        childCommentDto.setContent(childComment.getContent());
+        childCommentDto.setCreatedAt(childComment.getCreatedAt());
+        childCommentDto.setCommentId(childComment.getComment().getCommentId());
+
+        return childCommentDto;
     }
 
     @Transactional

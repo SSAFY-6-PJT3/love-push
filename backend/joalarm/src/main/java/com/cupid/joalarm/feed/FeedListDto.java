@@ -19,6 +19,9 @@ public class FeedListDto {
     @ApiParam(value = "유저이름")
     private String username;
 
+    @ApiParam(value = "피드 작성자 seq")
+    private Long userId;
+
     @ApiParam(value = "피드사진")
     private String mediaUrl;
 
@@ -27,9 +30,6 @@ public class FeedListDto {
 
     @ApiParam(value = "좋아요개수")
     private Long likeCnt;
-
-    @ApiParam(value = "피드제목")
-    private String title;
 
     @ApiParam(value = "피드내용")
     private String content;
