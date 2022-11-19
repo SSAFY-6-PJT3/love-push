@@ -427,7 +427,7 @@ public class FeedService {
         if (feedDto.getMediaUrl()!=null) {
             feed.setMediaUrl(feedDto.getMediaUrl());
         }
-        
+
 //        feed.setTags(resTags);
         feedRepository.save(feed);
 
@@ -467,7 +467,6 @@ public class FeedService {
 
             commentListDto.setCommentId(comment.getCommentId());
             commentListDto.setUserId(comment.getAccount().getAccountSeq());
-            commentListDto.setUsername(comment.getAccount().getId());
             commentListDto.setContent(comment.getContent());
             commentListDto.setCreatedAt(comment.getCreatedAt());
 
@@ -526,7 +525,6 @@ public class FeedService {
 
             childCommentListDto.setCommentId(childComment.getCommentId());
             childCommentListDto.setUserId(childComment.getAccount().getAccountSeq());
-            childCommentListDto.setUsername(childComment.getAccount().getId());
             childCommentListDto.setContent(childComment.getContent());
             childCommentListDto.setCreatedAt(childComment.getCreatedAt());
 

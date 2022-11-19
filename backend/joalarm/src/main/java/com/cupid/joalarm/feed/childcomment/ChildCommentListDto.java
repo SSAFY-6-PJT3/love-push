@@ -18,9 +18,6 @@ public class ChildCommentListDto {
     @ApiParam(value = "유저 id")
     private Long userId;
 
-    @ApiParam(value = "유저이름")
-    private String username;
-
     @ApiParam(value = "댓글내용")
     private String content;
 
