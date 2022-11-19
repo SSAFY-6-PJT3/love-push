@@ -18,9 +18,9 @@ import javax.persistence.*;
 public class ChildComment extends BaseTimeEntity {
 
     @Id
-    @Column(name = "childcomment_id")
+    @Column(name = "child_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long commentId;
+    private Long childId;
 
     @Column(name = "content")
     private String content;

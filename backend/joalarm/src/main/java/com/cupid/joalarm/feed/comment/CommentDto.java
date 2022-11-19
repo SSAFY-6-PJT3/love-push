@@ -14,6 +14,9 @@ public class CommentDto {
 
     private Long commentId;
 
+    @ApiParam(value = "유저 id")
+    private Long userId;
+
     @ApiParam(value = "댓글 작성 시각")
     private LocalDateTime createdAt;
 

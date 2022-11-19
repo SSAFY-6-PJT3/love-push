@@ -523,15 +523,33 @@ public class FeedService {
         for (ChildComment childComment : childCommentRepository.findByComment(comment.get())) {
             ChildCommentListDto childCommentListDto = new ChildCommentListDto();
 
-            childCommentListDto.setCommentId(childComment.getCommentId());
+            childCommentListDto.setChildId(childComment.getChildId());
             childCommentListDto.setUserId(childComment.getAccount().getAccountSeq());
             childCommentListDto.setContent(childComment.getContent());
             childCommentListDto.setCreatedAt(childComment.getCreatedAt());
+            childCommentListDto.setCommentId(childComment.getComment().getCommentId());
 
             result.add(childCommentListDto);
         }
 
         return result;
+    }
+
+    public ChildCommentDto getChildComment(Long comment_id, Long childId) {
+
+        // Get Comment
+        Optional<ChildComment> childCommentOpt = childCommentRepository.findById(childId);
+        ChildComment childComment = childCommentOpt.get();
+
+        ChildCommentDto childCommentDto = new ChildCommentDto();
+
+        childCommentDto.setChildId(childComment.getChildId());
+        childCommentDto.setUserId(childComment.getAccount().getAccountSeq());
+        childCommentDto.setContent(childComment.getContent());
+        childCommentDto.setCreatedAt(childComment.getCreatedAt());
+        childCommentDto.setCommentId(childComment.getComment().getCommentId());
+
+        return childCommentDto;
     }
 
     @Transactional

@@ -12,12 +12,19 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ChildCommentDto {
 
-    private Long commentId;
+    @ApiParam(value = "대댓글 id")
+    private Long childId;
 
-    @ApiParam(value = "댓글 작성 시각")
+    @ApiParam(value = "대댓글 작성 시각")
     private LocalDateTime createdAt;
 
-    @ApiParam(value = "댓글 내용")
+    @ApiParam(value = "대댓글 내용")
     private String content;
+
+    @ApiParam(value = "대댓글 id")
+    private Long commentId;
+
+    @ApiParam(value = "유저 id")
+    private Long userId;
 
 }
