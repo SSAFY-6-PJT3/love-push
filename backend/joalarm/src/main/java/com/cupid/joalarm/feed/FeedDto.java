@@ -18,10 +18,6 @@ public class FeedDto {
 
     private Long feedId;
 
-    @ApiParam(value = "피드 제목")
-    @NotNull
-    private String title;
-
     @ApiParam(value = "피드 내용")
     @NotNull
     private String content;

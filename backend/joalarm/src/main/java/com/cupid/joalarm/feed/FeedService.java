@@ -117,7 +117,6 @@ public class FeedService {
         
         // Create Feed
         Feed feed = Feed.builder()
-                .title(feedDto.getTitle())
                 .content(feedDto.getContent())
                 .likeCnt(0L)
 //                .mediaUrl(resourcePathname)
@@ -144,7 +143,6 @@ public class FeedService {
             FeedDto feedDto = new FeedDto();
 
             feedDto.setFeedId(feed.getFeedId());
-            feedDto.setTitle(feed.getTitle());
             feedDto.setContent(feed.getContent());
             feedDto.setMediaUrl(feed.getMediaUrl());
             feedDto.setLikeCnt(feed.getLikeCnt());
@@ -200,14 +198,13 @@ public class FeedService {
         FeedListDto result = new FeedListDto();
 
         result.setFeedId(feed.getFeedId());
-        result.setTitle(feed.getTitle());
         result.setContent(feed.getContent());
         result.setMediaUrl(feed.getMediaUrl());
         result.setLikeCnt(feed.getLikeCnt());
         result.setUsername(feed.getAccount().getId());
         result.setCreatedAt(feed.getCreatedAt());
         result.setUpdatedAt(feed.getUpdatedAt());
-        result.setFeedId(feed.getAccount().getAccountSeq());
+        result.setUserId(feed.getAccount().getAccountSeq());
 
         // Check like_status
         Like like_flag = likeRepository.findByAccountAndFeed(account, feed);
@@ -238,7 +235,6 @@ public class FeedService {
             FeedDto feedDto = new FeedDto();
 
             feedDto.setFeedId(feed.getFeedId());
-            feedDto.setTitle(feed.getTitle());
             feedDto.setContent(feed.getContent());
             feedDto.setMediaUrl(feed.getMediaUrl());
             feedDto.setLikeCnt(feed.getLikeCnt());
@@ -383,7 +379,6 @@ public class FeedService {
         FeedDto feedDto = new FeedDto();
 
         feedDto.setFeedId(feed.getFeedId());
-        feedDto.setTitle(feed.getTitle());
         feedDto.setContent(feed.getContent());
         feedDto.setCreatedAt(feed.getCreatedAt());
         feedDto.setUpdatedAt(feed.getUpdatedAt());
@@ -425,7 +420,6 @@ public class FeedService {
 //        }
 
         // Update Feed
-        feed.setTitle(feedDto.getTitle());
         feed.setContent(feedDto.getContent());
 //        feed.setTags(resTags);
         feedRepository.save(feed);
