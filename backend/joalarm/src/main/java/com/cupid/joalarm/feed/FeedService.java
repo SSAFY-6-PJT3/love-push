@@ -5,6 +5,7 @@ import com.cupid.joalarm.feed.childcomment.ChildComment;
 import com.cupid.joalarm.feed.childcomment.ChildCommentDto;
 import com.cupid.joalarm.feed.childcomment.ChildCommentListDto;
 import com.cupid.joalarm.feed.childcomment.ChildCommentRepository;
+import com.cupid.joalarm.feed.comment.CommentWithChildCommentDto;
 import com.cupid.joalarm.util.SecurityUtil;
 import com.cupid.joalarm.feed.media.GlobalConfig;
 import com.cupid.joalarm.feed.comment.Comment;
@@ -205,6 +206,23 @@ public class FeedService {
         result.setCreatedAt(feed.getCreatedAt());
         result.setUpdatedAt(feed.getUpdatedAt());
         result.setUserId(feed.getAccount().getAccountSeq());
+
+        // 전체 댓글 및 대댓글 추가, N + 1 문제가 발생하므로 추후 수정할 것
+
+        List<CommentWithChildCommentDto> allComments = new ArrayList<>() {{
+            List<CommentListDto> comments = getComments(feedId);
+
+            for (CommentListDto comment : comments) {
+                add(CommentWithChildCommentDto.builder()
+                        .commentListDto(comment)
+                        .childComments(getChildComments(comment.getCommentId()))
+                        .build());
+            }
+        }};
+
+        result.setAllComments(allComments);
+
+        // 전체 댓글 및 대댓글 추가 코드 종료
 
         // Check like_status
         Like like_flag = likeRepository.findByAccountAndFeed(account, feed);
