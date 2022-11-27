@@ -1,8 +1,6 @@
 package com.cupid.joalarm.feed;
 
-import com.cupid.joalarm.feed.childcomment.ChildCommentListDto;
-import com.cupid.joalarm.feed.comment.CommentListDto;
-import com.cupid.joalarm.feed.comment.CommentWithChildCommentDto;
+import com.cupid.joalarm.feed.comment.AllCommentsDto;
 import io.swagger.annotations.ApiParam;
 import lombok.*;
 
@@ -50,5 +48,5 @@ public class FeedListDto {
     private Boolean likeStatus;
 
     @ApiParam(value = "전체 댓글 및 대댓글")
-    private List<CommentWithChildCommentDto> allComments;
+    private List<AllCommentsDto> allComments;
 }
