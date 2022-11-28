@@ -1,5 +1,6 @@
 package com.cupid.joalarm.feed;
 
+import com.cupid.joalarm.feed.comment.AllCommentsDto;
 import io.swagger.annotations.ApiParam;
 import lombok.*;
 
@@ -19,6 +20,9 @@ public class FeedListDto {
     @ApiParam(value = "유저이름")
     private String username;
 
+    @ApiParam(value = "피드 작성자 seq")
+    private Long userId;
+
     @ApiParam(value = "피드사진")
     private String mediaUrl;
 
@@ -27,9 +31,6 @@ public class FeedListDto {
 
     @ApiParam(value = "좋아요개수")
     private Long likeCnt;
-
-    @ApiParam(value = "피드제목")
-    private String title;
 
     @ApiParam(value = "피드내용")
     private String content;
@@ -45,4 +46,7 @@ public class FeedListDto {
 
     @ApiParam(value = "좋아요 여부")
     private Boolean likeStatus;
+
+    @ApiParam(value = "전체 댓글 및 대댓글")
+    private List<AllCommentsDto> allComments;
 }

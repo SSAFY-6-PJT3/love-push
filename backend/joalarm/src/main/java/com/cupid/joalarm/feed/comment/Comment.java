@@ -3,9 +3,13 @@ package com.cupid.joalarm.feed.comment;
 import com.cupid.joalarm.baseEntity.BaseTimeEntity;
 import com.cupid.joalarm.feed.Feed;
 import com.cupid.joalarm.account.entity.Account;
+import com.cupid.joalarm.feed.childcomment.ChildComment;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "comment")
@@ -32,4 +36,9 @@ public class Comment extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "feed_id")
     private Feed feed;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "comment",cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"comment"})
+    private List<ChildComment> comments = new ArrayList<>();
 }

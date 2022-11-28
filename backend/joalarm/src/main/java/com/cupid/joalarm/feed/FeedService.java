@@ -1,6 +1,10 @@
 package com.cupid.joalarm.feed;
 
-import com.cupid.joalarm.account.dto.AccountDto;
+import com.cupid.joalarm.feed.childcomment.ChildComment;
+import com.cupid.joalarm.feed.childcomment.ChildCommentDto;
+import com.cupid.joalarm.feed.childcomment.ChildCommentListDto;
+import com.cupid.joalarm.feed.childcomment.ChildCommentRepository;
+import com.cupid.joalarm.feed.comment.AllCommentsDto;
 import com.cupid.joalarm.util.SecurityUtil;
 import com.cupid.joalarm.feed.media.GlobalConfig;
 import com.cupid.joalarm.feed.comment.Comment;
@@ -17,14 +21,9 @@ import com.cupid.joalarm.account.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -37,9 +36,10 @@ public class FeedService {
     public TagRepository tagRepository;
     public LikeRepository likeRepository;
     public SecurityUtil securityUtil;
+    public ChildCommentRepository childCommentRepository;
 
     @Autowired
-    public FeedService(FeedRepository feedRepository, AccountRepository accountRepository, CommentRepository commentRepository, GlobalConfig config, TagRepository tagRepository, LikeRepository likeRepository, SecurityUtil securityUtil) {
+    public FeedService(FeedRepository feedRepository, AccountRepository accountRepository, CommentRepository commentRepository, GlobalConfig config, TagRepository tagRepository, LikeRepository likeRepository, SecurityUtil securityUtil, ChildCommentRepository childCommentRepository) {
         this.feedRepository = feedRepository;
         this.accountRepository = accountRepository;
         this.commentRepository = commentRepository;
@@ -47,6 +47,7 @@ public class FeedService {
         this.tagRepository = tagRepository;
         this.likeRepository = likeRepository;
         this.securityUtil = securityUtil;
+        this.childCommentRepository = childCommentRepository;
     }
 
     @Transactional
@@ -111,7 +112,6 @@ public class FeedService {
         
         // Create Feed
         Feed feed = Feed.builder()
-                .title(feedDto.getTitle())
                 .content(feedDto.getContent())
                 .likeCnt(0L)
 //                .mediaUrl(resourcePathname)
@@ -138,7 +138,6 @@ public class FeedService {
             FeedDto feedDto = new FeedDto();
 
             feedDto.setFeedId(feed.getFeedId());
-            feedDto.setTitle(feed.getTitle());
             feedDto.setContent(feed.getContent());
             feedDto.setMediaUrl(feed.getMediaUrl());
             feedDto.setLikeCnt(feed.getLikeCnt());
@@ -200,7 +199,23 @@ public class FeedService {
         result.setUsername(feed.getAccount().getId());
         result.setCreatedAt(feed.getCreatedAt());
         result.setUpdatedAt(feed.getUpdatedAt());
-        result.setFeedId(feed.getAccount().getAccountSeq());
+        result.setUserId(feed.getAccount().getAccountSeq());
+
+        // 전체 댓글 및 대댓글 추가, N + 1 문제가 발생하므로 추후 수정할 것
+
+        List<AllCommentsDto> allComments = new ArrayList<>() {{
+            List<CommentListDto> comments = getComments(feedId);
+
+            for (CommentListDto comment : comments) {
+                AllCommentsDto allCommentsDto = ((AllCommentsDto) comment);
+                allCommentsDto.setChildComments(getChildComments(comment.getCommentId()));
+                add(allCommentsDto);
+            }
+        }};
+
+        result.setAllComments(allComments);
+
+        // 전체 댓글 및 대댓글 추가 코드 종료
 
         // Check like_status
         Like like_flag = likeRepository.findByAccountAndFeed(account, feed);
@@ -210,16 +225,16 @@ public class FeedService {
             result.setLikeStatus(false);
         }
 
-        List<String> tempTags = new ArrayList<>();
-        for (Tag tag : feed.getTags()) {
-            tempTags.add(tag.getName());
-        };
-        result.setTags(tempTags);
+//        List<String> tempTags = new ArrayList<>();
+//        for (Tag tag : feed.getTags()) {
+//            tempTags.add(tag.getName());
+//        };
+//        result.setTags(tempTags);
 
         return result;
     }
 
-    public List<FeedDto> getProfileFeeds(String email, String user) {
+    public List<FeedDto> getProfileFeeds(String user) {
 
         // Get User
         Long seq = Long.parseLong(user);
@@ -231,17 +246,16 @@ public class FeedService {
             FeedDto feedDto = new FeedDto();
 
             feedDto.setFeedId(feed.getFeedId());
-            feedDto.setTitle(feed.getTitle());
             feedDto.setContent(feed.getContent());
             feedDto.setMediaUrl(feed.getMediaUrl());
             feedDto.setLikeCnt(feed.getLikeCnt());
             feedDto.setUsername(feed.getAccount().getId());
 
             List<String> tempTags = new ArrayList<>();
-            for (Tag tag : feed.getTags()) {
-                tempTags.add(tag.getName());
-            };
-            feedDto.setTags(tempTags);
+//            for (Tag tag : feed.getTags()) {
+//                tempTags.add(tag.getName());
+//            };
+//            feedDto.setTags(tempTags);
 
             // Check like_status
             Like like_flag = likeRepository.findByAccountAndFeed(account, feed);
@@ -376,7 +390,6 @@ public class FeedService {
         FeedDto feedDto = new FeedDto();
 
         feedDto.setFeedId(feed.getFeedId());
-        feedDto.setTitle(feed.getTitle());
         feedDto.setContent(feed.getContent());
         feedDto.setCreatedAt(feed.getCreatedAt());
         feedDto.setUpdatedAt(feed.getUpdatedAt());
@@ -418,8 +431,14 @@ public class FeedService {
 //        }
 
         // Update Feed
-        feed.setTitle(feedDto.getTitle());
-        feed.setContent(feedDto.getContent());
+        if (feedDto.getContent()!=null) {
+            feed.setContent(feedDto.getContent());
+        }
+
+        if (feedDto.getMediaUrl()!=null) {
+            feed.setMediaUrl(feedDto.getMediaUrl());
+        }
+
 //        feed.setTags(resTags);
         feedRepository.save(feed);
 
@@ -443,6 +462,8 @@ public class FeedService {
         }
     }
 
+    //=========================Comment=========================//
+
     public List<CommentListDto> getComments(Long feed_id) {
 
         // Get Feed
@@ -456,7 +477,7 @@ public class FeedService {
             CommentListDto commentListDto = new CommentListDto();
 
             commentListDto.setCommentId(comment.getCommentId());
-            commentListDto.setUsername(comment.getAccount().getId());
+            commentListDto.setUserId(comment.getAccount().getAccountSeq());
             commentListDto.setContent(comment.getContent());
             commentListDto.setCreatedAt(comment.getCreatedAt());
 
@@ -495,6 +516,82 @@ public class FeedService {
     public ResponseEntity<?> deleteComment(Long comment_id) {
 
         commentRepository.deleteById(comment_id);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    //=========================ChildComment=========================//
+
+    public List<ChildCommentListDto> getChildComments(Long comment_id) {
+
+        // Get Comment
+        Optional<Comment> comment = commentRepository.findById(comment_id);
+        if (!comment.isPresent()) {
+            return null;
+        }
+        List<ChildCommentListDto> result = new ArrayList<>();
+
+        for (ChildComment childComment : childCommentRepository.findByComment(comment.get())) {
+            ChildCommentListDto childCommentListDto = new ChildCommentListDto();
+
+            childCommentListDto.setChildId(childComment.getChildId());
+            childCommentListDto.setUserId(childComment.getAccount().getAccountSeq());
+            childCommentListDto.setContent(childComment.getContent());
+            childCommentListDto.setCreatedAt(childComment.getCreatedAt());
+            childCommentListDto.setCommentId(childComment.getComment().getCommentId());
+
+            result.add(childCommentListDto);
+        }
+
+        return result;
+    }
+
+    public ChildCommentDto getChildComment(Long comment_id, Long childId) {
+
+        // Get Comment
+        Optional<ChildComment> childCommentOpt = childCommentRepository.findById(childId);
+        ChildComment childComment = childCommentOpt.get();
+
+        ChildCommentDto childCommentDto = new ChildCommentDto();
+
+        childCommentDto.setChildId(childComment.getChildId());
+        childCommentDto.setUserId(childComment.getAccount().getAccountSeq());
+        childCommentDto.setContent(childComment.getContent());
+        childCommentDto.setCreatedAt(childComment.getCreatedAt());
+        childCommentDto.setCommentId(childComment.getComment().getCommentId());
+
+        return childCommentDto;
+    }
+
+    @Transactional
+    public ResponseEntity<?> postChildComment(Long comment_id, ChildCommentDto childCommentDto, String user) {
+
+        // Get User
+        Long seq = Long.parseLong(user);
+        Optional<Account> accountOpt = accountRepository.findById(seq);
+        Account account = accountOpt.get();
+
+        // Get Comment
+        Optional<Comment> comment = commentRepository.findById(comment_id);
+        if (!comment.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        // Build & Save Comment
+        ChildComment childComment = ChildComment.builder()
+                .content(childCommentDto.getContent())
+                .comment(comment.get())
+                .account(account)
+                .build();
+
+        childCommentRepository.save(childComment);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Transactional
+    public ResponseEntity<?> deleteChildComment(Long child_comment_id) {
+
+        childCommentRepository.deleteById(child_comment_id);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

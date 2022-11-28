@@ -15,14 +15,8 @@ public class CommentListDto {
     @ApiParam(value = "댓글 id")
     private Long commentId;
 
-    @ApiParam(value = "프로필사진")
-    private String profileUrl;
-
-    @ApiParam(value = "유저이메일")
-    private String email;
-
-    @ApiParam(value = "유저이름")
-    private String username;
+    @ApiParam(value = "유저 id")
+    private Long userId;
 
     @ApiParam(value = "댓글내용")
     private String content;
