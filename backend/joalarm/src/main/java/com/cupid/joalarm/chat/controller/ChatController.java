@@ -24,21 +24,23 @@ public class ChatController {
     private final ChatService chatService;
     private final ChatRoomService chatRoomService;
 
-    @MessageMapping("chat/message")
-    public void message(ChatDTO message) throws Exception {
+    @MessageMapping("chat/message")  // 메시지 전송과 신고, 방 나가기에 대해 따로 정의할 것
+    public void message(ChatDTO message) {
         ChatTypeEnum type = message.getType();
 
-        if (QUIT.equals(type)) {
-            chatRoomService.reportByRoomSeq(message.getRoomId());
-            return;
-        }
+        try {
+            if (QUIT.equals(type)) {
+                chatRoomService.reportByRoomSeq(message.getRoomId());
+                return;
+            }
 
-        if (TALK.equals(type)) {
-            chatService.CreateChat(message);
-            return;
+            if (TALK.equals(type)) {
+                chatService.CreateChat(message);
+                return;
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
-
-        // 에러 로그 넣기
     }
 
     @GetMapping("chat/chatlog")
