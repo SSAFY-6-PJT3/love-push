@@ -142,8 +142,8 @@ public class FeedService {
             feedDto.setMediaUrl(feed.getMediaUrl());
             feedDto.setLikeCnt(feed.getLikeCnt());
             feedDto.setUsername(feed.getAccount().getId());
-            feedDto.setCreatedAt(feed.getCreatedAt());
-            feedDto.setUpdatedAt(feed.getUpdatedAt());
+            feedDto.setCreatedAt(feed.getCreatedDate());
+            feedDto.setUpdatedAt(feed.getModifiedDate());
             feedDto.setSchool(feed.getSchool());
             feedDto.setUserId(feed.getAccount().getAccountSeq());
 
@@ -197,8 +197,8 @@ public class FeedService {
         result.setMediaUrl(feed.getMediaUrl());
         result.setLikeCnt(feed.getLikeCnt());
         result.setUsername(feed.getAccount().getId());
-        result.setCreatedAt(feed.getCreatedAt());
-        result.setUpdatedAt(feed.getUpdatedAt());
+        result.setCreatedAt(feed.getCreatedDate());
+        result.setUpdatedAt(feed.getModifiedDate());
         result.setUserId(feed.getAccount().getAccountSeq());
 
         // 전체 댓글 및 대댓글 추가, N + 1 문제가 발생하므로 추후 수정할 것
@@ -304,8 +304,8 @@ public class FeedService {
             };
             feedListDto.setTags(tempTags);
 
-            feedListDto.setCreatedAt(feed.getCreatedAt());
-            feedListDto.setUpdatedAt(feed.getUpdatedAt());
+            feedListDto.setCreatedAt(feed.getCreatedDate());
+            feedListDto.setUpdatedAt(feed.getModifiedDate());
 
             // Check like_status
             Like like_flag = likeRepository.findByAccountAndFeed(account, feed);
@@ -354,8 +354,8 @@ public class FeedService {
             };
             feedProfileDto.setTags(tempTags);
 
-            feedProfileDto.setCreatedAt(feed.getCreatedAt());
-            feedProfileDto.setUpdatedAt(feed.getUpdatedAt());
+            feedProfileDto.setCreatedAt(feed.getCreatedDate());
+            feedProfileDto.setUpdatedAt(feed.getModifiedDate());
 
             // Check like_status
             Like like_flag = likeRepository.findByAccountAndFeed(account, feed);
@@ -391,8 +391,8 @@ public class FeedService {
 
         feedDto.setFeedId(feed.getFeedId());
         feedDto.setContent(feed.getContent());
-        feedDto.setCreatedAt(feed.getCreatedAt());
-        feedDto.setUpdatedAt(feed.getUpdatedAt());
+        feedDto.setCreatedAt(feed.getCreatedDate());
+        feedDto.setUpdatedAt(feed.getModifiedDate());
         feedDto.setMediaUrl(feed.getMediaUrl());
         feedDto.setUsername(feed.getAccount().getId());
 
@@ -479,7 +479,7 @@ public class FeedService {
             commentListDto.setCommentId(comment.getCommentId());
             commentListDto.setUserId(comment.getAccount().getAccountSeq());
             commentListDto.setContent(comment.getContent());
-            commentListDto.setCreatedAt(comment.getCreatedAt());
+            commentListDto.setCreatedAt(comment.getCreatedDate());
 
             result.add(commentListDto);
         }
@@ -537,7 +537,7 @@ public class FeedService {
             childCommentListDto.setChildId(childComment.getChildId());
             childCommentListDto.setUserId(childComment.getAccount().getAccountSeq());
             childCommentListDto.setContent(childComment.getContent());
-            childCommentListDto.setCreatedAt(childComment.getCreatedAt());
+            childCommentListDto.setCreatedAt(childComment.getCreatedDate());
             childCommentListDto.setCommentId(childComment.getComment().getCommentId());
 
             result.add(childCommentListDto);
@@ -557,7 +557,7 @@ public class FeedService {
         childCommentDto.setChildId(childComment.getChildId());
         childCommentDto.setUserId(childComment.getAccount().getAccountSeq());
         childCommentDto.setContent(childComment.getContent());
-        childCommentDto.setCreatedAt(childComment.getCreatedAt());
+        childCommentDto.setCreatedAt(childComment.getCreatedDate());
         childCommentDto.setCommentId(childComment.getComment().getCommentId());
 
         return childCommentDto;
