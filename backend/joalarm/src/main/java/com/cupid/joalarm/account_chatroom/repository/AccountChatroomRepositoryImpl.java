@@ -53,7 +53,7 @@ public class AccountChatroomRepositoryImpl implements AccountChatroomRepositoryC
                 )
 
                 .where(accountChatroom.accountChatroomEmbedded.account.accountSeq.eq(accountSeq))
-                .groupBy(chatroom)
+                .groupBy(chatroom, lastMessage)
                 .orderBy(accountChatroom.modifiedDate.desc())
                 .fetch();
     }
