@@ -1,17 +1,13 @@
 package com.cupid.joalarm.chat.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import com.cupid.joalarm.account.entity.Account;
 import com.cupid.joalarm.account.repository.AccountRepository;
 import com.cupid.joalarm.chat.dto.ChatDTO;
 import com.cupid.joalarm.chat.entity.Chat;
-import com.cupid.joalarm.chat.entity.ChatTypeEnum;
 import com.cupid.joalarm.chatroom.entity.Chatroom;
 import com.cupid.joalarm.chatroom.repository.ChatRoomRepository;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,7 +33,6 @@ class ChatServiceTest {
         ChatDTO chatDTO = new ChatDTO() {{
             setSender(account.getAccountSeq());
             setRoomId(chatroom.getSeq());
-            setType(ChatTypeEnum.TALK);
             setMessage("messageTest");
         }};
 
@@ -50,7 +45,6 @@ class ChatServiceTest {
         System.out.println(chat.getModifiedDate());
 
         assertThat(chatDTO.getMessage()).isEqualTo(chat.getMessage());
-        assertThat(chatDTO.getType()).isEqualTo(chat.getChatType());
         assertThat(chatDTO.getSender()).isEqualTo(chat.getAccount().getAccountSeq());
         assertThat(chatDTO.getRoomId()).isEqualTo(chat.getChatroom().getSeq());
     }

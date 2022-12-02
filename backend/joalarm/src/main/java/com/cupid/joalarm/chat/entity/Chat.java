@@ -31,7 +31,4 @@ public class Chat extends BaseTimeEntity {
     private Chatroom chatroom;
 
     private String message;
-
-    @Enumerated(EnumType.STRING)
-    private ChatTypeEnum chatType;
 }

@@ -6,16 +6,11 @@ import com.cupid.joalarm.account_chatroom.dto.AccountChatroomDTO;
 import com.cupid.joalarm.account_chatroom.entity.AccountChatroom;
 import com.cupid.joalarm.account_chatroom.entity.AccountChatroomEmbedded;
 import com.cupid.joalarm.chat.entity.Chat;
-import com.cupid.joalarm.chat.entity.ChatTypeEnum;
 import com.cupid.joalarm.chatroom.entity.Chatroom;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -65,10 +60,10 @@ class AccountChatroomRepositoryTest {
         accountChatroomRepository.save(accountChatroom13);
         accountChatroomRepository.save(accountChatroom31);
 
-        Chat chat1 = new Chat(null, account1, chatroom1, "first", ChatTypeEnum.TALK);
-        Chat chat2 = new Chat(null, account2, chatroom1, "something", ChatTypeEnum.TALK);
-        Chat chat3 = new Chat(null, account1, chatroom1, "last", ChatTypeEnum.TALK);
-        Chat chat4 = new Chat(null, account3, chatroom2, "32", ChatTypeEnum.TALK);
+        Chat chat1 = new Chat(null, account1, chatroom1, "first");
+        Chat chat2 = new Chat(null, account2, chatroom1, "something");
+        Chat chat3 = new Chat(null, account1, chatroom1, "last");
+        Chat chat4 = new Chat(null, account3, chatroom2, "32");
         em.persist(chat1);
         em.persist(chat2);
         em.persist(chat3);
