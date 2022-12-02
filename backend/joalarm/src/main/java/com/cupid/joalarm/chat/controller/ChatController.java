@@ -29,7 +29,7 @@ public class ChatController {
     }
 
     @GetMapping("chat/chatlog")
-    public ResponseEntity<List<ChatDTO>> ChatLog(@RequestParam long roomSeq) {
-        return new ResponseEntity<>(chatService.getChatList(roomSeq), HttpStatus.OK);
+    public ResponseEntity<List<ChatDTO>> ChatLog(@RequestParam long roomSeq, @RequestParam long chatSeq) {
+        return new ResponseEntity<>(chatService.getChatList(roomSeq, chatSeq), HttpStatus.OK);
     }
 }

@@ -36,7 +36,7 @@ public class ChatService {
     }
 
     @Transactional
-    public List<ChatDTO> getChatList(long roomSeq) {
-        return chatRepository.getChatList(roomSeq);
+    public List<ChatDTO> getChatList(long roomSeq, long chatSeq) {
+        return chatRepository.getChatList(roomSeq, chatSeq);
     }
 }

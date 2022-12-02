@@ -8,5 +8,5 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface ChatRepositoryCustom {
-    List<ChatDTO> getChatList(Long chatSeq);
+    List<ChatDTO> getChatList(Long roomSeq, Long chatSeq);
 }
