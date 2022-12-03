@@ -26,6 +26,7 @@ public class AccountDto {
     @NotNull
     private String emoji;
 
+    private String name;
 
     public static AccountDto fromEntity(Account account){
         if(account==null) return null;

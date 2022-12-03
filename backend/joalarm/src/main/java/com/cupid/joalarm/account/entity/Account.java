@@ -30,4 +30,7 @@ public class Account {
 
     @Column(name = "report_cnt")
     private int reportedCnt;
+
+    @Column(name = "name", length = 5, unique = true)
+    private String name;
 }
