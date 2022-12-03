@@ -1,5 +1,6 @@
 package com.cupid.joalarm.account.entity;
 
+import com.cupid.joalarm.feed.Feed;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,4 +34,8 @@ public class Account {
 
     @Column(name = "name", length = 5, unique = true)
     private String name;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "school_id")
+    private Feed school;
 }

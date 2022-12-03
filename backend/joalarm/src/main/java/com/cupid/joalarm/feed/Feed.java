@@ -57,8 +57,4 @@ public class Feed extends BaseTimeEntity {
     @JsonIgnoreProperties({"feed"})
     private List<Like> likes = new ArrayList<>();
 
-    // New added
-    @Column(name = "school")
-    private String school;
-
 }
