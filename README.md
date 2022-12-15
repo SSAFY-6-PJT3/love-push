@@ -34,11 +34,11 @@
 
 ### 다운로드 및 실행
 
-웹 : www.someone-might-like-you.com
+웹 : https://www.someone-might-like-you.com/
 
-안드로이드 : https://play.google.com/store/apps/details?id=com.nianticlabs.pokemongo
+안드로이드 : https://play.google.com/store/apps/details?id=com.cupid.joalarm
 
-아이폰 : https://play.google.com/store/apps/details?id=com.nianticlabs.pokemongo
+아이폰 : https://apps.apple.com/gb/app/%EC%A2%8B%EC%95%84%ED%95%98%EB%A9%B4-%EB%88%84%EB%A5%B4%EB%8A%94/id1623974658
 
 <br>
 
