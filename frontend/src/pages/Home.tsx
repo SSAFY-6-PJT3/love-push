@@ -4,9 +4,8 @@
  * @modified Hyeonsooryu | 마크업 구조 리팩터링 & 애니메이션 추가
  */
 
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import ReactGA from 'react-ga';
 
 import MainNav from '../components/Templetes/MainNav';
 import MainFooter from '../components/Templetes/MainFooter';
@@ -25,6 +24,10 @@ const MainPage = () => {
 
   const [pushHeart, setPushHeart] = useState(false);
   const [heartText, setHeartText] = useState('');
+  const [displayInput, setDisplayInput] = useState(false);
+  const [nameInput, setNameInput] = useState('');
+
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     activateClient();
@@ -38,29 +41,47 @@ const MainPage = () => {
     }
   }, [signal]);
 
+  /**
+   * @author 이주현 | 하트 보내기 기능
+   * 클릭 시 하트를 보냄
+   * 하트 전송 기능 API 미완성으로 나중에 추가 예정
+   */
   const updatePushHeart = () => {
-    setHeartText(
-      '주변 100m 유저에게\n하트를 전송했어요!\n하트가 교환되면 채팅방이 생성될 거에요!',
-    );
-    setPushHeart(true);
-    setTimeout(() => {
-      setPushHeart(false);
-    }, 4000);
-  };
+    if(!nameInput) {
+      alert('비었음');
+      return ;
+    }
 
+    console.log(`${nameInput}에게 하트 보냈음을 알림`);
+    setDisplayInput(false);
+    setNameInput('');
+  };
+  
+  const cancelPushHeart = () => {
+    setDisplayInput(false);
+    setNameInput('');
+  }
+
+  /**
+   * @author 이주현 | 이름 입력 창 생성 기능
+   * 클릭 시 이름을 입력할 수 있는 input 노출
+   */
   const heartClickHandler = () => {
-    ReactGA.event({
-      category: '하트 버튼 클릭',
-      action: '하트 버튼 클릭',
-    });
-    updatePushHeart();
-    sendHeart();
+    setDisplayInput(true);
+    if (inputRef.current){
+      inputRef.current.focus();
+    }
   };
 
   return (
     <>
       <AfterBackGround show={signal || pushHeart} />
       <Container>
+        <HeartInput style={{opacity: displayInput ? '1' : '0'}}>
+          <input ref={inputRef} onChange={(e)=> setNameInput(e.target.value)} type="text" value={nameInput} />
+          <button onClick={updatePushHeart}>보내기</button>
+          <button onClick={cancelPushHeart}>취소</button>
+        </HeartInput>
         <MainNav />
         {(pushHeart || signal) && <Title>{heartText}</Title>}
         {!signal && !pushHeart && (
@@ -98,6 +119,11 @@ const MainPage = () => {
     </>
   );
 };
+
+const HeartInput = styled.div`
+  position: fixed;
+  top: 80px;
+`
 
 const Container = styled.div`
   display: flex;
