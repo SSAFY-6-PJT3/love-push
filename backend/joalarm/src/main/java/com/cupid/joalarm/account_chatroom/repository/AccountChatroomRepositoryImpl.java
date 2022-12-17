@@ -21,7 +21,7 @@ public class AccountChatroomRepositoryImpl implements AccountChatroomRepositoryC
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<AccountChatroomDTO> findMyChatroomList(Long accountSeq) {
+    public List<AccountChatroomDTO> findChatroomList(Long accountSeq) {
         QChat lastMessage = new QChat("lastMessage");
 
         return jpaQueryFactory
