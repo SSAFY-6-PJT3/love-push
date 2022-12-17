@@ -2,21 +2,17 @@ package com.cupid.joalarm.chatroom.service;
 
 import com.cupid.joalarm.account.entity.Account;
 import com.cupid.joalarm.account.repository.AccountRepository;
+import com.cupid.joalarm.account_chatroom.dto.AccountChatroomDTO;
 import com.cupid.joalarm.account_chatroom.entity.AccountChatroom;
 import com.cupid.joalarm.account_chatroom.entity.AccountChatroomEmbedded;
 import com.cupid.joalarm.account_chatroom.repository.AccountChatroomRepository;
 import com.cupid.joalarm.chatroom.entity.Chatroom;
 import com.cupid.joalarm.chatroom.repository.ChatRoomRepository;
-import com.cupid.joalarm.chatroom.dto.CreateChatRoomDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +23,11 @@ public class ChatRoomService {
     private final AccountChatroomRepository accountChatroomRepository;
     private final AccountRepository accountRepository;
     private final SimpMessageSendingOperations messageTemplate;
+
+    @Transactional(readOnly = true)
+    public List<AccountChatroomDTO> findChatroomList(Long accountSeq) {
+        return accountChatroomRepository.findChatroomList(accountSeq);
+    }
 
     @Transactional
     public Chatroom CreateChatRoom(Long sendAccountSeq, Long receiveAccountSeq) {
