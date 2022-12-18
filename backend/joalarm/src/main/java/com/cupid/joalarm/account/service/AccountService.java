@@ -28,6 +28,7 @@ public class AccountService {
                 .id(accountDto.getId())
                 .password(passwordEncoder.encode(accountDto.getPassword()))
                 .emoji(accountDto.getEmoji())
+                .reportedCnt(0)
                 .build();
         return AccountDto.fromEntity(accountRepository.save(account));
     }
