@@ -68,11 +68,9 @@ class AccountChatroomRepositoryTest {
         Chat chat1 = new Chat(null, account1, chatroom1, "first", ChatTypeEnum.TALK);
         Chat chat2 = new Chat(null, account2, chatroom1, "something", ChatTypeEnum.TALK);
         Chat chat3 = new Chat(null, account1, chatroom1, "last", ChatTypeEnum.TALK);
-        Chat chat4 = new Chat(null, account3, chatroom2, "32", ChatTypeEnum.TALK);
         em.persist(chat1);
         em.persist(chat2);
         em.persist(chat3);
-        em.persist(chat4);
 
         em.flush();
         em.clear();
@@ -84,11 +82,7 @@ class AccountChatroomRepositoryTest {
 
         // when
         System.out.println("=========================================================================================");
-        List<AccountChatroomDTO> accountChatroomDTOPage = accountChatroomRepository.findMyChatroomList(account1_seq);
-
-        for (AccountChatroomDTO accountChatroomDTO : accountChatroomDTOPage) {
-            System.out.println("accountChatroomDTO = " + accountChatroomDTO);
-        }
+        List<AccountChatroomDTO> accountChatroomDTOPage = accountChatroomRepository.findAccountChatroomList(account1_seq);
 
         // then
         assertThat(accountChatroomDTOPage.size()).isEqualTo(2);

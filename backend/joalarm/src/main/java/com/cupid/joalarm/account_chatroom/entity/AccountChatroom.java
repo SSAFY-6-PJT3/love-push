@@ -2,7 +2,10 @@ package com.cupid.joalarm.account_chatroom.entity;
 
 import com.cupid.joalarm.base.entity.BaseTimeEntity;
 import com.cupid.joalarm.chat.entity.Chat;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -10,7 +13,6 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
-@Builder
 public class AccountChatroom extends BaseTimeEntity {
 
     @EmbeddedId

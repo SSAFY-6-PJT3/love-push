@@ -22,8 +22,4 @@ public class Chatroom extends BaseTimeEntity {
 //    private String name;
     @Builder.Default
     private boolean isActivate = true;
-
-    public void setActivate(boolean activate) {
-        isActivate = activate;
-    }
 }

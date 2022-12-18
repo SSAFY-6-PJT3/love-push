@@ -1,6 +1,7 @@
-package com.cupid.joalarm.heart.entity;
+package com.cupid.joalarm.embeddable;
 
 import com.cupid.joalarm.account.entity.Account;
+import com.cupid.joalarm.chatroom.entity.ChatroomEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,13 +17,12 @@ import java.io.Serializable;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Embeddable
-public class AccountsEmbedded implements Serializable {
+public class AccountChatroomEmbedded implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "send_account_id")
-    private Account sendAccount;
+    @JoinColumn(name = "account_id")
+    private Account account;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "receive_account_id")
-    Account receiveAccount;
-
+    @JoinColumn(name = "chatroom_id")
+    private ChatroomEntity chatroom;
 }

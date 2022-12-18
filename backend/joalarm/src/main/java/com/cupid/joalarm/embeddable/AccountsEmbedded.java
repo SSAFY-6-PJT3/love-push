@@ -1,4 +1,4 @@
-package com.cupid.joalarm.heart.entity;
+package com.cupid.joalarm.embeddable;
 
 import com.cupid.joalarm.account.entity.Account;
 import lombok.AccessLevel;
@@ -19,10 +19,10 @@ import java.io.Serializable;
 public class AccountsEmbedded implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "send_account_id")
-    private Account sendAccount;
+    private Account sendAccountId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "receive_account_id")
-    Account receiveAccount;
+    Account receiveAccountId;
 
 }

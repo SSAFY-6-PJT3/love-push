@@ -88,16 +88,16 @@ public class AccountController {
         return ResponseEntity.ok(accountDto.getEmoji());
     }
 
-//    @PostMapping("report")
-//    @ApiOperation(value = "대상 유저 신고", notes = "로그인시 사용 가능 \n 신고할 계정 seq 정보를 전달")
-//    public ResponseEntity<String> reportAccount(@RequestHeader String token, @ApiParam(value = "신고할 user seq", required = true) @RequestBody ReportDto reportDto) {
-//        Optional<String> seqId = securityUtil.getCurrentUsername();
-//        if (seqId.isEmpty()) return ResponseEntity.noContent().build();
-//
-//        Boolean success = accountService.reportBYSeq(reportDto.getReported());
-//        if (success) return ResponseEntity.ok("Success report");
-//        else return ResponseEntity.noContent().build();
-//    }
+    @PostMapping("report")
+    @ApiOperation(value = "대상 유저 신고", notes = "로그인시 사용 가능 \n 신고할 계정 seq 정보를 전달")
+    public ResponseEntity<String> reportAccount(@RequestHeader String token, @ApiParam(value = "신고할 user seq", required = true) @RequestBody ReportDto reportDto) {
+        Optional<String> seqId = securityUtil.getCurrentUsername();
+        if (seqId.isEmpty()) return ResponseEntity.noContent().build();
+
+        Boolean success = accountService.reportBYSeq(reportDto.getReported());
+        if (success) return ResponseEntity.ok("Success report");
+        else return ResponseEntity.noContent().build();
+    }
 
     @GetMapping
     @ApiOperation(value = "아이디 중복 검사", notes = "아이디 중복 검사, 아이디 사용가능하다면 200, 중복된 아이디가 잇을경우 409 상태코드를 보낸다.")

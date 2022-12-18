@@ -62,11 +62,11 @@ public class AccountService {
         if(account.isEmpty()) return null;
         else return AccountDto.fromEntity(account.get());
     }
-//    @Transactional
-//    public boolean reportBYSeq(Long seq){
-//        Optional<Account> account = accountRepository.findAccountByAccountSeq(seq);
-//        if(account.isEmpty()) return false;
-//        account.get().setReportedCnt(account.get().getReportedCnt()+1);
-//        return true;
-//    }
+    @Transactional
+    public boolean reportBYSeq(Long seq){
+        Optional<Account> account = accountRepository.findAccountByAccountSeq(seq);
+        if(account.isEmpty()) return false;
+        account.get().setReportedCnt(account.get().getReportedCnt()+1);
+        return true;
+    }
 }

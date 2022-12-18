@@ -1,16 +1,16 @@
 package com.cupid.joalarm.chat.service;
 
-import com.cupid.joalarm.account.repository.AccountRepository;
-import com.cupid.joalarm.chat.dto.ChatDTO;
-import com.cupid.joalarm.chat.entity.Chat;
+import com.cupid.joalarm.chat.DTO.ChatMessageDTO;
+import com.cupid.joalarm.chat.entity.ChatEntity;
 import com.cupid.joalarm.chat.repository.ChatRepository;
-import com.cupid.joalarm.chatroom.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -18,23 +18,24 @@ import java.util.List;
 public class ChatService {
     private final SimpMessageSendingOperations messageTemplate;
     private final ChatRepository chatRepository;
-    private final AccountRepository accountRepository;
-    private final ChatRoomRepository chatRoomRepository;
 
     @Transactional
-    public void CreateChat(ChatDTO DTO) throws Exception {
-//        String pattern = "yyyy-MM-dd a KK:mm ss:SSS";
-//        DateFormat df = new SimpleDateFormat(pattern);
-        Chat chatEntity = Chat.builder()
-                .account(accountRepository.findAccountByAccountSeq(DTO.getSender()).orElseThrow(() -> new Exception("User pk is not in table")))
-                .chatroom(chatRoomRepository.findById(DTO.getRoomId()).orElseThrow(() -> new Exception("Chatroom pk is not in table")))
+    public void CreateChat(ChatMessageDTO DTO) {
+        String pattern = "yyyy-MM-dd a KK:mm ss:SSS";
+        DateFormat df = new SimpleDateFormat(pattern);
+        ChatEntity chatEntity = ChatEntity.builder()
+                .type(DTO.getType())
+                .roomId(DTO.getRoomId())
+                .sender(DTO.getSender())
+                .message(DTO.getMessage())
+                .sendTime(df.format(new Date()))
                 .build();
         chatRepository.save(chatEntity);
         messageTemplate.convertAndSend("/sub/chat/room/" + DTO.getRoomId(), chatEntity);
     }
 
     @Transactional
-    public List<ChatDTO> getChatList(long roomSeq) {
-        return chatRepository.getChatList(roomSeq);
+    public List<ChatEntity> GetChatLogLimit20(long roomSeq) {
+        return chatRepository.findTop20ByChatroomIdOrderBySendTimeDesc(roomSeq);
     }
 }
