@@ -2,6 +2,7 @@ package com.cupid.joalarm.school;
 
 import com.cupid.joalarm.account.entity.Account;
 import com.cupid.joalarm.baseEntity.BaseTimeEntity;
+import com.cupid.joalarm.feed.Feed;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
@@ -10,12 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "school")
-@Data
+@Table(name = "schools")
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class School extends BaseTimeEntity {
+public class School{
 
     @Id
     @Column(name = "school_id")
@@ -24,9 +26,6 @@ public class School extends BaseTimeEntity {
 
     @Column(name = "name")
     private String name;
-
-    @Column(name = "address")
-    private String address;
 
     @Column(name = "latitude")
     private String latitude;
@@ -41,4 +40,9 @@ public class School extends BaseTimeEntity {
     @OneToMany(mappedBy = "school",cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"school"})
     private List<Account> accounts = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "school",cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"school"})
+    private List<Feed> feeds = new ArrayList<>();
 }

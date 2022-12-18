@@ -53,6 +53,17 @@ public class FeedController {
     }
 
 
+    @ApiOperation(value = "학교별 피드 조회", notes = "학교의 피드를 조회합니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "피드 조회에 성공하였습니다."),
+            @ApiResponse(code = 500, message = "서버에러가 발생했습니다.")
+    })
+
+    @GetMapping("/feeds/list/school/{schoolName}/{userId}")
+    public List<FeedDto> getSchoolFeeds(@PathVariable String schoolName, @PathVariable String userId) {
+        return feedService.getSchoolFeeds(schoolName, userId);
+    }
+
     @ApiOperation(value = "유저 피드 조회", notes = "유저별 작성한 피드를 조회합니다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "요청한 사용자의 피드 조회에 성공하였습니다."),

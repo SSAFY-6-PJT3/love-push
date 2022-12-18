@@ -51,4 +51,7 @@ public class FeedDto {
 
     @ApiParam(value = "댓글 갯수")
     private Long commentsCount;
+
+    @ApiParam(value = "학교")
+    private String school;
 }

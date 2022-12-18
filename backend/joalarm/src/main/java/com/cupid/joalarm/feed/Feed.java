@@ -1,5 +1,6 @@
 package com.cupid.joalarm.feed;
 
+import com.cupid.joalarm.school.School;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.cupid.joalarm.baseEntity.BaseTimeEntity;
 import com.cupid.joalarm.feed.comment.Comment;
@@ -57,4 +58,7 @@ public class Feed extends BaseTimeEntity {
     @JsonIgnoreProperties({"feed"})
     private List<Like> likes = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "school_id")
+    private School school;
 }

@@ -26,7 +26,11 @@ public class AccountDto {
     @NotNull
     private String emoji;
 
-    private String name;
+    private String firstName;
+
+    private String lastName;
+
+    private String school;
 
     public static AccountDto fromEntity(Account account){
         if(account==null) return null;
@@ -34,6 +38,9 @@ public class AccountDto {
         return AccountDto.builder()
                 .id(account.getId())
                 .emoji(account.getEmoji())
+                .firstName(account.getFirstName())
+                .lastName(account.getLastName())
+                .school(account.getSchool().getName())
                 .build();
     }
 
