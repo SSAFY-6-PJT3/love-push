@@ -19,11 +19,11 @@ public class ChatRepositoryImpl implements ChatRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<ChatDTO> getChatList(Long roomSeq, Long chatSeq) {
+    public List<ChatDTO> getChatList(Long chatSeq) {
         return jpaQueryFactory
                 .select(Projections.constructor(ChatDTO.class))
                 .from(chat)
-                .where(chat.chatroom.seq.eq(roomSeq), chat.seq.lt(chatSeq))
+                .where(chat.seq.lt(chatSeq))
                 .limit(20)
                 .fetch();
     }
