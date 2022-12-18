@@ -1,7 +1,7 @@
 package com.cupid.joalarm.chatroom.controller;
 
 import com.cupid.joalarm.chatroom.dto.CreateChatRoomDTO;
-import com.cupid.joalarm.chatroom.entity.ChatroomEntity;
+import com.cupid.joalarm.chatroom.entity.ChatRoomEntity;
 import com.cupid.joalarm.chatroom.service.ChatRoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,12 +24,12 @@ public class ChatRoomController {
     }
 
     @GetMapping("findroom")
-    public ResponseEntity<List<ChatroomEntity>> findRoom() {
+    public ResponseEntity<List<ChatRoomEntity>> findRoom() {
         return new ResponseEntity<>(chatRoomService.FindRoom(), HttpStatus.OK);
     }
 
     @GetMapping("findmyroom")
-    public ResponseEntity<List<ChatroomEntity>> findMyRoom(@RequestParam long user) {
+    public ResponseEntity<List<ChatRoomEntity>> findMyRoom(@RequestParam long user) {
         return new ResponseEntity<>(chatRoomService.FindMyChatRooms(user), HttpStatus.OK);
     }
 }

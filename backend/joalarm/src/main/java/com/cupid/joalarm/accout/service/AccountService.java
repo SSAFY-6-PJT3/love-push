@@ -1,8 +1,8 @@
-package com.cupid.joalarm.account.service;
+package com.cupid.joalarm.accout.service;
 
-import com.cupid.joalarm.account.dto.AccountDto;
-import com.cupid.joalarm.account.entity.Account;
-import com.cupid.joalarm.account.repository.AccountRepository;
+import com.cupid.joalarm.accout.dto.AccountDto;
+import com.cupid.joalarm.accout.entity.Account;
+import com.cupid.joalarm.accout.repository.AccountRepository;
 import com.sun.jdi.request.DuplicateRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

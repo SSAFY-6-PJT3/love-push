@@ -1,4 +1,4 @@
-package com.cupid.joalarm.account.jwt;
+package com.cupid.joalarm.accout.jwt;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -36,6 +36,6 @@ public class ChatService {
 
     @Transactional
     public List<ChatEntity> GetChatLogLimit20(long roomSeq) {
-        return chatRepository.findTop20ByChatroomIdOrderBySendTimeDesc(roomSeq);
+        return chatRepository.findTop20ByRoomIdOrderBySendTimeDesc(roomSeq);
     }
 }

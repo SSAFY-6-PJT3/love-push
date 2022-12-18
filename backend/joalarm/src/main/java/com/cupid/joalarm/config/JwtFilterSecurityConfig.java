@@ -1,7 +1,7 @@
 package com.cupid.joalarm.config;
 
-import com.cupid.joalarm.account.jwt.JwtFilter;
-import com.cupid.joalarm.account.jwt.TokenProvider;
+import com.cupid.joalarm.accout.jwt.JwtFilter;
+import com.cupid.joalarm.accout.jwt.TokenProvider;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.DefaultSecurityFilterChain;

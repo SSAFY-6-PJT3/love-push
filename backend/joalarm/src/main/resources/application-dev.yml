@@ -33,9 +33,9 @@ spring:
     username: ${USERNAME}
     password: ${PASSWORD}
 
-#  data:
-#    mongodb:
-#      uri: mongodb://${MONGO_CLUSTER_IP}:27017/joalarm?serverTimezone=Asia/Seoul
+  data:
+    mongodb:
+      uri: mongodb://${MONGO_CLUSTER_IP}:27017/joalarm?serverTimezone=Asia/Seoul
 # ========== JWT ===========
 jwt:
   secret: ${JWT_SECRET_KEY}

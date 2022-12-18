@@ -1,6 +1,6 @@
-package com.cupid.joalarm.account.jwt;
+package com.cupid.joalarm.accout.jwt;
 
-import com.cupid.joalarm.account.service.CustomUserDetailsService;
+import com.cupid.joalarm.accout.service.CustomUserDetailsService;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;

@@ -1,8 +1,8 @@
 package com.cupid.joalarm.config;
 
-import com.cupid.joalarm.account.jwt.JwtAccessDeniedHandler;
-import com.cupid.joalarm.account.jwt.JwtAuthenticationEntryPoint;
-import com.cupid.joalarm.account.jwt.TokenProvider;
+import com.cupid.joalarm.accout.jwt.JwtAccessDeniedHandler;
+import com.cupid.joalarm.accout.jwt.JwtAuthenticationEntryPoint;
+import com.cupid.joalarm.accout.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
