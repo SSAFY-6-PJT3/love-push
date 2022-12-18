@@ -19,10 +19,10 @@ import java.io.Serializable;
 public class AccountsEmbedded implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "send_account_id")
-    private Account sendAccount;
+    private Account sendAccountId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "receive_account_id")
-    Account receiveAccount;
+    Account receiveAccountId;
 
 }
