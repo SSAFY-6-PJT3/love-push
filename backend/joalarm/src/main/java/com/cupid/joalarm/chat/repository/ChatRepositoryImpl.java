@@ -25,7 +25,6 @@ public class ChatRepositoryImpl implements ChatRepositoryCustom {
                 .from(chat)
                 .where(chat.chatroom.seq.eq(roomSeq), chat.seq.lt(chatSeq))
                 .limit(20)
-                .orderBy(chat.seq.desc())
                 .fetch();
     }
 }
