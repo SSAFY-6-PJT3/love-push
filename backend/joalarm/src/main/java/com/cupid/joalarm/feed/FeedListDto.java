@@ -1,6 +1,5 @@
 package com.cupid.joalarm.feed;
 
-import com.cupid.joalarm.feed.comment.AllCommentsDto;
 import io.swagger.annotations.ApiParam;
 import lombok.*;
 
@@ -52,4 +51,6 @@ public class FeedListDto {
 
     @ApiParam(value = "학교")
     private String school;
+
+
 }

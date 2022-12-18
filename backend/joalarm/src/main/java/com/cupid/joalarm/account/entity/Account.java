@@ -31,6 +31,7 @@ public class Account {
     private String emoji;
 
     @Column(name = "report_cnt")
+
     private int reportedCnt;
 
     @Column(name = "last_name")
@@ -43,4 +44,6 @@ public class Account {
     @JoinColumn(name = "school_id")
     private School school;
 
+    private Integer reportedCnt;
 }
+
