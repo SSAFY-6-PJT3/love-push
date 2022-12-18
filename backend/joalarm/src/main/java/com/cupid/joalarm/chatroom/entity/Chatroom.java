@@ -1,9 +1,8 @@
 package com.cupid.joalarm.chatroom.entity;
 
 import com.cupid.joalarm.base.entity.BaseTimeEntity;
-import com.cupid.joalarm.chat.entity.Chat;
 import lombok.*;
-//import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 
@@ -12,14 +11,17 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Builder
-//@Document(collection = "chatroom")
+@Document(collection = "chatroom")
+
 public class Chatroom extends BaseTimeEntity {
 
     @Id @GeneratedValue
-    @Column(name = "chatroom_seq")
-    private Long seq;
+    @Column(name = "chatroom_id")
+    private Long id;
 
 //    private String name;
-    @Builder.Default
+
     private boolean isActivate = true;
+
+    private String lastMessage;
 }
