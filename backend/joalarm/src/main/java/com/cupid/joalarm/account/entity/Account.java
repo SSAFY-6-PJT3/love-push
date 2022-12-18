@@ -1,5 +1,7 @@
 package com.cupid.joalarm.account.entity;
 
+import com.cupid.joalarm.feed.Feed;
+import com.cupid.joalarm.school.School;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,7 +13,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = "schools")
 public class Account {
     @Id
     @Column(name = "account_seq")
@@ -29,5 +31,19 @@ public class Account {
     private String emoji;
 
     @Column(name = "report_cnt")
+
+    private int reportedCnt;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "school_id")
+    private School school;
+
     private Integer reportedCnt;
 }
+

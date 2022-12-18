@@ -45,4 +45,12 @@ public class FeedListDto {
 
     @ApiParam(value = "좋아요 여부")
     private Boolean likeStatus;
+
+    @ApiParam(value = "전체 댓글 및 대댓글")
+    private List<AllCommentsDto> allComments;
+
+    @ApiParam(value = "학교")
+    private String school;
+
+
 }
