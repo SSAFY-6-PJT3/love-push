@@ -1,22 +1,17 @@
 package com.cupid.joalarm.feed;
 
-import com.cupid.joalarm.account.dto.AccountDto;
 import com.cupid.joalarm.feed.childcomment.ChildComment;
 import com.cupid.joalarm.feed.childcomment.ChildCommentDto;
 import com.cupid.joalarm.feed.childcomment.ChildCommentListDto;
 import com.cupid.joalarm.feed.childcomment.ChildCommentRepository;
 
-import com.cupid.joalarm.feed.comment.AllCommentsDto;
+import com.cupid.joalarm.feed.comment.*;
 import com.cupid.joalarm.school.School;
 import com.cupid.joalarm.school.SchoolRepository;
 
 
 import com.cupid.joalarm.util.SecurityUtil;
 import com.cupid.joalarm.feed.media.GlobalConfig;
-import com.cupid.joalarm.feed.comment.Comment;
-import com.cupid.joalarm.feed.comment.CommentDto;
-import com.cupid.joalarm.feed.comment.CommentListDto;
-import com.cupid.joalarm.feed.comment.CommentRepository;
 import com.cupid.joalarm.feed.like.Like;
 import com.cupid.joalarm.feed.like.LikeRepository;
 import com.cupid.joalarm.feed.tag.Tag;
@@ -27,14 +22,9 @@ import com.cupid.joalarm.account.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -246,6 +236,7 @@ public class FeedService {
         return result;
     }
 
+    @Transactional
     public FeedListDto getFeed(Long feedId, String user) {
 
         // Get User
@@ -280,12 +271,37 @@ public class FeedService {
             result.setLikeStatus(false);
         }
 
-//        List<String> tempTags = new ArrayList<>();
-//        for (Tag tag : feed.getTags()) {
-//            tempTags.add(tag.getName());
-//        };
-//        result.setTags(tempTags);
+        // Get All comments
+        List<AllCommentDto> tempAllCommentDtos = new ArrayList<>();
 
+        for (Comment comment : feed.getComments()) {
+
+            AllCommentDto allCommentDto = new AllCommentDto();
+
+            allCommentDto.setCommentId(comment.getCommentId());
+            allCommentDto.setCreatedAt(comment.getCreatedAt());
+            allCommentDto.setUserId(comment.getAccount().getAccountSeq());
+            allCommentDto.setContent(comment.getContent());
+
+            tempAllCommentDtos.add(allCommentDto);
+
+            List<ChildCommentDto> tempChildCommentDtos = new ArrayList<>();
+            for (ChildComment childComment : comment.getChildComments()) {
+
+                ChildCommentDto childCommentDto = new ChildCommentDto();
+
+                childCommentDto.setCommentId(childComment.getChildId());
+                childCommentDto.setCreatedAt(childComment.getCreatedAt());
+                childCommentDto.setUserId(childComment.getAccount().getAccountSeq());
+                childCommentDto.setContent(childComment.getContent());
+                childCommentDto.setCommentId(childComment.getComment().getCommentId());
+
+                tempChildCommentDtos.add(childCommentDto);
+            }
+            allCommentDto.setChildCommentDto(tempChildCommentDtos);
+        }
+
+        result.setAllComments(tempAllCommentDtos);
         return result;
     }
 

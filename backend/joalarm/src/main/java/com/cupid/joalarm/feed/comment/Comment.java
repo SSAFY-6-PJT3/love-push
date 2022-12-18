@@ -40,5 +40,5 @@ public class Comment extends BaseTimeEntity {
     @Builder.Default
     @OneToMany(mappedBy = "comment",cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"comment"})
-    private List<ChildComment> comments = new ArrayList<>();
+    private List<ChildComment> childComments = new ArrayList<>();
 }
