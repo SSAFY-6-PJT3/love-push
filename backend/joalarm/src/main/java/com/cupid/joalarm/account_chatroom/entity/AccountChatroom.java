@@ -1,18 +1,16 @@
 package com.cupid.joalarm.account_chatroom.entity;
 
 import com.cupid.joalarm.base.entity.BaseTimeEntity;
-import com.cupid.joalarm.chat.entity.Chat;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Getter
 public class AccountChatroom extends BaseTimeEntity {
 
     @EmbeddedId
@@ -20,7 +18,5 @@ public class AccountChatroom extends BaseTimeEntity {
 
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "last_view_chat_seq")
-    private Chat lastViewChat;
+    private Long lastViewChatSeq;  // 유저-채팅방 관계에서는 굳이 마지막 확인 채팅 데이터를 따질 필요가 없다고 판단, pk만 있으면 된다.
 }
