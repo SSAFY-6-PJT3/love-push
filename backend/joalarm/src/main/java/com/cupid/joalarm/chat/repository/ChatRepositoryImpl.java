@@ -21,12 +21,7 @@ public class ChatRepositoryImpl implements ChatRepositoryCustom {
     @Override
     public List<ChatDTO> getChatList(Long roomSeq, Long chatSeq) {
         return jpaQueryFactory
-                .select(Projections.constructor(ChatDTO.class,
-                        chat.seq,
-                        chat.account.accountSeq,
-                        chat.message,
-                        chat.createdDate)
-                )
+                .select(Projections.constructor(ChatDTO.class))
                 .from(chat)
                 .where(chat.chatroom.seq.eq(roomSeq), chat.seq.lt(chatSeq))
                 .limit(20)
