@@ -1,10 +1,11 @@
 package com.cupid.joalarm.feed;
 
+import com.cupid.joalarm.account.dto.AccountDto;
 import com.cupid.joalarm.feed.childcomment.ChildComment;
 import com.cupid.joalarm.feed.childcomment.ChildCommentDto;
 import com.cupid.joalarm.feed.childcomment.ChildCommentListDto;
 import com.cupid.joalarm.feed.childcomment.ChildCommentRepository;
-import com.cupid.joalarm.feed.comment.AllCommentsDto;
+import com.cupid.joalarm.feed.comment.CommentWithChildCommentDto;
 import com.cupid.joalarm.util.SecurityUtil;
 import com.cupid.joalarm.feed.media.GlobalConfig;
 import com.cupid.joalarm.feed.comment.Comment;
@@ -21,9 +22,14 @@ import com.cupid.joalarm.account.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -203,13 +209,14 @@ public class FeedService {
 
         // 전체 댓글 및 대댓글 추가, N + 1 문제가 발생하므로 추후 수정할 것
 
-        List<AllCommentsDto> allComments = new ArrayList<>() {{
+        List<CommentWithChildCommentDto> allComments = new ArrayList<>() {{
             List<CommentListDto> comments = getComments(feedId);
 
             for (CommentListDto comment : comments) {
-                AllCommentsDto allCommentsDto = ((AllCommentsDto) comment);
-                allCommentsDto.setChildComments(getChildComments(comment.getCommentId()));
-                add(allCommentsDto);
+                add(CommentWithChildCommentDto.builder()
+                        .commentListDto(comment)
+                        .childComments(getChildComments(comment.getCommentId()))
+                        .build());
             }
         }};
 
