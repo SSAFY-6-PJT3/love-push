@@ -38,6 +38,7 @@ public class FeedController {
     })
     @PostMapping("/feeds/{userId}")
     public ResponseEntity<?> postFeed(@PathVariable String userId, @ModelAttribute FeedDto feedDto, TagDto tagDto ){
+        System.out.println("userId = " + userId);
         return feedService.postFeed(userId,feedDto,tagDto);
     }
 

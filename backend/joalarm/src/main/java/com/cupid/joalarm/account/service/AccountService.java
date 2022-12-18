@@ -32,9 +32,7 @@ public class AccountService {
                 .firstName(accountDto.getFirstName())
                 .lastName(accountDto.getLastName())
                 .school(schoolRepository.findByName(accountDto.getSchool()))
-
                 .reportedCnt(0)
-
                 .build();
 
         return AccountDto.fromEntity(accountRepository.save(account));
