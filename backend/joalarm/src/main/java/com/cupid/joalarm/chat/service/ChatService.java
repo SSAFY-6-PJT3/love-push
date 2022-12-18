@@ -28,6 +28,7 @@ public class ChatService {
                 .chatroom(chatRoomRepository.findById(DTO.getRoomId())
                         .orElseThrow(() -> new IllegalArgumentException("Chatroom pk is not in table")))
                 .message(DTO.getMessage())
+                .chatType(DTO.getType())
                 .build();
 
         chatRepository.save(chat);
