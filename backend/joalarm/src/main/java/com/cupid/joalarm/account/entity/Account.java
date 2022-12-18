@@ -31,8 +31,7 @@ public class Account {
     private String emoji;
 
     @Column(name = "report_cnt")
-
-    private int reportedCnt;
+    private Integer reportedCnt;
 
     @Column(name = "last_name")
     private String lastName;
@@ -44,6 +43,6 @@ public class Account {
     @JoinColumn(name = "school_id")
     private School school;
 
-    private Integer reportedCnt;
+
 }
 
