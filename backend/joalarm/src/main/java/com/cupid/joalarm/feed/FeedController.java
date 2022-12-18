@@ -37,7 +37,7 @@ public class FeedController {
             @ApiResponse(code = 500, message = "서버 에러입니다.")
     })
     @PostMapping("/feeds/{userId}")
-    public ResponseEntity<?> postFeed(@PathVariable String userId, @ModelAttribute FeedDto feedDto, TagDto tagDto ){
+    public ResponseEntity<?> postFeed(@PathVariable String userId, @RequestBody FeedDto feedDto,@RequestBody TagDto tagDto ){
         System.out.println("userId = " + userId);
         return feedService.postFeed(userId,feedDto,tagDto);
     }
