@@ -79,7 +79,7 @@ class AccountChatroomRepositoryTest {
 
         // when
         System.out.println("=========================================================================================");
-        List<AccountChatroomDTO> accountChatroomDTOPage = accountChatroomRepository.findMyChatroomList(account1_seq);
+        List<AccountChatroomDTO> accountChatroomDTOPage = accountChatroomRepository.findChatroomList(account1_seq);
 
         for (AccountChatroomDTO accountChatroomDTO : accountChatroomDTOPage) {
             System.out.println("accountChatroomDTO = " + accountChatroomDTO);
