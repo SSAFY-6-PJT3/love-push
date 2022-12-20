@@ -7,5 +7,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface HeartRepository extends JpaRepository<HeartEntity, Long> {
-    List<HeartEntity> findAllBySendUser(long user);
+
 }
