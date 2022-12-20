@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import lombok.AccessLevel;
@@ -27,8 +28,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class HeartEntity {
 
     @Id
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_seq")
+    @Column(name = "account_seq")
+    private Long heartSeq;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "account_seq", referencedColumnName = "account_seq")
     private Account account;
 
     @Column(name = "last_name")
