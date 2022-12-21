@@ -2,6 +2,8 @@ package com.cupid.joalarm.feed.like;
 
 import com.cupid.joalarm.feed.Feed;
 import com.cupid.joalarm.account.entity.Account;
+import com.cupid.joalarm.feed.childcomment.ChildComment;
+import com.cupid.joalarm.feed.comment.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,4 +30,12 @@ public class Like {
     @ManyToOne
     @JoinColumn(name = "feed_id")
     private Feed feed;
+
+    @ManyToOne
+    @JoinColumn(name = "comment_id")
+    private Comment comment;
+
+    @ManyToOne
+    @JoinColumn(name = "childComment_id")
+    private ChildComment childComment;
 }

@@ -24,4 +24,7 @@ public class CommentListDto {
     @ApiParam(value = "댓글 작성 시각")
     private LocalDateTime createdAt;
 
+    @ApiParam(value = "댓글 좋아요 수")
+    private Long likeCnt;
+
 }

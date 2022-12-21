@@ -4,6 +4,7 @@ import com.cupid.joalarm.baseEntity.BaseTimeEntity;
 import com.cupid.joalarm.feed.Feed;
 import com.cupid.joalarm.account.entity.Account;
 import com.cupid.joalarm.feed.childcomment.ChildComment;
+import com.cupid.joalarm.feed.like.Like;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
@@ -41,4 +42,12 @@ public class Comment extends BaseTimeEntity {
     @OneToMany(mappedBy = "comment",cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"comment"})
     private List<ChildComment> childComments = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "comment",cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"comment"})
+    private List<Like> likes = new ArrayList<>();
+
+    @Column(name = "like_cnt")
+    private Long likeCnt;
 }
