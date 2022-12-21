@@ -27,4 +27,7 @@ public class AllCommentDto {
 
     @ApiParam(value = "대댓글 리스트")
     private List<ChildCommentDto> childCommentDto;
+
+    @ApiParam(value = "댓글 좋아요 수")
+    private Long likeCnt;
 }
