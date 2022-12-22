@@ -3,6 +3,7 @@ package com.cupid.joalarm.account.controller;
 import com.cupid.joalarm.account.dto.*;
 import com.cupid.joalarm.account.jwt.TokenProvider;
 import com.cupid.joalarm.account.service.AccountService;
+import com.cupid.joalarm.school.SchoolService;
 import com.cupid.joalarm.util.MessageResponse;
 import com.cupid.joalarm.util.SecurityUtil;
 import io.swagger.annotations.Api;
@@ -30,6 +31,7 @@ public class AccountController {
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final SecurityUtil securityUtil;
+    private final SchoolService schoolService;
 
     @PostMapping
     public ResponseEntity<AccountDto> signup(@Valid @RequestBody AccountDto accountDto) {
@@ -49,7 +51,10 @@ public class AccountController {
         String jwt = tokenProvider.createToken(authentication);
         String emojiUrl = accountService.findBySeq(accountSeq).getEmoji();
 
-        return new ResponseEntity<>(new TokenDto(accountSeq,jwt, emojiUrl), HttpStatus.OK);
+        Long schoolSeqBySeq = accountService.findSchoolSeqBySeq(accountSeq);
+        String schoolNameBySeq = accountService.findSchoolNameBySeq(accountSeq);
+
+        return new ResponseEntity<>(new TokenDto(accountSeq,jwt, emojiUrl, schoolSeqBySeq, schoolNameBySeq), HttpStatus.OK);
     }
 
     @GetMapping("/info")
@@ -108,4 +113,6 @@ public class AccountController {
         else return new ResponseEntity<>(new MessageResponse("사용 가능한 아이디입니다."),resHeaders,HttpStatus.OK);
 
     }
+
+
 }
