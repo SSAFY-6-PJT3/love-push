@@ -10,15 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @Entity
 @Getter
@@ -49,9 +46,15 @@ public class HeartEntity {
     public static HeartEntity convert(Account account, HeartDto heartDto, School school) {
         return HeartEntity.builder()
                 .account(account)
-                .lastName(heartDto.getLoverLastName())
-                .firstName(heartDto.getLoverFirstName())
+                .lastName(heartDto.getLastName())
+                .firstName(heartDto.getFirstName())
                 .school(school)
                 .build();
+    }
+
+    public void changeLover(String firstName, String lastName, School school) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.school = school;
     }
 }
