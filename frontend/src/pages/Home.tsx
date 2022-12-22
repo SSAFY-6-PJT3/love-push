@@ -5,8 +5,8 @@
  */
 
 import { useCallback, useState } from 'react';
-import styled from 'styled-components';
 import ReactGA from 'react-ga';
+import styled from 'styled-components';
 
 import MainNav from '../components/Templetes/MainNav';
 import MainFooter from '../components/Templetes/MainFooter';
