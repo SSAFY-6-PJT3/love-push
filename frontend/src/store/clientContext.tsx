@@ -252,10 +252,14 @@ const ClientContextProvider = ({ children }: IPropsClientContextProvider) => {
               })
               .catch((err) => console.log(err));
 
-            heartSendSetAPI({ user: seq }).then((res) => {
-              // 하트 보낸 유저들 목록 받아옴
-              updateSendHeartSet(new Set(res.map((x) => x.receiveUser)));
-            });
+            /**
+             * @author 이주현
+             * 소켓 통신 취소로 가림
+             */
+            // heartSendSetAPI({ user: seq }).then((res) => {
+            //   // 하트 보낸 유저들 목록 받아옴
+            //   updateSendHeartSet(new Set(res.map((x) => x.receiveUser)));
+            // });
           }
 
           const interval = setInterval(function () {
