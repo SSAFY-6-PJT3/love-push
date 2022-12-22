@@ -33,4 +33,12 @@ public class SchoolService {
         schoolRepository.save(school);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    public String findSchool(Long schoolSeq){
+
+        Optional<School> opsSchoolName = schoolRepository.findById(schoolSeq);
+        School school = opsSchoolName.get();
+        String name = school.getName();
+        return name;
+    }
 }

@@ -19,4 +19,8 @@ public class TokenDto {
     private String token;
 
     private String emojiUrl;
+
+    private Long schoolSeq;
+
+    private String schoolName;
 }
