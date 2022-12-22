@@ -1,42 +1,38 @@
 package com.cupid.joalarm.heart.service;
 
-import com.cupid.joalarm.heart.dto.HeartTypeDTO;
+import com.cupid.joalarm.account.entity.Account;
+import com.cupid.joalarm.account.repository.AccountRepository;
+import com.cupid.joalarm.heart.dto.HeartDto;
 import com.cupid.joalarm.heart.entity.HeartEntity;
 import com.cupid.joalarm.heart.repository.HeartRepository;
+import com.cupid.joalarm.school.School;
+import com.cupid.joalarm.school.SchoolRepository;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class HeartService {
+
     private final HeartRepository heartRepository;
+    private final AccountRepository accountRepository;
+    private final SchoolRepository schoolRepository;
     private final SimpMessageSendingOperations messageTemplate;
 
     @Transactional
-    public void logHeartUser(long sendUser, long[] receiveUsers) {
-        if (sendUser != 0) {
-            for (long receiveUser : receiveUsers) {
-                HeartEntity heartEntity = HeartEntity.builder().sendUser(sendUser).receiveUser(receiveUser).build();
-                heartRepository.save(heartEntity);
-            }
+    public Optional<HeartDto> setHeart(HeartDto heartDto) {
+        Optional<Account> accountOptional = accountRepository.findAccountByAccountSeq(heartDto.getAccountSeq());
+        Optional<School> schoolOptional = schoolRepository.findById(heartDto.getLoverSchoolSeq());
 
-
+        if (accountOptional.isEmpty() || schoolOptional.isEmpty()) {
+            return Optional.empty();
         }
-    }
 
-    @Transactional
-    public void sendHeart(long sendUser, String[] receiveSessions) {
-        for (String session : receiveSessions) {
-            messageTemplate.convertAndSend("/sub/heart/" + session, new HeartTypeDTO("HEART", sendUser));
-        }
-    }
-
-    public List<HeartEntity> SendHeartList(long user) {
-        return heartRepository.findAllBySendUser(user);
+        heartRepository.save(HeartEntity.convert(accountOptional.get(), heartDto, schoolOptional.get()));
+        messageTemplate.convertAndSend("/sub/heart", heartDto);
+        return Optional.of(heartDto);
     }
 }
