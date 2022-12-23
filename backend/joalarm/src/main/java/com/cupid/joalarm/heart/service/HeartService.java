@@ -24,14 +24,21 @@ public class HeartService {
 
     @Transactional
     public Optional<HeartDto> setHeart(HeartDto heartDto) {
-        Optional<Account> accountOptional = accountRepository.findAccountByAccountSeq(heartDto.getAccountSeq());
-        Optional<School> schoolOptional = schoolRepository.findById(heartDto.getLoverSchoolSeq());
+        Optional<Account> accountOpt = accountRepository.findAccountByAccountSeq(heartDto.getAccountSeq());
+        Optional<HeartEntity> heartOpt = heartRepository.findById(heartDto.getAccountSeq());
+        Optional<School> schoolOpt = schoolRepository.findById(heartDto.getSchoolSeq());
 
-        if (accountOptional.isEmpty() || schoolOptional.isEmpty()) {
+        if (accountOpt.isEmpty() || schoolOpt.isEmpty()) {
             return Optional.empty();
         }
 
-        heartRepository.save(HeartEntity.convert(accountOptional.get(), heartDto, schoolOptional.get()));
+        if (heartOpt.isEmpty()) {
+            heartRepository.save(HeartEntity.convert(accountOpt.get(), heartDto, schoolOpt.get()));
+        } else {
+            HeartEntity heartEntity = heartOpt.get();
+            heartEntity.changeLover(heartDto.getFirstName(), heartDto.getLastName(), schoolOpt.get());
+        }
+
         messageTemplate.convertAndSend("/sub/heart", heartDto);
         return Optional.of(heartDto);
     }

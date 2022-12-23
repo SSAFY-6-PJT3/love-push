@@ -263,6 +263,10 @@ public class FeedService {
         result.setSchool(feed.getSchool().getName());
         result.setUserId(feed.getAccount().getAccountSeq());
 
+        int size = feed.getComments().size();
+        long longSize = size;
+        result.setCommentCnt(longSize);
+        
         // Check like_status
         Like like_flag = likeRepository.findByAccountAndFeed(account, feed);
         if (like_flag != null) {
