@@ -9,21 +9,23 @@ import { axiosInstance } from './axiosInstance';
  */
 interface IheartReqDATA {
   accountSeq: Number;
-  loverFirstName: string;
-  loverLastName: string;
-  loveSchoolSeq: 1; // 추후 변경 예정
+  firstName: string;
+  lastName: string;
+  schoolSeq: 1; // 추후 변경 예정
 }
 
 interface IheartResponse {
   accountSeq: Number;
-  loverFirstName: string;
-  loverLastName: string;
-  loveSchoolSeq: 1; // 추후 변경 예정
+  firstName: string;
+  lastName: string;
+  schoolSeq: 1; // 추후 변경 예정
 }
 
 const heartSendSetAPI = async (
   data: IheartReqDATA,
 ): Promise<IheartResponse> => {
+  console.log(data)
+
   const response = await axiosInstance.post('/heart', {
     ...data
   });

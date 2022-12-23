@@ -26,6 +26,8 @@ interface ILoginResponse {
   emojiUrl: string;
   token: string;
   seq: string;
+  schoolSeq: string;
+  schoolName: string;
 }
 
 interface IReportReqData {

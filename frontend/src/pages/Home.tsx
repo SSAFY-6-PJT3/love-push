@@ -23,8 +23,8 @@ const MainPage = () => {
 
   const [pushHeart, setPushHeart] = useState(false);
   const [isNameInputOpen, setIsNameInputOpen] = useState(false);
-  const [loverFirstName, setFirstName] = useState('');
-  const [loverLastName, setLastName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
   const toggleModal = useCallback((status: boolean) => {
     setIsNameInputOpen(status);
@@ -42,19 +42,26 @@ const MainPage = () => {
   };
 
   const sendBtnClickHandler = async () => {
-    try {
-      const accountSeq = Number(localStorage.getItem('seq'));
+    const accountSeq = Number(sessionStorage.getItem('seq'));
+    const school = sessionStorage.getItem('school');
 
-      await heartSendSetAPI({
-        accountSeq,
-        loverFirstName,
-        loverLastName,
-        loveSchoolSeq: 1,
-      });
-    } catch (error) {
-      alert(`${loverFirstName}${loverLastName}님께 마음을 전하지 못했습니다`);
-    } finally {
-      toggleModal(false);
+    if (accountSeq && school) {
+      try {
+        const schoolSeq = JSON.parse(school).seq;
+
+        await heartSendSetAPI({
+          accountSeq,
+          firstName,
+          lastName,
+          schoolSeq,
+        });
+
+        alert(`${firstName}${lastName}님께 마음을 전했습니다`);
+      } catch (error) {
+        alert(`${firstName}${lastName}님께 마음을 전하지 못했습니다`);
+      } finally {
+        toggleModal(false);
+      }
     }
   };
 
@@ -72,7 +79,7 @@ const MainPage = () => {
               type="text"
               id="first_name"
               className="first_name"
-              value={loverFirstName}
+              value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
           </div>
@@ -82,7 +89,7 @@ const MainPage = () => {
               type="text"
               id="last_name"
               className="last_name"
-              value={loverLastName}
+              value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
           </div>
