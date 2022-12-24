@@ -25,19 +25,15 @@ public class HeartService {
     @Transactional
     public Optional<HeartDto> setHeart(HeartDto heartDto) {
         Optional<Account> accountOpt = accountRepository.findAccountByAccountSeq(heartDto.getAccountSeq());
-        Optional<HeartEntity> heartOpt = heartRepository.findById(heartDto.getAccountSeq());
         Optional<School> schoolOpt = schoolRepository.findById(heartDto.getSchoolSeq());
 
         if (accountOpt.isEmpty() || schoolOpt.isEmpty()) {
             return Optional.empty();
         }
 
-        if (heartOpt.isEmpty()) {
-            heartRepository.save(HeartEntity.convert(accountOpt.get(), heartDto, schoolOpt.get()));
-        } else {
-            HeartEntity heartEntity = heartOpt.get();
-            heartEntity.changeLover(heartDto.getFirstName(), heartDto.getLastName(), schoolOpt.get());
-        }
+        heartRepository.findById(heartDto.getAccountSeq())
+                .orElseGet(() -> heartRepository.save(HeartEntity.convert(accountOpt.get(), heartDto, schoolOpt.get())))
+                .changeLover(heartDto.getFirstName(), heartDto.getLastName(), schoolOpt.get());
 
         messageTemplate.convertAndSend("/sub/heart", heartDto);
         return Optional.of(heartDto);
