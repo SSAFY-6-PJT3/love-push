@@ -1,11 +1,8 @@
-package com.cupid.joalarm.heart.repository;
+package com.cupid.joalarm.love.repository;
 
-import com.cupid.joalarm.heart.entity.HeartEntity;
+import com.cupid.joalarm.love.entity.loveEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.mongodb.repository.MongoRepository;
 
-import java.util.List;
-
-public interface HeartRepository extends JpaRepository<HeartEntity, Long> {
+public interface loveRepository extends JpaRepository<loveEntity, Long> {
 
 }

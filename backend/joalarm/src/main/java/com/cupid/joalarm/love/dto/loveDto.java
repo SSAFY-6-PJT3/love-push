@@ -1,8 +1,8 @@
-package com.cupid.joalarm.heart.dto;
+package com.cupid.joalarm.love.dto;
 import lombok.Data;
 
 @Data
-public class HeartDto {
+public class loveDto {
     private Long accountSeq;
     private String lastName;
     private String firstName;
