@@ -23,4 +23,8 @@ public class TokenDto {
     private Long schoolSeq;
 
     private String schoolName;
+
+    private String loverFirstName;
+
+    private String loverLastName;
 }
