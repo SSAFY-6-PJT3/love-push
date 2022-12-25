@@ -12,6 +12,8 @@ import IconButton from '../Atoms/IconButton';
 import Header from '../Atoms/Header';
 import LoginModal from '../Organisms/LoginModal';
 import EmojiSelectModal from '../Organisms/EmojiSelectModal';
+import alertImage from '../../images/bell.png';
+import AlertModal from '../Organisms/AlertModal';
 
 const MainNav = () => {
   const navigate = useNavigate();
@@ -70,7 +72,7 @@ const MainNav = () => {
           shadow
           margin="4px 8px"
           bgColor="#EEF8FF"
-          imgURL={emojiUrl}
+          imgURL={alertImage}
           ariaLabel="이모지 변경"
           onClick={openModal}
         />
@@ -84,7 +86,8 @@ const MainNav = () => {
         />
       </Header>
       {isLoggedIn ? (
-        <EmojiSelectModal isModalOpen={showModal} closeModal={closeModal} />
+        // <EmojiSelectModal isModalOpen={showModal} closeModal={closeModal} />
+        <AlertModal isModalOpen={showModal} closeModal={closeModal} />
       ) : (
         <LoginModal isModalOpen={showModal} closeModal={closeModal} />
       )}
