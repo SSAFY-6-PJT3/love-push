@@ -38,4 +38,9 @@ public class LoveService {
         messageTemplate.convertAndSend("/sub/love", loveDto);
         return Optional.of(loveDto);
     }
+
+    @Transactional
+    public Optional<LoveEntity> getLove(Long accountSeq) {
+        return loveRepository.findById(accountSeq);
+    }
 }
