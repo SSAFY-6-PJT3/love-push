@@ -1,7 +1,7 @@
 package com.cupid.joalarm.love.controller;
 
-import com.cupid.joalarm.love.dto.loveDto;
-import com.cupid.joalarm.love.service.loveService;
+import com.cupid.joalarm.love.dto.LoveDto;
+import com.cupid.joalarm.love.service.LoveService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.Optional;
@@ -17,15 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LoveController {
 
-    private final loveService heartService;
+    private final LoveService heartService;
 
     @ApiOperation(value = "좋아하는 사람 지정", notes = "좋아하는 사람의 성, 이름, 학교를 등록 및 메시징을 날립니다.")
     @PutMapping("/love")
-    public ResponseEntity<loveDto> sendHeart(@RequestBody loveDto loveDto) {
-        Optional<loveDto> heartDtoOptional = heartService.setLove(loveDto);
+    public ResponseEntity<LoveDto> sendHeart(@RequestBody LoveDto loveDto) {
+        Optional<LoveDto> heartDtoOptional = heartService.setLove(loveDto);
 
         if (heartDtoOptional.isEmpty()) {
-            return new ResponseEntity<>(new loveDto(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new LoveDto(), HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity<>(loveDto, HttpStatus.OK);

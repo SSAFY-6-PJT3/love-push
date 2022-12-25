@@ -1,8 +1,8 @@
 package com.cupid.joalarm.love.repository;
 
-import com.cupid.joalarm.love.entity.loveEntity;
+import com.cupid.joalarm.love.entity.LoveEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface loveRepository extends JpaRepository<loveEntity, Long> {
+public interface LoveRepository extends JpaRepository<LoveEntity, Long> {
 
 }
