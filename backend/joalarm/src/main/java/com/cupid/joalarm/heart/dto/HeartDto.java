@@ -1,10 +1,11 @@
 package com.cupid.joalarm.heart.dto;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class HeartDto {
-    private Long accountSeq;
-    private String lastName;
-    private String firstName;
-    private Long schoolSeq;
+    private long sendAccountSeq;
+    private long receiveAccountSeq;
 }

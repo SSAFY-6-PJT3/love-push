@@ -1,7 +1,7 @@
-package com.cupid.joalarm.heart.entity;
+package com.cupid.joalarm.love.entity;
 
 import com.cupid.joalarm.account.entity.Account;
-import com.cupid.joalarm.heart.dto.HeartDto;
+import com.cupid.joalarm.love.dto.LoveDto;
 import com.cupid.joalarm.school.School;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,11 +22,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class HeartEntity {
+public class LoveEntity {
 
     @Id
     @Column(name = "account_seq")
-    private Long heartSeq;
+    private Long loveSeq;
 
     @OneToOne
     @MapsId
@@ -43,11 +43,11 @@ public class HeartEntity {
     @JoinColumn(name = "school_seq")
     private School school;
 
-    public static HeartEntity convert(Account account, HeartDto heartDto, School school) {
-        return HeartEntity.builder()
+    public static LoveEntity convert(Account account, LoveDto loveDto, School school) {
+        return LoveEntity.builder()
                 .account(account)
-                .lastName(heartDto.getLastName())
-                .firstName(heartDto.getFirstName())
+                .lastName(loveDto.getLastName())
+                .firstName(loveDto.getFirstName())
                 .school(school)
                 .build();
     }

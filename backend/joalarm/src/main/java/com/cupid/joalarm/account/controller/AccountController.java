@@ -3,6 +3,8 @@ package com.cupid.joalarm.account.controller;
 import com.cupid.joalarm.account.dto.*;
 import com.cupid.joalarm.account.jwt.TokenProvider;
 import com.cupid.joalarm.account.service.AccountService;
+import com.cupid.joalarm.love.entity.LoveEntity;
+import com.cupid.joalarm.love.service.LoveService;
 import com.cupid.joalarm.school.SchoolService;
 import com.cupid.joalarm.util.MessageResponse;
 import com.cupid.joalarm.util.SecurityUtil;
@@ -32,6 +34,7 @@ public class AccountController {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final SecurityUtil securityUtil;
     private final SchoolService schoolService;
+    private final LoveService loveService;
 
     @PostMapping
     public ResponseEntity<AccountDto> signup(@Valid @RequestBody AccountDto accountDto) {
@@ -54,7 +57,16 @@ public class AccountController {
         Long schoolSeqBySeq = accountService.findSchoolSeqBySeq(accountSeq);
         String schoolNameBySeq = accountService.findSchoolNameBySeq(accountSeq);
 
-        return new ResponseEntity<>(new TokenDto(accountSeq,jwt, emojiUrl, schoolSeqBySeq, schoolNameBySeq), HttpStatus.OK);
+        String loverFirstName = "";
+        String loverLastName = "";
+        Optional<LoveEntity> love = loveService.getLove(accountSeq);
+
+        if (love.isPresent()) {
+            loverFirstName = love.get().getFirstName();
+            loverLastName = love.get().getLastName();
+        }
+
+        return new ResponseEntity<>(new TokenDto(accountSeq,jwt, emojiUrl, schoolSeqBySeq, schoolNameBySeq, loverFirstName, loverLastName), HttpStatus.OK);
     }
 
     @GetMapping("/info")
