@@ -5,9 +5,15 @@ import lombok.Data;
 
 @Data
 public class AccountInfoDto {
-    private String gpsKey;
+    private Long userSeq;
     private String emojiUrl;
-    private String lastName;
-    private String firstName;
+    private String loverLastName;
+    private String loverFirstName;
     private Long schoolSeq;
+
+    public void update(LoveDto loveDto) {
+        this.loverLastName = loveDto.getLastName();
+        this.loverFirstName = loveDto.getFirstName();
+        this.schoolSeq = loveDto.getSchoolSeq();
+    }
 }
