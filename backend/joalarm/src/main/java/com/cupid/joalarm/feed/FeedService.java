@@ -263,6 +263,10 @@ public class FeedService {
         result.setSchool(feed.getSchool().getName());
         result.setUserId(feed.getAccount().getAccountSeq());
 
+        int size = feed.getComments().size();
+        long longSize = size;
+        result.setCommentCnt(longSize);
+        
         // Check like_status
         Like like_flag = likeRepository.findByAccountAndFeed(account, feed);
         if (like_flag != null) {
@@ -282,6 +286,7 @@ public class FeedService {
             allCommentDto.setCreatedAt(comment.getCreatedAt());
             allCommentDto.setUserId(comment.getAccount().getAccountSeq());
             allCommentDto.setContent(comment.getContent());
+            allCommentDto.setLikeCnt(comment.getLikeCnt());
 
             tempAllCommentDtos.add(allCommentDto);
 
@@ -290,11 +295,12 @@ public class FeedService {
 
                 ChildCommentDto childCommentDto = new ChildCommentDto();
 
-                childCommentDto.setCommentId(childComment.getChildId());
+                childCommentDto.setChildId(childComment.getChildId());
                 childCommentDto.setCreatedAt(childComment.getCreatedAt());
                 childCommentDto.setUserId(childComment.getAccount().getAccountSeq());
                 childCommentDto.setContent(childComment.getContent());
                 childCommentDto.setCommentId(childComment.getComment().getCommentId());
+                childCommentDto.setLikeCnt(childComment.getLikeCnt());
 
                 tempChildCommentDtos.add(childCommentDto);
             }
@@ -578,6 +584,7 @@ public class FeedService {
                 .content(commentDto.getContent())
                 .feed(feed.get())
                 .account(account)
+                .likeCnt(0L)
                 .build();
 
         commentRepository.save(comment);
@@ -652,6 +659,7 @@ public class FeedService {
         // Build & Save Comment
         ChildComment childComment = ChildComment.builder()
                 .content(childCommentDto.getContent())
+                .likeCnt(0L)
                 .comment(comment.get())
                 .account(account)
                 .build();

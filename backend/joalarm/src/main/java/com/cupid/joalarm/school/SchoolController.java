@@ -34,4 +34,15 @@ public class SchoolController {
         return schoolService.enrollSchool(schoolDto);
     }
 
+    @ApiOperation(value = "학교 조회", notes = "학교 조회")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "학교 조회에 성공하였습니다."),
+            @ApiResponse(code = 400, message = "잘못된 요청입니다."),
+            @ApiResponse(code = 500, message = "서버 에러입니다.")
+    })
+    @GetMapping("/schools/{seq}")
+    public String postFeed(@PathVariable String seq){
+        long longSeq = Long.parseLong(seq);
+        return schoolService.findSchool(longSeq);
+    }
 }

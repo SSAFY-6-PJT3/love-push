@@ -22,4 +22,7 @@ public class CommentDto {
 
     @ApiParam(value = "댓글 내용")
     private String content;
+
+    @ApiParam(value = "댓글 좋아요 수")
+    private Long likeCnt;
 }
