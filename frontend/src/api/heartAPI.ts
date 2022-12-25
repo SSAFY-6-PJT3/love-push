@@ -6,6 +6,7 @@ import { axiosInstance } from './axiosInstance';
 
 /**
  * @author 이주현 | 인터페이스 및 함수 변경
+ * @Modify 김주호 | API 경로 변경
  */
 interface IheartReqDATA {
   accountSeq: Number;
@@ -26,7 +27,7 @@ const heartSendSetAPI = async (
 ): Promise<IheartResponse> => {
   console.log(data)
 
-  const response = await axiosInstance.post('/heart', {
+  const response = await axiosInstance.put('/love', {
     ...data
   });
 
