@@ -2,6 +2,7 @@ package com.cupid.joalarm.gpsSector.repository;
 
 import com.cupid.joalarm.gpsSector.dto.AccountInfoDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.simp.SimpAttributesContextHolder;
 import org.springframework.stereotype.Repository;
 import com.cupid.joalarm.gpsSector.dto.PkEmojiPairDTO;
 
@@ -11,16 +12,12 @@ import java.util.HashMap;
 @Repository
 @RequiredArgsConstructor
 public class GpsRepository {
-    private HashMap<String, HashMap<String, AccountInfoDto>> GpsSectorHashMap;
+    private static final HashMap<String, HashMap<String, AccountInfoDto>> GpsSectorHashMap = new HashMap<>();
     private boolean isOperationCommand = false;
 
-    @PostConstruct
-    private void init() {GpsSectorHashMap = new HashMap<>();}
-
     public void changeUserSector(String beforeGpsKey, String nowGpsKey, String sessionId) {
-        AccountInfoDto accountInfoDto = GpsSectorHashMap.get(beforeGpsKey).get(sessionId);
         GpsSectorHashMap.get(beforeGpsKey).remove(sessionId);
-        putUserSector(nowGpsKey, sessionId, accountInfoDto);
+        putUserSector(nowGpsKey, sessionId);
         setOnOperationCommand();
     }
 
@@ -29,15 +26,16 @@ public class GpsRepository {
         setOnOperationCommand();
     }
 
-    public void putUserSector(String gpsKey, String sessionId, AccountInfoDto accountInfoDto) {
+    public void putUserSector(String gpsKey, String sessionId) {
+        AccountInfoDto info = (AccountInfoDto) SimpAttributesContextHolder.currentAttributes().getAttribute("INFO");
         // get now가 있으면 넣고, 없으면 생성 후 넣기
         if (GpsSectorHashMap.containsKey(gpsKey)) {
-            GpsSectorHashMap.get(gpsKey).put(sessionId, accountInfoDto);
+            GpsSectorHashMap.get(gpsKey).put(sessionId, info);
         } else {
             GpsSectorHashMap
                     .put(gpsKey, new HashMap<>() {
                         {
-                            put(sessionId, accountInfoDto);
+                            put(sessionId, info);
                         }
                     });
         }
