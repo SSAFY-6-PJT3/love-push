@@ -18,19 +18,19 @@ public class GpsService {
 
     private final GpsRepository gpsRepository;
 
-    public void changeUserSector(String beforeGpsKey, String nowGpsKey, String sessionId, AccountInfoDto accountInfoDto) {
+    public void changeUserSector(String beforeGpsKey, String nowGpsKey, String sessionId) {
         if (!"".equals(beforeGpsKey)) {
             gpsRepository.dropUser(beforeGpsKey, sessionId);
         }
-        gpsRepository.putUserSector(nowGpsKey, sessionId, accountInfoDto);
+        gpsRepository.putUserSector(nowGpsKey, sessionId);
     }
 
     public void changeUserEmoji(String gpsKey, String sessionId, String emojiUrl) {
         gpsRepository.changeUserEmoji(gpsKey, sessionId, emojiUrl);
     }
 
-    public void putUserSector(String gpsKey, String sessionId, AccountInfoDto accountInfoDto) {
-        gpsRepository.putUserSector(gpsKey, sessionId, accountInfoDto);
+    public void putUserSector(String gpsKey, String sessionId) {
+        gpsRepository.putUserSector(gpsKey, sessionId);
     }
 
     public void dropUser(String gpsKey, String sessionId) {
