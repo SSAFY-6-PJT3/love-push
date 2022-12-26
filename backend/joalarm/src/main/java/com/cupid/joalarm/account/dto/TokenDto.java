@@ -24,7 +24,7 @@ public class TokenDto {
 
     private String schoolName;
 
-    private String loverFirstName;
+    private String firstName;
 
-    private String loverLastName;
+    private String lastName;
 }
