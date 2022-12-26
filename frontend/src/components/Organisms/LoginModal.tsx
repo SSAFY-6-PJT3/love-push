@@ -23,6 +23,8 @@ interface IPropsOnLogin {
   token: string;
   emojiUrl: string;
   seq: string;
+  firstName: string;
+  lastName: string;
   schoolSeq: string;
   schoolName: string;
 }

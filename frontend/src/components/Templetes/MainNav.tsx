@@ -2,7 +2,13 @@
  * @author Hyeonsooryu
  */
 
-import { useState, useContext, useEffect } from 'react';
+import {
+  useState,
+  useContext,
+  useEffect,
+  SetStateAction,
+  Dispatch,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactGA from 'react-ga';
 
@@ -15,10 +21,16 @@ import EmojiSelectModal from '../Organisms/EmojiSelectModal';
 import alertImage from '../../images/bell.png';
 import AlertModal from '../Organisms/AlertModal';
 
-const MainNav = () => {
+const MainNav = ({
+  showModal,
+  setShowModal,
+}: {
+  showModal: boolean;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
+}) => {
   const navigate = useNavigate();
   const { isLoggedIn } = useContext(AuthContext);
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
   const [emojiUrl, setEmojiUrl] = useState(
     'https://cupid-joalarm.s3.ap-northeast-2.amazonaws.com/Face blowing a kiss.svg',
   );

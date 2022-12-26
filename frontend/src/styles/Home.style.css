@@ -5,13 +5,6 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 	padding: 10px;
-	opacity: 0;
-	transition: top .1s linear, transform .1s linear, opacity .1s linear;
-}
-
-.modal_box.open {
-	top: 50%;
-	opacity: 1;
 	z-index: 1000;
 }
 

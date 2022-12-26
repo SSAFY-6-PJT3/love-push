@@ -30,6 +30,7 @@ const MainPage = () => {
   useEffect(() => {
     activateClient()
   }, [])
+  const [showModal, setShowModal] = useState(false);
 
   const toggleModal = useCallback((status: boolean) => {
     setIsNameInputOpen(status);
@@ -39,6 +40,11 @@ const MainPage = () => {
   }, []);
 
   const heartClickHandler = () => {
+    if (!sessionStorage.getItem('seq')) {
+      alert('로그인이 필요합니다');
+      setShowModal(true);
+      return;
+    }
     ReactGA.event({
       category: '하트 버튼 클릭',
       action: '하트 버튼 클릭',
@@ -76,41 +82,43 @@ const MainPage = () => {
 
   return (
     <>
-      <div className={`${isNameInputOpen ? 'open' : ''} modal_box`}>
-        <div className="name_box">
-          <div className="card first_name">
-            <label htmlFor="first_name">성&nbsp;씨&nbsp;&#58;&nbsp;</label>
-            <input
-              type="text"
-              id="first_name"
-              className="first_name"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-          </div>
-          <div className="card last_name">
-            <label htmlFor="last_name">이&nbsp;름&nbsp;&#58;&nbsp;</label>
-            <input
-              type="text"
-              id="last_name"
-              className="last_name"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-          </div>
-          <div className="button_box">
-            <button className="send" onClick={sendBtnClickHandler}>
-              보내기
-            </button>
-            <button className="cancel" onClick={cancelBtnClickHandler}>
-              취&nbsp;&nbsp;소
-            </button>
+      {isNameInputOpen && (
+        <div className={`modal_box`}>
+          <div className="name_box">
+            <div className="card first_name">
+              <label htmlFor="first_name">성&nbsp;씨&nbsp;&#58;&nbsp;</label>
+              <input
+                type="text"
+                id="first_name"
+                className="first_name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </div>
+            <div className="card last_name">
+              <label htmlFor="last_name">이&nbsp;름&nbsp;&#58;&nbsp;</label>
+              <input
+                type="text"
+                id="last_name"
+                className="last_name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </div>
+            <div className="button_box">
+              <button className="send" onClick={sendBtnClickHandler}>
+                보내기
+              </button>
+              <button className="cancel" onClick={cancelBtnClickHandler}>
+                취&nbsp;&nbsp;소
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
       <AfterBackGround show={pushHeart} />
       <div className="text_box">
-        <MainNav />
+        <MainNav showModal={showModal} setShowModal={setShowModal} />
         <div className="title">
           <p>
             누군가에게
