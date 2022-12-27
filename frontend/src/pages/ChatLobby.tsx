@@ -18,7 +18,7 @@ function ChatLobbyPage() {
 
   const { isLoggedIn } = useContext(AuthContext);
 
-  const { chatRoomList } = useContext(ClientContext);
+  // const { chatRoomList } = useContext(ClientContext);
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -34,11 +34,11 @@ function ChatLobbyPage() {
         pageTitle={pathname === '/chatlobby/chat' ? roomTitle : '채팅'}
         textColor="black"
       />
-      {chatRoomList.filter((chatRoom) => chatRoom.activate).length ? (
+      {/* {chatRoomList.filter((chatRoom) => chatRoom.activate).length ? (
         <ChatBoxList />
       ) : (
         <EmptyChatBox />
-      )}
+      )} */}
     </ChatLobby>
   );
 }
