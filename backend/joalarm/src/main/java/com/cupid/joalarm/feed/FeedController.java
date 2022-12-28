@@ -206,7 +206,7 @@ public class FeedController {
             @ApiResponse(code = 500, message = "서버에러가 발생했습니다.")
     })
     @DeleteMapping("/{commentId}/childcomments/{childId}")
-    public ResponseEntity<?> deleteChildComment(@PathVariable("childCommentId") Long childId) {
+    public ResponseEntity<?> deleteChildComment(@PathVariable("commentId") Long commentId, @PathVariable("childId") Long childId) {
         return feedService.deleteChildComment(childId);
     }
 }
