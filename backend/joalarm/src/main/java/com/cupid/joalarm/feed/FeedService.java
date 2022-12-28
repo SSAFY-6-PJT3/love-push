@@ -263,10 +263,18 @@ public class FeedService {
         result.setSchool(feed.getSchool().getName());
         result.setUserId(feed.getAccount().getAccountSeq());
 
-        int size = feed.getComments().size();
-        long longSize = size;
-        result.setCommentCnt(longSize);
-        
+        int commentSize = feed.getComments().size();
+        long longCommentSize = commentSize;
+
+        int childSize = 0;
+        for (Comment tempComment: feed.getComments()) {
+            int tempChildSize = tempComment.getChildComments().size();
+            childSize += tempChildSize;
+        }
+        long longChildSize = childSize;
+
+        result.setCommentCnt(longCommentSize+longChildSize);
+
         // Check like_status
         Like like_flag = likeRepository.findByAccountAndFeed(account, feed);
         if (like_flag != null) {
