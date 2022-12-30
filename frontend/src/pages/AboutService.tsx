@@ -18,20 +18,19 @@ const AboutService = () => {
   const content = [
     {
       imgSrc: '/images/about-service/about1.png',
-      description: '근처에 좋아하는 사람이 있다면?',
+      description: '좋아하는 사람이 있다면?',
     },
     {
       imgSrc: '/images/about-service/about2.png',
-      description: '하트를 누르세요!',
+      description: '하트를 누르고 이름을 입력해주세요!',
     },
     {
       imgSrc: '/images/about-service/about3.png',
-      description:
-        '주변 모두에게 하트가 전달되지만, 누가 보냈는지는 알 수 없어요.',
+      description: '누가 보냈는지는 알 수 없어요.',
     },
     {
       imgSrc: '/images/about-service/about4.png',
-      description: '우연히 하트를 주고 받으면 익명 채팅을 할 수 있어요!',
+      description: '우연히 하트를 주고 받으면 서로 채팅을 할 수 있어요!',
     },
     {
       imgSrc: '/images/about-service/about5.png',
