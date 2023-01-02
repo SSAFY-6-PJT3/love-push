@@ -1,15 +1,17 @@
 package com.cupid.joalarm.chatroom.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class ChatRoomDTO {
-    private Long pk;
-    private Long[] users;
-
-    public ChatRoomDTO(Long pk, Long[] users) {
-        this.pk = pk;
-        this.users = users;
-    }
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+public class ChatroomDto {
+    private Long userPk;
+    private List<Long> chatroomList = new ArrayList<>();
 
 }
