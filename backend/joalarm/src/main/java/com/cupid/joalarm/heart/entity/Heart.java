@@ -1,6 +1,6 @@
 package com.cupid.joalarm.heart.entity;
 
-import com.cupid.joalarm.baseEntity.BaseTimeEntity;
+import com.cupid.joalarm.base.entity.BaseTimeEntity;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import lombok.AccessLevel;
