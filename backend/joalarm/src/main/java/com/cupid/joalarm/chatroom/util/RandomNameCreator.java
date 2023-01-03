@@ -1,12 +1,14 @@
 package com.cupid.joalarm.chatroom.util;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.StringJoiner;
 
 public class RandomNameCreator {
 
-    private RandomNameCreator() {}
+    private RandomNameCreator() {
+    }
+
     private static final List<String> FIRST =
             Arrays.asList("상큼하고", "산뜻하고", "활기차고", "발랄하고", "쾌활하고", "재치있고", "상냥하고");
     private static final List<String> MIDDLE =
@@ -19,7 +21,11 @@ public class RandomNameCreator {
                     "두더지");
 
     public static String newName(int val) {
-        return getFeature(FIRST, val) + getFeature(MIDDLE, val) + getFeature(LAST, val);
+        return new StringJoiner(" ")
+                .add(getFeature(FIRST, val))
+                .add(getFeature(MIDDLE, val))
+                .add(getFeature(LAST, val))
+                .toString();
     }
 
     private static String getFeature(List<String> features, int val) {
