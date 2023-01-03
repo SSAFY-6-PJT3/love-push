@@ -8,22 +8,22 @@ import ChatBox from '../Organisms/ChatBox';
 
 const ChatBoxListPage = () => {
   const navigate = useNavigate();
-  const { updateIndexFunc, chatRoomList, chats, messageCount } =
-    useContext(ClientContext);
+  // const { updateIndexFunc, chatRoomList, chats, messageCount } =
+  //   useContext(ClientContext);
 
-  useEffect(() => {
-    chatRoomList.forEach((chatBox) => {});
-  }, [chatRoomList]);
+  // useEffect(() => {
+  //   chatRoomList.forEach((chatBox) => {});
+  // }, [chatRoomList]);
 
   const getRoomSeqEvent = (seq: number, emoji?: string, partner?: number) => {
-    updateIndexFunc(seq);
+    // updateIndexFunc(seq);
     navigate('/chat', { state: { emoji: emoji, partner: partner } });
   };
   const seq = Number(sessionStorage.getItem('seq'));
 
   return (
     <ChatBoxList>
-      {chatRoomList
+      {/* {chatRoomList
         .filter((chatroom) => chatroom.activate)
         .map((chatRoom) => (
           <ChatBox
@@ -41,7 +41,7 @@ const ChatBoxListPage = () => {
             }
             messageCount={messageCount[chatRoom.chatroomSeq]}
           />
-        ))}
+        ))} */}
     </ChatBoxList>
   );
 };

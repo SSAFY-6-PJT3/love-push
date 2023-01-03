@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ChatRoomRepository extends MongoRepository<ChatRoomEntity, String> {
-    public List<ChatRoomEntity> findAllByUserListIn(long user);
-    public List<ChatRoomEntity> findAll();
-    public ChatRoomEntity findChatRoomEntityByChatroomSeq(long seq);
+    List<ChatRoomEntity> findAllByUserListIn(long user);
+    List<ChatRoomEntity> findAll();
+    ChatRoomEntity findChatRoomEntityByChatroomSeq(long seq);
+    Boolean findFirstByUserList(long[] userList);
 }

@@ -33,9 +33,12 @@ public class ChatRoomService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Transactional
     public List<ChatRoomEntity> FindRoom() {
         return chatRoomRepository.findAll();
     }
+
+    @Transactional
     public List<ChatRoomEntity> FindMyChatRooms(long user) {
         return chatRoomRepository.findAllByUserListIn(user);
     }
@@ -47,6 +50,11 @@ public class ChatRoomService {
         chatRoom.setActivate(false);
         chatRoomRepository.save(chatRoom);
         return true;
+    }
+
+    @Transactional
+    public boolean findFirstByUserList(long[] userList) {
+        return chatRoomRepository.findFirstByUserList(userList);
     }
 
 }

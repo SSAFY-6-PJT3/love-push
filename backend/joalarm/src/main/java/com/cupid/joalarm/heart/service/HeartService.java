@@ -1,42 +1,35 @@
 package com.cupid.joalarm.heart.service;
 
-import com.cupid.joalarm.heart.dto.HeartTypeDTO;
-import com.cupid.joalarm.heart.entity.HeartEntity;
+import com.cupid.joalarm.account.entity.Account;
+import com.cupid.joalarm.account.repository.AccountRepository;
+import com.cupid.joalarm.heart.dto.HeartDto;
+import com.cupid.joalarm.heart.entity.AccountsEmbedded;
+import com.cupid.joalarm.heart.entity.Heart;
 import com.cupid.joalarm.heart.repository.HeartRepository;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class HeartService {
+
     private final HeartRepository heartRepository;
-    private final SimpMessageSendingOperations messageTemplate;
+    private final AccountRepository accountRepository;
 
     @Transactional
-    public void logHeartUser(long sendUser, long[] receiveUsers) {
-        if (sendUser != 0) {
-            for (long receiveUser : receiveUsers) {
-                HeartEntity heartEntity = HeartEntity.builder().sendUser(sendUser).receiveUser(receiveUser).build();
-                heartRepository.save(heartEntity);
-            }
+    public boolean receiveHeart(HeartDto heartDto) {
+        Optional<Account> sendAccount = accountRepository.findAccountByAccountSeq(heartDto.getSendAccountSeq());
+        Optional<Account> receiveAccount = accountRepository.findAccountByAccountSeq(heartDto.getReceiveAccountSeq());
 
-
+        if (sendAccount.isEmpty() || receiveAccount.isEmpty()) {
+            return false;
         }
-    }
 
-    @Transactional
-    public void sendHeart(long sendUser, String[] receiveSessions) {
-        for (String session : receiveSessions) {
-            messageTemplate.convertAndSend("/sub/heart/" + session, new HeartTypeDTO("HEART", sendUser));
-        }
-    }
+        heartRepository.save(new Heart(new AccountsEmbedded(sendAccount.get(), receiveAccount.get())));
 
-    public List<HeartEntity> SendHeartList(long user) {
-        return heartRepository.findAllBySendUser(user);
+        return heartRepository.findHeart(heartDto.getReceiveAccountSeq(), heartDto.getSendAccountSeq()).size() > 0;
     }
 }

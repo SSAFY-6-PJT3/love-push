@@ -8,6 +8,7 @@ class JoalarmApplicationTests {
 
 	@Test
 	void contextLoads() {
+		// TEST
 	}
 
 }

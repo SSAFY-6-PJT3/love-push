@@ -1,0 +1,101 @@
+.modal_box {
+	position: absolute;
+	width: 100%;
+	top: 48%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 10px;
+	z-index: 1000;
+}
+
+.name_box {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	padding: 10px;
+	background-color: #f7f7f7;
+	border-radius: 8px;
+}
+
+.card {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	margin: 10px 0;
+}
+
+.card > label {
+	margin-right: 4px;
+}
+
+.card > input {
+	all: unset;
+	flex: 1;
+	width: 100%;
+	padding: 2px 8px;
+	box-sizing: border-box;
+	border-radius: 8px;
+	background-color: rgb(223, 218, 218);
+}
+
+.button_box {
+	display: flex;
+	justify-content: right;
+	width: 100%;
+}
+
+.button_box > button{
+	all: unset;
+	min-width: 50px;
+	text-align: center;
+	border-radius: 8px;
+	margin-left: 10px;
+	padding: 5px 15px;
+}
+
+.button_box .send {
+	background-color: #C6EBC5;
+}
+
+.button_box .cancel {
+	background-color: #f28585;
+}
+
+.text_box {
+	display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 100);
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.title {
+	  white-space: pre-line;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  line-height: 1.5;
+  text-align: center;
+  margin-bottom: 20px;
+  animation: 0.8s ease-in-out 0s 1 normal forwards running fadeinBottom;
+  @keyframes fadeinBottom {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 20px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+}
+
+.heart_box {
+	width: 220px;
+  height: 202px;
+}

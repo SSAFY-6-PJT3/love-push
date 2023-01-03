@@ -9,6 +9,10 @@ interface IPropsOnLogin {
   token: string;
   emojiUrl: string;
   seq: string;
+  firstName: string;
+  lastName: string;
+  schoolSeq: string;
+  schoolName: string;
 }
 
 const AuthContext = createContext({
@@ -38,6 +42,15 @@ const AuthContextProvider = ({ children }: IPropsAuthContextProvider) => {
     sessionStorage.setItem('token', data.token);
     sessionStorage.setItem('emojiUrl', data.emojiUrl);
     sessionStorage.setItem('seq', data.seq);
+    sessionStorage.setItem('firstName', data.firstName);
+    sessionStorage.setItem('lastName', data.lastName);
+    sessionStorage.setItem(
+      'school',
+      JSON.stringify({
+        name: data.schoolName,
+        seq: data.schoolSeq,
+      }),
+    );
     setToken(data.token);
   };
 

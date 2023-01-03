@@ -23,9 +23,13 @@ interface ILoginReqData {
 }
 
 interface ILoginResponse {
-  emojiUrl: string;
   token: string;
+  emojiUrl: string;
   seq: string;
+  firstName: string;
+  lastName: string;
+  schoolSeq: string;
+  schoolName: string;
 }
 
 interface IReportReqData {

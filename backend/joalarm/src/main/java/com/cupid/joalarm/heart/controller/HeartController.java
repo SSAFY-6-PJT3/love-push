@@ -1,34 +1,34 @@
 package com.cupid.joalarm.heart.controller;
 
-import com.cupid.joalarm.heart.dto.HeartDTO;
-import com.cupid.joalarm.heart.dto.HeartTypeDTO;
-import com.cupid.joalarm.heart.entity.HeartEntity;
+import com.cupid.joalarm.chatroom.dto.CreateChatRoomDTO;
+import com.cupid.joalarm.chatroom.service.ChatRoomService;
+import com.cupid.joalarm.heart.dto.HeartDto;
 import com.cupid.joalarm.heart.service.HeartService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
+@RequestMapping("heart")
+@Api(value = "heart 관련 기능")
 public class HeartController {
+
     private final HeartService heartService;
+    private final ChatRoomService chatRoomService;
 
-    @MessageMapping("/heart")
-    public void sendHeart(HeartDTO DTO) {
-        heartService.logHeartUser(DTO.getSendUser(), DTO.getReceiveUsers());
-        heartService.sendHeart(DTO.getSendUser(), DTO.getReceiveSessions());
-    }
+    @ApiOperation(value = "하트를 받았을 때 호출합니다.", notes = "하트를 받으면 기록하고, 하트가 교환되었다면 채팅방을 생성합니다.")
+    @PostMapping
+    public void receiveHeart(HeartDto heartDto) {
+        if (heartService.receiveHeart(heartDto) && !chatRoomService.findFirstByUserList(
+                new long[] {heartDto.getSendAccountSeq(), heartDto.getSendAccountSeq()})) {
+            chatRoomService.CreateChatRoom(
+                    new CreateChatRoomDTO(heartDto.getSendAccountSeq(), heartDto.getReceiveAccountSeq()));
+        }
 
-    @GetMapping("/heart/sendheartlist")
-    public ResponseEntity<List<HeartEntity>> sendHeartList(long user) {
-        return new ResponseEntity<>(heartService.SendHeartList(user), HttpStatus.OK);
     }
 
 }

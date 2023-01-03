@@ -23,6 +23,10 @@ interface IPropsOnLogin {
   token: string;
   emojiUrl: string;
   seq: string;
+  firstName: string;
+  lastName: string;
+  schoolSeq: string;
+  schoolName: string;
 }
 
 const LoginModal = ({ isModalOpen, closeModal }: IPropsModal) => {

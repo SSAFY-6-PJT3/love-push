@@ -1,0 +1,37 @@
+.alert_box {
+	width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+	background-color: #f7f7f7;
+}
+
+.alert_box > button {
+	all: unset;
+	float: right;
+	width: 70px;
+	height: 30px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	line-height: 30px;
+	background-color: pink;
+	text-align: center;
+	border-radius: 8px;
+}
+
+.alert_list {
+	padding: 10px;
+	height: 500px;
+	overflow: scroll;
+}
+
+.alert_card {
+	width: 100%;
+	min-height: 30px;
+	line-height: 30px;
+	margin-bottom: 5px;
+	border-top: 1px solid lightgray;
+	border-bottom: 1px solid lightgray;
+}
