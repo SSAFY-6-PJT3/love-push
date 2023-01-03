@@ -52,6 +52,12 @@ public class FeedListDto {
     @ApiParam(value = "학교")
     private String school;
 
+    @ApiParam(value = "유저학교")
+    private String userSchool;
+
     @ApiParam(value = "댓글+대댓글")
     private List<AllCommentDto> allComments;
+
+    @ApiParam(value = "익명 카운트")
+    private Long anonymousCnt;
 }

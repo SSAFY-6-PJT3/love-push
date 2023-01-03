@@ -50,4 +50,7 @@ public class Comment extends BaseTimeEntity {
 
     @Column(name = "like_cnt")
     private Long likeCnt;
+
+    @Column(name = "anonymous_cnt")
+    private Long anonymousCnt;
 }

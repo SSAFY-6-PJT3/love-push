@@ -54,4 +54,7 @@ public class FeedDto {
 
     @ApiParam(value = "학교")
     private String school;
+
+    @ApiParam(value = "익명 카운트")
+    private Long anonymousCnt;
 }

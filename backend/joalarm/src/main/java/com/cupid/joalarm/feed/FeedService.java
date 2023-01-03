@@ -121,9 +121,12 @@ public class FeedService {
                 .account(account)
                 .school(schoolRepository.findByName(feedDto.getSchool()))
 //                .tags(resTags)
+                .anonymousCnt(0L)
                 .build();
 
         System.out.println("feed = " + feed);
+
+
         feedRepository.save(feed);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -150,6 +153,7 @@ public class FeedService {
             feedDto.setUpdatedAt(feed.getUpdatedAt());
             feedDto.setSchool(feed.getSchool().getName());
             feedDto.setUserId(feed.getAccount().getAccountSeq());
+            feedDto.setAnonymousCnt(feed.getAnonymousCnt());
 
             Long commentsCount = commentRepository.findByFeed(feed).stream().count();
             feedDto.setCommentsCount(commentsCount);
@@ -262,6 +266,8 @@ public class FeedService {
         result.setUpdatedAt(feed.getUpdatedAt());
         result.setSchool(feed.getSchool().getName());
         result.setUserId(feed.getAccount().getAccountSeq());
+        result.setUserSchool(feed.getAccount().getSchool().getName());
+        result.setAnonymousCnt(feed.getAnonymousCnt());
 
         int commentSize = feed.getComments().size();
         long longCommentSize = commentSize;
@@ -295,6 +301,9 @@ public class FeedService {
             allCommentDto.setUserId(comment.getAccount().getAccountSeq());
             allCommentDto.setContent(comment.getContent());
             allCommentDto.setLikeCnt(comment.getLikeCnt());
+            allCommentDto.setLikeCnt(comment.getLikeCnt());
+            allCommentDto.setUserSchool(comment.getAccount().getSchool().getName());
+            allCommentDto.setAnonymousCnt(comment.getAnonymousCnt());
 
             tempAllCommentDtos.add(allCommentDto);
 
@@ -309,6 +318,7 @@ public class FeedService {
                 childCommentDto.setContent(childComment.getContent());
                 childCommentDto.setCommentId(childComment.getComment().getCommentId());
                 childCommentDto.setLikeCnt(childComment.getLikeCnt());
+                childCommentDto.setUserSchool(childComment.getAccount().getSchool().getName());
 
                 tempChildCommentDtos.add(childCommentDto);
             }
@@ -593,9 +603,15 @@ public class FeedService {
                 .feed(feed.get())
                 .account(account)
                 .likeCnt(0L)
+                .anonymousCnt(0L)
                 .build();
 
         commentRepository.save(comment);
+
+        // Update Feed's Anonymous_cnt
+        Feed feedAnnoy = feed.get();
+        feedAnnoy.setAnonymousCnt(feedAnnoy.getAnonymousCnt()+1);
+        feedRepository.save(feedAnnoy);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -673,6 +689,11 @@ public class FeedService {
                 .build();
 
         childCommentRepository.save(childComment);
+
+        // Update Comment's Anonymous_cnt
+        Comment commentAnnoy = comment.get();
+        commentAnnoy.setAnonymousCnt(commentAnnoy.getAnonymousCnt()+1);
+        commentRepository.save(commentAnnoy);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
