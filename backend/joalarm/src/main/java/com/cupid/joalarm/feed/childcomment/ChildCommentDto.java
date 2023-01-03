@@ -29,4 +29,7 @@ public class ChildCommentDto {
 
     @ApiParam(value = "대댓글 좋아요 수")
     private Long likeCnt;
+
+    @ApiParam(value = "유저 학교")
+    private String userSchool;
 }
