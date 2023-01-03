@@ -1,5 +1,6 @@
 package com.cupid.joalarm.chatroom.entity;
 
+import com.cupid.joalarm.base.entity.BaseTimeEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +14,7 @@ import javax.persistence.Id;
 @Getter
 @Builder
 
-public class Chatroom {
+public class Chatroom extends BaseTimeEntity {
 
     @Id @GeneratedValue
     @Column(name = "chatroom_seq")
