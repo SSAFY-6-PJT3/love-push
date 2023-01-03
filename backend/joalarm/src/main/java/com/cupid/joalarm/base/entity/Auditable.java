@@ -1,4 +1,4 @@
-package com.cupid.joalarm.baseEntity;
+package com.cupid.joalarm.base.entity;
 
 import java.time.LocalDateTime;
 

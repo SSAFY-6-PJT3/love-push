@@ -1,12 +1,12 @@
-package com.cupid.joalarm.notice.entity;
+package com.cupid.joalarm.chat.entity;
 
 import com.cupid.joalarm.account.entity.Account;
 import com.cupid.joalarm.base.entity.BaseTimeEntity;
+import com.cupid.joalarm.chatroom.entity.Chatroom;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,20 +17,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Getter
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 @Builder
-public class Notice extends BaseTimeEntity {
+
+public class Chat extends BaseTimeEntity {
 
     @Id
-    @Column(name = "notice_seq")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
+    @Column(name = "chat_seq")
     private Long seq;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "account_seq")
     private Account account;
 
-    private String text;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "chatroom_seq")
+    private Chatroom chatroom;
+
+    private String message;
 }

@@ -3,7 +3,7 @@ package com.cupid.joalarm.love.service;
 import com.cupid.joalarm.account.entity.Account;
 import com.cupid.joalarm.account.repository.AccountRepository;
 import com.cupid.joalarm.love.dto.LoveDto;
-import com.cupid.joalarm.love.entity.LoveEntity;
+import com.cupid.joalarm.love.entity.Love;
 import com.cupid.joalarm.love.repository.LoveRepository;
 import com.cupid.joalarm.school.School;
 import com.cupid.joalarm.school.SchoolRepository;
@@ -32,7 +32,7 @@ public class LoveService {
         }
 
         loveRepository.findById(loveDto.getAccountSeq())
-                .orElseGet(() -> loveRepository.save(LoveEntity.convert(accountOpt.get(), loveDto, schoolOpt.get())))
+                .orElseGet(() -> loveRepository.save(Love.convert(accountOpt.get(), loveDto, schoolOpt.get())))
                 .changeLover(loveDto.getFirstName(), loveDto.getLastName(), schoolOpt.get());
 
         messageTemplate.convertAndSend("/sub/love", loveDto);
@@ -40,7 +40,7 @@ public class LoveService {
     }
 
     @Transactional
-    public Optional<LoveEntity> getLove(Long accountSeq) {
+    public Optional<Love> getLove(Long accountSeq) {
         return loveRepository.findById(accountSeq);
     }
 }

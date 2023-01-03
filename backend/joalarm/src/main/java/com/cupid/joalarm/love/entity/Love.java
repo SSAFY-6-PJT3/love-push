@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class LoveEntity {
+public class Love {
 
     @Id
     @Column(name = "account_seq")
@@ -43,8 +43,8 @@ public class LoveEntity {
     @JoinColumn(name = "school_seq")
     private School school;
 
-    public static LoveEntity convert(Account account, LoveDto loveDto, School school) {
-        return LoveEntity.builder()
+    public static Love convert(Account account, LoveDto loveDto, School school) {
+        return Love.builder()
                 .account(account)
                 .lastName(loveDto.getLastName())
                 .firstName(loveDto.getFirstName())
