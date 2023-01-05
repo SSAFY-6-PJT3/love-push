@@ -20,7 +20,6 @@ public class LoveService {
     private final LoveRepository loveRepository;
     private final AccountRepository accountRepository;
     private final SchoolRepository schoolRepository;
-    private final SimpMessageSendingOperations messageTemplate;
 
     @Transactional
     public Optional<LoveDto> setLove(LoveDto loveDto) {
@@ -35,7 +34,6 @@ public class LoveService {
                 .orElseGet(() -> loveRepository.save(Love.convert(accountOpt.get(), loveDto, schoolOpt.get())))
                 .changeLover(loveDto.getFirstName(), loveDto.getLastName(), schoolOpt.get());
 
-        messageTemplate.convertAndSend("/sub/love", loveDto);
         return Optional.of(loveDto);
     }
 

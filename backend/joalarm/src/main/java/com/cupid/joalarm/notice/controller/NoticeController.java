@@ -1,6 +1,7 @@
 package com.cupid.joalarm.notice.controller;
 
 import com.cupid.joalarm.chatroom.dto.SubscribeChatroomDto;
+import com.cupid.joalarm.chatroom.util.Message;
 import com.cupid.joalarm.notice.dto.NoticeDto;
 import com.cupid.joalarm.notice.service.NoticeService;
 import io.swagger.annotations.Api;
@@ -25,7 +26,7 @@ public class NoticeController {
 
 
     private final NoticeService noticeService;
-    private final SimpMessageSendingOperations messageTemplate;
+    private final Message message;
 
     @GetMapping
     @ApiOperation(value = "알림 목록 확인", notes = "최근 알림 20개를 가져옵니다.")
@@ -38,7 +39,7 @@ public class NoticeController {
     public void addNoticeHeart(@RequestBody long accountSeq) {
         NoticeDto noticeDto = new NoticeDto(accountSeq, "누군가 당신을 좋아하고 있어요! 당신에게 하트가 전달되었습니다!");
         noticeService.save(noticeDto);
-        messageTemplate.convertAndSend("/sub/notice/" + accountSeq, noticeDto);
+        message.notice(accountSeq, noticeDto);
     }
 
     @PostMapping("/near_by")
@@ -46,7 +47,7 @@ public class NoticeController {
     public void addNoticeNearBy(@RequestBody long accountSeq) {
         NoticeDto noticeDto = new NoticeDto(accountSeq, "당신을 좋아하는 사람이 근처 100m내에 있어요!");
         noticeService.save(noticeDto);
-        messageTemplate.convertAndSend("/sub/notice/" + accountSeq, noticeDto);
+        message.notice(accountSeq, noticeDto);
     }
 }
 

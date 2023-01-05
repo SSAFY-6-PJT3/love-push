@@ -3,6 +3,7 @@ package com.cupid.joalarm.chatroom.controller;
 import com.cupid.joalarm.chatroom.dto.CreateChatroomDto;
 import com.cupid.joalarm.chatroom.entity.Chatroom;
 import com.cupid.joalarm.chatroom.service.ChatroomService;
+import com.cupid.joalarm.chatroom.util.Message;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +17,14 @@ import java.util.List;
 @RequestMapping("chatroom")
 public class ChatroomController {
     private final ChatroomService chatRoomService;
+    private final Message message;
 
 
     @PostMapping("room")
     public ResponseEntity<?> createRoom(@RequestBody CreateChatroomDto DTO) {
-        return new ResponseEntity<>(chatRoomService.CreateChatRoom(DTO.getSendAccountSeq(), DTO.getReceiveAccountSeq()),
-                HttpStatus.OK);
+        Chatroom chatroom = chatRoomService.CreateChatRoom(DTO.getSendAccountSeq(), DTO.getReceiveAccountSeq());
+        message.createChatroom(DTO.getSendAccountSeq(), chatroom.getSeq());
+        message.createChatroom(DTO.getReceiveAccountSeq(), chatroom.getSeq());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -24,6 +24,7 @@ public class HeartController {
     @ApiOperation(value = "하트를 받았을 때 호출합니다.", notes = "하트를 받으면 기록하고, 하트가 교환되었다면 채팅방을 생성합니다.")
     @PostMapping
     public void receiveHeart(HeartDto heartDto) {
+        // notice 호출
         if (heartService.receiveHeart(heartDto) &&
                 accountChatroomService.findChatroomSeqWith(
                         heartDto.getSendAccountSeq(), heartDto.getSendAccountSeq()

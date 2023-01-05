@@ -25,7 +25,6 @@ public class ChatroomService {
     private final ChatRoomRepository chatRoomRepository;
     private final AccountChatroomRepository accountChatroomRepository;
     private final AccountRepository accountRepository;
-    private final SimpMessageSendingOperations messageTemplate;
 
     @Transactional
     public Chatroom CreateChatRoom(Long sendAccountSeq, Long receiveAccountSeq) {
@@ -57,13 +56,6 @@ public class ChatroomService {
 
         accountChatroomRepository.save(firstAccountChatroom);
         accountChatroomRepository.save(secondAccountChatroom);
-
-        messageTemplate.convertAndSend("/sub/user/" + sendAccountSeq,
-                new SubscribeChatroomDto(
-                        "CHATROOM", receiveAccountSeq, chatRoom.getSeq()));
-        messageTemplate.convertAndSend("/sub/user/" + receiveAccountSeq,
-                new SubscribeChatroomDto(
-                        "CHATROOM", sendAccountSeq, chatRoom.getSeq()));
 
         return chatRoom;
     }
