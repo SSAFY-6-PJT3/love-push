@@ -155,8 +155,17 @@ public class FeedService {
             feedDto.setUserId(feed.getAccount().getAccountSeq());
             feedDto.setAnonymousCnt(feed.getAnonymousCnt());
 
-            Long commentsCount = commentRepository.findByFeed(feed).stream().count();
-            feedDto.setCommentsCount(commentsCount);
+            int commentSize = feed.getComments().size();
+            long longCommentSize = commentSize;
+
+            int childSize = 0;
+            for (Comment tempComment: feed.getComments()) {
+                int tempChildSize = tempComment.getChildComments().size();
+                childSize += tempChildSize;
+            }
+            long longChildSize = childSize;
+
+            feedDto.setCommentCnt(longCommentSize+longChildSize);
 
             System.out.println("feedDto = " + feedDto);
 
@@ -183,6 +192,7 @@ public class FeedService {
         return result;
     }
 
+    @Transactional
     public List<FeedDto> getSchoolFeeds(String school, String user) {
 
         // Get User
@@ -212,8 +222,17 @@ public class FeedService {
             feedDto.setSchool(feed.getSchool().getName());
             feedDto.setUserId(feed.getAccount().getAccountSeq());
 
-            Long commentsCount = commentRepository.findByFeed(feed).stream().count();
-            feedDto.setCommentsCount(commentsCount);
+            int commentSize = feed.getComments().size();
+            long longCommentSize = commentSize;
+
+            int childSize = 0;
+            for (Comment tempComment: feed.getComments()) {
+                int tempChildSize = tempComment.getChildComments().size();
+                childSize += tempChildSize;
+            }
+            long longChildSize = childSize;
+
+            feedDto.setCommentCnt(longCommentSize+longChildSize);
 
             System.out.println("feedDto = " + feedDto);
 
@@ -604,6 +623,7 @@ public class FeedService {
                 .account(account)
                 .likeCnt(0L)
                 .anonymousCnt(0L)
+                .reportCnt(0L)
                 .build();
 
         commentRepository.save(comment);
@@ -686,6 +706,7 @@ public class FeedService {
                 .likeCnt(0L)
                 .comment(comment.get())
                 .account(account)
+                .reportCnt(0L)
                 .build();
 
         childCommentRepository.save(childComment);

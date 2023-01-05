@@ -42,7 +42,5 @@ public class Account {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "school_id")
     private School school;
-
-
 }
 
