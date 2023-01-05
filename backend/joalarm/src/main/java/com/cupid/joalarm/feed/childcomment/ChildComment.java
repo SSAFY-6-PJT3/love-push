@@ -44,4 +44,7 @@ public class ChildComment extends BaseTimeEntity {
 
     @Column(name = "like_cnt")
     private Long likeCnt;
+
+    @Column(name = "report_cnt")
+    private Long reportCnt;
 }

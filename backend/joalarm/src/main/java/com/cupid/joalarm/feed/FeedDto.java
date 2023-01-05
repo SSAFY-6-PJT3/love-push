@@ -49,8 +49,8 @@ public class FeedDto {
     @ApiParam(value = "좋아요 여부")
     private Boolean likeStatus;
 
-    @ApiParam(value = "댓글 갯수")
-    private Long commentsCount;
+    @ApiParam(value = "댓글+대댓글 갯수")
+    private Long commentCnt;
 
     @ApiParam(value = "학교")
     private String school;
