@@ -1,5 +1,6 @@
 package com.cupid.joalarm.notice.controller;
 
+import com.cupid.joalarm.chatroom.dto.SubscribeChatroomDto;
 import com.cupid.joalarm.notice.dto.NoticeDto;
 import com.cupid.joalarm.notice.service.NoticeService;
 import io.swagger.annotations.Api;
@@ -8,6 +9,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +25,7 @@ public class NoticeController {
 
 
     private final NoticeService noticeService;
+    private final SimpMessageSendingOperations messageTemplate;
 
     @GetMapping
     @ApiOperation(value = "알림 목록 확인", notes = "최근 알림 20개를 가져옵니다.")
@@ -30,14 +33,20 @@ public class NoticeController {
         return new ResponseEntity<>(noticeService.get20NoticeTexts(accountSeq), HttpStatus.ACCEPTED);
     }
 
-    @PostMapping
-    @ApiOperation(value = "알림 목록 추가", notes = "알림 수신 내역에 해당 값을 추가합니다.")
-    public ResponseEntity<?> addNotice(@RequestBody NoticeDto noticeDto) {
-        if (noticeService.save(noticeDto)) {
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
-        }
+    @PostMapping("/heart")
+    @ApiOperation(value = "하트 알림", notes = "알림 수신 내역에 해당 값을 추가합니다.")
+    public void addNoticeHeart(@RequestBody long accountSeq) {
+        NoticeDto noticeDto = new NoticeDto(accountSeq, "누군가 당신을 좋아하고 있어요! 당신에게 하트가 전달되었습니다!");
+        noticeService.save(noticeDto);
+        messageTemplate.convertAndSend("/sub/notice/" + accountSeq, noticeDto);
+    }
 
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    @PostMapping("/near_by")
+    @ApiOperation(value = "근처 사용자 알림", notes = "알림 수신 내역에 해당 값을 추가합니다.")
+    public void addNoticeNearBy(@RequestBody long accountSeq) {
+        NoticeDto noticeDto = new NoticeDto(accountSeq, "당신을 좋아하는 사람이 근처 100m내에 있어요!");
+        noticeService.save(noticeDto);
+        messageTemplate.convertAndSend("/sub/notice/" + accountSeq, noticeDto);
     }
 }
 
