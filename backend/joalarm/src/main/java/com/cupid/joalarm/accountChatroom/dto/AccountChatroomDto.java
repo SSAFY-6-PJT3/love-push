@@ -10,14 +10,14 @@ import lombok.Data;
 public class AccountChatroomDto {
     private Long ChatroomSeq;
     private String name;
-    private ChatDto lastMessage;
+    private String lastMessage;
     private Long unreadChatCnt;
 
     public static AccountChatroomDto fromEntity(long chatroomSeq, AccountChatroom accountChatroom) {
         return new AccountChatroomDto(
                 chatroomSeq,
                 accountChatroom.getName(),
-                new ChatDto(),
+                "null",
                 0L
         );
     }
