@@ -1,7 +1,6 @@
 package com.cupid.joalarm.notice.controller;
 
-import com.cupid.joalarm.chatroom.dto.SubscribeChatroomDto;
-import com.cupid.joalarm.chatroom.util.Message;
+import com.cupid.joalarm.message.Message;
 import com.cupid.joalarm.notice.dto.NoticeDto;
 import com.cupid.joalarm.notice.service.NoticeService;
 import io.swagger.annotations.Api;
@@ -10,7 +9,6 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

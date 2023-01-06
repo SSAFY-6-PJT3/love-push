@@ -1,4 +1,4 @@
-package com.cupid.joalarm.chatroom.util;
+package com.cupid.joalarm.message;
 
 import com.cupid.joalarm.chat.dto.ChatDto;
 import com.cupid.joalarm.love.dto.LoveDto;

@@ -1,6 +1,6 @@
 package com.cupid.joalarm.love.controller;
 
-import com.cupid.joalarm.chatroom.util.Message;
+import com.cupid.joalarm.message.Message;
 import com.cupid.joalarm.gpsSector.dto.AccountInfoDto;
 import com.cupid.joalarm.love.dto.LoveDto;
 import com.cupid.joalarm.love.service.LoveService;
