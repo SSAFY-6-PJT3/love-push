@@ -32,9 +32,7 @@ public class NoticeController {
         return new ResponseEntity<>(noticeService.get20NoticeTexts(accountSeq), HttpStatus.ACCEPTED);
     }
 
-    @PostMapping("/heart")
-    @ApiOperation(value = "하트 알림", notes = "알림 수신 내역에 해당 값을 추가합니다.")
-    public void addNoticeHeart(@RequestBody long accountSeq) {
+    public void addNoticeHeart(long accountSeq) {
         NoticeDto noticeDto = new NoticeDto(accountSeq, "누군가 당신을 좋아하고 있어요! 당신에게 하트가 전달되었습니다!");
         noticeService.save(noticeDto);
         message.notice(accountSeq, noticeDto);
