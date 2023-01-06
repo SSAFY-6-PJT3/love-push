@@ -29,7 +29,7 @@ public class ChatController {
 
             accountChatroomRepository.findAccountsInChatroom(chatDto.getChatroomSeq())
                     .forEach(accountSeq -> {
-                        message.chat(accountSeq, ChatDto.fromEntity(chatDto.getChatroomSeq(), chat));
+                        message.chat(accountSeq, new ChatDto(chatDto.getChatroomSeq(), chat));
                     });
 
         } catch (IllegalArgumentException e) {

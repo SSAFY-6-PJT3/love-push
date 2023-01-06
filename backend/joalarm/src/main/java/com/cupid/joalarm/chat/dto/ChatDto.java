@@ -15,12 +15,10 @@ public class ChatDto {
     private String message;
     private LocalDateTime sendTime;
 
-    public static ChatDto fromEntity(long chatroomSeq, Chat chat) {
-        return new ChatDto(
-                chatroomSeq,
-                chat.getAccount().getAccountSeq(),
-                chat.getMessage(),
-                chat.getCreatedAt()
-        );
+    public ChatDto(long chatroomSeq, Chat chat) {
+        this.chatroomSeq = chatroomSeq;
+        this.sendAccountSeq = chat.getAccount().getAccountSeq();
+        this.message = chat.getMessage();
+        this.sendTime = chat.getCreatedAt();
     }
 }
