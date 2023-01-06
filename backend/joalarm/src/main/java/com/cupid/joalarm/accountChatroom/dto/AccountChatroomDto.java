@@ -1,5 +1,6 @@
 package com.cupid.joalarm.accountChatroom.dto;
 
+import com.cupid.joalarm.chat.dto.ChatDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -8,6 +9,6 @@ import lombok.Data;
 public class AccountChatroomDto {
     private Long ChatroomSeq;
     private String name;
-    private String lastMessage;
+    private ChatDto lastMessage;
     private Long unreadChatCnt;
 }
