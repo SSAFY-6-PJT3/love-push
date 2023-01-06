@@ -20,11 +20,11 @@ public class ChatService {
     private final ChatRoomRepository chatRoomRepository;
 
     @Transactional
-    public Chat CreateChat(ChatDto chatDto) {
+    public Chat createChat(ChatDto chatDto) {
         Chat chat = Chat.builder()
-                .account(accountRepository.findAccountByAccountSeq(chatDto.getSender())
+                .account(accountRepository.findAccountByAccountSeq(chatDto.getSendAccountSeq())
                         .orElseThrow(() -> new IllegalArgumentException("User pk is not in table")))
-                .chatroom(chatRoomRepository.findBySeq(chatDto.getRoomSeq())
+                .chatroom(chatRoomRepository.findBySeq(chatDto.getChatroomSeq())
                         .orElseThrow(() -> new IllegalArgumentException("Chatroom pk is not in table")))
                 .message(chatDto.getMessage())
                 .build();

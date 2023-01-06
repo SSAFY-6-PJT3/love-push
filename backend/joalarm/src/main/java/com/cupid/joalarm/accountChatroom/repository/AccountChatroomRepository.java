@@ -17,4 +17,9 @@ public interface AccountChatroomRepository extends JpaRepository<AccountChatroom
             "and ac.accountChatroomEmbedded.chatroom.seq = ac2.accountChatroomEmbedded.chatroom.seq " +
             "where ac.accountChatroomEmbedded.account.accountSeq = :mySeq")
     List<Long> findChatroomSeqWith(@Param("mySeq") Long mySeq, @Param("otherPersonSeq") Long otherPersonSeq);
+
+    @Query("select ac.accountChatroomEmbedded.account.accountSeq " +
+            "from AccountChatroom ac " +
+            "where ac.accountChatroomEmbedded.chatroom.seq = :chatroomSeq")
+    List<Long> findAccountsInChatroom(@Param("chatroomSeq") Long chatroomSeq);
 }

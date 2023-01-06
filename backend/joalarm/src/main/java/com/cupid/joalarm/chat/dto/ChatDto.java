@@ -10,14 +10,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChatDto {
-    private long roomSeq;
-    private long sender;
+    private long chatroomSeq;
+    private long sendAccountSeq;
     private String message;
     private LocalDateTime sendTime;
 
-    public ChatDto(long roomSeq, Chat chat) {
-        this(
-                roomSeq,
+    public static ChatDto fromEntity(long chatroomSeq, Chat chat) {
+        return new ChatDto(
+                chatroomSeq,
                 chat.getAccount().getAccountSeq(),
                 chat.getMessage(),
                 chat.getCreatedAt()
