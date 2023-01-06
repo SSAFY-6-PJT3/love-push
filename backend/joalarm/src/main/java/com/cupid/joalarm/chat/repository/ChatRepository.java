@@ -1,10 +1,8 @@
 package com.cupid.joalarm.chat.repository;
 
-import com.cupid.joalarm.chat.entity.ChatEntity;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import com.cupid.joalarm.chat.entity.Chat;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+public interface ChatRepository extends JpaRepository<Chat, Long>, ChatRepositoryCustom {
 
-public interface ChatRepository extends MongoRepository<ChatEntity, String> {
-    public List<ChatEntity> findTop20ByRoomIdOrderBySendTimeDesc(long roomId);
 }

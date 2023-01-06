@@ -27,8 +27,8 @@ import Feed from './pages/FeedDetail';
 import FeedWrite from './pages/FeedWrite';
 
 function App() {
-  const { index, chats, client, chatRoomList, setMessageCountFunc } =
-    useContext(ClientContext);
+  // const { index, chats, client, chatRoomList, setMessageCountFunc } =
+  //   useContext(ClientContext);
 
   const [chatRoomState, setChatRoomState] = useState(true);
 
@@ -36,14 +36,14 @@ function App() {
     setScreenSize();
   }, []);
 
-  useEffect(() => {
-    if (chatRoomList && chatRoomList.length > 0) {
-      const state = chatRoomList.filter(
-        (chatRoom) => chatRoom.chatroomSeq === index,
-      )[0];
-      if (state && state.chatroomSeq > 0) setChatRoomState(state.activate);
-    }
-  }, [chatRoomList]);
+  // useEffect(() => {
+  //   if (chatRoomList && chatRoomList.length > 0) {
+  //     const state = chatRoomList.filter(
+  //       (chatRoom) => chatRoom.chatroomSeq === index,
+  //     )[0];
+  //     if (state && state.chatroomSeq > 0) setChatRoomState(state.activate);
+  //   }
+  // }, [chatRoomList]);
 
   return (
     <>
@@ -55,7 +55,7 @@ function App() {
             <Route path="/" element={<MainPage />} />
             <Route path="/signup/:pageId" element={<Signup />} />
             <Route path="/chatlobby" element={<ChatLobby />} />
-            <Route
+            {/* <Route
               path="/chat"
               element={
                 <ChatRoom
@@ -66,7 +66,7 @@ function App() {
                   chatRoomState={chatRoomState}
                 />
               }
-            />
+            /> */}
             <Route path="/location" element={<LocationPage />} />
             <Route path="/about-service/:pageId" element={<AboutService />} />
             <Route path="/policy" element={<Policy />} />

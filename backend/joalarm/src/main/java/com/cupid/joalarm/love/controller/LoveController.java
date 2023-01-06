@@ -1,5 +1,6 @@
 package com.cupid.joalarm.love.controller;
 
+import com.cupid.joalarm.message.Message;
 import com.cupid.joalarm.gpsSector.dto.AccountInfoDto;
 import com.cupid.joalarm.love.dto.LoveDto;
 import com.cupid.joalarm.love.service.LoveService;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoveController {
 
     private final LoveService heartService;
+    private final Message message;
 
     @ApiOperation(value = "좋아하는 사람 지정", notes = "좋아하는 사람의 성, 이름, 학교를 등록 및 메시징을 날립니다.")
     @PutMapping("/love")
@@ -29,6 +31,8 @@ public class LoveController {
         if (heartDtoOptional.isEmpty()) {
             return new ResponseEntity<>(new LoveDto(), HttpStatus.BAD_REQUEST);
         }
+
+        message.love(heartDtoOptional.get());
 
         AccountInfoDto info = (AccountInfoDto) SimpAttributesContextHolder.currentAttributes()
                 .getAttribute("INFO");

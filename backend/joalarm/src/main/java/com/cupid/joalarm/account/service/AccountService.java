@@ -100,4 +100,10 @@ public class AccountService {
 
         return schoolName;
     }
+
+    @Transactional(readOnly = true)
+    public Account findAccountBySeq(Long seq){
+        return accountRepository.findAccountByAccountSeq(seq)
+                .orElseThrow(() -> new IllegalArgumentException("유효하지 않은 account"));
+    }
 }

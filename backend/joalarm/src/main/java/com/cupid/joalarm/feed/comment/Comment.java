@@ -1,6 +1,6 @@
 package com.cupid.joalarm.feed.comment;
 
-import com.cupid.joalarm.baseEntity.BaseTimeEntity;
+import com.cupid.joalarm.base.entity.BaseTimeEntity;
 import com.cupid.joalarm.feed.Feed;
 import com.cupid.joalarm.account.entity.Account;
 import com.cupid.joalarm.feed.childcomment.ChildComment;

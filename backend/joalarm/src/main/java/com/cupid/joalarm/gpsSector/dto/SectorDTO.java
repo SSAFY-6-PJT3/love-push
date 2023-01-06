@@ -6,5 +6,4 @@ import lombok.Data;
 public class SectorDTO {
     private String beforeGpsKey;
     private String nowGpsKey;
-    private AccountInfoDto accountInfoDto;
 }

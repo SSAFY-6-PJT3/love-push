@@ -1,7 +1,6 @@
 package com.cupid.joalarm.school;
 
 import com.cupid.joalarm.account.entity.Account;
-import com.cupid.joalarm.baseEntity.BaseTimeEntity;
 import com.cupid.joalarm.feed.Feed;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
