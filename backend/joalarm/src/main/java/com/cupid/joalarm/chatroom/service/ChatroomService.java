@@ -1,9 +1,5 @@
 package com.cupid.joalarm.chatroom.service;
 
-import com.cupid.joalarm.account.entity.Account;
-import com.cupid.joalarm.accountChatroom.entity.AccountChatroom;
-import com.cupid.joalarm.accountChatroom.entity.AccountChatroomEmbedded;
-import com.cupid.joalarm.accountChatroom.repository.AccountChatroomRepository;
 import com.cupid.joalarm.chatroom.entity.Chatroom;
 import com.cupid.joalarm.chatroom.repository.ChatRoomRepository;
 import java.util.Optional;
