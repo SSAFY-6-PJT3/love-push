@@ -66,4 +66,13 @@ public class AccountChatroomService {
         accountChatroom.setName(name);
         return accountChatroom.getName();
     }
+
+    @Transactional
+    public AccountChatroom createAccountChatroom(Account account, Chatroom chatroom) {
+        AccountChatroom accountChatroom = AccountChatroom.builder()
+                .accountChatroomEmbedded(new AccountChatroomEmbedded(account, chatroom))
+                .build();
+
+        return accountChatroomRepository.save(accountChatroom);
+    }
 }
