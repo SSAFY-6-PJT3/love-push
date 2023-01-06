@@ -1,5 +1,6 @@
 package com.cupid.joalarm.chat.controller;
 
+import com.cupid.joalarm.accountChatroom.repository.AccountChatroomRepository;
 import com.cupid.joalarm.chat.dto.ChatDto;
 import com.cupid.joalarm.chat.entity.Chat;
 import com.cupid.joalarm.chat.service.ChatService;
@@ -19,12 +20,18 @@ public class ChatController {
 
     private final ChatService chatService;
     private final Message message;
+    private final AccountChatroomRepository accountChatroomRepository;
 
-    @MessageMapping("chat/message")  // 메시지 전송과 신고, 방 나가기에 대해 따로 정의할 것
+    @MessageMapping("chat/message")
     public void message(ChatDto chatDto) {
         try {
-            Chat chat = chatService.CreateChat(chatDto);
-            message.chat(new ChatDto(chatDto.getRoomSeq(), chat));
+            Chat chat = chatService.createChat(chatDto);
+
+            accountChatroomRepository.findAccountsInChatroom(chatDto.getChatroomSeq())
+                    .forEach(accountSeq -> {
+                        message.chat(accountSeq, ChatDto.fromEntity(chatDto.getChatroomSeq(), chat));
+                    });
+
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
