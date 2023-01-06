@@ -28,7 +28,7 @@ public class AccountChatroomRepositoryImpl implements AccountChatroomRepositoryC
                 .select(Projections.constructor(AccountChatroomDto.class,
                         chatroom.seq,
                         accountChatroom.name,
-                        Projections.constructor(ChatDto.class, chatroom.seq, lastMessage),
+                        lastMessage.message,
                         chat.count())
                 )
                 .from(accountChatroom)
