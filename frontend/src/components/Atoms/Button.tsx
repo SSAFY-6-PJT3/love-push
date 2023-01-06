@@ -16,6 +16,7 @@ interface ButtonStyleProps {
   fontSize: string;
   fontWeight: string;
   Radius: string;
+  border: string;
 }
 
 interface ButtonProps extends ButtonStyleProps {
@@ -39,6 +40,7 @@ const Button = ({
   fontWeight,
   Radius,
   ariaLabel,
+  border,
   onClick,
 }: ButtonProps) => {
   return (
@@ -55,6 +57,7 @@ const Button = ({
       onClick={onClick}
       Radius={Radius}
       aria-label={ariaLabel ? ariaLabel : '버튼'}
+      border= {border}
     >
       <Container>
         {icon}
@@ -75,6 +78,7 @@ Button.defaultProps = {
   fontSize: '14px',
   fontWeight: '300',
   Radius: '16px',
+  border: 'none'
 };
 
 const Container = styled.div`
@@ -99,6 +103,7 @@ const StyledButton = styled.button<ButtonStyleProps>`
   margin: ${(props) => props.margin};
   font-weight: ${(props) => props.fontWeight};
   border-radius: ${(props) => props.Radius};
+  border: ${(props) => props.border};
 `;
 
 export default Button;

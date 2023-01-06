@@ -61,7 +61,7 @@ const ChatInput = styled.input<InputStyleProps>`
   height: 50px;
   border-top: 2px solid #f0f0f0;
   margin: 0 0 0 1rem;
-
+  placeholder : ${(props) => props.placeholder};
   &:focus {
     outline: none;
   }

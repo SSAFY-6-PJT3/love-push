@@ -37,6 +37,9 @@ public class Feed extends BaseTimeEntity {
     @Column(name = "like_cnt")
     private Long likeCnt;
 
+    @Column(name = "anonymous_cnt")
+    private Long anonymousCnt;
+
     @Builder.Default
     @ManyToMany
     @JoinTable(name = "feed_tag",
@@ -61,4 +64,5 @@ public class Feed extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "school_id")
     private School school;
+
 }

@@ -22,6 +22,9 @@ import Policy from './pages/Policy';
 import Contact from './pages/Contact';
 import CheckContact from './pages/CheckContact';
 import Eula from './pages/Eula';
+import FeedList from './pages/FeedList';
+import Feed from './pages/FeedDetail';
+import FeedWrite from './pages/FeedWrite';
 
 function App() {
   // const { index, chats, client, chatRoomList, setMessageCountFunc } =
@@ -70,6 +73,9 @@ function App() {
             <Route path="/eula" element={<Eula />} />
             <Route path="/contact/:pageId" element={<Contact />} />
             <Route path="/contact/check/" element={<CheckContact />} />
+            <Route path="/FeedList" element={<FeedList />} />
+            <Route path="/FeedWrite" element={<FeedWrite />} />
+            <Route path="/Feed/:FeedId" element={<Feed />} />
             <Route path="*" element={<NotFound />} />
           </GARoutes>
         </BrowserRouter>

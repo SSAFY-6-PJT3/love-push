@@ -30,4 +30,10 @@ public class AllCommentDto {
 
     @ApiParam(value = "댓글 좋아요 수")
     private Long likeCnt;
+
+    @ApiParam(value = "유저 학교")
+    private String userSchool;
+
+    @ApiParam(value = "익명 카운트")
+    private Long anonymousCnt;
 }
