@@ -5,6 +5,7 @@ import static com.cupid.joalarm.chat.entity.QChat.chat;
 import static com.cupid.joalarm.chatroom.entity.QChatroom.chatroom;
 
 import com.cupid.joalarm.accountChatroom.dto.AccountChatroomDto;
+import com.cupid.joalarm.chat.dto.ChatDto;
 import com.cupid.joalarm.chat.entity.QChat;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPAExpressions;
@@ -27,33 +28,33 @@ public class AccountChatroomRepositoryImpl implements AccountChatroomRepositoryC
                 .select(Projections.constructor(AccountChatroomDto.class,
                         chatroom.seq,
                         accountChatroom.name,
-                        lastMessage.message,
+                        Projections.constructor(ChatDto.class, chatroom.seq, lastMessage),
                         chat.count())
                 )
                 .from(accountChatroom)
 
                 .join(chatroom)
                 .on(
-                        accountChatroom.accountChatroomEmbedded.chatroom.seq.eq(chatroom.seq),
+                        accountChatroom.accountChatroomEmbedded.chatroom.eq(chatroom),
                         chatroom.isActivate.isTrue()
                 )
 
                 .leftJoin(chat)
                 .on(
-                        accountChatroom.accountChatroomEmbedded.chatroom.seq.eq(chat.chatroom.seq),
-                        accountChatroom.updatedAt.lt(chat.createdAt)
+                        accountChatroom.accountChatroomEmbedded.chatroom.eq(chat.chatroom),
+                        accountChatroom.lastViewChatSeq.lt(chat.seq)
                 )
 
                 .leftJoin(lastMessage)
                 .on(lastMessage.seq.eq(JPAExpressions
                         .select(lastMessage.seq.max())
                         .from(lastMessage)
-                        .where(lastMessage.chatroom.seq.eq(chatroom.seq)))
+                        .where(lastMessage.chatroom.eq(chatroom)))
                 )
 
                 .where(accountChatroom.accountChatroomEmbedded.account.accountSeq.eq(accountSeq))
                 .groupBy(chatroom, lastMessage)
-                .orderBy(accountChatroom.updatedAt.desc())
+                .orderBy(lastMessage.createdAt.desc())
                 .fetch();
     }
 }
