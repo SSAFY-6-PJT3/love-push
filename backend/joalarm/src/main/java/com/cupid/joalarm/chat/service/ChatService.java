@@ -1,6 +1,6 @@
 package com.cupid.joalarm.chat.service;
 
-import com.cupid.joalarm.account.AccountRepository;
+import com.cupid.joalarm.account.repository.AccountRepository;
 import com.cupid.joalarm.chat.dto.ChatDto;
 import com.cupid.joalarm.chat.entity.Chat;
 import com.cupid.joalarm.chat.repository.ChatRepository;

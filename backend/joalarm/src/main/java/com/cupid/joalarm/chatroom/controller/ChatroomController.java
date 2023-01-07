@@ -1,7 +1,7 @@
 package com.cupid.joalarm.chatroom.controller;
 
-import com.cupid.joalarm.account.Account;
-import com.cupid.joalarm.account.AccountService;
+import com.cupid.joalarm.account.entity.Account;
+import com.cupid.joalarm.account.service.AccountService;
 import com.cupid.joalarm.accountChatroom.dto.AccountChatroomDto;
 import com.cupid.joalarm.accountChatroom.entity.AccountChatroom;
 import com.cupid.joalarm.accountChatroom.service.AccountChatroomService;

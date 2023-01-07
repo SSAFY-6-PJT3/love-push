@@ -1,5 +1,6 @@
-package com.cupid.joalarm.account;
+package com.cupid.joalarm.account.dto;
 
+import com.cupid.joalarm.account.entity.Account;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 

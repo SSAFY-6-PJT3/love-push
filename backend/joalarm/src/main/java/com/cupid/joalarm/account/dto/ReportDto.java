@@ -1,4 +1,4 @@
-package com.cupid.joalarm.account.report;
+package com.cupid.joalarm.account.dto;
 
 import lombok.*;
 

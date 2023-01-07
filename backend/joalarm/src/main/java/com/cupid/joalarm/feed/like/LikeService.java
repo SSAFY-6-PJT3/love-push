@@ -2,8 +2,8 @@ package com.cupid.joalarm.feed.like;
 
 import com.cupid.joalarm.feed.Feed;
 import com.cupid.joalarm.feed.FeedRepository;
-import com.cupid.joalarm.account.Account;
-import com.cupid.joalarm.account.AccountRepository;
+import com.cupid.joalarm.account.entity.Account;
+import com.cupid.joalarm.account.repository.AccountRepository;
 import com.cupid.joalarm.feed.childcomment.ChildComment;
 import com.cupid.joalarm.feed.childcomment.ChildCommentRepository;
 import com.cupid.joalarm.feed.comment.Comment;

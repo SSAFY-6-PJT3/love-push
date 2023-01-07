@@ -1,6 +1,6 @@
 package com.cupid.joalarm.notice.entity;
 
-import com.cupid.joalarm.account.Account;
+import com.cupid.joalarm.account.entity.Account;
 import com.cupid.joalarm.base.entity.BaseTimeEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
