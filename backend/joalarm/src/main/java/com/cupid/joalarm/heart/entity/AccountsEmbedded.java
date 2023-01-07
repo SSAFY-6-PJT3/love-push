@@ -1,6 +1,6 @@
 package com.cupid.joalarm.heart.entity;
 
-import com.cupid.joalarm.account.entity.Account;
+import com.cupid.joalarm.account.Account;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;

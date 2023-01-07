@@ -1,6 +1,6 @@
 package com.cupid.joalarm.love.entity;
 
-import com.cupid.joalarm.account.entity.Account;
+import com.cupid.joalarm.account.Account;
 import com.cupid.joalarm.love.dto.LoveDto;
 import com.cupid.joalarm.school.School;
 import javax.persistence.Column;
