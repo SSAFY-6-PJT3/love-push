@@ -1,4 +1,4 @@
-package com.cupid.joalarm.account;
+package com.cupid.joalarm.account.entity;
 
 import com.cupid.joalarm.feed.Feed;
 import com.cupid.joalarm.school.School;

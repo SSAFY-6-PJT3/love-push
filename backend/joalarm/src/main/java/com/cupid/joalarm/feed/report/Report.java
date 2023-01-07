@@ -1,5 +1,11 @@
 package com.cupid.joalarm.feed.report;
 
+import com.cupid.joalarm.account.entity.Account;
+import com.cupid.joalarm.feed.Feed;
+import com.cupid.joalarm.feed.childcomment.ChildComment;
+import com.cupid.joalarm.feed.comment.Comment;
+import com.cupid.joalarm.school.School;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

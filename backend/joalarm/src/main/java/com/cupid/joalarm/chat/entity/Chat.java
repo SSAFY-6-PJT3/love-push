@@ -1,6 +1,6 @@
 package com.cupid.joalarm.chat.entity;
 
-import com.cupid.joalarm.account.Account;
+import com.cupid.joalarm.account.entity.Account;
 import com.cupid.joalarm.base.entity.BaseTimeEntity;
 import com.cupid.joalarm.chatroom.entity.Chatroom;
 import javax.persistence.Column;

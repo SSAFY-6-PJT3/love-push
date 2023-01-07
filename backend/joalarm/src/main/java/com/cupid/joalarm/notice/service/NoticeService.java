@@ -1,7 +1,7 @@
 package com.cupid.joalarm.notice.service;
 
-import com.cupid.joalarm.account.Account;
-import com.cupid.joalarm.account.AccountRepository;
+import com.cupid.joalarm.account.entity.Account;
+import com.cupid.joalarm.account.repository.AccountRepository;
 import com.cupid.joalarm.notice.dto.NoticeDto;
 import com.cupid.joalarm.notice.entity.Notice;
 import com.cupid.joalarm.notice.repository.NoticeRepository;

@@ -1,7 +1,7 @@
 package com.cupid.joalarm.love.service;
 
-import com.cupid.joalarm.account.Account;
-import com.cupid.joalarm.account.AccountRepository;
+import com.cupid.joalarm.account.entity.Account;
+import com.cupid.joalarm.account.repository.AccountRepository;
 import com.cupid.joalarm.love.dto.LoveDto;
 import com.cupid.joalarm.love.entity.Love;
 import com.cupid.joalarm.love.repository.LoveRepository;
@@ -9,6 +9,7 @@ import com.cupid.joalarm.school.School;
 import com.cupid.joalarm.school.SchoolRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
