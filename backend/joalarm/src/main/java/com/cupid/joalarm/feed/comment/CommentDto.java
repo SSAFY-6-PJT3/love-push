@@ -28,4 +28,7 @@ public class CommentDto {
 
     @ApiParam(value = "익명 카운트")
     private Long anonymousCnt;
+
+    @ApiParam(value = "좋아요 여부")
+    private Boolean likeStatus;
 }

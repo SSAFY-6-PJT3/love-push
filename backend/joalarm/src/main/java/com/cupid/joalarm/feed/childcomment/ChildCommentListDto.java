@@ -30,4 +30,6 @@ public class ChildCommentListDto {
     @ApiParam(value = "대댓글 좋아요 수")
     private Long likeCnt;
 
+    @ApiParam(value = "좋아요 여부")
+    private Boolean likeStatus;
 }

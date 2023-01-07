@@ -325,6 +325,14 @@ public class FeedService {
             allCommentDto.setUserSchool(comment.getAccount().getSchool().getName());
             allCommentDto.setAnonymousCnt(comment.getAnonymousCnt());
 
+            // Check commentLikeFlag
+            Like commentLikeFlag = likeRepository.findByAccountAndComment(account, comment);
+            if (commentLikeFlag != null) {
+                allCommentDto.setLikeStatus(true);
+            } else {
+                allCommentDto.setLikeStatus(false);
+            }
+
             tempAllCommentDtos.add(allCommentDto);
 
             List<ChildCommentDto> tempChildCommentDtos = new ArrayList<>();
@@ -339,6 +347,14 @@ public class FeedService {
                 childCommentDto.setCommentId(childComment.getComment().getCommentId());
                 childCommentDto.setLikeCnt(childComment.getLikeCnt());
                 childCommentDto.setUserSchool(childComment.getAccount().getSchool().getName());
+
+                // Check childCommentLikeFlag
+                Like childCommentLikeFlag = likeRepository.findByAccountAndChildComment(account, childComment);
+                if (childCommentLikeFlag != null) {
+                    childCommentDto.setLikeStatus(true);
+                } else {
+                    childCommentDto.setLikeStatus(false);
+                }
 
                 tempChildCommentDtos.add(childCommentDto);
             }
