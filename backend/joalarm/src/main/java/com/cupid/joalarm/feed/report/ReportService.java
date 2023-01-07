@@ -44,6 +44,42 @@ public class ReportService {
     }
 
     @Transactional
+    public ResponseEntity<?> reportFeed(Long feed_id, String user) {
+
+        // Get User
+        Long seq = Long.parseLong(user);
+        Optional<Account> accountOpt = accountRepository.findById(seq);
+        Account account = accountOpt.get();
+
+        // Get Feed
+        Feed feed = feedRepository.getById(feed_id);
+
+        Long nowReportCnt = feed.getReportCnt();
+
+        feed.setReportCnt(feed.getReportCnt()+1);
+        feedRepository.save(feed);
+
+        if (nowReportCnt < 5) {
+        } else if (nowReportCnt.equals(5L)){
+            Report report = Report.builder()
+                    .reportCnt(5L)
+                    .feedSeq(feed.getFeedId())
+                    .content(feed.getContent())
+                    .build();
+            reportRepository.save(report);
+
+            feed.setContent("신고된 댓글입니다");
+            feedRepository.save(feed);
+        } else {
+            Report report = reportRepository.findByFeedSeq(feed.getFeedId());
+            report.setReportCnt(report.getReportCnt()+1);
+            reportRepository.save(report);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Transactional
     public ResponseEntity<?> reportComment(Long comment_id, String user) {
 
         // Get User
@@ -125,6 +161,7 @@ public class ReportService {
             reportDto.setReportId(report.getReportId());
             reportDto.setReportCnt(report.getReportCnt());
             reportDto.setContent(report.getContent());
+            reportDto.setFeedSeq(report.getFeedSeq());
             reportDto.setCommentSeq(report.getCommentSeq());
             reportDto.setChildCommentSeq(report.getChildCommentSeq());
 

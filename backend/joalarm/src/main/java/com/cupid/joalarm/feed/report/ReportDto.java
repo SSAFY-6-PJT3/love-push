@@ -21,6 +21,9 @@ public class ReportDto {
     @ApiParam(value = "유저리스트")
     private List<Long> accounts;
 
+    @ApiParam(value = "피드seq")
+    private Long feedSeq;
+
     @ApiParam(value = "댓글seq")
     private Long commentSeq;
 
