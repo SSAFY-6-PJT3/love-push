@@ -1,6 +1,6 @@
 package com.cupid.joalarm.account.entity;
 
-import com.cupid.joalarm.school.School;
+import com.cupid.joalarm.school.entity.School;
 import lombok.*;
 
 import javax.persistence.*;

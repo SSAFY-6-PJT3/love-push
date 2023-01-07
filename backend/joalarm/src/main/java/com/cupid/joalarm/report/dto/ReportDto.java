@@ -1,4 +1,4 @@
-package com.cupid.joalarm.report;
+package com.cupid.joalarm.report.dto;
 
 import io.swagger.annotations.ApiParam;
 import lombok.*;

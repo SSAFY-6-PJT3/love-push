@@ -1,5 +1,7 @@
-package com.cupid.joalarm.like;
+package com.cupid.joalarm.like.controller;
 
+import com.cupid.joalarm.like.service.LikeService;
+import com.cupid.joalarm.like.dto.LikeUserDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

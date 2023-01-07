@@ -1,4 +1,4 @@
-package com.cupid.joalarm.report;
+package com.cupid.joalarm.report.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

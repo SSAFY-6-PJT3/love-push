@@ -3,7 +3,7 @@ package com.cupid.joalarm.childcomment.entity;
 import com.cupid.joalarm.account.entity.Account;
 import com.cupid.joalarm.base.entity.BaseTimeEntity;
 import com.cupid.joalarm.comment.entity.Comment;
-import com.cupid.joalarm.like.Like;
+import com.cupid.joalarm.like.entity.Like;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 

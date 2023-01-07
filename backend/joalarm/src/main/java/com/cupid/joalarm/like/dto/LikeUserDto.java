@@ -1,4 +1,4 @@
-package com.cupid.joalarm.like;
+package com.cupid.joalarm.like.dto;
 
 import io.swagger.annotations.ApiParam;
 import lombok.*;
