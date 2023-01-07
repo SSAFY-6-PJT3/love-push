@@ -32,4 +32,7 @@ public class ChildCommentDto {
 
     @ApiParam(value = "유저 학교")
     private String userSchool;
+
+    @ApiParam(value = "좋아요 여부")
+    private Boolean likeStatus;
 }
