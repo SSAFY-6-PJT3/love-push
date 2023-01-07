@@ -122,6 +122,7 @@ public class FeedService {
                 .school(schoolRepository.findByName(feedDto.getSchool()))
 //                .tags(resTags)
                 .anonymousCnt(0L)
+                .reportCnt(0L)
                 .build();
 
         System.out.println("feed = " + feed);

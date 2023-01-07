@@ -31,6 +31,9 @@ public class Report {
     @Column(name = "accounts_seq",columnDefinition = "Long[]")
     private List<Long> accounts = new ArrayList<>();
 
+    @Column(name = "feed_seq")
+    private Long feedSeq;
+
     @Column(name = "comment_seq")
     private Long commentSeq;
 

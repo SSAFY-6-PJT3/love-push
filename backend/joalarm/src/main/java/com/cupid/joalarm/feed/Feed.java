@@ -65,4 +65,6 @@ public class Feed extends BaseTimeEntity {
     @JoinColumn(name = "school_id")
     private School school;
 
+    @Column(name = "report_cnt")
+    private Long reportCnt;
 }

@@ -12,4 +12,5 @@ import java.util.List;
 public interface ReportRepository extends JpaRepository<Report, Long> {
     Report findByCommentSeq(Long commentSeq);
     Report findByChildCommentSeq(Long childCommentSeq);
+    Report findByFeedSeq(Long feedSeq);
 }

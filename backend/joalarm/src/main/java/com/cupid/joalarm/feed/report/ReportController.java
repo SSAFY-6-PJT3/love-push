@@ -24,6 +24,16 @@ public class ReportController {
         this.reportService = reportService;
     }
 
+    @ApiOperation(value = "피드 신고 추가", notes = "피드 신고 추가")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "피드 신고를 성공적으로 추가했습니다."),
+            @ApiResponse(code = 500, message = "서버에러가 발생했습니다.")
+    })
+    @PostMapping({"/reports/feeds/{feed_id}/{user}"})
+    public ResponseEntity reportFeed(@PathVariable Long feed_id, @PathVariable String user) {
+        return reportService.reportFeed(feed_id, user);
+    }
+
     @ApiOperation(value = "댓글 신고 추가", notes = "댓글 신고 추가")
     @ApiResponses({
             @ApiResponse(code = 200, message = "댓글 신고를 성공적으로 추가했습니다."),
