@@ -2,12 +2,9 @@ package com.cupid.joalarm.feed.service;
 
 import com.cupid.joalarm.childcomment.entity.ChildComment;
 import com.cupid.joalarm.childcomment.dto.ChildCommentDto;
-import com.cupid.joalarm.childcomment.dto.ChildCommentListDto;
 import com.cupid.joalarm.childcomment.repository.ChildCommentRepository;
 
 import com.cupid.joalarm.comment.dto.AllCommentDto;
-import com.cupid.joalarm.comment.dto.CommentDto;
-import com.cupid.joalarm.comment.dto.CommentListDto;
 import com.cupid.joalarm.comment.entity.Comment;
 import com.cupid.joalarm.comment.repository.CommentRepository;
 import com.cupid.joalarm.feed.dto.FeedDto;
@@ -15,14 +12,14 @@ import com.cupid.joalarm.feed.dto.FeedListDto;
 import com.cupid.joalarm.feed.dto.FeedProfileDto;
 import com.cupid.joalarm.feed.entity.Feed;
 import com.cupid.joalarm.feed.repository.FeedRepository;
-import com.cupid.joalarm.school.School;
-import com.cupid.joalarm.school.SchoolRepository;
+import com.cupid.joalarm.school.entity.School;
+import com.cupid.joalarm.school.repository.SchoolRepository;
 
 
 import com.cupid.joalarm.util.SecurityUtil;
 import com.cupid.joalarm.feed.media.GlobalConfig;
-import com.cupid.joalarm.like.Like;
-import com.cupid.joalarm.like.LikeRepository;
+import com.cupid.joalarm.like.entity.Like;
+import com.cupid.joalarm.like.repository.LikeRepository;
 import com.cupid.joalarm.feed.tag.Tag;
 import com.cupid.joalarm.feed.tag.TagDto;
 import com.cupid.joalarm.feed.tag.TagRepository;

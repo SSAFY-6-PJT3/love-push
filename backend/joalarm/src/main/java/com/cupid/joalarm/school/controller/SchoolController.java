@@ -1,5 +1,7 @@
-package com.cupid.joalarm.school;
+package com.cupid.joalarm.school.controller;
 
+import com.cupid.joalarm.school.dto.SchoolDto;
+import com.cupid.joalarm.school.service.SchoolService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

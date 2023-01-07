@@ -1,4 +1,4 @@
-package com.cupid.joalarm.school;
+package com.cupid.joalarm.school.dto;
 import io.swagger.annotations.ApiParam;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;

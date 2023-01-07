@@ -1,5 +1,8 @@
-package com.cupid.joalarm.school;
+package com.cupid.joalarm.school.service;
 
+import com.cupid.joalarm.school.dto.SchoolDto;
+import com.cupid.joalarm.school.entity.School;
+import com.cupid.joalarm.school.repository.SchoolRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

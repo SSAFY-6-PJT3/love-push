@@ -1,9 +1,10 @@
-package com.cupid.joalarm.like;
+package com.cupid.joalarm.like.repository;
 
 import com.cupid.joalarm.feed.entity.Feed;
 import com.cupid.joalarm.account.entity.Account;
 import com.cupid.joalarm.childcomment.entity.ChildComment;
 import com.cupid.joalarm.comment.entity.Comment;
+import com.cupid.joalarm.like.entity.Like;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.cupid.joalarm.like;
+package com.cupid.joalarm.like.service;
 
 import com.cupid.joalarm.feed.entity.Feed;
 import com.cupid.joalarm.feed.repository.FeedRepository;
@@ -8,6 +8,9 @@ import com.cupid.joalarm.childcomment.entity.ChildComment;
 import com.cupid.joalarm.childcomment.repository.ChildCommentRepository;
 import com.cupid.joalarm.comment.entity.Comment;
 import com.cupid.joalarm.comment.repository.CommentRepository;
+import com.cupid.joalarm.like.dto.LikeUserDto;
+import com.cupid.joalarm.like.entity.Like;
+import com.cupid.joalarm.like.repository.LikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

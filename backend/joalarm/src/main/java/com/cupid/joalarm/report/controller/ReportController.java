@@ -1,5 +1,7 @@
-package com.cupid.joalarm.report;
+package com.cupid.joalarm.report.controller;
 
+import com.cupid.joalarm.report.dto.ReportDto;
+import com.cupid.joalarm.report.service.ReportService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

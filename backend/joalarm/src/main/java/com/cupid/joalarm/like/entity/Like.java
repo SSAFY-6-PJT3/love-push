@@ -1,4 +1,4 @@
-package com.cupid.joalarm.like;
+package com.cupid.joalarm.like.entity;
 
 import com.cupid.joalarm.comment.entity.Comment;
 import com.cupid.joalarm.feed.entity.Feed;

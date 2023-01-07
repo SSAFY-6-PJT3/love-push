@@ -5,11 +5,10 @@ import com.cupid.joalarm.account.repository.AccountRepository;
 import com.cupid.joalarm.love.dto.LoveDto;
 import com.cupid.joalarm.love.entity.Love;
 import com.cupid.joalarm.love.repository.LoveRepository;
-import com.cupid.joalarm.school.School;
-import com.cupid.joalarm.school.SchoolRepository;
+import com.cupid.joalarm.school.entity.School;
+import com.cupid.joalarm.school.repository.SchoolRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

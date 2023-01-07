@@ -1,10 +1,10 @@
 package com.cupid.joalarm.feed.entity;
 
-import com.cupid.joalarm.school.School;
+import com.cupid.joalarm.school.entity.School;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.cupid.joalarm.base.entity.BaseTimeEntity;
 import com.cupid.joalarm.comment.entity.Comment;
-import com.cupid.joalarm.like.Like;
+import com.cupid.joalarm.like.entity.Like;
 import com.cupid.joalarm.feed.tag.Tag;
 import com.cupid.joalarm.account.entity.Account;
 import lombok.*;

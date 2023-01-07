@@ -1,4 +1,4 @@
-package com.cupid.joalarm.report;
+package com.cupid.joalarm.report.service;
 
 import com.cupid.joalarm.account.entity.Account;
 import com.cupid.joalarm.account.repository.AccountRepository;
@@ -8,6 +8,9 @@ import com.cupid.joalarm.childcomment.entity.ChildComment;
 import com.cupid.joalarm.childcomment.repository.ChildCommentRepository;
 import com.cupid.joalarm.comment.entity.Comment;
 import com.cupid.joalarm.comment.repository.CommentRepository;
+import com.cupid.joalarm.report.dto.ReportDto;
+import com.cupid.joalarm.report.entity.Report;
+import com.cupid.joalarm.report.repository.ReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
