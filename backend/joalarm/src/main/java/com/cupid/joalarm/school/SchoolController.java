@@ -1,8 +1,5 @@
 package com.cupid.joalarm.school;
 
-import com.cupid.joalarm.feed.FeedDto;
-import com.cupid.joalarm.feed.FeedService;
-import com.cupid.joalarm.feed.tag.TagDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

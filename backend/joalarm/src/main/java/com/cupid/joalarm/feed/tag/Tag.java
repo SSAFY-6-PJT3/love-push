@@ -1,6 +1,6 @@
 package com.cupid.joalarm.feed.tag;
 
-import com.cupid.joalarm.feed.Feed;
+import com.cupid.joalarm.feed.entity.Feed;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
