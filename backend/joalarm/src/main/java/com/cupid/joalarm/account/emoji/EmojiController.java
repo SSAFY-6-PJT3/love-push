@@ -1,7 +1,5 @@
-package com.cupid.joalarm.account.controller;
+package com.cupid.joalarm.account.emoji;
 
-import com.cupid.joalarm.account.dto.EmojiDto;
-import com.cupid.joalarm.account.service.EmojiS3Service;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

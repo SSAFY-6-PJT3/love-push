@@ -1,14 +1,13 @@
 package com.cupid.joalarm.heart.service;
 
-import com.cupid.joalarm.account.entity.Account;
-import com.cupid.joalarm.account.repository.AccountRepository;
+import com.cupid.joalarm.account.Account;
+import com.cupid.joalarm.account.AccountRepository;
 import com.cupid.joalarm.heart.dto.HeartDto;
 import com.cupid.joalarm.heart.entity.AccountsEmbedded;
 import com.cupid.joalarm.heart.entity.Heart;
 import com.cupid.joalarm.heart.repository.HeartRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

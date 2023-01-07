@@ -1,12 +1,9 @@
-package com.cupid.joalarm.account.controller;
+package com.cupid.joalarm.account;
 
-import com.cupid.joalarm.account.dto.AccountDto;
-import com.cupid.joalarm.account.dto.EmojiDto;
-import com.cupid.joalarm.account.dto.LoginDto;
-import com.cupid.joalarm.account.dto.ReportDto;
-import com.cupid.joalarm.account.dto.TokenDto;
+import com.cupid.joalarm.account.emoji.EmojiDto;
+import com.cupid.joalarm.account.jwt.TokenDto;
 import com.cupid.joalarm.account.jwt.TokenProvider;
-import com.cupid.joalarm.account.service.AccountService;
+import com.cupid.joalarm.account.report.ReportDto;
 import com.cupid.joalarm.util.MessageResponse;
 import com.cupid.joalarm.util.SecurityUtil;
 import io.swagger.annotations.Api;

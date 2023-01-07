@@ -1,6 +1,6 @@
-package com.cupid.joalarm.account.repository;
+package com.cupid.joalarm.account;
 
-import com.cupid.joalarm.account.entity.Account;
+import com.cupid.joalarm.account.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

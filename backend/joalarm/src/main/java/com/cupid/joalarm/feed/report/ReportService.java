@@ -1,26 +1,19 @@
 package com.cupid.joalarm.feed.report;
 
-import com.cupid.joalarm.account.entity.Account;
-import com.cupid.joalarm.account.repository.AccountRepository;
+import com.cupid.joalarm.account.Account;
+import com.cupid.joalarm.account.AccountRepository;
 import com.cupid.joalarm.feed.Feed;
 import com.cupid.joalarm.feed.FeedRepository;
 import com.cupid.joalarm.feed.childcomment.ChildComment;
 import com.cupid.joalarm.feed.childcomment.ChildCommentRepository;
 import com.cupid.joalarm.feed.comment.Comment;
 import com.cupid.joalarm.feed.comment.CommentRepository;
-import com.cupid.joalarm.feed.like.Like;
-import com.cupid.joalarm.feed.like.LikeRepository;
-import com.cupid.joalarm.feed.like.LikeUserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

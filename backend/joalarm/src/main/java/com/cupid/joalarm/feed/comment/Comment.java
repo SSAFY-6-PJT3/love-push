@@ -2,7 +2,7 @@ package com.cupid.joalarm.feed.comment;
 
 import com.cupid.joalarm.base.entity.BaseTimeEntity;
 import com.cupid.joalarm.feed.Feed;
-import com.cupid.joalarm.account.entity.Account;
+import com.cupid.joalarm.account.Account;
 import com.cupid.joalarm.feed.childcomment.ChildComment;
 import com.cupid.joalarm.feed.like.Like;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

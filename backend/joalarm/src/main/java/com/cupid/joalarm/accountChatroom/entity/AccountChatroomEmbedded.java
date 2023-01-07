@@ -1,6 +1,6 @@
 package com.cupid.joalarm.accountChatroom.entity;
 
-import com.cupid.joalarm.account.entity.Account;
+import com.cupid.joalarm.account.Account;
 import com.cupid.joalarm.chatroom.entity.Chatroom;
 import java.io.Serializable;
 import javax.persistence.Embeddable;

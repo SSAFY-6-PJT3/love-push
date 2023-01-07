@@ -1,8 +1,8 @@
-package com.cupid.joalarm.account.service;
+package com.cupid.joalarm.account;
 
-import com.cupid.joalarm.account.dto.AccountDto;
-import com.cupid.joalarm.account.entity.Account;
-import com.cupid.joalarm.account.repository.AccountRepository;
+import com.cupid.joalarm.account.AccountDto;
+import com.cupid.joalarm.account.Account;
+import com.cupid.joalarm.account.AccountRepository;
 import com.cupid.joalarm.school.School;
 import com.cupid.joalarm.school.SchoolRepository;
 import com.sun.jdi.request.DuplicateRequestException;
