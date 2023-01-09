@@ -1,9 +1,5 @@
 package com.cupid.joalarm.feed.controller;
 
-import com.cupid.joalarm.childcomment.dto.ChildCommentDto;
-import com.cupid.joalarm.childcomment.dto.ChildCommentListDto;
-import com.cupid.joalarm.comment.dto.CommentDto;
-import com.cupid.joalarm.comment.dto.CommentListDto;
 import com.cupid.joalarm.feed.dto.FeedDto;
 import com.cupid.joalarm.feed.dto.FeedListDto;
 import com.cupid.joalarm.feed.service.FeedService;
@@ -30,9 +26,6 @@ public class FeedController {
         this.feedService = feedService;
     }
 
-
-    //=========================Feed=========================//
-
     @ApiOperation(value = "피드 등록", notes = "피드 등록")
     @ApiResponses({
             @ApiResponse(code = 200, message = "피드 생성에 성공하였습니다."),
@@ -44,18 +37,6 @@ public class FeedController {
         System.out.println("userId = " + userId);
         return feedService.postFeed(userId,feedDto,tagDto);
     }
-
-    @ApiOperation(value = "피드 전체 조회", notes = "전체 피드를 조회합니다.")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "피드 조회에 성공하였습니다."),
-            @ApiResponse(code = 500, message = "서버에러가 발생했습니다.")
-    })
-
-    @GetMapping("/feeds/list/{userId}")
-    public List<FeedDto> getAllFeeds(@PathVariable String userId) {
-        return feedService.getAllFeeds(userId);
-    }
-
 
     @ApiOperation(value = "학교별 피드 조회", notes = "학교의 피드를 조회합니다.")
     @ApiResponses({
@@ -97,26 +78,6 @@ public class FeedController {
     public ResponseEntity<List<FeedListDto>> getSearchFeeds(@PathVariable String userId) {
         return ResponseEntity.ok(feedService.getSearchFeeds(userId));
     }
-
-//    @ApiOperation(value = "유저 피드 조회(2)", notes = "유저가 작성한 피드 리스트(프로필)")
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message = "유저가 작성한 피드 리스트 조회 성공"),
-//            @ApiResponse(code = 500, message = "서버 에러입니다.")
-//    })
-//    @GetMapping("/feeds/profiles/{email}/temp")
-//    public ResponseEntity<List<FeedProfileDto>> getProfileFeeds_temp(@PathVariable String email,@PathVariable String user) {
-//        return ResponseEntity.ok(feedService.getProfileFeeds_temp(email,user));
-//    }
-
-//    @ApiOperation(value = "피드 수정(조회)", notes = "피드 수정(조회)")
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message = "피드 수정에 성공하였습니다."),
-//            @ApiResponse(code = 500, message = "서버 에러입니다.")
-//    })
-//    @GetMapping("/feeds/{feed_id}/temp")
-//    public ResponseEntity<?> getUpdateFeedInfo(@PathVariable Long feed_id){
-//        return ResponseEntity.ok(feedService.getUpdateFeedInfo(feed_id));
-//    }
 
     @ApiOperation(value = "피드 수정(실행)", notes = "피드 수정(실행)")
     @ApiResponses({

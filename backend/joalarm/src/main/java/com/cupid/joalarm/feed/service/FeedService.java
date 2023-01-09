@@ -9,7 +9,6 @@ import com.cupid.joalarm.comment.entity.Comment;
 import com.cupid.joalarm.comment.repository.CommentRepository;
 import com.cupid.joalarm.feed.dto.FeedDto;
 import com.cupid.joalarm.feed.dto.FeedListDto;
-import com.cupid.joalarm.feed.dto.FeedProfileDto;
 import com.cupid.joalarm.feed.entity.Feed;
 import com.cupid.joalarm.feed.repository.FeedRepository;
 import com.cupid.joalarm.school.entity.School;
@@ -136,67 +135,6 @@ public class FeedService {
 
         feedRepository.save(feed);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    public List<FeedDto> getAllFeeds(String user) {
-
-        // Get User
-        Long seq = Long.parseLong(user);
-        Optional<Account> accountOpt = accountRepository.findById(seq);
-        Account account = accountOpt.get();
-
-        List<FeedDto> result = new ArrayList<>();
-
-        for (Feed feed : feedRepository.findAll()) {
-
-            FeedDto feedDto = new FeedDto();
-
-            feedDto.setFeedId(feed.getFeedId());
-            feedDto.setContent(feed.getContent());
-            feedDto.setMediaUrl(feed.getMediaUrl());
-            feedDto.setLikeCnt(feed.getLikeCnt());
-            feedDto.setUsername(feed.getAccount().getId());
-            feedDto.setCreatedAt(feed.getCreatedAt());
-            feedDto.setUpdatedAt(feed.getUpdatedAt());
-            feedDto.setSchool(feed.getSchool().getName());
-            feedDto.setUserId(feed.getAccount().getAccountSeq());
-            feedDto.setAnonymousCnt(feed.getAnonymousCnt());
-
-            int commentSize = feed.getComments().size();
-            long longCommentSize = commentSize;
-
-            int childSize = 0;
-            for (Comment tempComment: feed.getComments()) {
-                int tempChildSize = tempComment.getChildComments().size();
-                childSize += tempChildSize;
-            }
-            long longChildSize = childSize;
-
-            feedDto.setCommentCnt(longCommentSize+longChildSize);
-
-            System.out.println("feedDto = " + feedDto);
-
-            // Check like_status
-            Like like_flag = likeRepository.findByAccountAndFeed(account, feed);
-            if (like_flag != null) {
-                feedDto.setLikeStatus(true);
-            } else {
-                feedDto.setLikeStatus(false);
-            }
-
-
-            result.add(feedDto);
-        }
-
-        // Sorting By Created time
-        result.sort(new Comparator<FeedDto>() {
-            @Override
-            public int compare(FeedDto o1, FeedDto o2) {
-                return o2.getFeedId().intValue() - o1.getFeedId().intValue();
-            }
-        });
-
-        return result;
     }
 
     @Transactional
@@ -465,82 +403,6 @@ public class FeedService {
         });
 
         return result;
-    }
-
-    public List<FeedProfileDto> getProfileFeeds_temp(String email, String user) {
-
-        // Get User
-        Long seq = Long.parseLong(user);
-        Optional<Account> accountOpt = accountRepository.findById(seq);
-        Account account = accountOpt.get();
-
-        List<Feed> feeds = feedRepository.findByAccount(account);
-        List<FeedProfileDto> result= new ArrayList<>();
-
-        for (Feed feed : feeds) {
-            FeedProfileDto feedProfileDto = new FeedProfileDto();
-
-            feedProfileDto.setFeedId(feed.getFeedId());
-            feedProfileDto.setMediaUrl(feed.getMediaUrl());
-            feedProfileDto.setLikeCnt(feed.getLikeCnt());
-            feedProfileDto.setContent(feed.getContent());
-            feedProfileDto.setEmail(feed.getAccount().getId());
-
-            List<String> tempTags = new ArrayList<>();
-            for (Tag tag : feed.getTags()) {
-                tempTags.add(tag.getName());
-            };
-            feedProfileDto.setTags(tempTags);
-
-            feedProfileDto.setCreatedAt(feed.getCreatedAt());
-            feedProfileDto.setUpdatedAt(feed.getUpdatedAt());
-
-            // Check like_status
-            Like like_flag = likeRepository.findByAccountAndFeed(account, feed);
-            if (like_flag != null) {
-                feedProfileDto.setLikeStatus(true);
-            } else {
-                feedProfileDto.setLikeStatus(false);
-            }
-
-            result.add(feedProfileDto);
-        }
-
-        // Sorting By Created time
-        result.sort(new Comparator<FeedProfileDto>() {
-            @Override
-            public int compare(FeedProfileDto o1, FeedProfileDto o2) {
-                return o2.getFeedId().intValue() - o1.getFeedId().intValue();
-            }
-        });
-        return result;
-    }
-
-    public FeedDto getUpdateFeedInfo(Long feed_id) {
-
-        // Get Feed
-        Optional<Feed> optFeed = feedRepository.findById(feed_id);
-        if (!optFeed.isPresent()) {
-            return null;
-        }
-        Feed feed = optFeed.get();
-
-        FeedDto feedDto = new FeedDto();
-
-        feedDto.setFeedId(feed.getFeedId());
-        feedDto.setContent(feed.getContent());
-        feedDto.setCreatedAt(feed.getCreatedAt());
-        feedDto.setUpdatedAt(feed.getUpdatedAt());
-        feedDto.setMediaUrl(feed.getMediaUrl());
-        feedDto.setUsername(feed.getAccount().getId());
-
-        List<String> tempTags = new ArrayList<>();
-        for (Tag tag : feed.getTags()) {
-            tempTags.add(tag.getName());
-        };
-        feedDto.setTags(tempTags);
-
-        return feedDto;
     }
 
     @Transactional
