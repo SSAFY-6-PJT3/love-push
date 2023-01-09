@@ -28,7 +28,7 @@ public class Feed extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long feedId;
 
-    @Column(name = "content")
+    @Column(name = "content", length = 1000)
     private String content;
 
     @Column(name = "media_url")

@@ -7,6 +7,7 @@ import com.cupid.joalarm.childcomment.repository.ChildCommentRepository;
 
 import com.cupid.joalarm.comment.entity.Comment;
 import com.cupid.joalarm.comment.repository.CommentRepository;
+import com.cupid.joalarm.feed.entity.Feed;
 import com.cupid.joalarm.feed.repository.FeedRepository;
 import com.cupid.joalarm.school.repository.SchoolRepository;
 
@@ -105,6 +106,13 @@ public class ChildCommentService {
         if (!comment.isPresent()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
+        // Update Feed's Anonymous_cnt
+        Comment tempComment = comment.get();
+        Feed feedAnnoy = tempComment.getFeed();
+        feedAnnoy.setAnonymousCnt(feedAnnoy.getAnonymousCnt()+1);
+        feedRepository.save(feedAnnoy);
+
         // Build & Save Comment
         ChildComment childComment = ChildComment.builder()
                 .content(childCommentDto.getContent())
@@ -115,11 +123,6 @@ public class ChildCommentService {
                 .build();
 
         childCommentRepository.save(childComment);
-
-        // Update Comment's Anonymous_cnt
-        Comment commentAnnoy = comment.get();
-        commentAnnoy.setAnonymousCnt(commentAnnoy.getAnonymousCnt()+1);
-        commentRepository.save(commentAnnoy);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

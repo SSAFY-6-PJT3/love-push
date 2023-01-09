@@ -86,6 +86,12 @@ public class CommentService {
 
         // Get Feed
         Optional<Feed> feed = feedRepository.findById(feed_id);
+
+        // Update Feed's Anonymous_cnt
+        Feed feedAnnoy = feed.get();
+        feedAnnoy.setAnonymousCnt(feedAnnoy.getAnonymousCnt()+1);
+        feedRepository.save(feedAnnoy);
+
         if (!feed.isPresent()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -95,16 +101,10 @@ public class CommentService {
                 .feed(feed.get())
                 .account(account)
                 .likeCnt(0L)
-                .anonymousCnt(0L)
                 .reportCnt(0L)
                 .build();
 
         commentRepository.save(comment);
-
-        // Update Feed's Anonymous_cnt
-        Feed feedAnnoy = feed.get();
-        feedAnnoy.setAnonymousCnt(feedAnnoy.getAnonymousCnt()+1);
-        feedRepository.save(feedAnnoy);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
