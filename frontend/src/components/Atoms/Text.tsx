@@ -87,6 +87,14 @@ const MyChatText = styled.p<TextStyleProps>`
   margin-right: 1rem;
 `;
 
+const IconText = styled.span<TextStyleProps>`
+  margin: 0 0.5rem;
+  margin: ${(props) => props.margin};
+  width: ${(props) => props.width};
+  font-weight: 300;
+  text-align: center;
+`;
+
 export {
   ChatLobbyTitle,
   LeftMessageCount,
@@ -95,4 +103,5 @@ export {
   Timeline,
   OtherUserChatText,
   MyChatText,
+  IconText,
 };
