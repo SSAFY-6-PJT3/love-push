@@ -3,7 +3,6 @@ package com.cupid.joalarm.comment.service;
 import com.cupid.joalarm.childcomment.repository.ChildCommentRepository;
 
 import com.cupid.joalarm.comment.dto.CommentDto;
-import com.cupid.joalarm.comment.dto.CommentListDto;
 import com.cupid.joalarm.comment.entity.Comment;
 import com.cupid.joalarm.comment.repository.CommentRepository;
 import com.cupid.joalarm.feed.entity.Feed;
@@ -52,29 +51,6 @@ public class CommentService {
     }
 
     //=========================Comment=========================//
-
-    public List<CommentListDto> getComments(Long feed_id) {
-
-        // Get Feed
-        Optional<Feed> feed = feedRepository.findById(feed_id);
-        if (!feed.isPresent()) {
-            return null;
-        }
-        List<CommentListDto> result = new ArrayList<>();
-
-        for (Comment comment : commentRepository.findByFeed(feed.get())) {
-            CommentListDto commentListDto = new CommentListDto();
-
-            commentListDto.setCommentId(comment.getCommentId());
-            commentListDto.setUserId(comment.getAccount().getAccountSeq());
-            commentListDto.setContent(comment.getContent());
-            commentListDto.setCreatedAt(comment.getCreatedAt());
-
-            result.add(commentListDto);
-        }
-
-        return result;
-    }
 
     @Transactional
     public ResponseEntity<?> postComment(Long feed_id, CommentDto commentDto, String user) {
