@@ -329,7 +329,6 @@ public class FeedService {
             allCommentDto.setLikeCnt(comment.getLikeCnt());
             allCommentDto.setLikeCnt(comment.getLikeCnt());
             allCommentDto.setUserSchool(comment.getAccount().getSchool().getName());
-            allCommentDto.setAnonymousCnt(comment.getAnonymousCnt());
 
             // Check commentLikeFlag
             Like commentLikeFlag = likeRepository.findByAccountAndComment(account, comment);

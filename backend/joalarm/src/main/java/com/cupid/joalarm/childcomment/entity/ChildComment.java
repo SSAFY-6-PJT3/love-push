@@ -26,7 +26,7 @@ public class ChildComment extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long childId;
 
-    @Column(name = "content")
+    @Column(name = "content", length = 1000)
     private String content;
 
     @ManyToOne(fetch = FetchType.EAGER)

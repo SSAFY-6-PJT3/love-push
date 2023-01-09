@@ -27,7 +27,7 @@ public class Comment extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
 
-    @Column(name = "content")
+    @Column(name = "content", length = 1000)
     private String content;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -50,9 +50,6 @@ public class Comment extends BaseTimeEntity {
 
     @Column(name = "like_cnt")
     private Long likeCnt;
-
-    @Column(name = "anonymous_cnt")
-    private Long anonymousCnt;
 
     @Column(name = "report_cnt")
     private Long reportCnt;
